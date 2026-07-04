@@ -84,7 +84,7 @@ def header(root, current=""):
     links += f'<a class="nav-ext" href="{SITE["x_url"]}" target="_blank" rel="noopener">{SVG["x"]}公式X</a>'
     links += f'<a class="nav-ext" href="{esc(blog_url)}" target="_blank" rel="noopener">ブログ</a>'
     return f"""<header class="site-header"><div class="header-inner">
-<a class="brand" href="{root}index.html"><img src="{root}assets/img/favicon_192.png" alt="">{SITE['title']}</a>
+<a class="brand" href="{root}index.html"><img class="brand-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}"></a>
 <nav class="nav" aria-label="メインメニュー">{links}</nav>
 </div></header>"""
 
@@ -101,7 +101,7 @@ def footer(root):
         f'<a href="{esc(blog_url)}" target="_blank" rel="noopener">ブログ「{esc(blog.get("label", "ブログ"))}」</a>'
     )
     return f"""<footer class="site-footer"><div class="footer-inner">
-<div class="footer-brand"><img src="{root}assets/img/favicon_192.png" alt="">{SITE['title']}</div>
+<div class="footer-brand"><img class="footer-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}"></div>
 <div class="footer-en">GAME NO TAKITSUBO — WEEKLY GAME TALK PODCAST</div>
 <p class="footer-desc">{esc(SITE['tagline'])}。{esc(SITE['schedule'])}。感想は {esc(SITE['hashtag'])} でどうぞ。</p>
 <nav class="footer-nav" aria-label="フッターメニュー">{nav}</nav>
@@ -216,7 +216,16 @@ def build_index():
 <img class="float-img float-maguro" src="assets/img/maguro.png" alt="" aria-hidden="true">
 <img class="float-img float-kani" src="assets/img/kani.png" alt="" aria-hidden="true">
 <div class="hero-inner">
-<img class="hero-art" src="assets/img/artwork_600.jpg" alt="ゲームの滝壺 アートワーク" width="600" height="600">
+<div class="hero-stage" id="heroStage" aria-hidden="true">
+<div class="stage-layer layer-logo" data-depth="0.35"><img class="stage-logo" src="assets/img/mainlogo.png" alt=""></div>
+<div class="stage-layer layer-tawashi" data-depth="1.1"><img class="stage-char char-a" src="assets/img/tawashi.png" alt=""></div>
+<div class="stage-layer layer-ichigoo" data-depth="1.4"><img class="stage-char char-b" src="assets/img/ichigoo.png" alt=""></div>
+<div class="stage-layer layer-hyuuma" data-depth="0.8"><img class="stage-char char-c" src="assets/img/hyuuma.png" alt=""></div>
+<div class="stage-splash">
+<i class="foam f1"></i><i class="foam f2"></i><i class="foam f3"></i><i class="foam f4"></i>
+<i class="drop d1"></i><i class="drop d2"></i><i class="drop d3"></i><i class="drop d4"></i><i class="drop d5"></i>
+</div>
+</div>
 <div class="hero-text">
 <h1 class="visually-hidden">{SITE['title']}</h1>
 <p class="catch">{esc(SITE['tagline']).replace('ならなんでも', 'なら<br>なんでも')}</p>
