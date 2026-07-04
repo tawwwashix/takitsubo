@@ -1,0 +1,12 @@
+{
+  "_使い方": "canonical(正式名)ごとに aliases(表記ゆれ)を並べる。RSS取得時に自動で正式名へ名寄せされる。新しい表記ゆれを見つけたらaliasesに1行追加するだけでOK。",
+  "titles": [
+    { "canonical": "ドラゴンクエストV", "aliases": ["ドラクエ5", "ドラクエV", "DQ5"] },
+    { "canonical": "ドラゴンクエストVII Reimagined", "aliases": ["ドラクエ7 Reimagined", "DQ7R"] },
+    { "canonical": "ファイナルファンタジーVI", "aliases": ["FF6", "FFVI"] },
+    { "canonical": "風来のシレン", "aliases": ["シレン"] },
+    { "canonical": "モンスターハンターワイルズ", "aliases": ["モンハンワイルズ", "MHWilds"] },
+    { "canonical": "HUNDRED LINE -最終防衛学園-", "aliases": ["ハンドレッドライン", "ハンドレライン"] },
+    { "canonical": "クロノ・トリガー", "aliases": ["クロノトリガー"] }
+  ]
+}

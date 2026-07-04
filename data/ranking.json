@@ -1,0 +1,25 @@
+{
+  "_使い方": "アートワーククイズのポイントを記録するデータ。毎週 entries に {episode, listener, points} を追記するだけ。ページは後日実装予定だが、データはこの形式で貯めておけばそのまま使える。",
+  "seasons": [
+    {
+      "season": 3,
+      "label": "シーズン3",
+      "active": true,
+      "entries": [
+        { "episode": 112, "listener": "(例)リスナー名", "points": 3 }
+      ]
+    },
+    {
+      "season": 2,
+      "label": "シーズン2",
+      "active": false,
+      "entries": []
+    },
+    {
+      "season": 1,
+      "label": "シーズン1",
+      "active": false,
+      "entries": []
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "title": "ゲームの滝壺",
+  "tagline": "ゲームと名のつくものならなんでも気ままに話すポッドキャスト",
+  "schedule": "毎週水曜 23時ごろ更新",
+  "hashtag": "#ゲームの滝壺",
+  "base_url": "https://example.com",
+  "rss": "https://anchor.fm/s/f61a3794/podcast/rss",
+  "services": {
+    "spotify":  { "label": "Spotify",        "url": "https://open.spotify.com/show/4WrzkgGGM4d0glV7d3ApfZ" },
+    "apple":    { "label": "Apple Podcasts", "url": "https://podcasts.apple.com/jp/podcast/%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E6%BB%9D%E5%A3%BA/id1749310211" },
+    "amazon":   { "label": "Amazon Music",   "url": "https://music.amazon.co.jp/podcasts/74371b2a-ce3e-4a3e-9669-07f9602cea0e/%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E6%BB%9D%E5%A3%BA" },
+    "listen":   { "label": "LISTEN",         "url": "https://listen.style/p/gamenotktb" },
+    "youtube":  { "label": "YouTube",        "url": "https://youtube.com/@game-tktb" }
+  },
+  "x_url": "https://x.com/game_tktb",
+  "x_handle": "@game_tktb",
+  "members": [
+    { "id": "tawashi", "name": "夜中たわし", "x": "https://x.com/tawwwashix", "x_handle": "@tawwwashix",
+      "bio": "レトロゲームから最新作まで幅広く語る。ブログ「夜中に前へ」でポッドキャスト更新情報も発信中。",
+      "blog": { "label": "夜中に前へ", "url": "https://www.tawashix.com/" } },
+    { "id": "hyuuma", "name": "ひゅうま", "x": "https://x.com/hyuuma_tktb", "x_handle": "@hyuuma_tktb",
+      "bio": "スーパーファミコン~プレステ世代。ゲーム音楽ならロックマンと東方の話が止まらない。" },
+    { "id": "ichigoo", "name": "イチィゴォー", "x": "https://x.com/ichigo_tktb", "x_handle": "@ichigo_tktb",
+      "bio": "眼鏡っ娘が出てくるゲームが好物。" }
+  ],
+  "otayori_form": "https://forms.gle/jot3ETXF19whQUEP9",
+  "email": "game.tktb@gmail.com"
+}

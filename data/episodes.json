@@ -1,0 +1,8981 @@
+{
+ "episodes": [
+  {
+   "number": 0,
+   "title": "ゲームの滝壺とは？",
+   "tags": [],
+   "series": null,
+   "description": "ゲームの滝壺は、ゲームと名のつくものならなんでも気ままにお話しするポッドキャスト番組です。\n毎週水曜23時頃更新！",
+   "games": [],
+   "chapters": [],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/0-e2uunnv"
+   },
+   "guid": "8f3dd74c-0993-48bc-a1ec-9d8d2f4be4b8",
+   "date": "2025-02-18",
+   "date_estimated": false,
+   "image": "assets/img/ep/0.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1739815132436-6e80b94687c73.jpg"
+  },
+  {
+   "number": 1,
+   "title": "風来のシレンはテトリスかもしれない",
+   "date": "2024-05-30",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "14年ぶりに発売された風来のシレン6が好評につき、シリーズの大ファン夜中たわしが他2人に布教します。次回から毎週水曜更新！",
+   "games": [
+    "風来のシレンシリーズ",
+    "不思議のダンジョン 風来のシレン6 とぐろ島探検録",
+    "不思議のダンジョン 風来のシレン外伝 女剣士アスカ見参!"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "05:42",
+     "label": "メインテーマ：風来のシレンの布教"
+    },
+    {
+     "time": "53:53",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/1-e2k9qp2"
+   },
+   "guid": "f1563334-d8a9-4134-bca1-0020a8cfc6ef",
+   "image": "assets/img/ep/1.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1717073741824-8c78885a3ab6b.jpg"
+  },
+  {
+   "number": 2,
+   "title": "メタルギア、グランディア、サモンナイト…お前が好きなオープニングについて語ってくれ",
+   "date": "2024-06-05",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "今回はオープニングが良いゲームについて、とことん語ります！\nみなさんも好きなオープニングはありますか？\n\n【注意】グランディアについて、中盤のネタバレに触れています",
+   "games": [],
+   "chapters": [
+    {
+     "time": "0:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "1:51",
+     "label": "オープニングが良いゲーム"
+    },
+    {
+     "time": "2:41",
+     "label": "メタルギアソリッド"
+    },
+    {
+     "time": "9:38",
+     "label": "グランディア"
+    },
+    {
+     "time": "14:01",
+     "label": "サモンナイトシリーズ"
+    },
+    {
+     "time": "22:28",
+     "label": "テイルズ オブ エターニア"
+    },
+    {
+     "time": "26:54",
+     "label": "聖剣伝説3"
+    },
+    {
+     "time": "31:50",
+     "label": "実況パワフルプロ野球10"
+    },
+    {
+     "time": "39:36",
+     "label": "塊魂"
+    },
+    {
+     "time": "45:05",
+     "label": "マザー2"
+    },
+    {
+     "time": "47:58",
+     "label": "ポケットモンスター赤緑"
+    },
+    {
+     "time": "49:05",
+     "label": "チョコボスタリオン"
+    },
+    {
+     "time": "50:13",
+     "label": "エンディング"
+    },
+    {
+     "time": "52:25",
+     "label": "おまけ（おたより紹介）"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/2-e2khb9i"
+   },
+   "guid": "45418ed3-7007-4b7e-8802-d6914a61f31f",
+   "image": "assets/img/ep/2.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1717593112008-7147042bbc41d.jpg"
+  },
+  {
+   "number": 3,
+   "title": "学園アイドルマスターはSlay the Spireなのか！？",
+   "date": "2024-06-12",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "学園アイドルマスターの布教を受けてたら、似ていると噂のSlay the Spireに話が発展しました。",
+   "games": [
+    "学園アイドルマスター",
+    "Slay the Spire"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:01",
+     "label": "学園アイドルマスターの布教"
+    },
+    {
+     "time": "39:17",
+     "label": "学園アイドルマスター、やってみた"
+    },
+    {
+     "time": "48:08",
+     "label": "Slay the Spireを確認"
+    },
+    {
+     "time": "59:40",
+     "label": "エンディング"
+    },
+    {
+     "time": "1:02:44",
+     "label": "おたよりコーナー"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/3-Slay-the-Spire-e2kps8a"
+   },
+   "guid": "ffe0b1c7-fbf5-43c8-b8d1-02d877a9b558",
+   "image": "assets/img/ep/3.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1718180221810-36cd7c4fb0fbe.jpg"
+  },
+  {
+   "number": 4,
+   "title": "アナログゲームもいいぞ！！ ～大人も子供も、よっぱらいも。～",
+   "date": "2024-06-19",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "今回のテーマは、アナログゲーム！ ひゅうまが以前バーで遊んだ体験を語ります。\n（ゲームの滝壺は、ゲームと名のつくものなら何でもお話するポッドキャストです）",
+   "games": [],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:31",
+     "label": "ウボンゴ"
+    },
+    {
+     "time": "13:50",
+     "label": "アルゴ"
+    },
+    {
+     "time": "24:20",
+     "label": "ワードウルフ"
+    },
+    {
+     "time": "36:16",
+     "label": "まとめ"
+    },
+    {
+     "time": "41:00",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "49:35",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/4-e2l2j84"
+   },
+   "guid": "28adecc1-61f8-46e0-be29-edd41c4a5e97",
+   "image": "assets/img/ep/4.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1718800611778-2285f1c90de33.jpg"
+  },
+  {
+   "number": 5,
+   "title": "紙だから何が起きても全年齢対象！ ペーパーマリオ オリガミキング（おまけ：先日のニンダイについて）",
+   "date": "2024-06-26",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "今回のテーマはペーパーマリオ オリガミキング！ キャッチーな見た目に反し、マリオとは思えない衝撃展開が目白押しとなっております。\n6月18日に配信されたニンテンドーダイレクトについても色々と話します。",
+   "games": [],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:28",
+     "label": "ペーパーマリオ オリガミキング"
+    },
+    {
+     "time": "30:40",
+     "label": "ニンテンドーダイレクト"
+    },
+    {
+     "time": "31:27",
+     "label": "マリオ＆ルイージRPG ブラザーシップ！"
+    },
+    {
+     "time": "32:45",
+     "label": "ルイージマンション2 HD"
+    },
+    {
+     "time": "33:56",
+     "label": "ドラゴンクエストIII そして伝説へ… / ドラゴンクエストI&II"
+    },
+    {
+     "time": "40:14",
+     "label": "かまいたちの夜×3"
+    },
+    {
+     "time": "42:09",
+     "label": "ファントム・ブレイブ 幽霊船団と消えた英雄"
+    },
+    {
+     "time": "45:20",
+     "label": "ゼルダの伝説 知恵のかりもの"
+    },
+    {
+     "time": "46:08",
+     "label": "逆転検事1&2 御剣セレクション"
+    },
+    {
+     "time": "47:33",
+     "label": "HUNDRED LINE -最終防衛学園-"
+    },
+    {
+     "time": "49:06",
+     "label": "ロマンシング サガ2 リベンジオブザセブン"
+    },
+    {
+     "time": "50:45",
+     "label": "メトロイドプライム4 ビヨンド"
+    },
+    {
+     "time": "53:01",
+     "label": "ニンダイまとめ"
+    },
+    {
+     "time": "53:56",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/5-e2lantf"
+   },
+   "guid": "66ea13f8-4527-4fe2-9410-f6677a96ac9f",
+   "image": "assets/img/ep/5.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1719380730516-9a48a3a9edc6b.jpg"
+  },
+  {
+   "number": 6,
+   "title": "初めて遊んだゲームは？ たわしたちのゲーム史",
+   "date": "2024-07-03",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ゲームとの出会いから、初めて買ったハード、好きなゲームジャンルや最近遊んでるゲームまで。\n自己紹介のような回です。",
+   "games": [],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:19",
+     "label": "夜中たわしとゲーム"
+    },
+    {
+     "time": "22:31",
+     "label": "ひゅうまとゲーム"
+    },
+    {
+     "time": "43:24",
+     "label": "イチィゴォーとゲーム"
+    },
+    {
+     "time": "1:12:51",
+     "label": "まとめ"
+    },
+    {
+     "time": "1:14:14",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/6-e2ljua7"
+   },
+   "guid": "9805ae3e-7edf-43d0-984a-03e5835bce3a",
+   "image": "assets/img/ep/6.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1720010449782-3a66fdbc93d0d.jpg"
+  },
+  {
+   "number": 7,
+   "title": "セーブデータ消えたことない人いない説",
+   "date": "2024-07-10",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "今回のテーマはセーブデータに関する思い出。\nセーブデータが消えた／消してしまった話からセーブデータをコピーされた話、メモリーカードがパンクする話まで！\nドラゴンクエストシリーズを題材にセーブデータの歴史も扱います。",
+   "games": [],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:19",
+     "label": "をドラクエから紐解くセーブデータの歴史"
+    },
+    {
+     "time": "19:25",
+     "label": "セーブデータの思い出"
+    },
+    {
+     "time": "1:04:34",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/7-e2lsa2u"
+   },
+   "guid": "dc458db1-3dbe-4c99-8259-c1c8920dcecb",
+   "image": "assets/img/ep/7.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1720614736113-4556c54e22643.jpg"
+  },
+  {
+   "number": 8,
+   "title": "ゲーム中にフタ開けていいんですか？！！ 初代モンスターファーム",
+   "date": "2024-07-17",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "今回のテーマは初代モンスターファーム！\nひゅうまがゲームの概要から濃すぎる思い出までを語っています。\n今回から新たに軽く遊べるインディーゲームを紹介するコーナーも始めました！",
+   "games": [
+    "モンスターファーム",
+    "モンスターファーム2",
+    "モン娘ぐらでぃえーた"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "00:29",
+     "label": "モンスターファーム"
+    },
+    {
+     "time": "1:00:54",
+     "label": "インディーゲームちょっと紹介"
+    },
+    {
+     "time": "1:09:16",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:16:02",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/8-e2m4nkd"
+   },
+   "guid": "c1e36127-fd4c-47cf-a199-14ef5604a0f6",
+   "image": "assets/img/ep/8.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1721224127648-2bc409f6432e9.jpg"
+  },
+  {
+   "number": 9,
+   "title": "ゲーム好きでないと解けないウミガメのスープ",
+   "date": "2024-07-24",
+   "date_estimated": false,
+   "tags": [
+    "ウミガメのスープ"
+   ],
+   "series": null,
+   "description": "今回は水平思考ゲーム「ウミガメのスープ」で遊びます。ただしゲームの知識がないと解けないものばかり！\nエンディングでは夜中たわしが初めて行ったBitSummit Driftのレポもあります。",
+   "games": [
+    "Celeste（セレステ）"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:58",
+     "label": "練習問題1「成長期」"
+    },
+    {
+     "time": "03:23",
+     "label": "練習問題2「不幸で喜ぶ人々」"
+    },
+    {
+     "time": "06:25",
+     "label": "第1問「幸運な男」"
+    },
+    {
+     "time": "12:34",
+     "label": "第2問「窓際族」"
+    },
+    {
+     "time": "17:08",
+     "label": "第3問「大規模停電」"
+    },
+    {
+     "time": "24:00",
+     "label": "第4問「透視能力」"
+    },
+    {
+     "time": "25:34",
+     "label": "第5問「天邪鬼」"
+    },
+    {
+     "time": "31:00",
+     "label": "第6問「有能な清掃業者」"
+    },
+    {
+     "time": "33:24",
+     "label": "スペシャル問題「ファミコンの色」"
+    },
+    {
+     "time": "39:13",
+     "label": "ウミガメのスープ感想"
+    },
+    {
+     "time": "43:00",
+     "label": "滝壺3分ゲーム紹介（仮）"
+    },
+    {
+     "time": "50:44",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "53:50",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/9-e2md88p"
+   },
+   "guid": "ab25ae1a-9af7-4c8d-a697-e07b8d24757e",
+   "image": "assets/img/ep/9.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1721828020288-dd8ad4d9e265e.jpg"
+  },
+  {
+   "number": 10,
+   "title": "ネトゲもOK？ 無人島に1本だけ持って行くならこのゲーム",
+   "date": "2024-07-31",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "無人島（電気が使える）に1本だけ持っていくなら何のゲームか！？\n話が進むと「1本だけ持っていける」以外どんどんルール無用になっていきます。",
+   "games": [
+    "ウボンゴ ソロ",
+    "麻雀格闘倶楽部",
+    "大乱闘スマッシュブラザーズ",
+    "風来のシレン",
+    "女剣士アスカ見参",
+    "世界のアソビ大全51",
+    "ファイナルファンタジーXIV",
+    "RPGツクール（RPG Maker）",
+    "モンスターハンター",
+    "スーパーマリオメーカー",
+    "ファミコン世界大会",
+    "Hand Simulator: Survival",
+    "Hand Simulator",
+    "Euro Truck Simulator",
+    "焼肉シミュレーター",
+    "PowerWash Simulator",
+    "ぼくのなつやすみ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:31",
+     "label": "無人島に持っていきたいゲーム"
+    },
+    {
+     "time": "03:16",
+     "label": "ひゅうまが持っていくゲーム"
+    },
+    {
+     "time": "12:45",
+     "label": "たわしが持っていくゲーム"
+    },
+    {
+     "time": "18:40",
+     "label": "イチィゴォーが持っていくゲーム"
+    },
+    {
+     "time": "26:15",
+     "label": "無人島まとめ"
+    },
+    {
+     "time": "28:03",
+     "label": "滝壺3分ゲーム紹介（仮）ワイド版"
+    },
+    {
+     "time": "47:55",
+     "label": "おたよりコーナー"
+    },
+    {
+     "time": "1:06:30",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/10-OK-1-e2mlkvo"
+   },
+   "guid": "d5f85f9a-df62-4d7b-b1d2-69852cbd66b7",
+   "image": "assets/img/ep/10.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1722431263887-096b7eef4bcaf.jpg"
+  },
+  {
+   "number": 11,
+   "title": "FF6について語ろうとしたら収録時間が2時間を超えた",
+   "date": "2024-08-07",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "FF6について語り尽くす！\nつもりでしたが全然時間が足りませんでした！！\n\n※今回FF6のネタバレを含みます",
+   "games": [
+    "ファイナルファンタジーVI",
+    "ゼンレスゾーンゼロ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:57",
+     "label": "FF6概要"
+    },
+    {
+     "time": "06:06",
+     "label": "ひゅうまとFF6の出会い"
+    },
+    {
+     "time": "15:35",
+     "label": "たわしとFF6の出会い"
+    },
+    {
+     "time": "16:57",
+     "label": "通常戦闘とボス戦のBGM"
+    },
+    {
+     "time": "20:21",
+     "label": "オープニングの演出"
+    },
+    {
+     "time": "22:52",
+     "label": "世界観"
+    },
+    {
+     "time": "27:41",
+     "label": "FFキャラと本来の神話との違い"
+    },
+    {
+     "time": "29:58",
+     "label": "主人公がいない"
+    },
+    {
+     "time": "31:25",
+     "label": "好きなキャラクター"
+    },
+    {
+     "time": "33:47",
+     "label": "オペラ"
+    },
+    {
+     "time": "39:11",
+     "label": "魔列車"
+    },
+    {
+     "time": "42:34",
+     "label": "変な名前のボス達"
+    },
+    {
+     "time": "46:08",
+     "label": "いい戦闘シーン"
+    },
+    {
+     "time": "47:57",
+     "label": "魔石による育成要素"
+    },
+    {
+     "time": "51:25",
+     "label": "頭にドリルを装備"
+    },
+    {
+     "time": "54:11",
+     "label": "ここから重大なネタバレあり"
+    },
+    {
+     "time": "54:42",
+     "label": "モグと金の髪飾り問題"
+    },
+    {
+     "time": "1:00:07",
+     "label": "シャドウ事件"
+    },
+    {
+     "time": "1:03:11",
+     "label": "シド事件"
+    },
+    {
+     "time": "1:06:29",
+     "label": "ドマ城毒事件"
+    },
+    {
+     "time": "1:08:07",
+     "label": "FF6ってこんな話"
+    },
+    {
+     "time": "1:11:01",
+     "label": "仲間を求めて"
+    },
+    {
+     "time": "1:13:12",
+     "label": "ラスボス戦"
+    },
+    {
+     "time": "1:14:33",
+     "label": "エンディングの演出"
+    },
+    {
+     "time": "1:16:38",
+     "label": "FF6まとめ"
+    },
+    {
+     "time": "1:17:55",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "1:33:31",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:44:16",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/11-FF62-e2mtjiq"
+   },
+   "guid": "31a07aee-1793-4280-8a26-e56137dad52e",
+   "image": "assets/img/ep/11.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1723014496563-d586a9ec25cfe.jpg"
+  },
+  {
+   "number": 12,
+   "title": "まったく新しいゲームを考えよう！（unity1week）",
+   "date": "2024-08-14",
+   "date_estimated": false,
+   "tags": [
+    "unity1week"
+   ],
+   "series": null,
+   "description": "ランダムなワードから即興でまったく新しいゲームを生み出すぞ！\n\n※Unity1週間ゲームジャム（unity1week）に作品提出するためのアイデア出し回です",
+   "games": [
+    "将棋ライク"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "00:54",
+     "label": "Unity1週間ゲームジャム（Unity1week）"
+    },
+    {
+     "time": "04:11",
+     "label": "まったく新しいゲームを考えよう"
+    },
+    {
+     "time": "06:41",
+     "label": "水属性こんにゃく"
+    },
+    {
+     "time": "07:36",
+     "label": "光の速さのお通し"
+    },
+    {
+     "time": "08:15",
+     "label": "号泣スプーン"
+    },
+    {
+     "time": "09:06",
+     "label": "焼きうどんじゃんけん"
+    },
+    {
+     "time": "10:36",
+     "label": "ゴミ問題を解決する中高生"
+    },
+    {
+     "time": "10:51",
+     "label": "部活なしでは生きられない"
+    },
+    {
+     "time": "12:05",
+     "label": "みかん大会議"
+    },
+    {
+     "time": "14:20",
+     "label": "どんでん返しハンバーグ"
+    },
+    {
+     "time": "16:15",
+     "label": "王室御用達鼻毛"
+    },
+    {
+     "time": "17:46",
+     "label": "解説つきサンタクロース"
+    },
+    {
+     "time": "19:46",
+     "label": "フリースタイル朝帰り"
+    },
+    {
+     "time": "21:16",
+     "label": "100日後に死ぬホラー映画"
+    },
+    {
+     "time": "22:27",
+     "label": "極悪非道二進法"
+    },
+    {
+     "time": "26:00",
+     "label": "メイド喫茶の学校"
+    },
+    {
+     "time": "28:13",
+     "label": "追い打ち.com"
+    },
+    {
+     "time": "31:00",
+     "label": "ゲームアイデアまとめ"
+    },
+    {
+     "time": "33:07",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "41:24",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:04:23",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/12-unity1week-e2n37nm"
+   },
+   "guid": "92c8bff4-6dff-44f7-b78d-19f455057a16",
+   "image": "assets/img/ep/12.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1723451968660-1c4c22ce92628.jpg"
+  },
+  {
+   "number": 13,
+   "title": "SFCの売上ランキングTOP50について全部語る！",
+   "date": "2024-08-21",
+   "date_estimated": false,
+   "tags": [
+    "SFC売上ランキング"
+   ],
+   "series": "sfc-ranking",
+   "description": "スーパーファミコンの売り上げランキングTOP50について全部語る！\nつもりでしたが…それをするには時間が少なすぎました。\n夜中たわしがunity1weekで作ったゲームの情報もあります。",
+   "games": [
+    "スーパーマリオカート",
+    "スーパーマリオワールド",
+    "ドラゴンクエスト6 幻の大地",
+    "スーパードンキーコング",
+    "ストリートファイター2",
+    "ドラゴンクエスト5 天空の花嫁",
+    "ファイナルファンタジー6",
+    "ファイナルファンタジー5",
+    "スーパードンキーコング2 ディクシー＆ディディー",
+    "スーパーマリオコレクション",
+    "ファミコン世界大会",
+    "どんでん返しハンバーグ",
+    "ウルトラ怪獣モンスターファーム"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:29",
+     "label": "スーパーファミコンとは"
+    },
+    {
+     "time": "04:34",
+     "label": "SFC売上ランキングTOP50"
+    },
+    {
+     "time": "06:23",
+     "label": "第1位 スーパーマリオカート"
+    },
+    {
+     "time": "16:31",
+     "label": "第2位 スーパーマリオワールド"
+    },
+    {
+     "time": "23:01",
+     "label": "第3位 ドラクエ6"
+    },
+    {
+     "time": "29:39",
+     "label": "第4位 スーパードンキーコング"
+    },
+    {
+     "time": "35:46",
+     "label": "第5位 スト2"
+    },
+    {
+     "time": "41:15",
+     "label": "第6位 ドラクエ5"
+    },
+    {
+     "time": "43:18",
+     "label": "第7位 FF6"
+    },
+    {
+     "time": "44:11",
+     "label": "第8位 FF5"
+    },
+    {
+     "time": "46:46",
+     "label": "第9位 スーパードンキーコング2 ディクシー＆ディディー"
+    },
+    {
+     "time": "52:10",
+     "label": "第10位 スーパーマリオコレクション"
+    },
+    {
+     "time": "55:09",
+     "label": "SFCまとめ"
+    },
+    {
+     "time": "58:03",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "1:05:32",
+     "label": "滝壺3分ゲーム紹介その2（unity1week）"
+    },
+    {
+     "time": "1:15:38",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:31:36",
+     "label": "ひゅうま近況"
+    },
+    {
+     "time": "1:38:02",
+     "label": "イチィゴォー近況"
+    },
+    {
+     "time": "1:41:40",
+     "label": "夜中たわし近況"
+    },
+    {
+     "time": "1:52:06",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/13-SFCTOP50-e2nen5i"
+   },
+   "guid": "c67d50ba-b96b-4589-b28e-a727adb4de8c",
+   "image": "assets/img/ep/13.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1724244251760-51492e64cd44c.jpg"
+  },
+  {
+   "number": 14,
+   "title": "ウルトラマン・仮面ライダー・ガンダムが一挙集結！ SDザ・グレイトバトル 新たなる挑戦",
+   "date": "2024-08-28",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "コンパチヒーローシリーズのスーパーファミコン用ソフト第一弾、SDザ・グレイトバトル 新たなる挑戦について語ります！！\nさらにコーナーでは、ゼルダの伝説ティアーズオブザキングダムを軽く遊べるゲーム（？）として紹介しています。",
+   "games": [
+    "SDザ・グレイトバトル 新たなる挑戦",
+    "ゼルダの伝説 ティアーズ オブ ザ キングダム"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:37",
+     "label": "SDザ・グレイトバトル 新たなる挑戦"
+    },
+    {
+     "time": "29:02",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "36:01",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:05:13",
+     "label": "エンディング（RTA in Japanのポケモン赤緑RTA）"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/14--SD-e2nmagj"
+   },
+   "guid": "76f6915e-ad2f-40ee-8f47-b38f0b2516e5",
+   "image": "assets/img/ep/14.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1724784347583-a4f3d4f049d79.jpg"
+  },
+  {
+   "number": 15,
+   "title": "イチゴが出てきてレベルが999になるゲームってな～んだ？",
+   "date": "2024-09-04",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "今回は記念すべき第15回！\nということでイチィゴォースペシャルをお送りします。\nイチゴが出てくるゲームを紹介するようですが…？\n\nほか、先日のニンダイの話など。",
+   "games": [
+    "スイカゲーム",
+    "リングフィットアドベンチャー",
+    "風来のシレン6",
+    "ドラゴンクエスト3",
+    "テトリス フォーエバー",
+    "ドラえもんのどら焼き屋さん物語",
+    "8番のりば",
+    "PICO PARK 2",
+    "ときめきメモリアル",
+    "SDザ・グレイトバトル 新たなる挑戦",
+    "ファイナルファンタジーVI",
+    "ディシディアファイナルファンタジー",
+    "原神",
+    "ウマ娘 プリティーダービー 熱血ハチャメチャ大感謝祭！",
+    "アメリカンバトルドーム"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:06",
+     "label": "イチゴのクイズ"
+    },
+    {
+     "time": "07:35",
+     "label": "イチゴの出てくるゲーム"
+    },
+    {
+     "time": "40:31",
+     "label": "イチィゴォーのGOGOゲーム紹介"
+    },
+    {
+     "time": "54:04",
+     "label": "ニンテンドーダイレクト"
+    },
+    {
+     "time": "1:07:11",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:40:23",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/15-999-e2o02aj"
+   },
+   "guid": "9a738a67-339b-49e6-a6a1-edd227bd2cca",
+   "image": "assets/img/ep/15.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1725447394030-87f619085039a.jpg"
+  },
+  {
+   "number": 16,
+   "title": "かまいたちの夜、パラノマサイト、筋肉すくい…残暑に遊びたいゲーム6選！",
+   "date": "2024-09-11",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ミステリーやホラーゲームをはじめとし、お祭り系や夏に関連するゲームも…残暑に遊びたいゲームを語ります。",
+   "games": [
+    "かまいたちの夜",
+    "学校であった怖い話",
+    "がんばれゴエモン～ゆき姫救出絵巻～",
+    "パラノマサイト FILE23 本所七不思議",
+    "筋肉すくい",
+    "サマーレッスン",
+    "寿司王",
+    "風来のシレン6",
+    "ドラゴンクエスト3 そして伝説へ…"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:37",
+     "label": "かまいたちの夜"
+    },
+    {
+     "time": "12:19",
+     "label": "学校であった怖い話"
+    },
+    {
+     "time": "20:32",
+     "label": "がんばれゴエモン～ゆき姫救出絵巻～"
+    },
+    {
+     "time": "25:33",
+     "label": "パラノマサイト FILE23 本所七不思議"
+    },
+    {
+     "time": "36:21",
+     "label": "筋肉すくい"
+    },
+    {
+     "time": "42:39",
+     "label": "サマーレッスン"
+    },
+    {
+     "time": "50:01",
+     "label": "残暑に遊びたいゲームまとめ"
+    },
+    {
+     "time": "52:07",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "58:42",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:05:02",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/16-6-e2o8n5f"
+   },
+   "guid": "cad9912b-0373-4061-8d02-074884be6dc4",
+   "image": "assets/img/ep/16.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1726030439380-65b84da417629.jpg"
+  },
+  {
+   "number": 17,
+   "title": "Ever17「恋愛アドベンチャーかと思った？ 残念！ SFミステリーアドベンチャーでした！」",
+   "date": "2024-09-18",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ゲームの滝壺がついに第17回ということで、17と言えばもちろん「Ever17」！\nネタバレ絶対厳禁のタイトルにつきストーリーの核心について番組内では話しませんが、ひゅうま（未プレイ）には合意の上ですべてを伝えます。",
+   "games": [
+    "Ever17",
+    "CalorieMate LIQUID FOR GAME CREATORS",
+    "パラノマサイト",
+    "かまいたちの夜",
+    "ファイナルファンタジー6",
+    "リングフィットアドベンチャー",
+    "グレイトバトル",
+    "夏色ハイスクル★青春白書～転校初日のオレが幼馴染と再会したら報道部員にされていて激写少年の日々はスクープ大連発でイガイとモテモテなのに何故かマイメモリーはパンツ写真ばっかりという現実と向き合いながら考えるひと夏の島の学園生活と赤裸々な恋の行方。～",
+    "わんだふるぷりきゅあ！ざ・むーびー！ ドキドキ・ゲームの世界で大冒険！"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング（+おたより）"
+    },
+    {
+     "time": "13:07",
+     "label": "Ever17前置き"
+    },
+    {
+     "time": "21:08",
+     "label": "Ever17本編"
+    },
+    {
+     "time": "40:54",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "52:06",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:25:11",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/17-Ever17--SF-e2oi7ru"
+   },
+   "guid": "cfb7cfc9-4aa3-4b8a-a1ce-80db578cf443",
+   "image": "assets/img/ep/17.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1726665273926-8ea71528f751b.jpg"
+  },
+  {
+   "number": 18,
+   "title": "真島吾朗、ジェクト、ザ・ボス…ゲームに登場する魅力的なおじさん・おばさんを語る",
+   "date": "2024-09-25",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ゲームに登場する魅力的なおじさん・おばさん…\nゲームのキャラは若者が多いですが、思い返してみるとキャラの強いおじさん・おばさんが結構います！",
+   "games": [
+    "龍が如くシリーズ",
+    "逆転裁判シリーズ",
+    "Returnal",
+    "ファイナルファンタジー10",
+    "ポケットモンスター赤緑",
+    "Her Story",
+    "メタルギアソリッドシリーズ",
+    "未解決事件は終わらせないといけないから",
+    "Ever17",
+    "十三機兵防衛圏",
+    "ニューダンガンロンパV3"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:45",
+     "label": "真島吾朗（龍が如くシリーズ）"
+    },
+    {
+     "time": "09:31",
+     "label": "イトノコ刑事（逆転裁判シリーズ）"
+    },
+    {
+     "time": "15:53",
+     "label": "セレーネ（Returnal）"
+    },
+    {
+     "time": "20:49",
+     "label": "ジェクト（FF10）"
+    },
+    {
+     "time": "28:34",
+     "label": "キクコ（ポケモン赤緑）"
+    },
+    {
+     "time": "37:13",
+     "label": "Her Storyの女の人"
+    },
+    {
+     "time": "42:08",
+     "label": "ザ・ボス（メタルギアソリッドシリーズ）"
+    },
+    {
+     "time": "48:47",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "58:13",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:16:45",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/18-e2oq7t5"
+   },
+   "guid": "586ced72-4fe3-4db3-a4e5-46016f2a53d0",
+   "image": "assets/img/ep/18.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1727185092153-056c800564871.jpg"
+  },
+  {
+   "number": 19,
+   "title": "SFCの売上ランキングTOP50について全部語る！ 2回目",
+   "date": "2024-10-02",
+   "date_estimated": false,
+   "tags": [
+    "SFC売上ランキング"
+   ],
+   "series": "sfc-ranking",
+   "description": "スーパーファミコンの売り上げランキングTOP50について全部語る！\nお待たせしました。2回目の挑戦です。\n再挑戦なので当然（？）また初めからです。",
+   "games": [
+    "スーパーマリオカート",
+    "スーパーマリオワールド",
+    "ドラゴンクエスト6 幻の大地",
+    "スーパードンキーコング",
+    "ストリートファイター2",
+    "ドラゴンクエスト5 天空の花嫁",
+    "ファイナルファンタジー6",
+    "ファイナルファンタジー5",
+    "スーパードンキーコング2 ディクシー＆ディディー",
+    "スーパーマリオコレクション",
+    "ストリートファイター2ターボ",
+    "クロノ･トリガー",
+    "スーパードンキーコング3 謎のクレミス島",
+    "スーパーマリオ ヨッシーアイランド",
+    "すーぱーぷよぷよ",
+    "アイドルマスター シャイニーカラーズの大富豪",
+    "未解決事件は終わらせないといけないから",
+    "ゼルダの伝説 知恵のかりもの"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "04:20",
+     "label": "第1位 スーパーマリオカート"
+    },
+    {
+     "time": "06:17",
+     "label": "第2位 スーパーマリオワールド"
+    },
+    {
+     "time": "09:33",
+     "label": "第3位 ドラクエ6"
+    },
+    {
+     "time": "12:01",
+     "label": "第4位 スーパードンキーコング"
+    },
+    {
+     "time": "14:14",
+     "label": "第5位 スト2"
+    },
+    {
+     "time": "17:05",
+     "label": "第6位 ドラクエ5"
+    },
+    {
+     "time": "19:31",
+     "label": "第7位 FF6"
+    },
+    {
+     "time": "22:42",
+     "label": "第8位 FF5"
+    },
+    {
+     "time": "24:33",
+     "label": "第9位 スーパードンキーコング2"
+    },
+    {
+     "time": "27:30",
+     "label": "第10位 スーパーマリオコレクション"
+    },
+    {
+     "time": "30:25",
+     "label": "第11位 スト2ターボ"
+    },
+    {
+     "time": "32:32",
+     "label": "第12位 クロノ･トリガー"
+    },
+    {
+     "time": "40:45",
+     "label": "第13位 スーパードンキーコング3"
+    },
+    {
+     "time": "45:04",
+     "label": "第14位 ヨッシーアイランド"
+    },
+    {
+     "time": "49:13",
+     "label": "第15位 すーぱーぷよぷよ"
+    },
+    {
+     "time": "54:38",
+     "label": "SFCまとめ"
+    },
+    {
+     "time": "56:22",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "1:04:50",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:23:24",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/19-SFCTOP50-2-e2p4us0"
+   },
+   "guid": "b1293d35-586d-41e7-b276-9274d7e62228",
+   "image": "assets/img/ep/19.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1727872863273-ea96ac4f0f6e2.jpg"
+  },
+  {
+   "number": 20,
+   "title": "初代ポケモンの思い出ってすげー 量",
+   "date": "2024-10-09",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "初代ポケモン、赤緑青黄について思い出をとことん話しています（番組歴代最長）。\n初代ポケモンの音楽はいくら使ってもいいと聞いたので、これでもかと詰め込みました！\n\n※初代ポケットモンスターについてネタバレを含みます",
+   "games": [
+    "ポケットモンスター赤緑青黄",
+    "ポケモンGO",
+    "ゼルダの伝説 知恵のかりもの"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "04:49",
+     "label": "ポケモンとの出会い"
+    },
+    {
+     "time": "13:59",
+     "label": "好きなポケモン"
+    },
+    {
+     "time": "22:06",
+     "label": "好きな人物"
+    },
+    {
+     "time": "26:03",
+     "label": "好きなBGM"
+    },
+    {
+     "time": "33:48",
+     "label": "アイテムの話"
+    },
+    {
+     "time": "41:08",
+     "label": "育成エピソード"
+    },
+    {
+     "time": "46:16",
+     "label": "システム周りの話"
+    },
+    {
+     "time": "57:01",
+     "label": "裏技"
+    },
+    {
+     "time": "1:05:33",
+     "label": "その他"
+    },
+    {
+     "time": "1:16:07",
+     "label": "まとめ"
+    },
+    {
+     "time": "1:17:36",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "1:37:26",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:50:53",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/20-e2pdt4g"
+   },
+   "guid": "07680927-1705-4e65-8461-c3a1f2e48810",
+   "image": "assets/img/ep/20.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1728459379391-d4f071f48463c.jpg"
+  },
+  {
+   "number": 21,
+   "title": "リアル脱出ゲームは風来のシレンかもしれない",
+   "date": "2024-10-16",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "今回はリアル脱出ゲームなど、SCRAPが作る遊びの布教回となっております。\n（ゲームの滝壺は、ゲームと名のつくものなら何でもお話しするポッドキャストです）",
+   "games": [
+    "オバケに聞き込みできる山荘殺人事件からの脱出",
+    "封鎖された魔王城からの脱出",
+    "DETECTIVE X シリーズ",
+    "5分間リアル脱出ゲームシリーズ",
+    "謎検スマート対策",
+    "風来のシレン",
+    "ゼンレスゾーンゼロ",
+    "初代ポケモン",
+    "Celeste（セレステ）",
+    "ニンテンドーサウンドクロック Alarmo"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:32",
+     "label": "リアル脱出ゲーム（公演）"
+    },
+    {
+     "time": "22:36",
+     "label": "家で遊べる製品"
+    },
+    {
+     "time": "24:13",
+     "label": "オンラインリアル脱出ゲーム"
+    },
+    {
+     "time": "30:22",
+     "label": "DETECTIVE X"
+    },
+    {
+     "time": "36:58",
+     "label": "5分間リアル脱出ゲーム"
+    },
+    {
+     "time": "38:55",
+     "label": "リアル脱出ゲームブック"
+    },
+    {
+     "time": "40:21",
+     "label": "謎検スマート対策"
+    },
+    {
+     "time": "42:18",
+     "label": "まとめ"
+    },
+    {
+     "time": "43:10",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "53:47",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:08:18",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/21-e2poec5"
+   },
+   "guid": "deeb2012-06e1-4a31-aa5b-23d494ac6963",
+   "image": "assets/img/ep/21.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1729083658151-c73118d94481c.jpg"
+  },
+  {
+   "number": 22,
+   "title": "俺屍、ロマサガ2、7〜モールモースの騎兵隊〜…世代交代要素のあるゲームを20作品くらい語る！",
+   "date": "2024-10-23",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "俺屍やロマサガ2のように世代交代要素のあるゲームが大好物の夜中たわしが、そういったゲームを延々紹介する回です。",
+   "games": [
+    "俺の屍を越えてゆけ",
+    "ロマンシング・サガ2",
+    "7～モールモースの騎兵隊～",
+    "ヴィーナス&ブレイブス～魔女と女神と滅びの予言～",
+    "ザンキゼロ",
+    "ローグレガシー",
+    "ウイニングポスト",
+    "ダービースタリオン",
+    "チョコボスタリオン",
+    "ドラクエモンスターズ",
+    "女神転生",
+    "ペルソナ",
+    "モンスターファーム",
+    "ポケットモンスター",
+    "トーキョージャングル",
+    "動物番長",
+    "アストロノーカ",
+    "パワプロシリーズ（栄冠ナイン）",
+    "「ザ・シムズ」シリーズ",
+    "千年家族",
+    "ドラゴンクエスト5",
+    "ファイナルファンタジー5",
+    "テイルズオブデスティニー2",
+    "サガ フロンティア2",
+    "ファイアーエムブレム 聖戦の系譜",
+    "46億年物語",
+    "Spore",
+    "因習村祠破壊RTA",
+    "祠のゲーム"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:10",
+     "label": "俺の屍を越えてゆけ"
+    },
+    {
+     "time": "09:16",
+     "label": "ロマンシング・サガ2"
+    },
+    {
+     "time": "12:41",
+     "label": "7～モールモースの騎兵隊～"
+    },
+    {
+     "time": "22:18",
+     "label": "ザンキゼロ"
+    },
+    {
+     "time": "26:55",
+     "label": "ローグレガシー"
+    },
+    {
+     "time": "32:33",
+     "label": "動物・モンスターが世代交代"
+    },
+    {
+     "time": "35:54",
+     "label": "植物が世代交代"
+    },
+    {
+     "time": "38:27",
+     "label": "スポーツゲームで世代交代"
+    },
+    {
+     "time": "39:21",
+     "label": "シミュレーションゲームで世代交代"
+    },
+    {
+     "time": "40:57",
+     "label": "固定の世代交代"
+    },
+    {
+     "time": "43:19",
+     "label": "まとめ"
+    },
+    {
+     "time": "47:03",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "1:00:14",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:08:15",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/22-2720-e2q0dv0"
+   },
+   "guid": "d7f8377e-d68e-4211-8819-bf520d8a14bf",
+   "image": "assets/img/ep/22.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1729607413963-92ff0e262ed74.jpg"
+  },
+  {
+   "number": 23,
+   "title": "話したいカードゲームが多すぎる！ 次回「原神、カルドセプト、FF8、Balatro」デュエルスタンバイ！",
+   "date": "2024-10-30",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ゲーム内でカードゲームが遊べるものや、カードゲームそのものがメインとなっているゲームについてそこそこ語っています。",
+   "games": [
+    "七聖召喚（原神）",
+    "カルドセプトリボルト",
+    "いただきストリート",
+    "カードヒーロー",
+    "トリプルトライアド（FF8）",
+    "クアッドミスト（FF9）",
+    "Slay the Spire",
+    "Balatro",
+    "バテン・カイトス",
+    "ポケモンカードGB",
+    "栄冠ナイン（パワプロシリーズ）",
+    "ウィス（テイルズ オブ エターニア）",
+    "Pokémon Trading Card Game Pocket",
+    "Emberward",
+    "サガ フロンティア2",
+    "ファイアーエムブレムシリーズ",
+    "マジック：ザ・ギャザリング FINAL FANTASY",
+    "モンスターハンター ワイルズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:04",
+     "label": "七聖召喚（原神）"
+    },
+    {
+     "time": "14:51",
+     "label": "カルドセプトシリーズ"
+    },
+    {
+     "time": "23:36",
+     "label": "トリプルトライアド（FF8）"
+    },
+    {
+     "time": "34:57",
+     "label": "クアッドミスト（FF9）"
+    },
+    {
+     "time": "37:19",
+     "label": "Slay the Spire"
+    },
+    {
+     "time": "39:48",
+     "label": "Balatro"
+    },
+    {
+     "time": "54:41",
+     "label": "バテン・カイトス"
+    },
+    {
+     "time": "56:57",
+     "label": "その他のカードゲーム"
+    },
+    {
+     "time": "1:01:22",
+     "label": "Pokémon Trading Card Game Pocket（ポケポケ）"
+    },
+    {
+     "time": "1:04:37",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "1:11:03",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:21:59",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/23--FF8Balatro-e2qb5un"
+   },
+   "guid": "c0e7c095-7d18-42aa-8024-39e14ced0f66",
+   "image": "assets/img/ep/23.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1730291573261-dd0b9e2c9d5e6.jpg"
+  },
+  {
+   "number": 24,
+   "title": "ひと狩りいきました！ モンスターハンターワイルズ オープンβテスト",
+   "date": "2024-11-06",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "モンスターハンターワイルズのオープンβを滝壺の3人で遊んだので、その感想などの回です！",
+   "games": [
+    "モンスターハンターワイルズ",
+    "Feign",
+    "ファイナルファンタジーVI",
+    "Balatro",
+    "CalorieMate LIQUID FOR GAME CREATORS"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:48",
+     "label": "モンハンワイルズ"
+    },
+    {
+     "time": "37:29",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "49:29",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:27:38",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/24-e2qkgue"
+   },
+   "guid": "4bfdf68d-45d1-4f79-955e-a707416df8d2",
+   "image": "assets/img/ep/24.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1730892316907-b47bd8ab831fe.jpg"
+  },
+  {
+   "number": 25,
+   "title": "運否天賦じゃない！ あなたと一緒にロシアンルーレット！ Buckshot Roulette",
+   "date": "2024-11-13",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "仲間内でロシアンルーレットを遊んだ話をしています。",
+   "games": [
+    "Buckshot Roulette"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:53",
+     "label": "Buckshot Roulette"
+    },
+    {
+     "time": "14:32",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "34:30",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/25---Buckshot-Roulette-e2qsum4"
+   },
+   "guid": "ebba60bf-58e7-4331-b663-fb390e135681",
+   "image": "assets/img/ep/25.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1731438004162-ed71cb1e5b3f3.jpg"
+  },
+  {
+   "number": 26,
+   "title": "ドラクエ5の話をし始めて…そして夜が明けた！",
+   "date": "2024-11-20",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ドラクエ5の話、尽きません。",
+   "games": [
+    "ドラゴンクエストV 天空の花嫁"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:54",
+     "label": "ドラクエ5概要"
+    },
+    {
+     "time": "06:42",
+     "label": "好きなシーン（ネタバレ少なめ）"
+    },
+    {
+     "time": "24:19",
+     "label": "好きなモンスター"
+    },
+    {
+     "time": "36:55",
+     "label": "好きなBGM"
+    },
+    {
+     "time": "44:03",
+     "label": "システムの話"
+    },
+    {
+     "time": "46:58",
+     "label": "好きなシーン（ネタバレあり）"
+    },
+    {
+     "time": "1:09:47",
+     "label": "その他"
+    },
+    {
+     "time": "1:21:13",
+     "label": "まとめ"
+    },
+    {
+     "time": "1:23:16",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:53:01",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/26-5-e2r8909"
+   },
+   "guid": "d13cf14d-b3ea-4c48-a8b2-d18fddcabfe7",
+   "image": "assets/img/ep/26.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1732095159602-a6146ded6272.jpg"
+  },
+  {
+   "number": 27,
+   "title": "ゼルダの伝説 知恵のかりもの…その看板に偽りなし！",
+   "date": "2024-11-27",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "「ゼルダの伝説 知恵のかりもの」を夜中たわしがクリアした話に加え、3人がプレイしたゼルダシリーズについての思い出も語ります。",
+   "games": [
+    "ゼルダの伝説 知恵のかりもの",
+    "ゼルダの伝説シリーズ",
+    "ステータス確認探偵",
+    "ドラゴンクエストV",
+    "ファイナルファンタジーVI",
+    "balatro"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:22",
+     "label": "ゼルダの伝説 知恵のかりもの"
+    },
+    {
+     "time": "21:28",
+     "label": "イチィゴォーとゼルダ"
+    },
+    {
+     "time": "25:09",
+     "label": "ひゅうまとゼルダ"
+    },
+    {
+     "time": "32:21",
+     "label": "夜中たわしとゼルダ"
+    },
+    {
+     "time": "36:51",
+     "label": "まとめ"
+    },
+    {
+     "time": "37:54",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "43:36",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:10:29",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/27-e2rie3t"
+   },
+   "guid": "8d8cd431-7bbe-49cf-863d-934e41701459",
+   "image": "assets/img/ep/27.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1732689402517-632e600f50eb.jpg"
+  },
+  {
+   "number": 28,
+   "title": "SFCの売上ランキングTOP50について全部語る！ 3回目",
+   "date": "2024-12-04",
+   "date_estimated": false,
+   "tags": [
+    "SFC売上ランキング"
+   ],
+   "series": "sfc-ranking",
+   "description": "スーパーファミコンの売り上げランキングTOP50について全部語る！\nお待たせしました。3回目の挑戦です。\n前回でランキングが不思議のダンジョンになってしまったため、また初めから話せます！",
+   "games": [
+    "スーパーマリオカート",
+    "スーパーマリオワールド",
+    "ドラゴンクエスト6 幻の大地",
+    "スーパードンキーコング",
+    "ストリートファイター2",
+    "ドラゴンクエスト5 天空の花嫁",
+    "ファイナルファンタジー6",
+    "ファイナルファンタジー5",
+    "スーパードンキーコング2 ディクシー＆ディディー",
+    "スーパーマリオコレクション",
+    "ストリートファイター2ターボ",
+    "クロノ･トリガー",
+    "スーパードンキーコング3 謎のクレミス島",
+    "スーパーマリオ ヨッシーアイランド",
+    "すーぱーぷよぷよ",
+    "聖剣伝説2",
+    "スーパーマリオRPG",
+    "ドラゴンボールZ 超武闘伝",
+    "ファイナルファンタジー4",
+    "ドラゴンクエスト3 そして伝説へ…",
+    "ロマンシング サ･ガ3",
+    "スーパーストリートファイター2",
+    "ダービースタリオン3",
+    "ドラゴンクエスト1・2",
+    "ドラゴンボールZ 超武闘伝2",
+    "ロマンシング サ･ガ2",
+    "ゼルダの伝説 神々のトライフォース",
+    "ダービースタリオン96",
+    "マリオのスーパーピクロス",
+    "Ever17",
+    "Buckshot Roulette"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "04:17",
+     "label": "第1位 スーパーマリオカート"
+    },
+    {
+     "time": "05:17",
+     "label": "第2位 スーパーマリオワールド"
+    },
+    {
+     "time": "06:31",
+     "label": "第3位 ドラクエ6"
+    },
+    {
+     "time": "07:38",
+     "label": "第4位 スーパードンキーコング"
+    },
+    {
+     "time": "10:04",
+     "label": "第5位 スト2"
+    },
+    {
+     "time": "12:18",
+     "label": "第6位 ドラクエ5"
+    },
+    {
+     "time": "13:23",
+     "label": "第7位 FF6"
+    },
+    {
+     "time": "14:53",
+     "label": "第8位 FF5"
+    },
+    {
+     "time": "15:49",
+     "label": "第9位 スーパードンキーコング2"
+    },
+    {
+     "time": "17:30",
+     "label": "第10位 スーパーマリオコレクション"
+    },
+    {
+     "time": "18:21",
+     "label": "第11位 スト2ターボ"
+    },
+    {
+     "time": "18:53",
+     "label": "第12位 クロノ･トリガー"
+    },
+    {
+     "time": "20:30",
+     "label": "第13位 スーパードンキーコング3"
+    },
+    {
+     "time": "21:35",
+     "label": "第14位 ヨッシーアイランド"
+    },
+    {
+     "time": "23:04",
+     "label": "第15位 すーぱーぷよぷよ"
+    },
+    {
+     "time": "26:09",
+     "label": "第16位 聖剣伝説2"
+    },
+    {
+     "time": "30:16",
+     "label": "第17位 スーパーマリオRPG"
+    },
+    {
+     "time": "34:57",
+     "label": "第18位 ドラゴンボールZ 超武闘伝"
+    },
+    {
+     "time": "38:37",
+     "label": "第19位 FF4"
+    },
+    {
+     "time": "40:18",
+     "label": "第20位 ドラクエ3"
+    },
+    {
+     "time": "45:25",
+     "label": "第21位 ロマサガ3"
+    },
+    {
+     "time": "47:22",
+     "label": "第22位 スーパースト2"
+    },
+    {
+     "time": "48:39",
+     "label": "第23位 ダビスタ3"
+    },
+    {
+     "time": "51:46",
+     "label": "第24位 ドラクエ1・2"
+    },
+    {
+     "time": "54:03",
+     "label": "第25位 ドラゴンボールZ 超武闘伝2"
+    },
+    {
+     "time": "59:00",
+     "label": "第26位 ロマサガ2"
+    },
+    {
+     "time": "1:00:22",
+     "label": "第27位 ゼルダの伝説 神々のトライフォース"
+    },
+    {
+     "time": "1:04:19",
+     "label": "第28位 ダビスタ96"
+    },
+    {
+     "time": "1:07:24",
+     "label": "SFCまとめ"
+    },
+    {
+     "time": "1:07:59",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "1:11:04",
+     "label": "YourGOTY紹介"
+    },
+    {
+     "time": "1:14:43",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:25:27",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/28-SFCTOP50-3-e2rs3rk"
+   },
+   "guid": "bfa1fb63-63c7-49e4-9c7d-ad8efe3467ec",
+   "image": "assets/img/ep/28.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1733300842810-8627a878a9892.jpg"
+  },
+  {
+   "number": 29,
+   "title": "PlayStation30周年記念！ 初代プレステの思い出でレベルアップ！（ゲスト：YUSUKEさん）",
+   "date": "2024-12-11",
+   "date_estimated": false,
+   "tags": [
+    "記念回",
+    "ゲスト回"
+   ],
+   "series": null,
+   "description": "PlayStation30周年記念！ 初代プレイステーションの思い出を、ゲームライフレベルアップのYUSUKEさんを招いて語らいます。",
+   "games": [
+    "ファイナルファンタジー7",
+    "ヴァンダルハーツ～失われた古代文明～",
+    "バイオハザード",
+    "ワイルドアームズ",
+    "スーパーロボット大戦α",
+    "ポポロクロイス物語",
+    "サイレントボマー",
+    "パラッパラッパー",
+    "モンスターファーム",
+    "ドラゴンクエスト7",
+    "テイルズオブエターニア",
+    "GRIS",
+    "スマッシュT.V.",
+    "コールオブデューティーシリーズ",
+    "ポータル2",
+    "アンチャーテッドシリーズ",
+    "スーパーチャイニーズワールドシリーズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:13",
+     "label": "プレステとは"
+    },
+    {
+     "time": "04:08",
+     "label": "ひゅうまの思い出"
+    },
+    {
+     "time": "15:08",
+     "label": "YUSUKEさんの思い出"
+    },
+    {
+     "time": "27:13",
+     "label": "イチィゴォーの思い出"
+    },
+    {
+     "time": "35:30",
+     "label": "夜中たわしの思い出"
+    },
+    {
+     "time": "46:34",
+     "label": "まとめ"
+    },
+    {
+     "time": "47:33",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "55:30",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:38:29",
+     "label": "質問コーナー"
+    },
+    {
+     "time": "1:57:25",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/29-PlayStation30-YUSUKE-e2s66bs"
+   },
+   "guid": "dd13359f-27db-4777-a53d-d92b3e4cad84",
+   "image": "assets/img/ep/29.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1733890677610-133318d50232d.jpg"
+  },
+  {
+   "number": 30,
+   "title": "Staffer Case:超能力推理アドベンチャー、Q2 HUMANITY、ゼンレスゾーンゼロ…滝壺GOTY2024！",
+   "date": "2024-12-18",
+   "date_estimated": false,
+   "tags": [
+    "GOTY"
+   ],
+   "series": null,
+   "description": "滝壺の3人がそれぞれのGOTY（ゲーム・オブ・ザ・イヤー）2024を発表します！",
+   "games": [
+    "Staffer Case:超能力推理アドベンチャー",
+    "不思議のダンジョン 風来のシレン6 とぐろ島探検録",
+    "Q2 HUMANITY",
+    "ゼンレスゾーンゼロ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:25",
+     "label": "たわしのGOTY"
+    },
+    {
+     "time": "17:34",
+     "label": "イチィゴォーのGOTY"
+    },
+    {
+     "time": "33:52",
+     "label": "ひゅうまのGOTY"
+    },
+    {
+     "time": "51:47",
+     "label": "まとめ"
+    },
+    {
+     "time": "53:47",
+     "label": "The Game Awards 2024の話"
+    },
+    {
+     "time": "1:09:40",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:33:33",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/30-Staffer-CaseQ2-HUMANITYGOTY2024-e2sfh4v"
+   },
+   "guid": "06b4121c-ab13-474b-be91-2f8c1c629d50",
+   "image": "assets/img/ep/30.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1734501731934-3a5c970eb0b9b.jpg"
+  },
+  {
+   "number": 31,
+   "title": "まったく新しいゲームを考えよう！ 2024冬（unity1week）",
+   "date": "2024-12-25",
+   "date_estimated": false,
+   "tags": [
+    "unity1week"
+   ],
+   "series": null,
+   "description": "ランダムなワードから即興でまったく新しいゲームを生み出すぞ！（2回目）\n\n※Unity1週間ゲームジャム（unity1week）に作品提出するためのアイデア出し回です",
+   "games": [
+    "どんでん返しハンバーグ",
+    "ぎゃる☆がん",
+    "ネタバレが激しすぎるＲＰＧ―最後の敵の正体は勇者の父―",
+    "リアルサウンド～風のリグレット～（Audible版）",
+    "Q2 HUMANITY",
+    "Portal",
+    "Portal 2"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "04:36",
+     "label": "まったく新しいゲームを考えよう"
+    },
+    {
+     "time": "06:32",
+     "label": "迷惑始球式"
+    },
+    {
+     "time": "07:49",
+     "label": "デート専用電気ショック"
+    },
+    {
+     "time": "09:20",
+     "label": "医療機器から始まる恋もある"
+    },
+    {
+     "time": "11:39",
+     "label": "現行犯の照り焼き"
+    },
+    {
+     "time": "12:13",
+     "label": "メッセージの隠された紙やすり"
+    },
+    {
+     "time": "13:20",
+     "label": "ローリング試験勉強"
+    },
+    {
+     "time": "14:48",
+     "label": "QR決済流れ作業"
+    },
+    {
+     "time": "16:45",
+     "label": "海上の指相撲"
+    },
+    {
+     "time": "17:45",
+     "label": "握力コミュニケーション"
+    },
+    {
+     "time": "19:14",
+     "label": "土下座金融市場"
+    },
+    {
+     "time": "21:22",
+     "label": "抽選美女"
+    },
+    {
+     "time": "22:35",
+     "label": "ペロペロ方向転換"
+    },
+    {
+     "time": "24:00",
+     "label": "マッスル石油王"
+    },
+    {
+     "time": "26:18",
+     "label": "耳対決"
+    },
+    {
+     "time": "28:29",
+     "label": "ラブアンド潔癖症"
+    },
+    {
+     "time": "30:42",
+     "label": "迅速両思い"
+    },
+    {
+     "time": "31:55",
+     "label": "まとめ"
+    },
+    {
+     "time": "34:18",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "40:30",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "56:59",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/31--2024unity1week-e2sn70b"
+   },
+   "guid": "9bc0811e-d070-4baa-8c27-1117745b608d",
+   "image": "assets/img/ep/31.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1735047349001-d37785bccde4a.jpg"
+  },
+  {
+   "number": 32,
+   "title": "メタルギア、チョコボコレクション、バニーガーデン…今夜決定！ 十二支たちにふさわしいゲーム！！",
+   "date": "2025-01-01",
+   "date_estimated": false,
+   "tags": [
+    "ふさわしいゲーム"
+   ],
+   "series": "fusawashii",
+   "description": "年も明けたということで、十二支それぞれを代表するゲームを決めちゃいます！",
+   "games": [
+    "ねずみくす",
+    "ソニックアドベンチャー",
+    "ミッキーのマジカルアドベンチャー",
+    "マッピー",
+    "チューチューロケット",
+    "ポケットモンスター ピカチュウ",
+    "ポケットモンスター金銀クリスタル",
+    "塊魂",
+    "牧場物語",
+    "風来のシレン",
+    "Hand Simulator（MILKMAID）",
+    "焼肉シミュレーター",
+    "龍虎の拳",
+    "Tiger Simulator",
+    "鉄拳",
+    "阪神タイガースDS",
+    "Super Bunny Man",
+    "バニーガーデン",
+    "スーパーマリオランド2 六つの金貨",
+    "初代ドラゴンクエスト",
+    "龍が如く",
+    "ブレス オブ ファイア",
+    "メタルギアソリッド",
+    "スリザリオ",
+    "救え！邪神ちゃんドロップキック",
+    "もんすたあ★レース",
+    "モンスターファーム",
+    "カエルのために鐘は鳴る",
+    "ダービースタリオン",
+    "ウマ娘 プリティーダービー",
+    "Ultimate Chicken Horse",
+    "うまのプリンスさま",
+    "Ultimate Sheep Raccoon",
+    "Cult of the Lamb",
+    "Goat Simulator",
+    "シェフィ",
+    "ドンキーコング",
+    "桃太郎伝説",
+    "さるも木からおちる（ツクダオリジナル）",
+    "スーパーモンキーボール",
+    "サルゲッチュ",
+    "プロゴルファー猿",
+    "チョコボコレクション",
+    "はーとふる彼氏",
+    "ゼルダの伝説",
+    "Ells Tales: Egg",
+    "犬 犬",
+    "HUMANITY",
+    "メタルドッグス",
+    "nintendogs",
+    "Fallout 3",
+    "大神",
+    "「ぶたゲー」でいいんじゃない？",
+    "モンスターハンター",
+    "ダークソウル",
+    "遊戯王",
+    "CLANNAD",
+    "DESU DESU -A Flying Boar-（えとたま）",
+    "ニーアオートマタ",
+    "ベイブ・アンド・フレンズ",
+    "Wild Terrain",
+    "ネコ・トモ",
+    "どこでもいっしょ",
+    "Stray",
+    "CATLY",
+    "ねこあつめ",
+    "にゃんこ大戦争",
+    "ネコぱら"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:16",
+     "label": "ネズミ年"
+    },
+    {
+     "time": "08:39",
+     "label": "ウシ年"
+    },
+    {
+     "time": "15:02",
+     "label": "トラ年"
+    },
+    {
+     "time": "20:42",
+     "label": "ウサギ年"
+    },
+    {
+     "time": "24:41",
+     "label": "タツ年"
+    },
+    {
+     "time": "27:11",
+     "label": "ヘビ年"
+    },
+    {
+     "time": "30:49",
+     "label": "ウマ年"
+    },
+    {
+     "time": "33:47",
+     "label": "ヒツジ年"
+    },
+    {
+     "time": "37:19",
+     "label": "サル年"
+    },
+    {
+     "time": "39:23",
+     "label": "トリ年"
+    },
+    {
+     "time": "42:52",
+     "label": "イヌ年"
+    },
+    {
+     "time": "46:29",
+     "label": "イノシシ年"
+    },
+    {
+     "time": "53:39",
+     "label": "ネコ年（おまけ）"
+    },
+    {
+     "time": "56:21",
+     "label": "まとめ"
+    },
+    {
+     "time": "58:28",
+     "label": "unity1week結果"
+    },
+    {
+     "time": "1:08:14",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:17:01",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/32-e2sukpb"
+   },
+   "guid": "0c9a5106-5530-4a56-a6d6-c65a3ff09dd2",
+   "image": "assets/img/ep/32.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1735718113604-c6c5e541e11e5.jpg"
+  },
+  {
+   "number": 33,
+   "title": "スケールのデカいゲーム！！！！！！",
+   "date": "2025-01-08",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "新年となればやはり勢いをつけるために、で～～～っかい話をしておきたい！！\n色々とスケールのデカいゲーム、取り揃えております。",
+   "games": [
+    "スターオーシャン3 Till the End of Time",
+    "The Amazing Shrinking Giraffe",
+    "7～モールモースの騎兵隊～",
+    "ロマンシング サガ2",
+    "俺の屍を越えてゆけ",
+    "46億年物語",
+    "ドラゴンクエストシリーズ",
+    "FF4・FF5・FF8",
+    "ロックマンDASH2",
+    "スーパーマリオオデッセイ",
+    "テイルズ オブ エターニア",
+    "スーパーマリオギャラクシー",
+    "みんな大好き塊魂",
+    "Outer Wilds",
+    "No Man's Sky",
+    "ワンダと巨像",
+    "ゼルダの伝説 ムジュラの仮面",
+    "アスラズ ラース",
+    "桃太郎電鉄16 北海道大移動の巻！",
+    "天地創造",
+    "ブレイブリーデフォルト",
+    "土下座金融市場",
+    "時速1000kmの牛"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:57",
+     "label": "スターオーシャン3 Till the End of Time"
+    },
+    {
+     "time": "11:42",
+     "label": "The Amazing Shrinking Giraffe"
+    },
+    {
+     "time": "15:54",
+     "label": "時間のスケールがデカいゲーム"
+    },
+    {
+     "time": "19:03",
+     "label": "行動範囲のスケールがデカいゲーム"
+    },
+    {
+     "time": "29:50",
+     "label": "敵のスケールがデカいゲーム"
+    },
+    {
+     "time": "33:23",
+     "label": "やることのスケールがデカいゲーム"
+    },
+    {
+     "time": "37:05",
+     "label": "まとめ"
+    },
+    {
+     "time": "38:20",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "45:24",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "50:48",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/33-e2t7eta"
+   },
+   "guid": "3953a222-3e39-4285-ba4e-3bdcd3916553",
+   "image": "assets/img/ep/33.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1736335627103-679acbd291f96.jpg"
+  },
+  {
+   "number": 34,
+   "title": "君は知っているか？！ ダイナウォーズ 恐竜王国への大冒険",
+   "date": "2025-01-15",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "知る人ぞ知るSFCソフト「ダイナウォーズ 恐竜王国への大冒険」について語ります！\nコーナーでは動物達が命がけのギャンブルに挑むLiar's Barについても紹介しています。",
+   "games": [
+    "ダイナウォーズ 恐竜王国への大冒険",
+    "Liar's Bar",
+    "寿司王",
+    "→ios",
+    "→Android"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:57",
+     "label": "ダイナウォーズ 恐竜王国への大冒険"
+    },
+    {
+     "time": "33:10",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "46:00",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:11:02",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/34-e2th9pj"
+   },
+   "guid": "3501862e-3cb3-48c7-abc9-50270c6477b1",
+   "image": "assets/img/ep/34.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1736944825441-9534159872ba4.jpg"
+  },
+  {
+   "number": 35,
+   "title": "滝壺メンバーが選ぶサイコーレビュー！ YourGOTY2024レビュー投稿キャンペーン",
+   "date": "2025-01-22",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ゲームの滝壺が選んだYourGOTY2024レビュー3本+10本を大紹介！\nニンテンドースイッチ2の話（個人的見解）とあの生徒会に入った話も！",
+   "games": [
+    "どんでん返しハンバーグ",
+    "土下座金融市場",
+    "ダイナマイト刑事",
+    "HUNDRED LINE -最終防衛学園"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:59",
+     "label": "イチィゴォーの推しレビュー"
+    },
+    {
+     "time": "11:07",
+     "label": "ひゅうまの推しレビュー"
+    },
+    {
+     "time": "20:26",
+     "label": "夜中たわしの推しレビュー"
+    },
+    {
+     "time": "31:03",
+     "label": "まとめ"
+    },
+    {
+     "time": "31:47",
+     "label": "その他紹介したいレビュー"
+    },
+    {
+     "time": "49:46",
+     "label": "ニンテンドースイッチ2の話"
+    },
+    {
+     "time": "1:01:20",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:17:54",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/35--YourGOTY2024-e2tqt02"
+   },
+   "guid": "b122c9a3-7fe5-405f-a252-e17906874f2a",
+   "image": "assets/img/ep/35.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1737544838485-f7a7c7f003f38.jpg"
+  },
+  {
+   "number": 36,
+   "title": "【かにみそ】魔界戦記ディスガイアシリーズ【やきぶた】",
+   "date": "2025-01-29",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ディスガイア、単にデカいダメージが出るだけのゲームと誤解していませんか……？",
+   "games": [
+    "魔界戦記ディスガイアシリーズ",
+    "ラ・ピュセル 光の聖女伝説",
+    "ファントム・ブレイブ",
+    "ファントム・ブレイブ 幽霊船団と消えた英雄",
+    "ファントム・キングダム",
+    "ソウルクレイドル 世界を喰らう者",
+    "King of the Hat（キング・オブ・ザ・ハット）",
+    "RrrrrAbbits（ララララビッツ）"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:43",
+     "label": "魔界戦記ディスガイアシリーズ概要"
+    },
+    {
+     "time": "31:22",
+     "label": "イチィゴォーとディスガイア"
+    },
+    {
+     "time": "41:32",
+     "label": "ひゅうまとディスガイア"
+    },
+    {
+     "time": "57:27",
+     "label": "たわしとディスガイア"
+    },
+    {
+     "time": "59:00",
+     "label": "まとめ"
+    },
+    {
+     "time": "1:03:24",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "1:12:00",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:33:20",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/36-e2u4kqu"
+   },
+   "guid": "97a37bd4-11b1-4d20-85fc-3abfe5908a57",
+   "image": "assets/img/ep/36.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1738128346537-d683bcb35bfde.jpg"
+  },
+  {
+   "number": 37,
+   "title": "いいゲーム音楽を語る！ ～イチィゴォーの巻～ 逆転裁判、クロノ・トリガー、てってってー…",
+   "date": "2025-02-05",
+   "date_estimated": false,
+   "tags": [
+    "ゲーム音楽"
+   ],
+   "series": null,
+   "description": "今回はいいゲーム音楽がテーマ！ 当初3人それぞれのいい音楽を話す予定でしたが、結果はタイトルのとおりです。\nゲーム音楽絡みで新コーナーも始まります！ リスナー参加型なので、ぜひおたよりをお寄せください。",
+   "games": [
+    "逆転裁判シリーズ",
+    "大逆転裁判",
+    "クロノ・トリガー",
+    "ドラゴンクエストVI",
+    "Ever17",
+    "STEINS;GATE（シュタインズ・ゲート）",
+    "ブレス オブ ファイアIII",
+    "アイドルマスター",
+    "ライブ・ア・ライブ",
+    "ストリートファイターII",
+    "グランブルーファンタジー",
+    "ファイナルファンタジーVII",
+    "ペルソナ4",
+    "ファイナルファンタジーXIII",
+    "ファイナルファンタジーVI",
+    "ロマンシング サ・ガ3",
+    "悪魔城すぺしゃる ぼくドラキュラくん",
+    "漢字でGO! 集英社マンガ祭",
+    "Linelith",
+    "Patrick's Parabox",
+    "The Witness",
+    "魔界戦記ディスガイアシリーズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:26",
+     "label": "イチィゴォーのゲーム音楽"
+    },
+    {
+     "time": "24:13",
+     "label": "ハジメさんのプレイリストを見よう"
+    },
+    {
+     "time": "34:06",
+     "label": "ゲーム音楽まとめ"
+    },
+    {
+     "time": "34:56",
+     "label": "新コーナーのお知らせ"
+    },
+    {
+     "time": "41:11",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "50:16",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:10:26",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/37-e2uf08j"
+   },
+   "guid": "5d3f8ffd-7c29-4ea7-b6ff-2bc7fa6f0989",
+   "image": "assets/img/ep/37.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1738756645463-c6610648e8074.jpg"
+  },
+  {
+   "number": 38,
+   "title": "わるい村",
+   "date": "2025-02-12",
+   "date_estimated": false,
+   "tags": [
+    "わるい村"
+   ],
+   "series": "waruimura",
+   "description": "わるい村警察、出動します。\nこのテーマ、想像されてるタイプの村とはちょっと違うかも。",
+   "games": [
+    "ドラゴンクエストシリーズ",
+    "ファイナルファンタジーシリーズ",
+    "テイルズオブグレイセス",
+    "アリス・ギア・アイギス",
+    "確定申告を頑張るRPG",
+    "魔界戦記ディスガイアシリーズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "04:10",
+     "label": "わるい村"
+    },
+    {
+     "time": "21:51",
+     "label": "まとめ"
+    },
+    {
+     "time": "27:21",
+     "label": "滝壺ゲーム音楽ランキング"
+    },
+    {
+     "time": "33:53",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "42:24",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:10:20",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/38-e2untno"
+   },
+   "guid": "54dfebfa-c8b5-44a8-8333-d7a545351b85",
+   "image": "assets/img/ep/38.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1739296347517-85414ee5a9956.jpg"
+  },
+  {
+   "number": 39,
+   "title": "いいゲーム音楽を語る！ ～ひゅうまの書～ ロックマン、東方シリーズ、テイルズオブエターニア…",
+   "date": "2025-02-19",
+   "date_estimated": false,
+   "tags": [
+    "ゲーム音楽"
+   ],
+   "series": null,
+   "description": "ひゅうまの選ぶいいゲーム音楽が、あなたの記憶を掘り起こします……",
+   "games": [
+    "星のカービィ スーパーデラックス",
+    "スーパーマリオランド",
+    "スーパーマリオワールド",
+    "スーパーマリオブラザーズ3",
+    "ヨッシーアイランド",
+    "ファイナルファンタジーVII",
+    "ファイナルファンタジーVIII",
+    "ドラゴンクエストVI",
+    "テイルズ オブ エターニア",
+    "東方シリーズ",
+    "ロックマンシリーズ",
+    "ドラゴンクエストモンスターズ テリーのワンダーランド",
+    "モンスターファーム2",
+    "UNDERTALE",
+    "ポケットモンスター ソード・シールド",
+    "アイドルマスター ミリオンライブ！ シアターデイズ",
+    "ウマ娘 プリティーダービー",
+    "サガ・フロンティア2",
+    "ロマンシング サ・ガ3",
+    "ブレス オブ ファイアシリーズ",
+    "悪魔城ドラキュラシリーズ",
+    "界の軌跡",
+    "都市伝説解体センター",
+    "HUNDRED LINE -最終防衛学園-（Steam版）"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:10",
+     "label": "ひゅうまのゲーム音楽"
+    },
+    {
+     "time": "39:36",
+     "label": "サチコさんのゲーム音楽"
+    },
+    {
+     "time": "48:00",
+     "label": "滝壺ゲーム音楽ランキング"
+    },
+    {
+     "time": "58:36",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:17:58",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/39-e2v3bje"
+   },
+   "guid": "75643f4b-b584-481f-ac2d-de6c5013185f",
+   "image": "assets/img/ep/39.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1739972849757-36be23966bcc8.jpg"
+  },
+  {
+   "number": 40,
+   "title": "HUNDRED LINE -最終防衛学園-（ハンドレッドライン）体験版について生徒会役員から報告です",
+   "date": "2025-02-26",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "HUNDRED LINE -最終防衛学園-の体験版を遊んだ感想を、生徒会役員からお伝えします！",
+   "games": [
+    "HUNDRED LINE -最終防衛学園-（Steam版）",
+    "Block'Em!",
+    "ポケットモンスター赤緑青ピカチュウ",
+    "ファイナルファンタジーVII",
+    "東方永夜抄",
+    "スーパーマリオランド",
+    "ロックマンX",
+    "ダイナウォーズ",
+    "ヘラクレスの栄光3",
+    "いっき",
+    "アイドルマスターシリーズ",
+    "未解決事件は終わらせないといけないから"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:04",
+     "label": "HUNDRED LINE -最終防衛学園-（体験版）"
+    },
+    {
+     "time": "22:03",
+     "label": "滝壺ゲーム音楽ランキング"
+    },
+    {
+     "time": "30:11",
+     "label": "3分ゲーム紹介"
+    },
+    {
+     "time": "37:34",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:13:24",
+     "label": "滝壺アートワーククイズ"
+    },
+    {
+     "time": "1:22:23",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/40-HUNDRED-LINE----e2vdj6m"
+   },
+   "guid": "78c8cea5-472f-4aeb-a9bf-f75f6fa3c345",
+   "image": "assets/img/ep/40.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1740578253578-bf662deb7923e.jpg"
+  },
+  {
+   "number": 41,
+   "title": "不要な怪異は都市伝説解体センターへ！ メガネは必要！！（イチィゴォー談）",
+   "date": "2025-03-05",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "都市伝説解体センターについてネタバレなしで感想を話します！",
+   "games": [
+    "都市伝説解体センター",
+    "ゴーストトリック",
+    "HUNDRED LINE -最終防衛学園",
+    "ロマンシング サガ3",
+    "ウマ娘 プリティーダービー",
+    "モンスターハンターワイルズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:03",
+     "label": "都市伝説解体センター"
+    },
+    {
+     "time": "17:53",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "22:33",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "29:21",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "33:17",
+     "label": "滝壺ゲーム音楽ランキング"
+    },
+    {
+     "time": "37:58",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/41-e2vnsve"
+   },
+   "guid": "78657029-9d03-41ea-af75-2bd32612178c",
+   "image": "assets/img/ep/41.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1741174543343-bc936730033db.jpg"
+  },
+  {
+   "number": 42,
+   "title": "一方その頃、FF4はダチョウを使った…あの素晴らしいゲームCMをもう一度",
+   "date": "2025-03-12",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "あの頃（90年代～00年代）のゲームCMについて語っております！",
+   "games": [
+    "ブレス オブ ファイアIII",
+    "ロックマンDASH",
+    "スーパードンキーコング2",
+    "モンスターファーム2",
+    "ファイナルファンタジーVIII",
+    "塊魂",
+    "MOTHER2 ギーグの逆襲",
+    "ファイナルファンタジーIV",
+    "ファイナルファンタジーVI",
+    "ファイナルファンタジーV",
+    "ファイナルファンタジーXII（ポーション）",
+    "ジャンボ尾崎のホールインワン",
+    "（ロッピー先生）",
+    "スーパーマリオRPG",
+    "もんすたあ★レース",
+    "ピクミン",
+    "ピカチュウげんきでちゅう",
+    "マリオテニス64",
+    "バイオハザード CODE:Veronica",
+    "SIREN",
+    "ウンジャマ・ラミー",
+    "ゼルダの伝説 神々のトライフォース",
+    "影牢 ～刻命館 真章～",
+    "HUNDRED LINE -最終防衛学園",
+    "Ever 17 - The Out of Infinity",
+    "Never 7 - The End of Infinity",
+    "真・三國無双",
+    "都市伝説解体センター",
+    "流行り神",
+    "モンスターハンターワイルズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:06",
+     "label": "イチィゴォーの選ぶCM"
+    },
+    {
+     "time": "13:48",
+     "label": "夜中たわしの選ぶCM"
+    },
+    {
+     "time": "23:31",
+     "label": "ひゅうまの選ぶCM"
+    },
+    {
+     "time": "43:15",
+     "label": "サチコさんの選ぶCM"
+    },
+    {
+     "time": "48:27",
+     "label": "CMまとめ"
+    },
+    {
+     "time": "50:00",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "56:42",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:04:38",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:14:13",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/42-FF4CM-e301vh6"
+   },
+   "guid": "6b77d2b2-0a2e-4013-b882-c1761a1f3a1b",
+   "image": "assets/img/ep/42.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1741749512427-0fd5e4dc7d61f.jpg"
+  },
+  {
+   "number": 43,
+   "title": "モンスターハンターワイルズ「いいハンターってやつは動物に好かれちまうんだ 網タイツも履いちまうんだ」",
+   "date": "2025-03-19",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "モンハンワイルズの良いところから悪いところまで、クリア済みの3人が語ります。",
+   "games": [
+    "モンスターハンターワイルズ",
+    "ブレス オブ ファイアIII",
+    "ストリートファイターZERO2",
+    "スーパーマリオカート",
+    "（せがた三四郎）",
+    "流行り神",
+    "真・流行り神",
+    "都市伝説解体センター",
+    "Untitled Goose Game ?いたずらガチョウがやって来た！",
+    "グランブルーファンタジー",
+    "クロノ・トリガー"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:38",
+     "label": "モンスターハンターワイルズ"
+    },
+    {
+     "time": "1:14:35",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:43:43",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:47:55",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/43-e30cev0"
+   },
+   "guid": "fe14972d-a59c-4c6a-8e23-5df9fecb6cd1",
+   "image": "assets/img/ep/43.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1742369571356-a86e9f649b81b.jpg"
+  },
+  {
+   "number": 44,
+   "title": "SFCの売上ランキングTOP50について全部語る！ 4回目（最終回）スーパーファミコンよ永遠なれ",
+   "date": "2025-03-26",
+   "date_estimated": false,
+   "tags": [
+    "SFC売上ランキング"
+   ],
+   "series": "sfc-ranking",
+   "description": "スーパーファミコンの売り上げランキングTOP50について全部語る！\nお待たせしました。ついに完結です。やりきりました！\n寝ます。",
+   "games": [],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "04:43",
+     "label": "第1位 スーパーマリオカート"
+    },
+    {
+     "time": "06:17",
+     "label": "第2位 スーパーマリオワールド"
+    },
+    {
+     "time": "07:47",
+     "label": "第3位 ドドラゴンクエスト6 幻の大地"
+    },
+    {
+     "time": "09:02",
+     "label": "第4位 スーパードンキーコング"
+    },
+    {
+     "time": "12:02",
+     "label": "第5位 ストリートファイター2"
+    },
+    {
+     "time": "13:10",
+     "label": "第6位 ドラゴンクエスト5 天空の花嫁"
+    },
+    {
+     "time": "14:48",
+     "label": "第7位 ファイナルファンタジー6"
+    },
+    {
+     "time": "15:46",
+     "label": "第8位 ファイナルファンタジー5"
+    },
+    {
+     "time": "16:08",
+     "label": "第9位 スーパードンキーコング2 ディクシー＆ディディー"
+    },
+    {
+     "time": "16:41",
+     "label": "第10位 スーパーマリオコレクション"
+    },
+    {
+     "time": "18:09",
+     "label": "第11位 ストリートファイター2ターボ"
+    },
+    {
+     "time": "18:58",
+     "label": "第12位 クロノ･トリガー"
+    },
+    {
+     "time": "20:49",
+     "label": "第13位 スーパードンキーコング3 謎のクレミス島"
+    },
+    {
+     "time": "21:45",
+     "label": "第14位 スーパーマリオ ヨッシーアイランド"
+    },
+    {
+     "time": "23:27",
+     "label": "第15位 すーぱーぷよぷよ"
+    },
+    {
+     "time": "25:19",
+     "label": "第16位 聖剣伝説2"
+    },
+    {
+     "time": "27:00",
+     "label": "第17位 スーパーマリオRPG"
+    },
+    {
+     "time": "29:02",
+     "label": "第18位 ドラゴンボールZ 超武闘伝"
+    },
+    {
+     "time": "30:05",
+     "label": "第19位 ファイナルファンタジー4"
+    },
+    {
+     "time": "31:51",
+     "label": "第20位 ドラゴンクエスト3 そして伝説へ…"
+    },
+    {
+     "time": "32:56",
+     "label": "第21位 ロマンシング サ･ガ3"
+    },
+    {
+     "time": "33:50",
+     "label": "第22位 スーパーストリートファイター2"
+    },
+    {
+     "time": "36:00",
+     "label": "第23位 ダービースタリオン3"
+    },
+    {
+     "time": "37:03",
+     "label": "第24位 ドラゴンクエスト1・2"
+    },
+    {
+     "time": "38:54",
+     "label": "第25位 ドラゴンボールZ 超武闘伝2"
+    },
+    {
+     "time": "40:01",
+     "label": "第26位 ロマンシング サ･ガ2"
+    },
+    {
+     "time": "40:46",
+     "label": "第27位 ゼルダの伝説 神々のトライフォース"
+    },
+    {
+     "time": "42:00",
+     "label": "第28位 ダービースタリオン96"
+    },
+    {
+     "time": "43:57",
+     "label": "第29位 星のカービィ スーパーデラックス"
+    },
+    {
+     "time": "47:51",
+     "label": "第30位 ロマンシング サ･ガ"
+    },
+    {
+     "time": "49:24",
+     "label": "第31位 F-ZERO エフゼロ"
+    },
+    {
+     "time": "51:25",
+     "label": "第32位 シムシティー"
+    },
+    {
+     "time": "53:35",
+     "label": "第33位 ドラゴンボールZ 超武闘伝3"
+    },
+    {
+     "time": "56:11",
+     "label": "第34位 スターフォックス"
+    },
+    {
+     "time": "58:51",
+     "label": "第35位 トルネコの大冒険 不思議のダンジョン"
+    },
+    {
+     "time": "1:03:08",
+     "label": "第36位 聖剣伝説3"
+    },
+    {
+     "time": "1:05:08",
+     "label": "第37位 ファイアーエムブレム 紋章の謎"
+    },
+    {
+     "time": "1:08:41",
+     "label": "第38位 スーパーメトロイド"
+    },
+    {
+     "time": "1:10:21",
+     "label": "第39位 かまいたちの夜"
+    },
+    {
+     "time": "1:11:59",
+     "label": "第40位 ミニ四駆 シャイニングスコーピオン レッツ＆ゴー!!"
+    },
+    {
+     "time": "1:18:01",
+     "label": "第41位 タクティクスオウガ"
+    },
+    {
+     "time": "1:20:13",
+     "label": "第42位 パイロットウイングス"
+    },
+    {
+     "time": "1:23:18",
+     "label": "第43位 バハムートラグーン"
+    },
+    {
+     "time": "1:27:12",
+     "label": "第44位 ファイアーエムブレム 聖戦の系譜"
+    },
+    {
+     "time": "1:28:50",
+     "label": "第45位 アクトレイザー"
+    },
+    {
+     "time": "1:31:48",
+     "label": "第46位 スーパーファミスタ5"
+    },
+    {
+     "time": "1:33:50",
+     "label": "第47位 第4次スーパーロボット大戦"
+    },
+    {
+     "time": "1:35:13",
+     "label": "第48位 スーパーロボット大戦EX"
+    },
+    {
+     "time": "1:37:19",
+     "label": "第49位 星のカービィ3"
+    },
+    {
+     "time": "1:41:47",
+     "label": "第50位 スーパーボンバーマン4"
+    },
+    {
+     "time": "1:47:19",
+     "label": "SFCランキングまとめ"
+    },
+    {
+     "time": "1:49:43",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/44-SFCTOP50-4-e30mm2l"
+   },
+   "guid": "937d0a67-1415-4506-b778-23ff89c51352",
+   "image": "assets/img/ep/44.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1742996002587-cdab33aaeb093.jpg"
+  },
+  {
+   "number": 45,
+   "title": "キメラのつばさ ★★★★☆ とてもいい商品ですが、天井に穴があいたので星マイナス1です",
+   "date": "2025-04-01",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "滝壺の3人が通販で買った（？）アイテムの紹介をしています！",
+   "games": [
+    "ドラゴンクエストI＆II",
+    "Shadow Labyrinth（シャドウラビリンス）",
+    "HUNDRED LINE -最終防衛学園",
+    "リズム天国ミラクルスターズ",
+    "サガフロンティア2 リマスター",
+    "伊達鍵は眠らない -From AI：ソムニウムファイル",
+    "パタポン1+2 リプレイ",
+    "みんなのGOLF WORLD",
+    "いつでもGOLF",
+    "都市伝説解体センター",
+    "モンスターハンターワイルズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "00:47",
+     "label": "グミ"
+    },
+    {
+     "time": "01:51",
+     "label": "おいしいみず"
+    },
+    {
+     "time": "03:11",
+     "label": "リボン"
+    },
+    {
+     "time": "04:58",
+     "label": "かつおぶし"
+    },
+    {
+     "time": "06:22",
+     "label": "まがったスプーン"
+    },
+    {
+     "time": "07:31",
+     "label": "アモールのみず"
+    },
+    {
+     "time": "09:40",
+     "label": "キメラのつばさ"
+    },
+    {
+     "time": "12:43",
+     "label": "魔法のじゅうたん"
+    },
+    {
+     "time": "13:52",
+     "label": "ロマネコンチ"
+    },
+    {
+     "time": "15:45",
+     "label": "ぶっとびカード"
+    },
+    {
+     "time": "17:59",
+     "label": "ねむけざまし"
+    },
+    {
+     "time": "19:05",
+     "label": "モンスターボール"
+    },
+    {
+     "time": "22:14",
+     "label": "スーパーキノコ"
+    },
+    {
+     "time": "23:13",
+     "label": "ファイアフラワー"
+    },
+    {
+     "time": "24:18",
+     "label": "スーパースター"
+    },
+    {
+     "time": "25:41",
+     "label": "むてきキャンディー"
+    },
+    {
+     "time": "26:11",
+     "label": "ふっかつのたま"
+    },
+    {
+     "time": "27:52",
+     "label": "ラストエリクサー"
+    },
+    {
+     "time": "29:41",
+     "label": "砥石"
+    },
+    {
+     "time": "32:10",
+     "label": "肉焼きセット"
+    },
+    {
+     "time": "33:27",
+     "label": "回復薬"
+    },
+    {
+     "time": "34:26",
+     "label": "ハチミツ"
+    },
+    {
+     "time": "36:41",
+     "label": "ポータルガン"
+    },
+    {
+     "time": "39:43",
+     "label": "通販まとめ"
+    },
+    {
+     "time": "40:35",
+     "label": "ニンテンドーダイレクト"
+    },
+    {
+     "time": "51:44",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:09:51",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:25:09",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/45---1-e30tihu"
+   },
+   "guid": "9ea757a9-d1cd-4488-9835-fea48f19aff2",
+   "image": "assets/img/ep/45.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1743435481166-568abe4d7fb83.jpg"
+  },
+  {
+   "number": 46,
+   "title": "チョップと化学工場～ゴールデンアイ007～",
+   "date": "2025-04-09",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "NINTENDO64用ソフト「ゴールデンアイ007」について収録をしようとしていたら、ちょうど007の新作が発表された回です。",
+   "games": [
+    "ゴールデンアイ 007",
+    "Nintendo Switch 2",
+    "007の新作",
+    "ドンキーコング バナンザ",
+    "マリオカート ワールド",
+    "Shadow Labyrinth（シャドウラビリンス）",
+    "モンスターハンター 3（トライ）",
+    "都市伝説解体センター",
+    "モンスターハンター ワイルズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:11",
+     "label": "ゴールデンアイ 007"
+    },
+    {
+     "time": "47:13",
+     "label": "ニンテンドーダイレクト"
+    },
+    {
+     "time": "58:39",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "1:03:20",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:17:50",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:19:39",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/46-007-e31aih4"
+   },
+   "guid": "639f1fc3-6b99-411e-9590-4b783ff0bb4a",
+   "image": "assets/img/ep/46.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1744205701041-827e545dc5b92.jpg"
+  },
+  {
+   "number": 47,
+   "title": "わるい宝箱 ～わるい村 ep02～ 同時上映 いきなりストロベリー",
+   "date": "2025-04-16",
+   "date_estimated": false,
+   "tags": [
+    "わるい村"
+   ],
+   "series": "waruimura",
+   "description": "わるい宝箱警察、出動します！\n本当にわるい宝箱は、宝箱ではなかったのです……。",
+   "games": [
+    "ドラゴンクエスト7",
+    "いきなりストロベリー",
+    "ゴールデンアイ 007",
+    "Inverted Angel",
+    "HUNDRED LINE -最終防衛学園"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:16",
+     "label": "わるい宝箱"
+    },
+    {
+     "time": "16:47",
+     "label": "他にもわるい宝箱"
+    },
+    {
+     "time": "21:10",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "28:39",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "53:04",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "56:47",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/47---ep02-e31jc05"
+   },
+   "guid": "ff5a7b42-c7b6-4692-b7e9-56885076d14f",
+   "image": "assets/img/ep/47.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1744761549693-492e15bbc28ee.jpg"
+  },
+  {
+   "number": 48,
+   "title": "いいゲーム音楽を語る！ ～夜中たわしの段～ マリオカート、テイルズオブレジェンディア、まもるクンは呪われてしまった！…",
+   "date": "2025-04-23",
+   "date_estimated": false,
+   "tags": [
+    "ゲーム音楽"
+   ],
+   "series": null,
+   "description": "いいゲーム音楽、ようやく3人分が完結です！\n今回のエンディングでは、イチィゴォーのHUNDRED LINE体験会レポートも！",
+   "games": [
+    "スーパーマリオギャラクシー",
+    "スーパーマリオギャラクシー2",
+    "マリオカートシリーズ",
+    "マリオカートワールド",
+    "スーパーマリオRPG",
+    "聖剣伝説 Legend of Mana",
+    "ライブ・ア・ライブ",
+    "キングダムハーツシリーズ",
+    "星のカービィシリーズ",
+    "Zwei!!（ツヴァイ!!）",
+    "ブレイブリーデフォルト",
+    "テイルズ オブ レジェンディア",
+    "ミスティックアーク",
+    "ごきんじょ冒険隊",
+    "聖剣伝説3",
+    "まもるクンは呪われてしまった！",
+    "がんばれゴエモン2 奇天烈将軍マッギネス",
+    "Unspottable",
+    "ドラゴンクエスト7",
+    "ファイナルファンタジーVI",
+    "いきなりストロベリー",
+    "HUNDRED LINE -最終防衛学園",
+    "Rusty Rabbit（ラスティ ラビット）"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:37",
+     "label": "夜中たわしのゲーム音楽"
+    },
+    {
+     "time": "37:55",
+     "label": "ゲーム音楽まとめ"
+    },
+    {
+     "time": "39:07",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "48:15",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "58:42",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:03:06",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/48-e31t76l"
+   },
+   "guid": "21f703cd-2519-41d5-93fe-75be7d8f5c94",
+   "image": "assets/img/ep/48.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1745414355308-4939fb38d801d.jpg"
+  },
+  {
+   "number": 49,
+   "title": "Rusty Rabbit（ラスティ・ラビット） ～シルバニアファミリーが如く～ バニーガーデンを継ぐもの",
+   "date": "2025-04-30",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ウサギが主人公のあのゲーム、Rusty Rabbit（ラスティ・ラビット）を紹介！\nほか新コーナーとしてわるい宝箱の目撃情報、さらについに発売されたHUNDRED LINEのプレイ状況なども。",
+   "games": [
+    "Rusty Rabbit（ラスティ・ラビット）",
+    "バニーガーデン",
+    "へべれけ ばにーがーでん",
+    "ゼルダの伝説 風のタクト",
+    "テイルズオブレジェンディア",
+    "Zwei!!（ツヴァイ!!）",
+    "ごきんじょ冒険隊",
+    "ミスティックアーク",
+    "ブレイブリーデフォルト",
+    "ソルスティス 三次元迷宮の狂獣",
+    "メタルマックスシリーズ",
+    "ゴールデンアイ007",
+    "頭文字D",
+    "超探偵事件簿レインコード",
+    "HUNDRED LINE -最終防衛学園"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:17",
+     "label": "Rusty Rabbit（ラスティ・ラビット）"
+    },
+    {
+     "time": "19:16",
+     "label": "まとめ"
+    },
+    {
+     "time": "23:03",
+     "label": "わるい宝箱目撃情報"
+    },
+    {
+     "time": "29:08",
+     "label": "わるい抽選（ニンテンドースイッチ2抽選結果）"
+    },
+    {
+     "time": "32:42",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "57:45",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:03:01",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/49-Rusty-Rabbit-e326g1q"
+   },
+   "guid": "82f04dfb-41b7-4677-9796-a77aafd7e234",
+   "image": "assets/img/ep/49.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1745996924797-15ea6d6a2de71.jpg"
+  },
+  {
+   "number": 50,
+   "title": "ゲームの滝壺50回記念！「雑談」",
+   "date": "2025-05-07",
+   "date_estimated": false,
+   "tags": [
+    "記念回"
+   ],
+   "series": null,
+   "description": "ガムトークを使って初の雑談回をしてみましたが…\nやはり昔のゲームの話題、多めです。",
+   "games": [
+    "俺の屍を越えてゆけ",
+    "ダークソウル",
+    "ドラゴンクエストV",
+    "モンスターハンターシリーズ",
+    "ゼンレスゾーンゼロ",
+    "スーパーマリオ64",
+    "バイオハザード",
+    "ゼルダの伝説シリーズ",
+    "遊戯王",
+    "メイドインワリオ",
+    "Liar's Bar",
+    "ハイパーオリンピック",
+    "スーパーマリオRPG",
+    "クロノ・トリガー",
+    "ファイナルファンタジーVII",
+    "ポケットモンスターシリーズ",
+    "ルイージマンション3",
+    "零",
+    "がんばれゴエモン～でろでろ道中 オバケてんこ盛り～",
+    "がんばれゴエモン～ゆき姫救出絵巻～",
+    "アルカナハート",
+    "ストリートファイター6",
+    "天外魔境II 卍MARU",
+    "天外魔境III NAMIDA",
+    "天外魔境ZERO",
+    "どうぶつの森シリーズ",
+    "存在/しないあなた",
+    "と私",
+    "Rusty Rabbit（ラスティラビット）",
+    "HUNDRED LINE -最終防衛学園"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "04:21",
+     "label": "あつかったはなし"
+    },
+    {
+     "time": "09:20",
+     "label": "カメラのはなし"
+    },
+    {
+     "time": "13:09",
+     "label": "おはかのはなし"
+    },
+    {
+     "time": "15:22",
+     "label": "じぶんのはしのはなし"
+    },
+    {
+     "time": "16:59",
+     "label": "のったはなし"
+    },
+    {
+     "time": "18:03",
+     "label": "かけっこのはなし"
+    },
+    {
+     "time": "20:23",
+     "label": "ふゆのはなし"
+    },
+    {
+     "time": "22:34",
+     "label": "エレベーターのはなし"
+    },
+    {
+     "time": "25:11",
+     "label": "おばけのはなし"
+    },
+    {
+     "time": "29:33",
+     "label": "にがてなはなし"
+    },
+    {
+     "time": "37:12",
+     "label": "まとめ"
+    },
+    {
+     "time": "38:22",
+     "label": "わるい宝箱目撃情報"
+    },
+    {
+     "time": "47:34",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "55:33",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "59:02",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:01:51",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/50-50-e32gohl"
+   },
+   "guid": "d8f0346d-6544-47d1-8a96-656acf745be3",
+   "image": "assets/img/ep/50.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1746617213335-164aaef7ef64.jpg"
+  },
+  {
+   "number": 51,
+   "title": "キャッチコピーは「どうあがいても、滝壺」",
+   "date": "2025-05-14",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ゲームのキャッチコピー全般について扱ったら、ひゅうまが張り切りすぎた回です！\n※某SIRENの話題は一切出ません",
+   "games": [
+    "アイドルマスターシリーズ",
+    "モンスターファーム2",
+    "マリーのアトリエ",
+    "メタルマックス",
+    "moon",
+    "モンスターハンターポータブル2ndG",
+    "閃乱カグラ SHINOVI VERSUS -少女達の証明",
+    "ダークソウル",
+    "デビルメイクライシリーズ",
+    "ドラゴンクエストV",
+    "ドラゴンクエストVI",
+    "スターオーシャン",
+    "リズム天国",
+    "龍が如く",
+    "メタルギアソリッド3",
+    "メトロイドII RETURN OF SAMUS",
+    "せがれいじり",
+    "バイオハザード5",
+    "ボクらの太陽",
+    "ファイナルファンタジーX",
+    "クロノ・トリガー",
+    "クロノ・クロス",
+    "ブレス オブ ファイアV ドラゴンクォーター",
+    "ヴィーナス&ブレイブス",
+    "ファイナルファンタジーVII",
+    "スーパードンキーコングシリーズ",
+    "ロックマンX8",
+    "魔界戦記ディスガイア3",
+    "ワンダと巨像",
+    "風来のシレン",
+    "ペーパーマリオ オリガミキング",
+    "ファイナルファンタジーVI",
+    "ドラゴンクエストIV",
+    "SDザ・グレイトバトル 新たなる挑戦",
+    "ポケットモンスター赤緑",
+    "Buckshot Roulette（バックショットルーレット）",
+    "ゼルダの伝説 知恵のかりもの",
+    "バイオハザード",
+    "バニーガーデン",
+    "ダイナウォーズ 恐竜王国への大冒険",
+    "魔界戦記ディスガイア",
+    "モンスターハンターワイルズ",
+    "ゴールデンアイ007",
+    "Rusty Rabbit（ラスティ・ラビット）",
+    "風来のシレン2",
+    "テイルズシリーズ",
+    "スーパーマリオ64",
+    "ENDER MAGNOLIA（エンダーマグノリア）",
+    "ENDER LILIES（エンダーリリーズ）",
+    "どうぶつの森シリーズ",
+    "がんばれゴエモン2 奇天烈将軍マッギネス",
+    "Hollow Knight（ホロウナイト）",
+    "HUNDRED LINE -最終防衛学園",
+    "まものろKAI！ ～まもるクンは呪われてしまった！～"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "00:38",
+     "label": "イチィゴォーとキャッチコピー"
+    },
+    {
+     "time": "11:45",
+     "label": "ひゅうまとキャッチコピー"
+    },
+    {
+     "time": "25:48",
+     "label": "夜中たわしとキャッチコピー"
+    },
+    {
+     "time": "36:29",
+     "label": "既存のキャッチコピーを変えよう！"
+    },
+    {
+     "time": "56:29",
+     "label": "滝壺のキャッチコピー"
+    },
+    {
+     "time": "1:03:39",
+     "label": "まとめ"
+    },
+    {
+     "time": "1:04:24",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:22:19",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:27:35",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/51-e32r5u0"
+   },
+   "guid": "1c06443c-978a-4033-8a34-955b1686e91b",
+   "image": "assets/img/ep/51.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1747230277629-827dbf839f719.jpg"
+  },
+  {
+   "number": 52,
+   "title": "HUNDRED LINE -最終防衛学園-（ハンドレッドライン）製品版について生徒会役員から報告です",
+   "date": "2025-05-21",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "そこそこプレイした2人が、ハンドレッドラインの魅力その他について語ります！",
+   "games": [
+    "HUNDRED LINE -最終防衛学園",
+    "ファイナルファンタジーXII",
+    "エイプリル探偵事務所",
+    "Staffer Case:超能力推理アドベンチャー（スイッチ版）",
+    "ダークソウル",
+    "魔界村",
+    "閃乱カグラ",
+    "ゴールデンアイ007",
+    "SDガンダム GCENTURY",
+    "STEINS;GATE（シュタインズ・ゲート）",
+    "高機動幻想ガンパレード・マーチ",
+    "東京魔人学園",
+    "デモンズソウル",
+    "タクティクスオウガ",
+    "勇者のくせになまいきだ。",
+    "女神異聞録ペルソナ",
+    "ロマンシング サガ -ミンストレルソング",
+    "ワイルドアームズ",
+    "ファンタシースターオンライン",
+    "スターオーシャン",
+    "幻想水滸伝2",
+    "（NEOGEO）",
+    "SIREN",
+    "ミカと魔女の山",
+    "（キルミーベイベー）",
+    "きららファンタジア",
+    "ENDER LILIES: Quietus of the Knights（エンダーリリーズ）",
+    "ENDER MAGNOLIA: Bloom in the Mist（エンダーマグノリア）",
+    "Mouthwashing（マウスウォッシング）"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "04:11",
+     "label": "HUNDRED LINE -最終防衛学園-"
+    },
+    {
+     "time": "34:39",
+     "label": "わるい宝箱目撃情報"
+    },
+    {
+     "time": "39:30",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "50:22",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:11:22",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:23:47",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/52-HUNDRED-LINE----e335a3t"
+   },
+   "guid": "a2dce3e1-8b14-4792-8c93-2bb2828a4b65",
+   "image": "assets/img/ep/52.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1747830553073-6809e1001461f.jpg"
+  },
+  {
+   "number": 53,
+   "title": "株式会社滝壺 2025年5月期決算説明会",
+   "date": "2025-05-28",
+   "date_estimated": false,
+   "tags": [
+    "一年の振り返り"
+   ],
+   "series": "furikaeri",
+   "description": "異様なタイトルですが、ゲームの滝壺一周年記念回です！\n二年目もゲームの滝壺をよろしくお願いします！！",
+   "games": [
+    "HUNDRED LINE -最終防衛学園",
+    "デモンズソウル",
+    "ファンタシースターユニバース",
+    "エイプリル探偵事務所",
+    "Staffer Case:超能力推理アドベンチャー",
+    "Staffer Reborn",
+    "閃乱カグラ SHINOVI VERSUS -少女達の証明",
+    "魔界村",
+    "ドラゴンクエスト5",
+    "へべれけ ばにーがーでん",
+    "ドラゴンクエスト3"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:48",
+     "label": "一年間の感想"
+    },
+    {
+     "time": "15:54",
+     "label": "過去回振り返り"
+    },
+    {
+     "time": "52:50",
+     "label": "一周年まとめ"
+    },
+    {
+     "time": "57:53",
+     "label": "わるい抽選"
+    },
+    {
+     "time": "1:01:01",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:31:16",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:35:53",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/53--20255-e33fmbs"
+   },
+   "guid": "16f8acac-72e2-4aa2-8059-ddc4ebeea6da",
+   "image": "assets/img/ep/53.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1748436267472-e1723c5d46539.jpg"
+  },
+  {
+   "number": 54,
+   "title": "ゲームの滝壺 2周目はじめました。クロノ・トリガー、ニーア オートマタ、鉄腕アトム アトムハートの秘密、オートローグ…周回要素のあるゲーム！",
+   "date": "2025-06-04",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ゲームの「2周目」に関する話、予想より奥が深いです。",
+   "games": [
+    "グラディウス",
+    "クロノ・トリガー",
+    "テイルズシリーズ",
+    "リトルバスターズ！",
+    "魔界戦記ディスガイア",
+    "ディアブロ3",
+    "モンスターハンターシリーズ",
+    "風来のシレン",
+    "グランブルーファンタジー",
+    "魔界村",
+    "ニーア レプリカント",
+    "ニーア オートマタ",
+    "ダークソウル",
+    "ASTRO BOY 鉄腕アトム アトムハートの秘密",
+    "強くてニューゲームのWikipedia",
+    "ダークソウルシリーズ",
+    "エルデンリング",
+    "ウィザードリィ",
+    "ロマンシング サガ -ミンストレルソング",
+    "ファンタシースターシリーズ",
+    "ストリートファイター6",
+    "ドラゴンクエストV",
+    "ドラゴンクエストI＆II",
+    "HUNDRED LINE -最終防衛学園",
+    "エルデンリング ナイトレイン",
+    "ポケモン生態図鑑"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:23",
+     "label": "2周目の話"
+    },
+    {
+     "time": "37:32",
+     "label": "まとめ"
+    },
+    {
+     "time": "38:35",
+     "label": "わるい宝箱目撃情報"
+    },
+    {
+     "time": "48:37",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "57:17",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:11:09",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:19:00",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/54--2-e33pncv"
+   },
+   "guid": "6dca1d35-5ac2-49c9-9c8f-77cd7277e0d3",
+   "image": "assets/img/ep/54.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1749042981771-0a26b4681daa9.jpg"
+  },
+  {
+   "number": 55,
+   "title": "今話すなら当然スイッチの話！ マリオ、ポケモン、ドラクエ…に登場するスイッチを語る！！",
+   "date": "2025-06-11",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "スイッチの話をしております！！",
+   "games": [
+    "マリオシリーズ",
+    "スーパーマリオワールド",
+    "ポケットモンスター赤緑",
+    "ドラゴンクエスト3",
+    "バイオハザード2",
+    "ファイナルファンタジー6",
+    "ゴエモンシリーズ",
+    "ポケットモンスター スカーレット・バイオレット",
+    "摩訶摩訶",
+    "シルヴァ・サーガ2",
+    "PICO PARK 2",
+    "ドラゴンナイト4",
+    "サガ エメラルド ビヨンド",
+    "リトルバスターズ！",
+    "レイジングループ",
+    "グノーシア",
+    "アトムハートの秘密",
+    "風来のシレン6",
+    "もと子ちゃんのワンダーキッチン",
+    "ビートセイバー",
+    "バイオハザード レクイエム（バイオハザード9）",
+    "龍が如く0 誓いの場所 Director's Cut",
+    "プロモーション映像「友達と遊ぼう！」編",
+    "HUNDRED LINE -最終防衛学園"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "00:58",
+     "label": "スイッチの話"
+    },
+    {
+     "time": "32:10",
+     "label": "わるい宝箱目撃情報"
+    },
+    {
+     "time": "39:36",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "50:34",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:10:44",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:16:59",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/55-e343f79"
+   },
+   "guid": "9cfe7d3a-fadb-40ce-8b83-395ea7c4bb53",
+   "image": "assets/img/ep/55.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1749631487627-ea4d5ca39b1f3.jpg"
+  },
+  {
+   "number": 56,
+   "title": "鏡のマジョリティア & マジック：ザ・ギャザリング×FFコラボ！ すべてのオブザスペラに、ありクイ…！",
+   "date": "2025-06-18",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "話題のカードゲーム2作品について語ります！",
+   "games": [
+    "鏡のマジョリティア",
+    "鏡のマジョリティア 実況プレイリスト",
+    "マジック：ザ・ギャザリング（×FFコラボ）",
+    "マジック：ザ・ギャザリングを体験して1000円がもらえるイベント（晴れる屋）",
+    "マジック：ザ・ギャザリング アリーナ",
+    "RPGツクールシリーズ",
+    "幻想水滸伝2",
+    "ニンテンドースイッチ2",
+    "ゲームギア",
+    "アタリのリンクス",
+    "当たって砕け散れ",
+    "スーパーゲームボーイ",
+    "初代ポケットモンスター"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:14",
+     "label": "鏡のマジョリティア"
+    },
+    {
+     "time": "21:08",
+     "label": "マジック：ザ・ギャザリング"
+    },
+    {
+     "time": "44:16",
+     "label": "まとめ"
+    },
+    {
+     "time": "44:44",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "51:16",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "57:31",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:04:47",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/56---FF-e34dq7v"
+   },
+   "guid": "6af8460e-39dc-417a-b705-15c1d8e01eae",
+   "image": "assets/img/ep/56.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1750253232365-e36dfa56f27af.jpg"
+  },
+  {
+   "number": 57,
+   "title": "大神、スプラトゥーン、勇者のくせになまいきだ。…今夜決定！ 一週間の各曜日にふさわしいゲーム！！",
+   "date": "2025-06-25",
+   "date_estimated": false,
+   "tags": [
+    "ふさわしいゲーム"
+   ],
+   "series": "fusawashii",
+   "description": "長い一週間、何のゲームを遊べばいいか困る日はありませんか？\n各曜日にふさわしいゲーム、すべて決めます！",
+   "games": [
+    "美少女戦士セーラームーン",
+    "ブルーマンデー",
+    "Monday Morning Simulator",
+    "ゼルダの伝説 ムジュラの仮面",
+    "ポケットモンスター ムーン",
+    "ボクと魔王",
+    "moon",
+    "LUNARシリーズ",
+    "ファイナルファンタジー8",
+    "アイドルマスター シャイニーカラーズ Song for Prism",
+    "炎の料理人クッキングファイター好",
+    "テラフォーマーズ 紅き惑星の激闘",
+    "ポケットモンスター 赤",
+    "ファイアーエムブレムシリーズ",
+    "ボンバーマンシリーズ",
+    "ポケットモンスター 青",
+    "PowerWash Simulator",
+    "ファイナルファンタジー6",
+    "フォーエバーブルー",
+    "Subnautica",
+    "モンスターハンター 3（トライ）",
+    "Ever17",
+    "スーパーマリオサンシャイン",
+    "スプラトゥーン",
+    "ポケットモンスター 緑",
+    "モンスターファームシリーズ",
+    "ポケモンピンボール",
+    "ポケットピカチュウ",
+    "神経衰弱モンスターズ（デスティニーモンスターズ）",
+    "星のカービィシリーズ",
+    "聖剣伝説シリーズ",
+    "どうぶつの森",
+    "DEAD OR ALIVE Xtreme Venus Vacation",
+    "Friday the 13th: The Game",
+    "ゴールデンアイ 007",
+    "ポケットモンスター 金",
+    "グランブルーファンタジー",
+    "マリオシリーズ",
+    "トルネコの大冒険 不思議のダンジョン",
+    "がんばれゴエモンシリーズ",
+    "黄金の太陽",
+    "桃太郎電鉄",
+    "ナニワ金融道～青木雄二の世間胸算用～",
+    "ポケットモンスター ルビー",
+    "美少女戦士セーラームーンSuperS 全員参加!! 主役争奪戦",
+    "バーチャファイター2",
+    "せがた三四郎 真剣遊戯",
+    "セガガガ",
+    "サターンボンバーマン",
+    "マインクラフト",
+    "テラリア",
+    "ミスタードリラー",
+    "勇者のくせになまいきだ。",
+    "モグラーニャ",
+    "ポケットモンスター サン",
+    "ロボットポンコッツ 太陽バージョン",
+    "（サザエさん）",
+    "ダークソウル",
+    "ボクらの太陽",
+    "ぷよぷよSUN",
+    "ひろがるスカイ！プリキュア ひろがる！パズルコレクション",
+    "大神",
+    "人狼ゲーム",
+    "牧場物語",
+    "ポケットモンスター サン・ムーン",
+    "Spore",
+    "46億年物語",
+    "TOKYO JUNGLE",
+    "Pok?mon Sleep",
+    "ボンバーマン",
+    "トバルNo.1",
+    "バイオハザードシリーズ",
+    "ドラゴンクエスト8",
+    "マジック：ザ・ギャザリング アリーナ",
+    "幻想水滸伝",
+    "アナザーエデン",
+    "ダンジョンズ&ドラゴンズ",
+    "DARK SOULS TRPG",
+    "スペルトナエル",
+    "都市伝説解体センター",
+    "ドンキーコング バナンザ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:24",
+     "label": "月曜日"
+    },
+    {
+     "time": "12:33",
+     "label": "火曜日"
+    },
+    {
+     "time": "18:16",
+     "label": "水曜日"
+    },
+    {
+     "time": "22:40",
+     "label": "木曜日"
+    },
+    {
+     "time": "28:24",
+     "label": "金曜日"
+    },
+    {
+     "time": "35:50",
+     "label": "土曜日"
+    },
+    {
+     "time": "44:36",
+     "label": "日曜日"
+    },
+    {
+     "time": "51:39",
+     "label": "天地創造"
+    },
+    {
+     "time": "55:14",
+     "label": "代表決め"
+    },
+    {
+     "time": "1:01:18",
+     "label": "まとめ"
+    },
+    {
+     "time": "1:04:27",
+     "label": "わるい抽選"
+    },
+    {
+     "time": "1:06:32",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:30:36",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:38:05",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/57-e34n0gq"
+   },
+   "guid": "caa323d9-e5e2-4a83-baf4-bb030c011ae2",
+   "image": "assets/img/ep/57.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1750838245780-331f03760fa3c.jpg"
+  },
+  {
+   "number": 58,
+   "title": "わるい敵 ～わるい村 ep03～ 同時上映 リアル桃鉄",
+   "date": "2025-07-02",
+   "date_estimated": false,
+   "tags": [
+    "わるい村"
+   ],
+   "series": "waruimura",
+   "description": "わるい敵には\nご用心",
+   "games": [
+    "ドラゴンクエストシリーズ",
+    "魔界戦記ディスガイアシリーズ",
+    "ロックマンシリーズ",
+    "ファイナルファンタジーVI",
+    "マリオシリーズ",
+    "星のカービィシリーズ",
+    "風来のシレンシリーズ",
+    "モンスターハンターシリーズ",
+    "スプラトゥーンシリーズ",
+    "スターオーシャン3",
+    "ファイナルファンタジーVIII",
+    "Fallout シリーズ",
+    "ザ・キング・オブ・ファイターズシリーズ",
+    "セガサターン",
+    "リアル桃太郎電鉄",
+    "moon",
+    "ファイヤープロレスリング",
+    "ファイナルファンタジーX",
+    "聖剣伝説 LEGEND OF MANA",
+    "トルネコの大冒険 不思議のダンジョン",
+    "グランツーリスモ4",
+    "スーパーマリオブラザーズ3",
+    "月姫",
+    "ブレスオブファイア",
+    "Sea Of Stars",
+    "聖剣伝説2",
+    "SANABI",
+    "洞窟物語",
+    "大神",
+    "火星物語",
+    "マーズアタック",
+    "ヴィーナス＆ブレイブス",
+    "クロノ・クロス",
+    "太陽のしっぽ",
+    "LUNAR ザ・シルバースター",
+    "Subnautica",
+    "マジック：ザ・ギャザリング アリーナ",
+    "アナザーエデン",
+    "超操縦メカ MG",
+    "スプラトゥーン",
+    "勇者のくせになまいきだ。",
+    "ウマ娘 プリティーダービー",
+    "ウマ娘 プリティーダービー 熱血ハチャメチャ大感謝祭！",
+    "ウマ娘 シンデレラグレイ",
+    "PowerWash Simulator",
+    "スペルトナエル",
+    "ゴブリン・ノーム・ホーン",
+    "イハナシの魔女",
+    "HUNDRED LINE -最終防衛学園",
+    "ENDER LILIES: Quietus of the Knights",
+    "Blue Prince"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:17",
+     "label": "わるい敵"
+    },
+    {
+     "time": "44:14",
+     "label": "まとめ"
+    },
+    {
+     "time": "45:23",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "58:36",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:27:58",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:32:52",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/58---ep03-e350oqg"
+   },
+   "guid": "9bc73c7b-00a3-4caa-bc77-9d26c1064078",
+   "image": "assets/img/ep/58.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1751456184624-a4cc786d7822b.jpg"
+  },
+  {
+   "number": 59,
+   "title": "スペルトナエル が タノシイハナシ",
+   "date": "2025-07-09",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "恐ろしく安いのにあまりにも面白いゲーム、スペルトナエルについて話します！",
+   "games": [
+    "スペルトナエル",
+    "実況プレイリスト",
+    "風来のシレンシリーズ",
+    "『HUNDRED LINE -最終防衛学園-』",
+    "新桃太郎伝説",
+    "ENDER LILIES: Quietus of the Knights",
+    "モンスターハンター ワイルズ",
+    "ファイナルファンタジーIX",
+    "ウマ娘",
+    "ゼンレスゾーンゼロ",
+    "アイドルマスター シンデレラガールズ スターライトステージ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:08",
+     "label": "スペルトナエル"
+    },
+    {
+     "time": "30:55",
+     "label": "まとめ"
+    },
+    {
+     "time": "33:07",
+     "label": "わるい敵目撃情報"
+    },
+    {
+     "time": "42:17",
+     "label": "抽選のコーナー"
+    },
+    {
+     "time": "43:44",
+     "label": "おたより紹介（アートワーククイズ）"
+    },
+    {
+     "time": "52:56",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/59-e35b02b"
+   },
+   "guid": "6fa15f52-31ed-4d19-bb98-fb45875a95bb",
+   "image": "assets/img/ep/59.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1752069498155-f505d8ee5d83a.jpg"
+  },
+  {
+   "number": 60,
+   "title": "ゲーム好きでないと解けないウミガメのスープ 2杯目",
+   "date": "2025-07-16",
+   "date_estimated": false,
+   "tags": [
+    "ウミガメのスープ"
+   ],
+   "series": null,
+   "description": "【新解釈】ある男はウミガメのスープを食べた後に自殺した。一体、なぜ？？（答えはゲーム関係）",
+   "games": [
+    "ニンテンドースイッチ2",
+    "ドンキーコング バナンザ",
+    "スペルトナエル",
+    "紙装甲主人公と不死身のカエル",
+    "Drop Duchy",
+    "Emberward",
+    "小市民シリーズ（prime video）",
+    "閃乱カグラ SHINOVI VERSUS -少女達の証明",
+    "バニーガーデン",
+    "PowerWash Simulator",
+    "ENDER LILIES: Quietus of the Knights"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:19",
+     "label": "練習問題「大天使の息吹」"
+    },
+    {
+     "time": "05:30",
+     "label": "第1問「迷う男」"
+    },
+    {
+     "time": "09:22",
+     "label": "第2問「望まぬ虹」"
+    },
+    {
+     "time": "12:48",
+     "label": "第3問「方向音痴」"
+    },
+    {
+     "time": "19:01",
+     "label": "第4問「不老不死」"
+    },
+    {
+     "time": "22:50",
+     "label": "第5問「ステージの主役は？」"
+    },
+    {
+     "time": "30:43",
+     "label": "第6問「ああ無常」"
+    },
+    {
+     "time": "43:46",
+     "label": "第7問「悪徳企業」"
+    },
+    {
+     "time": "45:40",
+     "label": "第8問「いなくなった甲虫類」"
+    },
+    {
+     "time": "53:15",
+     "label": "第9問「ウミガメのスープ」"
+    },
+    {
+     "time": "1:14:16",
+     "label": "まとめ"
+    },
+    {
+     "time": "1:15:22",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:22:40",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:35:06",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/60--2-e35kj6v"
+   },
+   "guid": "8ce1752a-d434-449b-82d8-3a61110db8ce",
+   "image": "assets/img/ep/60.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1752673285264-a514a0f27442b.jpg"
+  },
+  {
+   "number": 61,
+   "title": "スペルトナエル開発者とタノシイハナシ（ゲスト：おまどさん）",
+   "date": "2025-07-23",
+   "date_estimated": false,
+   "tags": [
+    "ゲスト回"
+   ],
+   "series": null,
+   "description": "スペルトナエルについて、開発者のおまどさんを迎えて話します！",
+   "games": [],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "06:10",
+     "label": "320円のハナシ"
+    },
+    {
+     "time": "13:20",
+     "label": "戦闘のハナシ"
+    },
+    {
+     "time": "44:50",
+     "label": "お店のハナシ"
+    },
+    {
+     "time": "52:26",
+     "label": "シナリオのハナシ"
+    },
+    {
+     "time": "1:05:00",
+     "label": "その他のハナシ"
+    },
+    {
+     "time": "1:14:53",
+     "label": "ここだけのハナシ"
+    },
+    {
+     "time": "1:18:40",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/61-e35tpbs"
+   },
+   "guid": "740198f5-0ce3-4734-bc08-486db155e45c",
+   "image": "assets/img/ep/61.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1753274197517-82229cf88ab05.jpg"
+  },
+  {
+   "number": 62,
+   "title": "サンサーラ・ナーガ2「ごしゅじんさま、はっきりいって ザコです。」",
+   "date": "2025-07-30",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "・SFCの隠れた名作、サンサーラ・ナーガ2の話\n・BitSummitの話\n・アートワーククイズ新章突入\nの豪華三本立て＋αでお送りいたします",
+   "games": [
+    "サンサーラ・ナーガ2",
+    "マジック:ザ・ギャザリング",
+    "風来のシレンシリーズ",
+    "世界樹の迷宮シリーズ",
+    "キングオブファイターズシリーズ",
+    "紙装甲主人公と不死身のカエル",
+    "ぐるぐるパンパン",
+    "Esophaguys",
+    "Slot & Dungeons",
+    "TOWER KING",
+    "Dialoop",
+    "プロジェクト・ソラリス",
+    "Thousands of Heroes",
+    "スペルトナエル",
+    "アイドルマスター NEVER END IDOL"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:17",
+     "label": "サンサーラ・ナーガ2"
+    },
+    {
+     "time": "32:51",
+     "label": "わるい敵"
+    },
+    {
+     "time": "47:15",
+     "label": "滝壺3分ゲーム紹介（BitSummitの話）"
+    },
+    {
+     "time": "1:00:32",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:08:19",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:24:21",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/62-2-e367rf6"
+   },
+   "guid": "1792c17f-941d-4085-9cd5-7469702b1321",
+   "image": "assets/img/ep/62.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1753883340636-ec2c699afbde4.jpg"
+  },
+  {
+   "number": 63,
+   "title": "ゲームから学ぶ！ シレン式失敗力、ポケモン的マネジメント、ドラクエ流キャリア形成",
+   "date": "2025-08-06",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ゲームを実生活に役立てる方法、ひねり出しました！",
+   "games": [
+    "風来のシレンシリーズ",
+    "ポケットモンスターシリーズ",
+    "ドラゴンクエストシリーズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:24",
+     "label": "風来のシレンから学ぶ、失敗する勇気"
+    },
+    {
+     "time": "10:57",
+     "label": "ポケモンで学ぶ、小規模チームマネジメント"
+    },
+    {
+     "time": "18:58",
+     "label": "ドラクエに学ぶ、転職のすゝめ"
+    },
+    {
+     "time": "25:58",
+     "label": "まとめ"
+    },
+    {
+     "time": "27:21",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/63-e36h52s"
+   },
+   "guid": "c602798d-0f8c-4629-b513-ef94f8be745f",
+   "image": "assets/img/ep/63.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1754485358222-1a87c2174a44a.jpg"
+  },
+  {
+   "number": 64,
+   "title": "NINTENDO64「3Dスティックにご用心」",
+   "date": "2025-08-13",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "NINTENDO64にまつわる思い出、印象的なタイトルからコントローラーの特徴、さらにケーブルをどう巻き付けて片付けるかまで話します！",
+   "games": [
+    "スーパーマリオ64",
+    "大乱闘スマッシュブラザーズ",
+    "ポケモンスタジアム",
+    "ポケモンスタジアム2",
+    "マリオテニス",
+    "マリオゴルフ",
+    "マリオカート64",
+    "ゴールデンアイ 007",
+    "がんばれゴエモン～でろでろ道中 オバケてんこ盛り～",
+    "ウエーブレース64",
+    "らくがきっず",
+    "バイオレンスキラー",
+    "カスタムロボ",
+    "ゴエモン もののけ双六",
+    "星のカービィ64",
+    "風来のシレン2 鬼襲来！シレン城！",
+    "サンサーラ・ナーガ2",
+    "LA-MULANA",
+    "ワンス・アポン・ア・塊魂"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:34",
+     "label": "ニンテンドウ64"
+    },
+    {
+     "time": "43:15",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:15:45",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:23:00",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/64-NINTENDO643D-e36ppji"
+   },
+   "guid": "a2ce317b-447e-44dd-93d9-c3309fbd96b0",
+   "image": "assets/img/ep/64.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1755053756260-c3715051cbea9.jpg"
+  },
+  {
+   "number": 65,
+   "title": "Öoo（なぜか読めない）圧倒的好評の爆弾いもむしアクションパズル、爆誕",
+   "date": "2025-08-20",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "圧倒的好評すぎるアクションパズルゲームのÖoo、その前作のElecHead、ついでに虫のアクションパズルゲームつながりでCOCOONについても話します！",
+   "games": [
+    "Öoo",
+    "ElecHead",
+    "COCOON",
+    "Celeste",
+    "ヨッシーアイランド",
+    "アーマード・コアVI",
+    "ロックマンX",
+    "スーパーマリオRPG",
+    "ドンキーコング64",
+    "ドンキーコングバナンザ",
+    "学園アイドルマスター",
+    "ワンス・アポン・ア・塊魂"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:26",
+     "label": "Öoo"
+    },
+    {
+     "time": "27:01",
+     "label": "ElecHead"
+    },
+    {
+     "time": "31:34",
+     "label": "滝壺3分ゲーム紹介（COCOON）"
+    },
+    {
+     "time": "41:44",
+     "label": "わるい敵目撃情報"
+    },
+    {
+     "time": "47:44",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:00:30",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:09:18",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/65-oo-e372uk6"
+   },
+   "guid": "df03350f-c171-4219-aa9a-f7836e32d007",
+   "image": "assets/img/ep/65.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1755676562259-426d4e3192187.jpg"
+  },
+  {
+   "number": 66,
+   "title": "悪魔とコミュニケーション",
+   "date": "2025-08-27",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "悪魔にまつわるゲームの回ですが、ほぼメガテンの（浅めの）話に終止しております。\n以降のコーナーの方が聴きごたえあるかも。",
+   "games": [
+    "真・女神転生シリーズ",
+    "ペルソナシリーズ",
+    "グランブルーファンタジー",
+    "達人王",
+    "ウーマンコミュニケーション",
+    "COCOON",
+    "Öoo",
+    "スペルトナエル",
+    "大乱闘スマッシュブラザーズ",
+    "Slay the Spire"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:59",
+     "label": "悪魔の登場するゲーム"
+    },
+    {
+     "time": "30:00",
+     "label": "わるい敵目撃情報"
+    },
+    {
+     "time": "37:55",
+     "label": "滝壺3分ゲーム紹介（ウーマンコミュニケーション）"
+    },
+    {
+     "time": "47:55",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:06:52",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:10:18",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/66-e37ct7a"
+   },
+   "guid": "060eab81-c4fe-49fa-bb9c-101ac67a307b",
+   "image": "assets/img/ep/66.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1756300470227-04a20fc7f2e25.jpg"
+  },
+  {
+   "number": 67,
+   "title": "ゲーム『8番出口』→ 映画『8番出口』→ 小説『8番出口』",
+   "date": "2025-09-02",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "映画版8番出口の感想と合わせて、原作ゲームと小説についても話します！",
+   "games": [
+    "ゲーム版『8番出口』",
+    "映画版『8番出口』",
+    "小説版『8番出口』",
+    "ペルソナシリーズ",
+    "真・女神転生シリーズ",
+    "女神異聞録デビルサバイバー",
+    "Slay the Spire",
+    "鉄拳シリーズ",
+    "ギルティギアシリーズ",
+    "CBキャラウォーズ 失われたギャ～グ",
+    "スペルトナエル",
+    "鏡のマジョリティア",
+    "ウーマンコミュニケーション",
+    "真・女神転生III",
+    "ドラゴンクエストIII"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "00:40",
+     "label": "ゲーム版『8番出口』"
+    },
+    {
+     "time": "06:09",
+     "label": "映画版『8番出口』"
+    },
+    {
+     "time": "18:19",
+     "label": "小説版『8番出口』"
+    },
+    {
+     "time": "22:23",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "35:52",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "44:11",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/67-8-8-8-e37jvcc"
+   },
+   "guid": "f7224b6a-3d02-486d-b71d-9540499a894c",
+   "image": "assets/img/ep/67.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1756751570566-84c7f3b4fc876.jpg"
+  },
+  {
+   "number": 68,
+   "title": "ホロウナイト ブキミかわいい傑作メトロイドヴァニア",
+   "date": "2025-09-03",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "9月4日23時に発売が迫ったホロウナイト シルクソング…の前作、無印のホロウナイトについて話します！\n関連してエンダーリリーズの話も！",
+   "games": [
+    "Hollow Knight",
+    "Hollow Knight: Silksong",
+    "ENDER LILIES: Quietus of the Knights",
+    "ウマ娘 プリティーダービー"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:16",
+     "label": "ホロウナイト"
+    },
+    {
+     "time": "28:19",
+     "label": "滝壺3分ゲーム紹介（エンダーリリーズ）"
+    },
+    {
+     "time": "40:46",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/68-e37lvn9"
+   },
+   "guid": "bc641dac-bd5a-4841-bb88-ceb82a1b7746",
+   "image": "assets/img/ep/68.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1756856393682-832bfc61bd846.jpg"
+  },
+  {
+   "number": 69,
+   "title": "なので！ ロックマンシリーズで雑談します。",
+   "date": "2025-09-10",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "初代ロックマンやロックマンXはもちろん、ロックマン・ザ・パワーバトルやロックマンズサッカーの話題も出ます！\n\nワイリーーッ！！",
+   "games": [
+    "ロックマンシリーズ",
+    "ロックマン&フォルテ",
+    "ロックマンXシリーズ",
+    "ロックマンDASH",
+    "ロックマン・ザ・パワーバトル",
+    "ロックマン2・ザ・パワーファイターズ",
+    "ロックマンズサッカー",
+    "スーパードリフトブレード",
+    "8番出口",
+    "Öoo",
+    "ホロウナイト",
+    "ホロウナイト: シルクソング",
+    "エンダーリリーズ",
+    "HUNDRED LINE -最終防衛学園",
+    "Endless Monday",
+    "真・女神転生シリーズ",
+    "けものティータイム",
+    "終天教団"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "00:43",
+     "label": "ロックマンシリーズ"
+    },
+    {
+     "time": "48:17",
+     "label": "滝壺3分ゲーム紹介（スーパードリフトブレード）"
+    },
+    {
+     "time": "54:42",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:21:08",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:27:18",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/69-e381r6s"
+   },
+   "guid": "30be459f-00bb-496f-a98c-634184960a25",
+   "image": "assets/img/ep/69.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1757508902460-95fa2e8309a15.jpg"
+  },
+  {
+   "number": 70,
+   "title": "スーパーマリオ40周年記念！「ピーチ姫のさらいかた」",
+   "date": "2025-09-17",
+   "date_estimated": false,
+   "tags": [
+    "記念回"
+   ],
+   "series": null,
+   "description": "スーパーマリオブラザーズの発売から40年…\n幾度もピーチ姫をさらってきたクッパ軍団の恐るべき手法を、2人のクッパ様と共に振り返ります。",
+   "games": [
+    "スーパーマリオシリーズ",
+    "スーパーマリオギャラクシーシリーズ",
+    "ザ・スーパーマリオギャラクシー・ムービー",
+    "ドラゴンクエストVII Reimagined",
+    "バーチャルボーイ",
+    "スーパーダンガンロンパ2×2",
+    "ロックマンシリーズ",
+    "Öoo",
+    "Blue Prince"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:13",
+     "label": "ピーチ姫のさらいかた"
+    },
+    {
+     "time": "03:32",
+     "label": "スーパーマリオブラザーズ"
+    },
+    {
+     "time": "07:14",
+     "label": "スーパーマリオブラザーズ2"
+    },
+    {
+     "time": "07:46",
+     "label": "スーパーマリオブラザーズ3"
+    },
+    {
+     "time": "11:00",
+     "label": "スーパーマリオワールド"
+    },
+    {
+     "time": "12:12",
+     "label": "スーパーマリオ64"
+    },
+    {
+     "time": "13:18",
+     "label": "スーパーマリオサンシャイン"
+    },
+    {
+     "time": "15:40",
+     "label": "New スーパーマリオブラザーズ"
+    },
+    {
+     "time": "16:42",
+     "label": "スーパーマリオギャラクシー"
+    },
+    {
+     "time": "17:48",
+     "label": "New スーパーマリオブラザーズ Wii"
+    },
+    {
+     "time": "19:00",
+     "label": "スーパーマリオギャラクシー2"
+    },
+    {
+     "time": "20:55",
+     "label": "スーパーマリオ 3Dランド"
+    },
+    {
+     "time": "21:45",
+     "label": "New スーパーマリオブラザーズ 2"
+    },
+    {
+     "time": "23:25",
+     "label": "New スーパーマリオブラザーズ U"
+    },
+    {
+     "time": "24:35",
+     "label": "スーパーマリオ オデッセイ"
+    },
+    {
+     "time": "25:52",
+     "label": "スーパーマリオRPG"
+    },
+    {
+     "time": "27:23",
+     "label": "マリオストーリー"
+    },
+    {
+     "time": "27:44",
+     "label": "ペーパーマリオ オリガミキング"
+    },
+    {
+     "time": "28:43",
+     "label": "スーパーマリオボール"
+    },
+    {
+     "time": "30:26",
+     "label": "まとめ"
+    },
+    {
+     "time": "33:26",
+     "label": "ニンテンドーダイレクトのコーナー"
+    },
+    {
+     "time": "41:35",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "55:15",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:07:34",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/70-40-e38b8hd"
+   },
+   "guid": "68f2a648-255e-48e0-a336-a14a0b077496",
+   "image": "assets/img/ep/70.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1758097598635-e81a495cfb53d.jpg"
+  },
+  {
+   "number": 71,
+   "title": "ゲームにまつわる怖い話！ 課金はもうこりごりだ～",
+   "date": "2025-09-24",
+   "date_estimated": false,
+   "tags": [
+    "怖い話"
+   ],
+   "series": null,
+   "description": "まだまだ残暑が続くということで、おのおの怖い話を持ち寄りましたが、果たして…？\nゲームに関係する怖い話をお持ちの方、ぜひ教えてください。",
+   "games": [
+    "モンスターファーム",
+    "Little Kitty",
+    "Big City",
+    "ドラゴンクエストモンスターズ テリーのワンダーランド",
+    "バイオハザード",
+    "Zwei!!",
+    "アイドルマスターシリーズ",
+    "SIMPLE1500シリーズ Vol.71 THE 恋愛シミュレーション2 ふれあい",
+    "アイドルマスター シンデレラガールズ",
+    "かまいたちの夜シリーズ",
+    "Stilt Fella",
+    "Baby Steps",
+    "マリオシリーズ",
+    "ロックマンシリーズ",
+    "へべれけ ばにーがーでん",
+    "Inverted Angel",
+    "スーパーリアル麻雀VenusReturns",
+    "ざこのあひる",
+    "BALANCED FOOD CalorieMate FOR GAME CREATORS - JELLY MISSION",
+    "ドンキーコング バナンザ",
+    "Blue Prince"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:20",
+     "label": "ゲームにまつわる怖い話"
+    },
+    {
+     "time": "34:58",
+     "label": "滝壺3分ゲーム紹介（Stilt Fella）"
+    },
+    {
+     "time": "43:23",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:00:20",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:10:48",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/71-e38l08b"
+   },
+   "guid": "38221b51-9dff-4a6a-8837-d4640c711caf",
+   "image": "assets/img/ep/71.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1758699105236-f0960d2954507.jpg"
+  },
+  {
+   "number": 72,
+   "title": "塊魂、双恋、シーマン…今夜決定！ 12星座にふさわしいゲーム！！",
+   "date": "2025-10-01",
+   "date_estimated": false,
+   "tags": [
+    "ふさわしいゲーム"
+   ],
+   "series": "fusawashii",
+   "description": "星座をお持ちのすべての皆さん！！\n自分の星座に対応するゲームは何なのか気になっていませんか？\n12星座にふさわしいゲーム、すべて決めます！",
+   "games": [
+    "Cult of the Lamb",
+    "キャサリン",
+    "シェフィ",
+    "塊魂",
+    "時速1000kmの牛",
+    "マリオカートワールド",
+    "双恋",
+    "Clover Heart's",
+    "ヨスガノソラ",
+    "Nursery Rhyme -ナーサリィ☆ライム",
+    "テイルズ オブ ファンタジア なりきりダンジョン",
+    "リディー＆スールのアトリエ ～不思議な絵画の錬金術士～",
+    "原神",
+    "スーパーマリオブラザーズ",
+    "ドラゴンクエストV",
+    "ファイナルファンタジーIV",
+    "カニノケンカ",
+    "モンスターハンターシリーズ",
+    "TOKYO JUNGLE",
+    "ライオンキング",
+    "ポケットモンスターサン",
+    "ファイナルファンタジー8",
+    "オトメディウス",
+    "ヴァルキリープロファイル",
+    "アンジェリーク",
+    "遙かなる時空の中で",
+    "大逆転裁判",
+    "JUDGE EYES:死神の遺言",
+    "遊☆戯☆王 真デュエルモンスターズ 封印されし記憶",
+    "レイトン教授シリーズ",
+    "ミニ四駆シャイニングスコーピオン レッツ&ゴー!!",
+    "ドラゴンクエストモンスターズ テリーのワンダーランド",
+    "ファイナルファンタジーVII",
+    "モンスターハンター ポータブル 2nd",
+    "Horizon Zero Dawn",
+    "ゼルダの伝説シリーズ",
+    "Fate/stay night",
+    "Goat Simulator",
+    "ダークソウル",
+    "風来のシレンシリーズ",
+    "アクエリアンエイジ",
+    "ガブッチョ魚つりゲーム",
+    "糸井重里のバス釣りNo.1",
+    "海のぬし釣り",
+    "シーマン",
+    "46億年物語",
+    "I Am Fish",
+    "餓狼伝説",
+    "ニンテンドースイッチ2",
+    "Clair Obscur: Expedition 33",
+    "Pokémon Trading Card Game Pocket",
+    "PlayStation Store",
+    "メタファー：リファンタジオ",
+    "都市伝説解体センター",
+    "ロマンシング サガ2 リベンジオブザセブン",
+    "HD-2D版 ドラゴンクエストIII そして伝説へ…",
+    "真・三國無双 ORIGINS",
+    "首都高バトル/TokyoXtremeRacer",
+    "龍が如く8外伝 Pirates in Hawaii",
+    "モンスターハンターワイルズ",
+    "HUNDRED LINE -最終防衛学園",
+    "ファンタジーライフi グルグルの竜と時をぬすむ少女",
+    "ELDEN RING NIGHTREIGN",
+    "INDIKA",
+    "SCHiM",
+    "スペルトナエル",
+    "THE IDOLM@STER SHINY COLORS 7th UNITLIVE TOUR 円環",
+    "ドラゴンクエストVII Reimagined"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:20",
+     "label": "おひつじ座"
+    },
+    {
+     "time": "05:30",
+     "label": "おうし座"
+    },
+    {
+     "time": "10:26",
+     "label": "ふたご座"
+    },
+    {
+     "time": "14:42",
+     "label": "かに座"
+    },
+    {
+     "time": "17:01",
+     "label": "しし座"
+    },
+    {
+     "time": "19:23",
+     "label": "おとめ座"
+    },
+    {
+     "time": "21:28",
+     "label": "てんびん座"
+    },
+    {
+     "time": "25:20",
+     "label": "さそり座"
+    },
+    {
+     "time": "27:08",
+     "label": "いて座"
+    },
+    {
+     "time": "33:13",
+     "label": "やぎ座"
+    },
+    {
+     "time": "34:54",
+     "label": "みずがめ座"
+    },
+    {
+     "time": "37:59",
+     "label": "うお座"
+    },
+    {
+     "time": "41:38",
+     "label": "最終選考"
+    },
+    {
+     "time": "45:56",
+     "label": "まとめ"
+    },
+    {
+     "time": "49:32",
+     "label": "日本ゲーム大賞のコーナー"
+    },
+    {
+     "time": "1:02:32",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:04:33",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:16:46",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/72--12-e38ut20"
+   },
+   "guid": "0953c4a7-fa56-443f-8d7e-00ef0d2477a4",
+   "image": "assets/img/ep/72.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1759318485493-58209afbcb606.jpg"
+  },
+  {
+   "number": 73,
+   "title": "君はフロムのVRゲームを知っているか！？ Déraciné（デラシネ）",
+   "date": "2025-10-08",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "初代PSVRの名作アドベンチャー、Déraciné（デラシネ）についてネタバレありで話します！\nエルデンリング等で有名なフロム・ソフトウェア製、時間停止中に妖精さんがいたずらをする刺激的なゲームです！！",
+   "games": [
+    "Déraciné（デラシネ）",
+    "浅利七海のSTAR FISHING",
+    "聖闘士星矢 黄金伝説",
+    "アクエリアンエイジ",
+    "デイズ オブ メモリーズ",
+    "サガフロンティア",
+    "ようこそ ひつじ村",
+    "牧場物語",
+    "聖闘士星矢聖域十ニ宮編",
+    "カニノケンカ",
+    "Ace of Seafood",
+    "サガ3時空の覇者",
+    "ElecHead",
+    "ロックマン クラシックス コレクション",
+    "Getting Over It with Bennett Foddy",
+    "Hexcells",
+    "ドットホラーストーリー",
+    "Muse Dash",
+    "He is Coming",
+    "One Step From Eden",
+    "へべれけ ばにーがーでん",
+    "レイジングループ",
+    "biohazard HD REMASTER",
+    "Scene Investigators",
+    "ソフィアは嘘と引き換えに",
+    "魔法少女ノ魔女裁判",
+    "Stellar Blade",
+    "スペルトナエル",
+    "I Love You",
+    "Colonel Sanders! A Finger Lickin’ Good Dating Simulator",
+    "ワンス・アポン・ア・塊魂",
+    "素敵ソングMV『カタマリオンザドゥン』花海咲季"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:09",
+     "label": "デラシネ前半"
+    },
+    {
+     "time": "14:54",
+     "label": "CM"
+    },
+    {
+     "time": "15:55",
+     "label": "デラシネ後半（ネタバレ注意）"
+    },
+    {
+     "time": "34:56",
+     "label": "まとめ（ネタバレ注意）"
+    },
+    {
+     "time": "39:41",
+     "label": "滝壺3分ゲーム紹介（浅利七海のSTAR FISHING）"
+    },
+    {
+     "time": "48:02",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:24:37",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:34:43",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/73-VR-Dracin-e398jt3"
+   },
+   "guid": "c0e8d7ba-7494-46e9-90c9-a992ddbf2486",
+   "image": "assets/img/ep/73.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1759928928135-88e3baaaf7f4a.jpg"
+  },
+  {
+   "number": 74,
+   "title": "終天教団「ゲームジャンル5つ入れちゃいました」",
+   "date": "2025-10-15",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "5種類のゲームが詰め込まれたマルチジャンルADV、終天教団について話します！",
+   "games": [
+    "終天教団",
+    "BALANCED FOOD CalorieMate FOR GAME CREATORS - JELLY MISSION",
+    "Déraciné（デラシネ）",
+    "スターモビール",
+    "バーチャルボーイ",
+    "マリオズテニス",
+    "電車でGO！！ はしろう山手線",
+    "UNI CATCH GAME（ウニキャッチゲーム）",
+    "PICO PARK:Classic Edition",
+    "へべれけ ばにーがーでん",
+    "文字遊戯(日本語版)",
+    "ワンス・アポン・ア・塊魂",
+    "素敵ソングMV『カタマリオンザドゥン』花海咲季"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:02",
+     "label": "終天教団"
+    },
+    {
+     "time": "22:19",
+     "label": "滝壺3分ゲーム紹介（カロリーメイト ゼリーミッション）"
+    },
+    {
+     "time": "33:54",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "41:19",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "51:11",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/74-5-e39i37m"
+   },
+   "guid": "36c312d2-355b-4987-9e3a-bedb835c28fe",
+   "image": "assets/img/ep/74.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1760499398465-4a1218ff3174d.jpg"
+  },
+  {
+   "number": 75,
+   "title": "みんなのゲームにまつわる怖い話！ こんな猿のゲームで捕まりたくない！",
+   "date": "2025-10-22",
+   "date_estimated": false,
+   "tags": [
+    "怖い話"
+   ],
+   "series": null,
+   "description": "リスナーのみなさんから投稿いただいた、ゲームに関係する怖い話を紹介します！",
+   "games": [
+    "ファイナルファンタジーX",
+    "スーパードンキーコング2",
+    "ドラゴンクエストV",
+    "古伝降霊術 百物語～ほんとにあった怖い話～",
+    "バイオハザード",
+    "零シリーズ",
+    "パルテナの鏡",
+    "エキサイティングベースボール",
+    "サイレントヒルf",
+    "ドラゴンクエスト3",
+    "終点教団",
+    "ワンス・アポン・ア・塊魂",
+    "笑点",
+    "ドンキーコングバナンザ",
+    "レイジングループ",
+    "グノーシア",
+    "ステータス確認探偵",
+    "RING of RED"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:03",
+     "label": "みんなのゲームにまつわる怖い話"
+    },
+    {
+     "time": "44:22",
+     "label": "まとめ"
+    },
+    {
+     "time": "48:00",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "53:35",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "58:25",
+     "label": "エンディング"
+    },
+    {
+     "time": "1:07:28",
+     "label": "おまけ"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/75-e39t055"
+   },
+   "guid": "4260bda4-d8a8-469b-85c5-93b874a80f32",
+   "image": "assets/img/ep/75.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1761138765657-d13072e1a31eb.jpg"
+  },
+  {
+   "number": 76,
+   "title": "ミスターエレベーター「両腕が動かせるゲームをお探しの方におすすめです」",
+   "date": "2025-10-29",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ビジュアルが異彩を放つ謎解きゲーム、ミスターエレベーターについて話します！\n製品はギフトテンインダストリさんに無償提供いただきました！\n\nブログでの紹介記事：\nhttps://www.tawashix.com/entry/MRELEVATOR",
+   "games": [
+    "ミスターエレベーター / MR.ELEVATOR",
+    "Steam版",
+    "Nintendo Switch版",
+    "トレーラー",
+    "Roguebook",
+    "Monster Train",
+    "Monster Train 2",
+    "ワリオランドシリーズ",
+    "RING of RED",
+    "原神",
+    "ウマ娘 プリティーダービー",
+    "ワンス・アポン・ア・塊魂"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:34",
+     "label": "ミスターエレベーター"
+    },
+    {
+     "time": "20:11",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "26:20",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "40:06",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "45:32",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/76-e3a6rk5"
+   },
+   "guid": "b1f6ca8e-6571-4119-b913-31fe22822b60",
+   "image": "assets/img/ep/76.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1761726746390-aa6029b62bd9f.jpg"
+  },
+  {
+   "number": 77,
+   "title": "ドラゴンクエストI＆II発売記念！ ドラクエのいいところ",
+   "date": "2025-11-05",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ドラクエはどうしてこうも我々を惹きつけるのか…？\nその謎を解明すべく、アレフガルドの奥地へと向かいます。",
+   "games": [
+    "ドラゴンクエストシリーズ",
+    "BALL x PIT",
+    "Absolum (アブソラム)",
+    "ぼくのカードのほーがきみのよりすごいもん！",
+    "ミスターエレベーター",
+    "街",
+    "龍虎の拳",
+    "シーソーゲーム（曲）",
+    "Mr.BATER（人物）",
+    "Mr.Do!",
+    "ウマ娘 プリティーダービー",
+    "ドラゴンクエスト4コママンガ劇場 ニセ勇者本",
+    "終天教団",
+    "Slot & Dungeons"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:18",
+     "label": "ドラクエのいいところ"
+    },
+    {
+     "time": "40:00",
+     "label": "滝壺3分ゲーム紹介（BALL x PIT）"
+    },
+    {
+     "time": "46:55",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "59:28",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:04:17",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/77-III-e3ahplk"
+   },
+   "guid": "71891f32-8766-40f4-aabb-33251623c765",
+   "image": "assets/img/ep/77.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1762349286025-67e522a3fc5f9.jpg"
+  },
+  {
+   "number": 78,
+   "title": "ゲームの滝壺78回記念！ 雑談＆ドラクエのいいところ延長戦",
+   "date": "2025-11-12",
+   "date_estimated": false,
+   "tags": [
+    "記念回"
+   ],
+   "series": null,
+   "description": "今回はわけあって雑談…\nに加え、前回同様ドラクエのいいところについてもそこそこ話します！",
+   "games": [
+    "ガムトーク",
+    "モンスターハンターシリーズ",
+    "龍が如くシリーズ",
+    "ドラゴンクエストシリーズ",
+    "ポケットモンスター",
+    "クロノ・トリガー",
+    "ファイナルファンタジーVII",
+    "ファイナルファンタジーVI",
+    "メトロイド",
+    "Surgeon Simulator",
+    "コンパイル（企業）",
+    "みんなのゴルフ",
+    "マリオゴルフ",
+    "あつまれ どうぶつの森",
+    "ゼルダの伝説",
+    "テイルズ オブ ジ アビス",
+    "クイズマジックアカデミー",
+    "QMAClone by nodchip",
+    "世界はあたしでまわってる",
+    "NARUTO -ナルト- 激闘忍者大戦!",
+    "はじめの一歩2 VICTORIOUS ROAD",
+    "ファミコンジャンプ 英雄列伝",
+    "ドラゴンボールZ 超サイヤ伝説",
+    "ぷよぷよ!!クエスト",
+    "ぷよぷよ!!クエストを秋月律子さんが遊ぶ動画",
+    "Slot & Dungeons",
+    "BALL x PIT",
+    "国産RPGクロニクル（アフター6ジャンクション）のSpotifyプレイリスト",
+    "ミスターエレベーター",
+    "ウマ娘 プリティーダービー",
+    "魔界戦記ディスガイア",
+    "Linelith",
+    "スペルトナエル",
+    "鏡のマジョリティア",
+    "グノーシア",
+    "レイジングループ",
+    "ドラゴンクエストビルダーズ",
+    "森田将棋",
+    "Blue Prince"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:47",
+     "label": "砥石の話"
+    },
+    {
+     "time": "07:06",
+     "label": "解釈の話"
+    },
+    {
+     "time": "11:04",
+     "label": "実験の話"
+    },
+    {
+     "time": "13:47",
+     "label": "脳の話"
+    },
+    {
+     "time": "17:23",
+     "label": "池の話"
+    },
+    {
+     "time": "21:00",
+     "label": "クローンの話"
+    },
+    {
+     "time": "25:27",
+     "label": "少年漫画の話"
+    },
+    {
+     "time": "31:10",
+     "label": "滝壺3分ゲーム紹介（ぷよぷよ!!クエスト）"
+    },
+    {
+     "time": "36:50",
+     "label": "滝壺3分ゲーム紹介（Slot & Dungeons）"
+    },
+    {
+     "time": "41:27",
+     "label": "ドラクエのいいところ延長戦（おたより紹介）"
+    },
+    {
+     "time": "1:18:14",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:25:17",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/78-78-e3as5u6"
+   },
+   "guid": "500888d9-b6dc-4c65-b890-7d232bbc7ec6",
+   "image": "assets/img/ep/78.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1762955267188-abcb2e8690e62.jpg"
+  },
+  {
+   "number": 79,
+   "title": "わるい技 ～わるい村 ep04～ 同時上映 Lumines Arise（ルミネス アライズ）",
+   "date": "2025-11-19",
+   "date_estimated": false,
+   "tags": [
+    "わるい村"
+   ],
+   "series": "waruimura",
+   "description": "わるい技には\nご用心",
+   "games": [
+    "ドラゴンクエストシリーズ",
+    "ファイナルファンタジーVI",
+    "ファイナルファンタジーVII",
+    "ポケットモンスターシリーズ",
+    "ザ・キング・オブ・ファイターズ",
+    "スーパーマリオワールド",
+    "グラディウス",
+    "Lumines Arise（ルミネス アライズ）",
+    "新桃太郎伝説",
+    "わくわくぷよぷよダンジョン",
+    "Blue Prince",
+    "ボクと魔王",
+    "ペーパーマリオオリガミキング",
+    "ミスターエレベーター",
+    "ドラゴンクエストVII Reimagined"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:46",
+     "label": "わるい技"
+    },
+    {
+     "time": "41:17",
+     "label": "滝壺3分ゲーム紹介（Lumines Arise）"
+    },
+    {
+     "time": "50:23",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:01:48",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:07:54",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/79---ep04--Lumines-Arise-e3b687s"
+   },
+   "guid": "226aba9a-9074-43a4-902b-2b3431b1d1aa",
+   "image": "assets/img/ep/79.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1763551903832-ff2483ad897da.jpg"
+  },
+  {
+   "number": 80,
+   "title": "PlayStation！ 初代プレステの売上ランキングTOP50について全部語る！",
+   "date": "2025-11-26",
+   "date_estimated": false,
+   "tags": [
+    "初代プレステ売上ランキング"
+   ],
+   "series": "ps-ranking",
+   "description": "SFCに続いて、初代プレイステーションの売り上げランキングTOP50について全部語る！\n予定ですが、なかなか難しいものですね。",
+   "games": [
+    "ドラゴンクエスト7 エデンの戦士たち",
+    "ファイナルファンタジー7",
+    "ファイナルファンタジー8",
+    "ファイナルファンタジー9",
+    "グランツーリスモ",
+    "バイオハザード2",
+    "みんなのゴルフ",
+    "ダービースタリオン",
+    "グランツーリスモ2",
+    "クラッシュ・バンディクー3 ブッとび!世界一周",
+    "ハッピールートを終わらせて",
+    "わるい王様とりっぱな勇者",
+    "アンティフォナの聖歌姫 ～天使の楽譜 Op.A～",
+    "シニガミ姫と異書館ノ怪物",
+    "ざこのあひる",
+    "マジック：ザ・ギャザリング",
+    "カービィのエアライダー"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:00",
+     "label": "初代プレイステーションとは"
+    },
+    {
+     "time": "04:45",
+     "label": "第1位 ドラゴンクエスト7 エデンの戦士たち"
+    },
+    {
+     "time": "09:01",
+     "label": "第2位 ファイナルファンタジー7"
+    },
+    {
+     "time": "16:41",
+     "label": "第3位 ファイナルファンタジー8"
+    },
+    {
+     "time": "21:44",
+     "label": "第4位 ファイナルファンタジー9"
+    },
+    {
+     "time": "28:37",
+     "label": "第5位 グランツーリスモ"
+    },
+    {
+     "time": "33:40",
+     "label": "第6位 バイオハザード2"
+    },
+    {
+     "time": "39:00",
+     "label": "第7位 みんなのゴルフ"
+    },
+    {
+     "time": "43:52",
+     "label": "第8位 ダービースタリオン"
+    },
+    {
+     "time": "47:05",
+     "label": "第9位 グランツーリスモ2"
+    },
+    {
+     "time": "48:38",
+     "label": "第10位 クラッシュ・バンディクー3 ブッとび!世界一周"
+    },
+    {
+     "time": "52:38",
+     "label": "ランキングまとめ"
+    },
+    {
+     "time": "53:32",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:04:13",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:15:49",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/80-PlayStation-TOP50-e3bg8va"
+   },
+   "guid": "ecb21965-7ac5-43cb-b282-27e6f80bc4ce",
+   "image": "assets/img/ep/80.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1764155201901-8d8a9ab2199b9.jpg"
+  },
+  {
+   "number": 81,
+   "title": "人の子よ… 年末年始に備えなさい… 親類 or 人類 と遊びたいパーティゲーム",
+   "date": "2025-12-03",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "年末年始に親類…そして人類と遊びたい、神、悪魔、クッパ軍団、ウイルスなどの方はぜひお聴きください！",
+   "games": [
+    "任天堂 株札 大統領",
+    "マリオパーティシリーズ",
+    "桃太郎電鉄シリーズ",
+    "人生ゲームシリーズ",
+    "Ingress",
+    "ポケモンGO",
+    "シムシティ",
+    "アクトレイザー",
+    "やわらかあたま塾 いっしょにあたまのストレッチ",
+    "8番出口",
+    "PICO PARKシリーズ",
+    "Ultimate Chicken Horse",
+    "Ultimate Sheep Raccoon",
+    "Q2 HUMANITY",
+    "Party Animals",
+    "ケツバトラー",
+    "Plague Inc.",
+    "ポケットモンスターシリーズ",
+    "カービィシリーズ",
+    "ゴエモンシリーズ",
+    "くにおくんシリーズ",
+    "ロックマンシリーズ",
+    "ボンバーマンシリーズ",
+    "ゴールデンアイ 007",
+    "Buckshot Roulette",
+    "Liar's Bar",
+    "Dead by Daylight",
+    "ガムトーク",
+    "パラスがパラセクトになる公式動画",
+    "クラッシュバンディクーシリーズ",
+    "ファイナルファンタジー7",
+    "ケロケロキング",
+    "虎への道",
+    "魔界戦記ディスガイアシリーズ",
+    "カプコンアーケードスタジアム",
+    "ロックマン・ザ・パワーバトル",
+    "ウマ娘 プリティーダービー",
+    "マジック：ザ・ギャザリング",
+    "十三機兵防衛圏",
+    "カービィのエアライダー",
+    "如月千早 - 約束 / THE FIRST TAKE"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:44",
+     "label": "親類or人類と遊びたいパーティゲーム"
+    },
+    {
+     "time": "31:38",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "36:16",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "52:15",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:00:10",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/81----or-e3bqn80"
+   },
+   "guid": "27835d80-8c27-41ea-8c7a-9ace8e93c543",
+   "image": "assets/img/ep/81.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1764766057089-c053a521d77f6.jpg"
+  },
+  {
+   "number": 82,
+   "title": "Blue Prince「あなたには、この屋敷の『謎』が解けますか？」",
+   "date": "2025-12-10",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "途方もない謎解きゲームだと噂のブループリンス、その恐るべきゲームシステムに迫ります。",
+   "games": [
+    "Blue Prince",
+    "Blue Princeの実況",
+    "不思議のダンジョン 風来のシレン3 からくり屋敷の眠り姫",
+    "善良なる悪しき者",
+    "製品（Amazon）",
+    "公式サイト",
+    "ブログ記事",
+    "ファイナルファンタジー7",
+    "十三機兵防衛圏",
+    "Ultimate Chicken Horse",
+    "Ultimate Sheep Raccoon",
+    "Staffer Retro: 超能力推理クエスト",
+    "カミとミコ",
+    "おやおや？大家さん！",
+    "セミたちはどう生きるか",
+    "YourGOTY レビュー投稿キャンペーン2025"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:42",
+     "label": "Blue Prince"
+    },
+    {
+     "time": "32:36",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "37:34",
+     "label": "滝壺3分ゲーム紹介（善良なる悪しき者）"
+    },
+    {
+     "time": "43:17",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "53:02",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:03:12",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/82-Blue-Prince-e3c5d7u"
+   },
+   "guid": "59100e9a-b783-459f-9b9e-c7a49f709a04",
+   "image": "assets/img/ep/82.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1765370008219-0f792aa1eaabd.jpg"
+  },
+  {
+   "number": 83,
+   "title": "モンスターハンターワイルズ、HUNDRED LINE -最終防衛学園-、スペルトナエル…滝壺GOTY2025！",
+   "date": "2025-12-17",
+   "date_estimated": false,
+   "tags": [
+    "GOTY"
+   ],
+   "series": null,
+   "description": "滝壺の3人がそれぞれのGOTY（ゲーム・オブ・ザ・イヤー）2025を発表します！",
+   "games": [
+    "YourGOTY レビュー投稿キャンペーン2025",
+    "イチィゴォーのYourGOTY2025：モンスターハンターワイルズ",
+    "夜中たわしのYourGOTY2025：HUNDRED LINE -最終防衛学園",
+    "ひゅうまのYourGOTY2025：スペルトナエル",
+    "真・三國無双シリーズ",
+    "Blue Prince",
+    "X JAPAN Virtual Shock 001",
+    "Ultimate Sheep Raccoon",
+    "ウマ娘 プリティーダービー",
+    "へべれけ ばにーがーでん",
+    "十三機兵防衛圏",
+    "ロックマン: デュアル オーバーライド",
+    "Clair Obscur: Expedition 33",
+    "如月千早 - M@STERPIECE / THE FIRST TAKE"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:04",
+     "label": "イチィゴォーのGOTY"
+    },
+    {
+     "time": "06:41",
+     "label": "夜中たわしのGOTY"
+    },
+    {
+     "time": "11:59",
+     "label": "ひゅうまのGOTY"
+    },
+    {
+     "time": "18:28",
+     "label": "まとめ"
+    },
+    {
+     "time": "20:02",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "26:06",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "35:05",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "45:07",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/83-HUNDRED-LINE---GOTY2025-e3cg0j0"
+   },
+   "guid": "951894b7-b82b-429f-a2f5-afe501d1e8fe",
+   "image": "assets/img/ep/83.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1765978266123-c7b0f8604060f.jpg"
+  },
+  {
+   "number": 84,
+   "title": "グノーシア＆レイジングループ「人狼ゲーム初心者にもおすすめです。私は人間です」",
+   "date": "2025-12-24",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "人狼がテーマの2作品について話します。\n私はもちろん人間です。",
+   "games": [
+    "グノーシア",
+    "レイジングループ",
+    "スプラトゥーン",
+    "DETECTIVE X CASE FILE #1『御仏の殺人』",
+    "Ultimate Sheep Raccoon",
+    "3人で実況した動画",
+    "BluePrince",
+    "十三機兵防衛圏",
+    "バニーガーデン",
+    "へべれけ ばにーがーでん",
+    "トレジャーハンターG",
+    "デジモンペンデュラム",
+    "モンスタープロレス",
+    "100％おれんじじゅ～すっ！",
+    "Lovers in a Dangerous Spacetime",
+    "LOVE",
+    "The Witcher 3: Wild Hunt",
+    "Overcooked! All You Can Eat",
+    "GP Club Life モータースポーツチーム",
+    "Aeruta アルタ",
+    "AI創作呪文",
+    "デヴィエーション・ゲーム",
+    "セミたちはどう生きるか",
+    "ウマ娘 プリティーダービー 熱血ハチャメチャ大感謝祭！",
+    "逆転検事1&2 御剣セレクション",
+    "カリギュラ2",
+    "人狼潜む文化祭からの脱出",
+    "Slay the Spire",
+    "スペルトナエル",
+    "おしゃべりキング！コミュ力診断ゲーム"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:02",
+     "label": "グノーシア＆レイジングループ"
+    },
+    {
+     "time": "30:28",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "34:30",
+     "label": "滝壺3分ゲーム紹介：Ultimate Sheep Raccoon"
+    },
+    {
+     "time": "41:38",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "56:36",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:04:23",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/84-e3cpcn5"
+   },
+   "guid": "ebf818d5-5638-433b-824f-158fd544026a",
+   "image": "assets/img/ep/84.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1766583493003-7373aa5cc7a7f.jpg"
+  },
+  {
+   "number": 85,
+   "title": "今日は曲を流します",
+   "date": "2025-12-31",
+   "date_estimated": false,
+   "tags": [
+    "ゲーム音楽"
+   ],
+   "series": null,
+   "description": "年末なので（？）音楽トーク番組になりました。",
+   "games": [
+    "スーパーマリオブラザーズ",
+    "ドラゴンクエストシリーズ",
+    "あつまれ どうぶつの森",
+    "へべれけ ばにーがーでん",
+    "グノーシア",
+    "レイジングループ",
+    "魔法少女ノ魔女裁判"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:07",
+     "label": "音楽トーク番組"
+    },
+    {
+     "time": "03:54",
+     "label": "曲：ゲームの滝壺テーマソング2025"
+    },
+    {
+     "time": "08:02",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "13:11",
+     "label": "曲：第77回 ドラクエのいいところ"
+    },
+    {
+     "time": "19:23",
+     "label": "近況"
+    },
+    {
+     "time": "25:40",
+     "label": "曲：第71回 ゲームにまつわる怖い話"
+    },
+    {
+     "time": "30:53",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "35:35",
+     "label": "エンディング"
+    },
+    {
+     "time": "37:32",
+     "label": "曲：第78回 雑談"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/85-e3d12ob"
+   },
+   "guid": "12c5d2b1-82fb-4213-bf6f-94d5cf278cd0",
+   "image": "assets/img/ep/85.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1767187382366-4d4cc7111072a.jpg"
+  },
+  {
+   "number": 86,
+   "title": "新春！ 五十音全部にふさわしいゲームタイトルを集めて滝壺かるたを作ろう！",
+   "date": "2026-01-07",
+   "date_estimated": false,
+   "tags": [
+    "ふさわしいゲーム"
+   ],
+   "series": "fusawashii",
+   "description": "滝壺にまつわるゲームタイトルを集めに集めて、ゲームタイトルかるたを考案します！",
+   "games": [
+    "【かるたに採用したゲーム】※ネタバレ注意",
+    "あ行：アイドルマスター／Inverted Angel／ウマ娘 プリティーダービー／Ever17／俺の屍を越えてゆけ",
+    "か行：塊魂／Q2 HUMANITY／クロノ･トリガー／けものティータイム／魂斗羅",
+    "さ行：サンサーラ・ナーガ2／終天教団／スペルトナエル／聖剣伝説／ソニック・ザ・ヘッジホッグ",
+    "た行：高橋名人の冒険島／チョコボスタリオン／Zwei!!／テイルズオブエターニア／トルネコの大冒険",
+    "な行：NARUTO -ナルト- 激闘忍者大戦!／ニーア オートマタ／ぬし釣り64／熱血硬派くにおくん／脳を鍛える大人のDSトレーニング",
+    "は行：HUNDRED LINE -最終防衛学園-／ひぐらしのなく頃に／風来のシレン／へべれけ ばにーがーでん／ホロウナイト",
+    "ま行：魔界戦記ディスガイア／ミスターエレベーター／moon／メダロット／モンスターファーム",
+    "や行：やわらかあたま塾／勇者のくせになまいきだ。／46億年物語",
+    "ら行：ライブ・ア・ライブ／リングフィットアドベンチャー／ルイージマンション3／レイジングループ／ロックマン",
+    "わ行：ワンダと巨像",
+    "が行：がんばれゴエモン／逆転裁判／グノーシア／原神／ゴールデンアイ 007",
+    "ざ行：THE 恋愛シミュレーション2 ～ふれあい～／ジャンボ尾崎のホールインワン／ZOO KEEPER／ゼルダの伝説／ゾンビ・オブ・ザ・ドット",
+    "だ行：ダイナウォーズ 恐竜王国への大冒険／デラシネ／ドラゴンクエスト",
+    "ば行：バイオハザード／美少女戦士セーラームーン／Blue Prince／ベヨネッタ／ボンバーマン",
+    "ぱ行：パラノマサイト／ピクミン／ぷよぷよ／ペルソナ5／ポケットモンスター",
+    "Ultimate Sheep Raccoon",
+    "Liar's Bar",
+    "トレジャーハンターG",
+    "Blue Prince",
+    "グノーシア",
+    "レイジングループ",
+    "ゼンレスゾーンゼロ",
+    "セミたちはどう生きるか",
+    "あつまれ どうぶつの森"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:38",
+     "label": "かるた第一部"
+    },
+    {
+     "time": "43:31",
+     "label": "かるた第二部"
+    },
+    {
+     "time": "1:01:55",
+     "label": "かるた完成"
+    },
+    {
+     "time": "1:03:42",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:09:07",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:20:11",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/86-e3dac75"
+   },
+   "guid": "96520ef0-6636-4296-af9c-17872e2deb81",
+   "image": "assets/img/ep/86.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1767792467085-ae0142122a8ae.jpg"
+  },
+  {
+   "number": 87,
+   "title": "ドラゴンクエストVII Reimagined 体験版がちょうどよかった",
+   "date": "2026-01-13",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ドラゴンクエストVII Reimaginedの体験版を遊んだ感想について話します！",
+   "games": [
+    "ドラゴンクエストVII Reimagined",
+    "ぬらりひょんの孫 百鬼繚乱大戦",
+    "ぬ～ぼ～",
+    "夜光虫",
+    "ZONE OF THE ENDERS",
+    "火の鳥 鳳凰編 我王の冒険",
+    "AI創作呪文",
+    "時解 TokiToki escape cafe",
+    "Baby Steps"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:30",
+     "label": "ドラクエ7Re体験版"
+    },
+    {
+     "time": "20:34",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "31:42",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "36:47",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/87-VII-Reimagined-e3di9kd"
+   },
+   "guid": "f801ff8a-59b4-468a-83ed-9e86da7282c2",
+   "image": "assets/img/ep/87.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1768253394637-5256c8bbbd99b.jpg"
+  },
+  {
+   "number": 88,
+   "title": "掛け値なしにサイコーだったxRミュージカルライブ「騎士団のヴェール」",
+   "date": "2026-01-14",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "アイドルマスター シャイニーカラーズに登場するユニットL'Antica (アンティーカ)のイベント\n『283 Production MUSICAL Performance 騎士団のヴェール - Veil of Order -』\nについて、3公演すべて体験してきたイチィゴォーが語ります！",
+   "games": [
+    "283 Production MUSICAL Performance 騎士団のヴェール - Veil of Order",
+    "冒頭無料配信",
+    "本編配信",
+    "ソウルシリーズ",
+    "あつまれ どうぶつの森"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "00:44",
+     "label": "騎士団のヴェール"
+    },
+    {
+     "time": "23:38",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "29:46",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/88-xR-e3dku13"
+   },
+   "guid": "154cf620-5176-45b6-9ed5-48b5c6452476",
+   "image": "assets/img/ep/88.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1768394298797-9193b47d5e326.jpg"
+  },
+  {
+   "number": 89,
+   "title": "滝壺メンバーが選ぶサイコーレビュー！ YourGOTY2025レビュー投稿キャンペーン",
+   "date": "2026-01-21",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ゲームの滝壺が選んだYourGOTY2025レビュー3本+8本を大紹介！",
+   "games": [
+    "コンボイさとみさん：リングフィットアドベンチャー",
+    "ケンケンまるさん：ポケットモンスター Let's Go! ピカチュウLet's Go!イーブイ",
+    "HARUさん：ダレカレ",
+    "クックさん：FALLOUT 76",
+    "夏川さん：ときめきメモリアル Girl's Side 4th Heart",
+    "ヒヨスケさん：Hollow Knight: Silksong",
+    "オオヤマ名前募集中さん：PowerWash Simulator 2",
+    "宝島のコングさん：Assemble with care",
+    "靖男さん：GAME OF THE YEAR",
+    "ゲームすっきゃねんさん：NieR:Automata",
+    "Ochi-napoさん：Baby Steps",
+    "女神転生シリーズ",
+    "ペルソナシリーズ",
+    "ヴァルキリープロファイル",
+    "ドラゴンクエストVII Reimagined",
+    "騎士団のヴェール",
+    "やきとり娘～スゴ腕繁盛記～",
+    "ドラゴンクエストX",
+    "ぬ～ぼ～",
+    "ドラゴンクエストウォーク",
+    "探検ドリランド",
+    "ライブ・ア・ライブ",
+    "原神",
+    "トリッカル・もちもちほっペ大作戦",
+    "あつまれ どうぶつの森"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:17",
+     "label": "イチィゴォーの推しレビュー"
+    },
+    {
+     "time": "05:34",
+     "label": "夜中たわしの推しレビュー"
+    },
+    {
+     "time": "10:23",
+     "label": "ひゅうまの推しレビュー"
+    },
+    {
+     "time": "12:42",
+     "label": "勝手に!!3分ゲーム紹介"
+    },
+    {
+     "time": "17:00",
+     "label": "まとめ"
+    },
+    {
+     "time": "17:40",
+     "label": "その他紹介したいレビュー"
+    },
+    {
+     "time": "33:48",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "41:51",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "55:25",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:07:06",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/89--YourGOTY2025-e3dvqju"
+   },
+   "guid": "7855a1c2-8649-44ab-9f8a-bae997dea825",
+   "image": "assets/img/ep/89.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1769002460508-44deae0aef902.jpg"
+  },
+  {
+   "number": 90,
+   "title": "PlayStation！ 初代プレステの売上ランキングTOP50について全部語る！ 2回目",
+   "date": "2026-01-28",
+   "date_estimated": false,
+   "tags": [
+    "初代プレステ売上ランキング"
+   ],
+   "series": "ps-ranking",
+   "description": "前回10位までしか話せなかったので、2回目の挑戦です！\nやり直しなので当然、1位から見ていきます。当然です。",
+   "games": [
+    "ドラゴンクエスト7 エデンの戦士たち",
+    "ファイナルファンタジー7",
+    "ファイナルファンタジー8",
+    "ファイナルファンタジー9",
+    "グランツーリスモ",
+    "バイオハザード2",
+    "みんなのゴルフ",
+    "ダービースタリオン",
+    "グランツーリスモ2",
+    "クラッシュ・バンディクー3 ブッとび!世界一周",
+    "みんなのゴルフ2",
+    "パラッパラッパー",
+    "バイオハザード3 ラストエスケープ",
+    "ファイナルファンタジータクティクス",
+    "鉄拳3",
+    "鉄拳2",
+    "クラッシュ・バンディクー2 コルテックスの逆襲!",
+    "ドラゴンクエスト4 導かれし者たち",
+    "ダンスダンスレボリューション",
+    "バイオハザード",
+    "チョコボの不思議なダンジョン",
+    "XI[sai]",
+    "けろけろけろっぴの大冒険",
+    "ドラゴンクエスト7",
+    "Samurai Pizza Cats: Blast from the Past!（キャッ党忍伝てやんでえ）",
+    "ギルド探求団へようこそ！",
+    "時の継承者 ファンタシースターIII",
+    "ダレカレ",
+    "ケツバトラー",
+    "グランブルーファンタジー",
+    "魔法少女ノ魔女裁判",
+    "如月千早武道館単独公演「OathONE」（冒頭無料配信）",
+    "Baby Steps",
+    "あつまれ どうぶつの森"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:40",
+     "label": "第1位 ドラゴンクエスト7 エデンの戦士たち"
+    },
+    {
+     "time": "04:26",
+     "label": "第2位 ファイナルファンタジー7"
+    },
+    {
+     "time": "06:34",
+     "label": "第3位 ファイナルファンタジー8"
+    },
+    {
+     "time": "08:43",
+     "label": "第4位 ファイナルファンタジー9"
+    },
+    {
+     "time": "13:12",
+     "label": "第5位 グランツーリスモ"
+    },
+    {
+     "time": "14:14",
+     "label": "第6位 バイオハザード2"
+    },
+    {
+     "time": "15:57",
+     "label": "第7位 みんなのゴルフ"
+    },
+    {
+     "time": "17:34",
+     "label": "第8位 ダービースタリオン"
+    },
+    {
+     "time": "19:42",
+     "label": "第9位 グランツーリスモ2"
+    },
+    {
+     "time": "20:26",
+     "label": "第10位 クラッシュ・バンディクー3"
+    },
+    {
+     "time": "22:09",
+     "label": "第11位 みんなのゴルフ2"
+    },
+    {
+     "time": "24:22",
+     "label": "第12位 パラッパラッパー"
+    },
+    {
+     "time": "28:03",
+     "label": "第13位 バイオハザード3"
+    },
+    {
+     "time": "30:01",
+     "label": "第14位 FF タクティクス"
+    },
+    {
+     "time": "32:19",
+     "label": "第15位 鉄拳3"
+    },
+    {
+     "time": "33:43",
+     "label": "第16位 鉄拳2"
+    },
+    {
+     "time": "35:48",
+     "label": "第17位 クラッシュ・バンディクー2"
+    },
+    {
+     "time": "37:32",
+     "label": "第18位 ドラゴンクエスト4"
+    },
+    {
+     "time": "42:43",
+     "label": "第19位 ダンスダンスレボリューション"
+    },
+    {
+     "time": "44:56",
+     "label": "第20位 バイオハザード"
+    },
+    {
+     "time": "47:06",
+     "label": "第21位 チョコボの不思議なダンジョン"
+    },
+    {
+     "time": "52:16",
+     "label": "第22位 XI[sai]"
+    },
+    {
+     "time": "56:38",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "1:01:16",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:09:19",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:17:30",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/90-PlayStation-TOP50-2-e3ea9kl"
+   },
+   "guid": "ea66bff6-94de-4a77-bcc6-3690c78524ca",
+   "image": "assets/img/ep/90.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1769604776115-b8285f5fe8449.jpg"
+  },
+  {
+   "number": 91,
+   "title": "One Turn Kill「出来らあっ！」「え！！ 1ターンであの敵を！？」",
+   "date": "2026-02-04",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "1ターンで敵を倒せる（倒さないと負ける）ゲーム、One Turn Killの話をしています！",
+   "games": [
+    "One Turn Kill",
+    "ドラゴンクエストVII",
+    "H9（トキメキ脱衣ジャンケン）",
+    "ペーパーマリオ オリガミキング",
+    "半ドン！だ話！のYourGOTY回",
+    "凶乱マカイズム",
+    "Baby Steps",
+    "あつまれ どうぶつの森",
+    "ウマ娘 プリティーダービー"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:07",
+     "label": "One Turn Kill"
+    },
+    {
+     "time": "17:03",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "24:16",
+     "label": "滝壺3分ゲーム紹介（H9）"
+    },
+    {
+     "time": "31:53",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "41:32",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "48:26",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/91-One-Turn-Kill-1-e3ekjqk"
+   },
+   "guid": "075bcab5-db0f-4b2e-834e-d6f78d0ceb31",
+   "image": "assets/img/ep/91.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1770213260825-14fc3db91acf5.jpg"
+  },
+  {
+   "number": 92,
+   "title": "Nintendo Direct 2026.2.5 ゴエモン＆ボンバーマン成分多め",
+   "date": "2026-02-11",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "Nintendo Direct 2026.2.5の内容、特にがんばれゴエモンとボンバーマンに関して多めに話さざるを得ない回です！",
+   "games": [
+    "がんばれゴエモン大集合！",
+    "スーパーボンバーマン コレクション",
+    "パラノマサイト FILE38 伊勢人魚物語",
+    "カルドセプト ビギンズ",
+    "アナザーエデン ビギンズ",
+    "パワフルプロ野球2026-2027",
+    "オービタルズ",
+    "コンソールアーカイブス",
+    "Baby Steps",
+    "ドラゴンクエストVII Reimagined",
+    "サンサーラ・ナーガ2",
+    "スペルトナエル",
+    "One Turn Kill",
+    "スーパーリアル麻雀",
+    "遊戯王ファイブディーズ ウィーリーブレイカーズ",
+    "OH!MYコンブ",
+    "異世界ワンターンキル姉さん",
+    "魔法少女ノ魔女裁判"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:14",
+     "label": "がんばれゴエモン大集合！"
+    },
+    {
+     "time": "11:00",
+     "label": "スーパーボンバーマン コレクション"
+    },
+    {
+     "time": "23:19",
+     "label": "その他ニンダイで紹介されたゲーム"
+    },
+    {
+     "time": "38:26",
+     "label": "ニンダイとBaby Steps"
+    },
+    {
+     "time": "41:24",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "46:10",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "52:00",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "59:54",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/92-Nintendo-Direct-2026-2-5-e3ettvo"
+   },
+   "guid": "3377a178-9943-49cf-9b8e-1c2103c86f2f",
+   "image": "assets/img/ep/92.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1770762953795-2052d0e266173.jpg"
+  },
+  {
+   "number": 93,
+   "title": "くさタイプ",
+   "date": "2026-02-18",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "くさタイプの回です！！！！",
+   "games": [
+    "ポケットモンスターシリーズ",
+    "モンスターハンターライズ",
+    "がんばれゴエモン大集合",
+    "ボンバーマン コレクション",
+    "Baby Steps",
+    "ドラゴンクエストVII Reimagined",
+    "HUNDRED LINE ─最終防衛学園─"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:11",
+     "label": "くさタイプ"
+    },
+    {
+     "time": "28:29",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "33:22",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "50:40",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "57:53",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/93-e3f88s9"
+   },
+   "guid": "c4a46abc-7bfd-440f-bc1d-6524ee2ea84a",
+   "image": "assets/img/ep/93.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1771382339128-7e68887300637.jpg"
+  },
+  {
+   "number": 94,
+   "title": "これってなんのゲームの説明文？ ゲーム概要クイズ！",
+   "date": "2026-02-25",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "おまかせください。\nゲームの概要からゲームタイトルを当てまくります！！",
+   "games": [
+    "ドンキーコング バナンザ",
+    "ElecHead",
+    "スーパーマリオRPG",
+    "ザンキゼロ",
+    "デジモンワールド",
+    "Getting Over It with Bennett Foddy",
+    "ヨッシーのたまご",
+    "ヨッシーのクッキー",
+    "ケツバトラー",
+    "Portal 2",
+    "脳を鍛える大人のDSトレーニング",
+    "ウーマンコミュニケーション",
+    "原神",
+    "Rogue Legacy",
+    "ファイナルファンタジーVI",
+    "ドラゴンクエストシリーズ",
+    "風来のシレンGB2 砂漠の魔城",
+    "アークザラッド2",
+    "ドラゴンクエスト5",
+    "風来のシレンシリーズ",
+    "あつまれ どうぶつの森",
+    "パックマンワールド",
+    "デンリュウと私の30年",
+    "Baby Steps",
+    "ドラゴンクエストVII Reimagined"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:21",
+     "label": "第1問"
+    },
+    {
+     "time": "05:17",
+     "label": "第2問"
+    },
+    {
+     "time": "06:36",
+     "label": "第3問"
+    },
+    {
+     "time": "07:40",
+     "label": "第4問"
+    },
+    {
+     "time": "09:30",
+     "label": "第5問"
+    },
+    {
+     "time": "12:05",
+     "label": "第6問"
+    },
+    {
+     "time": "14:29",
+     "label": "第7問"
+    },
+    {
+     "time": "17:56",
+     "label": "第8問"
+    },
+    {
+     "time": "22:21",
+     "label": "第9問"
+    },
+    {
+     "time": "25:16",
+     "label": "第10問"
+    },
+    {
+     "time": "28:05",
+     "label": "第11問"
+    },
+    {
+     "time": "31:16",
+     "label": "第12問"
+    },
+    {
+     "time": "39:41",
+     "label": "まとめ"
+    },
+    {
+     "time": "41:43",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "51:11",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "58:37",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:09:51",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/94-e3fjcae"
+   },
+   "guid": "577a4577-0e42-40b2-a7a1-f7ebfd7d9f93",
+   "image": "assets/img/ep/94.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1772022780492-6a89089d182ed.jpg"
+  },
+  {
+   "number": 95,
+   "title": "わるい状態 ～わるい村 ep05～ 同時上映 初代バイオハザード＆Tiling Forest",
+   "date": "2026-03-04",
+   "date_estimated": false,
+   "tags": [
+    "わるい村"
+   ],
+   "series": "waruimura",
+   "description": "わるい状態には\nご用心",
+   "games": [
+    "バイオハザード HDリマスター",
+    "マザー2",
+    "スーパーマリオRPG",
+    "ファイナルファンタジーシリーズ",
+    "モンスターハンターシリーズ",
+    "ドラゴンクエストシリーズ",
+    "ボンバーマンシリーズ",
+    "風来のシレンシリーズ",
+    "ポケットモンスターシリーズ",
+    "スペルトナエル",
+    "天外魔境II 卍MARU",
+    "Tiling Forest",
+    "ウマ娘 プリティーダービー",
+    "バニーガーデン2",
+    "魔法少女ノ魔女裁判",
+    "パラノマサイト FILE23 本所七不思議",
+    "モンスターハンターライズ：サンブレイク",
+    "Baby Steps",
+    "ドラゴンクエストVII Reimagined",
+    "ポケットモンスター ウインド・ウェーブ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "バイオハザード HDリマスター"
+    },
+    {
+     "time": "11:49",
+     "label": "わるい状態"
+    },
+    {
+     "time": "44:18",
+     "label": "まとめ"
+    },
+    {
+     "time": "46:13",
+     "label": "わるい技目撃情報"
+    },
+    {
+     "time": "52:50",
+     "label": "滝壺3分ゲーム紹介（Tiling Forest）"
+    },
+    {
+     "time": "59:04",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:03:50",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:08:14",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/95---ep05--Tiling-Forest-e3fu388"
+   },
+   "guid": "bf88a91f-dc50-431e-bc2b-d2a6fd2b89e0",
+   "image": "assets/img/ep/95.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1772630598304-4e36ed9e32f4b.jpg"
+  },
+  {
+   "number": 96,
+   "title": "クロノ・トリガー31周年記念！ 坂口堀井鳥山のミックスデルタ",
+   "date": "2026-03-11",
+   "date_estimated": false,
+   "tags": [
+    "記念回"
+   ],
+   "series": null,
+   "description": "クロノ・トリガー31周年おめでとうございます！！！",
+   "games": [
+    "クロノ・トリガー",
+    "ファイナルファンタジーシリーズ",
+    "ロマンシング サ・ガ2",
+    "ダークソウル",
+    "パラノマサイト FILE23 本所七不思議",
+    "バイオハザード",
+    "モンスターハンターライズ",
+    "モンスターハンター ストーリーズ",
+    "HUNDRED LINE ─最終防衛学園─ Original Soundtrack Director's Edition",
+    "アニメ『スクールデイズ』全12話がYouTubeで無料配信開始",
+    "バハムートラグーン",
+    "半熟英雄",
+    "バーガーバーガー",
+    "パラノマサイト FILE38 伊勢人魚物語",
+    "It Takes Two",
+    "グランブルーファンタジー",
+    "ドラゴンクエストVII Reimagined",
+    "Öoo",
+    "ぽこ あ ポケモン",
+    "Slay the Spire 2",
+    "Baby Steps"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:29",
+     "label": "クロノ・トリガー"
+    },
+    {
+     "time": "1:01:29",
+     "label": "わるい状態目撃情報"
+    },
+    {
+     "time": "1:09:49",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:19:23",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:29:49",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/96-31-e3g9fro"
+   },
+   "guid": "9cca1d52-3c91-4fa6-904e-eb8ee158e6c1",
+   "image": "assets/img/ep/96.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1773235732059-1281a661b4248.jpg"
+  },
+  {
+   "number": 97,
+   "title": "アイドルと〇〇しちゃダメですか？ 「くぁwせdrftgyふじこlp」の読み方教えます",
+   "date": "2026-03-18",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "はたしてアイドルと〇〇していいのか？ ダメなのか…？",
+   "games": [
+    "アイドルと〇〇しちゃダメですか？ -恋愛拡張版",
+    "アフォガード",
+    "ロマンシング サガ ─ミンストレルソング─",
+    "女神転生シリーズ",
+    "バルダーズ・ゲート3",
+    "世界樹の迷宮シリーズ",
+    "ファイナルファンタジーシリーズ",
+    "黄泉に落ちても麻雀",
+    "クロノ・トリガー",
+    "モンスターハンター ストーリーズ",
+    "終天教団",
+    "クロックタワー",
+    "クロックワークナイトシリーズ",
+    "ドラゴンクエストVII Reimagined",
+    "Öoo",
+    "Slay the Spire 2",
+    "Baby Steps",
+    "ぽこ あ ポケモン",
+    "#142 アンエピックでニューゲーム"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:23",
+     "label": "アイドルと〇〇しちゃダメですか？"
+    },
+    {
+     "time": "12:46",
+     "label": "わるい状態目撃情報"
+    },
+    {
+     "time": "24:54",
+     "label": "滝壺3分ゲーム紹介（黄泉に落ちても麻雀）"
+    },
+    {
+     "time": "36:39",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "48:32",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "56:02",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/97--wdrftgylp-e3gke5d"
+   },
+   "guid": "7f94205c-951a-4356-be00-bc5eb3389558",
+   "image": "assets/img/ep/97.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1773833667194-32fb387720e2f.jpg"
+  },
+  {
+   "number": 98,
+   "title": "ポケモン緑、サクラ大戦、海腹川背…今夜決定！ 国民の祝日にふさわしいゲーム！！",
+   "date": "2026-03-25",
+   "date_estimated": false,
+   "tags": [
+    "ふさわしいゲーム"
+   ],
+   "series": "fusawashii",
+   "description": "祝日を体験済みのすべての皆さん！！\nその祝日に対応するゲームは何なのか気になっていませんか？\n国民の祝日にふさわしいゲーム、すべて決めます！\n\n※今回紹介している『Idle Gumball Machine』は、開発元のAntique Gear Games様よりSteamキーを無償提供いただきました！\nストアページ：\nhttps://store.steampowered.com/app/3724490/Idle_Gumball_Machine/",
+   "games": [
+    "桃太郎電鉄",
+    "人生ゲーム",
+    "大神",
+    "ベイブレードエックス XONE",
+    "グランド・セフト・オート",
+    "VA-11 Hall-A",
+    "龍が如く",
+    "ドラゴンクエスト3",
+    "バニーガーデン",
+    "神々の大地 古事記外伝",
+    "信長の野望",
+    "シムシティ",
+    "シヴィライゼーション",
+    "メタルギアソリッド3",
+    "ウマ娘 プリティーダービー",
+    "スーパーマリオブラザーズ",
+    "ポケットモンスター 赤・緑",
+    "ドラゴンクエスト",
+    "ゼルダの伝説",
+    "ロマンシング サ・ガ2",
+    "ダービースタリオン",
+    "ストリートファイターZERO2",
+    "ダンガンロンパ",
+    "サクラ大戦",
+    "CLANNAD",
+    "ARK: Survival Evolved",
+    "ピクミン",
+    "スペースインベーダー",
+    "ぼくのなつやすみ",
+    "龍が如く0 誓いの場所",
+    "SIREN",
+    "憲法ボードゲーム",
+    "逆転裁判",
+    "UNDERTALE",
+    "Minecraft",
+    "ポケットモンスター緑",
+    "アイドルマスター",
+    "ルイージマンション",
+    "ヨッシーのたまご",
+    "ブルーアーカイブ",
+    "MOTHER2",
+    "ゼルダの伝説 風のタクト",
+    "ドラゴンクエスト5",
+    "ドラゴンクエスト7",
+    "ぼくのなつやすみ2 海の冒険篇",
+    "スターオーシャン",
+    "スーパーマリオサンシャイン",
+    "Subnautica",
+    "モンスターハンター3",
+    "大航海時代",
+    "海腹川背",
+    "海物語",
+    "Venus Vacation PRISM ─DEAD OR ALIVE Xtreme─",
+    "艦隊これくしょん",
+    "Baby Steps",
+    "Getting Over It with Bennett Foddy",
+    "Celeste",
+    "ぼくのなつやすみポータブル ムシムシ博士とてっぺん山の秘密!!",
+    "風来のシレン",
+    "THE 登山RPG",
+    "ウィッチャー3",
+    "メタルギアソリッド4",
+    "モンスターファーム",
+    "俺の屍を越えてゆけ",
+    "THE ゲートボール",
+    "Arcadia お年寄りのための麻雀",
+    "ウルティマオンライン",
+    "Sifu",
+    "どうぶつの森",
+    "牧場物語",
+    "天穂のサクナヒメ",
+    "ファイナルファンタジー10",
+    "太鼓の達人",
+    "リングフィットアドベンチャー",
+    "Wii Sports",
+    "ハイパーオリンピック",
+    "ゲームでトライ 法律相談 ～“出張”の真実～",
+    "ときめきメモリアル",
+    "ブラボーミュージック",
+    "絵心教室",
+    "ラクガキ王国",
+    "パスパルトゥー",
+    "Good Job!",
+    "ライザのアトリエ",
+    "バーガーバーガー",
+    "ザ・コンビニ",
+    "俺の料理",
+    "オーバークック",
+    "必殺仕事人",
+    "Idle Gumball Machine",
+    "雀魂",
+    "黄泉に落ちても麻雀",
+    "兎 ─野生の闘牌─",
+    "咲─Saki─ 全国編",
+    "クロノ・トリガー",
+    "クロノ・クロス",
+    "半熟英雄",
+    "Staffer Case:超能力推理アドベンチャー",
+    "Staffer Retro:超能力推理クエスト",
+    "アイドルと〇〇しちゃダメですか？",
+    "月姫",
+    "アサシン クリード シャドウズ",
+    "スイカゲーム",
+    "ゆるキャン△",
+    "アイドルマスター シンデレラガールズ",
+    "パクレットのウサちゃん捕獲ゲーム",
+    "グノーシア"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:28",
+     "label": "元日"
+    },
+    {
+     "time": "06:27",
+     "label": "成人の日"
+    },
+    {
+     "time": "12:00",
+     "label": "建国記念の日"
+    },
+    {
+     "time": "17:08",
+     "label": "天皇誕生日"
+    },
+    {
+     "time": "20:30",
+     "label": "春分の日"
+    },
+    {
+     "time": "24:27",
+     "label": "昭和の日"
+    },
+    {
+     "time": "27:38",
+     "label": "憲法記念日"
+    },
+    {
+     "time": "31:19",
+     "label": "みどりの日"
+    },
+    {
+     "time": "33:44",
+     "label": "こどもの日"
+    },
+    {
+     "time": "35:43",
+     "label": "海の日"
+    },
+    {
+     "time": "39:34",
+     "label": "山の日"
+    },
+    {
+     "time": "41:46",
+     "label": "敬老の日"
+    },
+    {
+     "time": "46:27",
+     "label": "秋分の日"
+    },
+    {
+     "time": "49:30",
+     "label": "スポーツの日"
+    },
+    {
+     "time": "51:58",
+     "label": "文化の日"
+    },
+    {
+     "time": "58:14",
+     "label": "勤労感謝の日"
+    },
+    {
+     "time": "1:03:29",
+     "label": "まとめ"
+    },
+    {
+     "time": "1:06:02",
+     "label": "滝壺3分ゲーム紹介（Idle Gumball Machine）"
+    },
+    {
+     "time": "1:17:34",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:26:44",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:37:22",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/98-e3gv18i"
+   },
+   "guid": "d320d50e-b8e7-4636-b5d8-7b71a402f62a",
+   "image": "assets/img/ep/98.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1774445952882-c2bb94aa00999.jpg"
+  },
+  {
+   "number": 99,
+   "title": "しんかのひほう ★★★★☆ とてもいい商品ですが、目が5つ、口が2つになったので星マイナス1です",
+   "date": "2026-04-01",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "滝壺の3人が通販で買った（？）アイテムの紹介をしています！\n\n以下は利用した通販サイトです。\n※見た目のみですが、レビューの★を選択するとコメントが読めます！\n\nTakiExTuboss：\nhttps://takiextuboss.aprilfools.pgw.jp/\n\n滝壺市場：\nhttps://takitsuboichiba.aprilfools.pgw.jp/",
+   "games": [
+    "俺の屍を越えてゆけ",
+    "人生ゲーム",
+    "バニーガーデン",
+    "ベイブレードエックス XONE",
+    "聖剣伝説2",
+    "Granny Smith",
+    "チンギスハーン・蒼き狼と白き牝鹿IV",
+    "ラクガキ王国シリーズ",
+    "沙織 ─美少女達の館─",
+    "ポケットモンスター緑",
+    "サクラ大戦",
+    "海腹川背",
+    "スペースインベーダー",
+    "ウマ娘 プリティーダービー",
+    "ポケモンチャンピオンズ",
+    "ドラゴンクエストVII Reimagined",
+    "アイドルマスターシンデレラガールズ",
+    "Baby Steps",
+    "ロマンシングサガ2 リベンジオブザセブン"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:07",
+     "label": "ピッケル・虫あみ"
+    },
+    {
+     "time": "04:39",
+     "label": "おべんとう・チキンナイフ"
+    },
+    {
+     "time": "07:41",
+     "label": "ドラゴンシールド"
+    },
+    {
+     "time": "10:25",
+     "label": "ようきミント・れいせいミント"
+    },
+    {
+     "time": "13:21",
+     "label": "冬美草・夏美草"
+    },
+    {
+     "time": "15:25",
+     "label": "スーパーこのは"
+    },
+    {
+     "time": "17:03",
+     "label": "すけすけゴーグル"
+    },
+    {
+     "time": "18:41",
+     "label": "ドラゴンキラー"
+    },
+    {
+     "time": "20:44",
+     "label": "おおばさみ"
+    },
+    {
+     "time": "21:57",
+     "label": "きせきのつるぎ"
+    },
+    {
+     "time": "23:26",
+     "label": "はじゃのつるぎ"
+    },
+    {
+     "time": "24:37",
+     "label": "ハンマー"
+    },
+    {
+     "time": "26:03",
+     "label": "ラストエリクサー"
+    },
+    {
+     "time": "27:21",
+     "label": "グリーンハーブ"
+    },
+    {
+     "time": "28:45",
+     "label": "キメラのつばさ"
+    },
+    {
+     "time": "30:21",
+     "label": "たべのこし"
+    },
+    {
+     "time": "31:26",
+     "label": "ドリル"
+    },
+    {
+     "time": "33:46",
+     "label": "スキップチケット"
+    },
+    {
+     "time": "34:50",
+     "label": "スタミナドリンク"
+    },
+    {
+     "time": "36:24",
+     "label": "エルメスの靴"
+    },
+    {
+     "time": "38:11",
+     "label": "パワーグローブ"
+    },
+    {
+     "time": "41:33",
+     "label": "まとめ"
+    },
+    {
+     "time": "43:09",
+     "label": "TakiExTuboss"
+    },
+    {
+     "time": "44:00",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:04:12",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:16:34",
+     "label": "エンディング"
+    },
+    {
+     "time": "1:30:19",
+     "label": "しんかのひほう"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/99---521-e3h8dj1"
+   },
+   "guid": "6d6b7e3d-abf1-4ed4-ba13-ac91bf4b9b08",
+   "image": "assets/img/ep/99.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1774988390836-f96ea3c1c1bb4.jpg"
+  },
+  {
+   "number": 100,
+   "title": "100点満点のゲーム！！",
+   "date": "2026-04-08",
+   "date_estimated": false,
+   "tags": [
+    "記念回"
+   ],
+   "series": null,
+   "description": "祝！ ゲームの滝壺100回記念！\nリスナーのみなさんから投稿いただいた100点満点のゲームが大量に登場する、\nいいゲームとエピソードばかりが次々出てくる夢のような回です！",
+   "games": [
+    "クロノ・トリガー",
+    "風来のシレン",
+    "ヨッシーアイランド",
+    "ファイナルファンタジーVII",
+    "テトリス",
+    "モンスターハンター ポータブル 2nd G",
+    "ペルソナ4",
+    "ウルティマVII",
+    "ドラゴンクエストIV",
+    "スーパーマリオワールド",
+    "ルートダブル ─Before Crime * After Days─",
+    "Cuphead",
+    "ストリートファイター6",
+    "龍が如く7",
+    "ロマンシング サガ2 リベンジオブザセブン",
+    "Clair Obscur: Expedition 33",
+    "ロマンシング サ・ガ3",
+    "ライブ・ア・ライブ",
+    "ケツバトラー",
+    "きみのまちポルティア",
+    "ダウンタウン熱血行進曲 それゆけ大運動会",
+    "街",
+    "アトランチスの謎",
+    "バルダーズ・ゲート3",
+    "ジョジョの奇妙な冒険 黄金の旋風",
+    "どろろ",
+    "ベルセルク 千年帝国の鷹篇 聖魔戦記の章",
+    "UNDERTALE",
+    "リンダキューブ アゲイン",
+    "ガーディアンヒーローズ",
+    "LSD",
+    "ファイナルファンタジーVI",
+    "幻想水滸伝II",
+    "ロマンシングサガ3",
+    "第3次スーパーロボット大戦α",
+    "ワイルドアームズ2",
+    "ロックマン3",
+    "Slay the Spire",
+    "オクトパストラベラー0",
+    "ユニコーンオーバーロード",
+    "テイルズオブディスティニー",
+    "がんばれゴエモン2 奇天烈将軍マッギネス",
+    "ウマ娘 プリティーダービー",
+    "ドラゴンクエストVII Reimagined",
+    "Cairn"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:29",
+     "label": "夜中たわし"
+    },
+    {
+     "time": "04:58",
+     "label": "第一部"
+    },
+    {
+     "time": "25:10",
+     "label": "ひゅうま"
+    },
+    {
+     "time": "29:44",
+     "label": "第二部"
+    },
+    {
+     "time": "55:04",
+     "label": "イチィゴォー"
+    },
+    {
+     "time": "1:00:23",
+     "label": "第三部"
+    },
+    {
+     "time": "1:34:22",
+     "label": "まとめ"
+    },
+    {
+     "time": "1:36:47",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/100-100-e3hjelb"
+   },
+   "guid": "3b79c569-6a88-4ae9-800b-24c7dcd59d30",
+   "image": "assets/img/ep/100.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1775624726460-256d07a0d653b.jpg"
+  },
+  {
+   "number": 101,
+   "title": "Baby Steps「何って…片方の足を、もう片方の足の前に出しただけだが？」",
+   "date": "2026-04-15",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "クリアに3ヶ月を要した、あの歩くだけのゲームについてお話させていただきます！",
+   "games": [
+    "Baby Steps",
+    "実況プレイリスト：",
+    "鏡のマジョリティア",
+    "ベルセルク 千年帝国の鷹篇 聖魔戦記の章",
+    "リンダキューブ",
+    "バルダーズ・ゲート3",
+    "ペルソナ4",
+    "モンスターハンターストーリーズ3",
+    "ヤマふだ！ にごうめ",
+    "ワンワンバトル",
+    "宇宙銀河ウォーズ",
+    "風来のシレン",
+    "サラダの国のトマト姫",
+    "富士山バスター",
+    "ざこのあひる",
+    "学園アイドルマスター",
+    "Cinderia",
+    "ポケットモンスター Let's Go! ピカチュウ",
+    "Stellar Blade",
+    "Cairn",
+    "ロマンシング サガ2 リベンジオブザセブン"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:01",
+     "label": "Baby Steps"
+    },
+    {
+     "time": "28:28",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "48:32",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:07:22",
+     "label": "アートワーククイズシーズン2結果発表"
+    },
+    {
+     "time": "1:12:45",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/101-Baby-Steps-e3huh07"
+   },
+   "guid": "d66a8c28-a094-43e7-a3b4-c5d9ab8cce0c",
+   "image": "assets/img/ep/101.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1776245142117-b3c1406e85dfc.jpg"
+  },
+  {
+   "number": 102,
+   "title": "ガボの鼻が良すぎたドラゴンクエストVII Reimagined",
+   "date": "2026-04-22",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ドラクエ7の話がようやくできました！\nいろんな鼻を見てきましたが、間違いなく一番いい鼻です。ガボの鼻。",
+   "games": [
+    "ドラゴンクエストVII Reimagined",
+    "ファイナルファンタジーIX",
+    "Horse Magnifier",
+    "チェス",
+    "アナザーエデン ビギンズ",
+    "ウィザードリィ2",
+    "Baby Steps",
+    "B-WINGS",
+    "バニーガーデン2",
+    "Stellar Blade",
+    "勝利の女神：NIKKE",
+    "ケツバトラー",
+    "スプリット・フィクション",
+    "トモダチコレクション わくわく生活",
+    "Cairn",
+    "ロマンシング サガ2 リベンジオブザセブン"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:21",
+     "label": "ドラゴンクエストVII Reimagined"
+    },
+    {
+     "time": "42:41",
+     "label": "わるい状態目撃情報"
+    },
+    {
+     "time": "48:01",
+     "label": "滝壺3分ゲーム紹介"
+    },
+    {
+     "time": "52:58",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "59:15",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:10:24",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/102-VII-Reimagined-e3i9nop"
+   },
+   "guid": "887a41b6-ab91-458a-b384-93aa0e90a9e8",
+   "image": "assets/img/ep/102.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1776865666777-01dcbc6676911.jpg"
+  },
+  {
+   "number": 103,
+   "title": "ぽこ あ ポケモン「荒廃した世界で慌ただしいスローライフ生活」",
+   "date": "2026-04-29",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "あまりにやることが多すぎる、ぽこ あ ポケモンについてのお話です。\nザ・スーパーマリオギャラクシー・ムービーの感想もすこしあります！",
+   "games": [
+    "ぽこ あ ポケモン",
+    "ファイナルファンタジーX",
+    "ドラゴンスレイヤー",
+    "風来のシレン",
+    "ドラゴンクエストVII Reimagined",
+    "Baby Steps",
+    "バニーガーデン",
+    "探検ドリランド",
+    "ポケモンチャンピオンズ",
+    "ドキドキ文芸部!",
+    "ドルアーガの塔",
+    "Stellar Blade",
+    "ザ・スーパーマリオギャラクシー・ムービー",
+    "Cairn",
+    "ロマンシング サガ2 リベンジオブザセブン"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:28",
+     "label": "ぽこ あ ポケモン"
+    },
+    {
+     "time": "23:41",
+     "label": "わるい状態目撃情報"
+    },
+    {
+     "time": "27:48",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "39:44",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "51:23",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/103-e3il2e6"
+   },
+   "guid": "1eea60ee-35aa-4631-be07-42270f9b0053",
+   "image": "assets/img/ep/103.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1777468933784-8e3c86595b14f.jpg"
+  },
+  {
+   "number": 104,
+   "title": "PlayStation！ 初代プレステの売上ランキングTOP50について全部語る！ 3回目（最終回）",
+   "date": "2026-05-06",
+   "date_estimated": false,
+   "tags": [
+    "初代プレステ売上ランキング"
+   ],
+   "series": "ps-ranking",
+   "description": "初代プレステの売上ランキングTOP50について…\nついに話し切りました！",
+   "games": [],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:28",
+     "label": "第1位 ドラゴンクエスト7 エデンの戦士たち"
+    },
+    {
+     "time": "03:58",
+     "label": "第2位 ファイナルファンタジー7"
+    },
+    {
+     "time": "05:00",
+     "label": "第3位 ファイナルファンタジー8"
+    },
+    {
+     "time": "06:18",
+     "label": "第4位 ファイナルファンタジー9"
+    },
+    {
+     "time": "08:08",
+     "label": "第5位 グランツーリスモ"
+    },
+    {
+     "time": "09:01",
+     "label": "第6位 バイオハザード2"
+    },
+    {
+     "time": "10:42",
+     "label": "第7位 みんなのゴルフ"
+    },
+    {
+     "time": "13:07",
+     "label": "第8位 ダービースタリオン"
+    },
+    {
+     "time": "14:29",
+     "label": "第9位 グランツーリスモ2"
+    },
+    {
+     "time": "15:49",
+     "label": "第10位 クラッシュ・バンディクー3"
+    },
+    {
+     "time": "17:26",
+     "label": "第11位 みんなのゴルフ2"
+    },
+    {
+     "time": "18:18",
+     "label": "第12位 パラッパラッパー"
+    },
+    {
+     "time": "19:13",
+     "label": "第13位 バイオハザード3"
+    },
+    {
+     "time": "22:29",
+     "label": "第14位 FF タクティクス"
+    },
+    {
+     "time": "23:16",
+     "label": "第15位 鉄拳3・第16位 鉄拳2"
+    },
+    {
+     "time": "25:08",
+     "label": "第17位 クラッシュ・バンディクー2"
+    },
+    {
+     "time": "25:51",
+     "label": "第18位 ドラゴンクエスト4"
+    },
+    {
+     "time": "27:26",
+     "label": "第19位 ダンスダンスレボリューション"
+    },
+    {
+     "time": "28:21",
+     "label": "第20位 バイオハザード"
+    },
+    {
+     "time": "31:22",
+     "label": "第21位 チョコボの不思議なダンジョン"
+    },
+    {
+     "time": "32:07",
+     "label": "第22位 XI[sai]"
+    },
+    {
+     "time": "33:11",
+     "label": "第23位 アークザラッド"
+    },
+    {
+     "time": "34:41",
+     "label": "第24位 サガ フロンティア"
+    },
+    {
+     "time": "36:18",
+     "label": "第25位 ダービースタリオン99"
+    },
+    {
+     "time": "38:01",
+     "label": "第26位 ビートマニア"
+    },
+    {
+     "time": "40:22",
+     "label": "第27位 アークザラッド2"
+    },
+    {
+     "time": "42:28",
+     "label": "第28位 パラサイト・イヴ"
+    },
+    {
+     "time": "46:46",
+     "label": "第29位 電車でGO!"
+    },
+    {
+     "time": "48:20",
+     "label": "第30位 I.Q インテリジェントキューブ"
+    },
+    {
+     "time": "50:10",
+     "label": "第31位 どこでもいっしょ"
+    },
+    {
+     "time": "52:06",
+     "label": "第32位 THE 麻雀"
+    },
+    {
+     "time": "53:43",
+     "label": "第33位 ゼノギアス"
+    },
+    {
+     "time": "54:35",
+     "label": "第34位 ダンスダンスレボリューション 2nd ReMIX"
+    },
+    {
+     "time": "56:25",
+     "label": "第35位 テイルズ オブ デスティニー"
+    },
+    {
+     "time": "59:58",
+     "label": "第36位 レイジレーサー"
+    },
+    {
+     "time": "1:01:28",
+     "label": "第37位 R4 リッジレーサータイプ4"
+    },
+    {
+     "time": "1:03:36",
+     "label": "第38位 実況パワフルプロ野球'99開幕版"
+    },
+    {
+     "time": "1:06:15",
+     "label": "第39位 ワールドサッカー実況ウイニングイレブン3"
+    },
+    {
+     "time": "1:07:30",
+     "label": "第40位 モンスターファーム"
+    },
+    {
+     "time": "1:08:33",
+     "label": "第41位 ワールドサッカー実況ウイニングイレブン4"
+    },
+    {
+     "time": "1:10:14",
+     "label": "第42位 スーパーロボット大戦α"
+    },
+    {
+     "time": "1:13:22",
+     "label": "第43位 聖剣伝説 レジェンド オブ マナ"
+    },
+    {
+     "time": "1:14:29",
+     "label": "第44位 ぷよぷよ通 決定盤"
+    },
+    {
+     "time": "1:18:03",
+     "label": "第45位 スターオーシャン セカンドストーリー"
+    },
+    {
+     "time": "1:22:34",
+     "label": "第46位 クロノ・クロス"
+    },
+    {
+     "time": "1:24:14",
+     "label": "第47位 ディノクライシス"
+    },
+    {
+     "time": "1:27:48",
+     "label": "第48位 サガ フロンティア2"
+    },
+    {
+     "time": "1:28:26",
+     "label": "第49位 桃太郎電鉄7"
+    },
+    {
+     "time": "1:30:33",
+     "label": "第50位 メタルギアソリッド"
+    },
+    {
+     "time": "1:33:41",
+     "label": "まとめ"
+    },
+    {
+     "time": "1:34:40",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:39:56",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/104-PlayStation-TOP50-3-e3ivkr2"
+   },
+   "guid": "402fa4ba-e263-46dc-8f10-4b02c780db48",
+   "image": "assets/img/ep/104.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1778074524824-f97cd385aa088.jpg"
+  },
+  {
+   "number": 105,
+   "title": "眼鏡っ娘は世界を救う ～イチィゴォーのお眼鏡にかなう眼鏡っ娘～",
+   "date": "2026-05-13",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ゲームに登場するいい眼鏡っ娘たちを、眼鏡っ娘大好きイチィゴォーにプレゼンする回です。\nはたしてイチィゴォー的に伊達メガネはOKなのか？\nベヨネッタは眼鏡っ娘判定なのか！？\nそして最終的に選ばれる眼鏡っ娘は？？\nぜひお確かめください。",
+   "games": [
+    "ウマ娘 賢さLv5モデルの眼鏡",
+    "イクノディクタス",
+    "ビワハヤヒデ",
+    "ロイスアンドロイス",
+    "ゼンノロブロイ",
+    "エアメサイア",
+    "ドリームジャーニー",
+    "ネオユニヴァース",
+    "ケイエスミラクル",
+    "トランセンド",
+    "シンボリルドルフ",
+    "アストンマーチャン",
+    "ノースフライト",
+    "ラピッドビルダー",
+    "ルッカ",
+    "腐川冬子",
+    "図書ガールズ",
+    "ペニー",
+    "リップルスターの女王様",
+    "ベヨネッタ",
+    "ベヨネッタ（幼少期）",
+    "ペルソナ4の方々",
+    "佐倉双葉",
+    "秋月律子",
+    "Chill with You : Lo-Fi Story",
+    "ぽこ あ ポケモン",
+    "アークザラッド2",
+    "鉄拳7",
+    "XI[sai]",
+    "I.Q インテリジェントキューブ",
+    "風来のシレン6",
+    "ERROROID（わかさ生活のボードゲーム）",
+    "がんばれゴエモン大集合！",
+    "ワイバーンF-0",
+    "エネミー・ゼロ",
+    "Stellar Blade",
+    "ライブ・ア・ライブ",
+    "Cairn",
+    "ロマンシング サガ2 リベンジオブザセブン"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:31",
+     "label": "ひゅうまの見つけた眼鏡っ娘"
+    },
+    {
+     "time": "36:21",
+     "label": "夜中たわしの見つけた眼鏡っ娘"
+    },
+    {
+     "time": "52:27",
+     "label": "まとめ"
+    },
+    {
+     "time": "54:41",
+     "label": "滝壺3分ゲーム紹介（Chill with You : Lo-Fi Story）"
+    },
+    {
+     "time": "59:10",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:19:54",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:42:05",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/105-e3jae4p"
+   },
+   "guid": "e63f9e9e-5071-4807-bc1c-5bf048240369",
+   "image": "assets/img/ep/105.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1778676358547-a87869acf098a.jpg"
+  },
+  {
+   "number": 106,
+   "title": "緊急特番！ 眼鏡っ娘は再び世界を救う",
+   "date": "2026-05-20",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "前回の配信をきっかけに想定以上の眼鏡っ娘情報をいただいたので、\n特例の特例、2連続で眼鏡っ娘回です！",
+   "games": [
+    "サトネ（Chill with You : Lo-Fi Story）",
+    "高山紗代子",
+    "三峰結華",
+    "羽川翼",
+    "シンボリルドルフ",
+    "ゴールドシップ",
+    "プルア",
+    "ナリタタイシン",
+    "リーンベル",
+    "榊千鶴",
+    "シエル",
+    "エマ・ミスルティン",
+    "秋月律子",
+    "中川菜々",
+    "水無月響子",
+    "メガネ・アクセサリーII",
+    "ロマンシング サガ2 リベンジオブザセブン",
+    "スーパーロボット大戦シリーズ",
+    "学園アイドルマスター",
+    "ライブアライブ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:55",
+     "label": "眼鏡っ娘"
+    },
+    {
+     "time": "38:41",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "59:26",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:08:41",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/106-e3jl4mh"
+   },
+   "guid": "47d4c65e-b333-4545-bfba-ec18942011c5",
+   "image": "assets/img/ep/106.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1779284858065-2938ba769941e.jpg"
+  },
+  {
+   "number": 107,
+   "title": "株式会社滝壺 2026年5月期決算説明会",
+   "date": "2026-05-27",
+   "date_estimated": false,
+   "tags": [
+    "一年の振り返り"
+   ],
+   "series": "furikaeri",
+   "description": "ゲームの滝壺二周年記念回です！\n三年目もゲームの滝壺をよろしくお願いします！！\n後半は当然眼鏡っ娘の話がたくさんと、BitSummitの話が少しあります！\n\n※YouTube版のみ、決算説明会資料が画像表示されます！",
+   "games": [
+    "にんじんおうこく！",
+    "高山紗代子",
+    "サイカ",
+    "薬師寺恵",
+    "如月兎美",
+    "アティ",
+    "保科智子",
+    "月城柳",
+    "月城柳の動画",
+    "マリア",
+    "シエル",
+    "波川流",
+    "眼鏡橋華子",
+    "アラレちゃん",
+    "UFO ─A day in the life─",
+    "上条 春菜",
+    "ロマンシング サガ2 リベンジオブザセブン",
+    "Hexcells",
+    "ライブアライブ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "00:58",
+     "label": "決算説明会"
+    },
+    {
+     "time": "16:26",
+     "label": "二年間の感想"
+    },
+    {
+     "time": "19:27",
+     "label": "過去回振り返り"
+    },
+    {
+     "time": "43:25",
+     "label": "二周年まとめ"
+    },
+    {
+     "time": "47:20",
+     "label": "滝壺3分ゲーム紹介（にんじんおうこく！）"
+    },
+    {
+     "time": "51:11",
+     "label": "眼鏡のおたより紹介"
+    },
+    {
+     "time": "1:18:51",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:28:39",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/107--20265-e3jvfih"
+   },
+   "guid": "bc194a4c-724a-4def-92c2-75b55bd6e69e",
+   "image": "assets/img/ep/107.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1779889614761-625b5b905306e.jpg"
+  },
+  {
+   "number": 108,
+   "title": "先帝の無念を晴らす！ ロマサガ2 リベンジオブザセブン",
+   "date": "2026-06-03",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "ロマンシング サガ2 リベンジオブザセブン\n通称リベサガについての感想回です。\n後半には当然の眼鏡っ娘情報やドラクエ12・モンスターズ4などの話題も少しあります。",
+   "games": [
+    "ロマンシング サガ2 リベンジオブザセブン",
+    "ロマンシング サ・ガ2",
+    "ロマンシング サ・ガ3",
+    "サガ フロンティア",
+    "アンリミテッド:サガ",
+    "とんこつさん制作の滝壺オブジェ",
+    "ライブアライブ",
+    "伏見千尋",
+    "赤根沢玲子",
+    "狐（トリックスター）",
+    "ニンフィア（3メガネ）",
+    "風来のシレンシリーズ",
+    "ウマ娘 プリティーダービー",
+    "にんじんおうこく！",
+    "9 kings",
+    "ドラゴンクエストXII 夢の彼方へ",
+    "ドラゴンクエストモンスターズ4 枯れ木の国のビアンカ・フローラ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:22",
+     "label": "夜中たわしとサガシリーズ"
+    },
+    {
+     "time": "06:24",
+     "label": "ロマンシング サガ2 リベンジオブザセブン"
+    },
+    {
+     "time": "36:50",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:10:30",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:24:06",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/108--2-e3k9l05"
+   },
+   "guid": "8d4cbc3f-49ad-4299-98d2-78d45faf56b0",
+   "image": "assets/img/ep/108.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1780494715808-f100cf1135884.jpg"
+  },
+  {
+   "number": 109,
+   "title": "Cairn「両手両足を動かせるゲームをお探しの方におすすめです」",
+   "date": "2026-06-10",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "両手両足の一本一本が操作可能な登山ゲーム、Cairnについて話しています！\n他、エレクトロジカル、ロマサガ2の補足、いつもの眼鏡っ娘の話題など盛り沢山で、最終的にToHeartを購入します。",
+   "games": [
+    "Cairn",
+    "「壺があふれた！」つきいちさん",
+    "エレクトロジカル",
+    "ロマンシング サガ2 リベンジオブザセブン",
+    "ファイナルファンタジーVIII",
+    "とんこつさん制作の滝壺オブジェ",
+    "ケツバトラー",
+    "Roblox",
+    "ゼンレスゾーンゼロ",
+    "Staffer Case:超能力推理アドベンチャー",
+    "ステラーブレイド ブラッドレイン",
+    "モンスターハンターワイルズ：アセンダンス",
+    "ToHeart",
+    "DITTORI Demo",
+    "絨毯を洗うゲーム"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "00:57",
+     "label": "Cairn"
+    },
+    {
+     "time": "34:18",
+     "label": "滝壺3分ゲーム紹介（エレクトロジカル）"
+    },
+    {
+     "time": "45:28",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:08:44",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:20:32",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/109-Cairn-e3kjq3n"
+   },
+   "guid": "f008d819-7451-49a3-b8aa-06b5d5b73765",
+   "image": "assets/img/ep/109.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1781099672526-1b7c8f37891dd.jpg"
+  },
+  {
+   "number": 110,
+   "title": "ゲームディスクの裏が傷だらけの男とは別れなさい",
+   "date": "2026-06-17",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "今回は恋愛相談の回！\n…などではまったくなく、ゲームにまつわる儀式やこだわり、ゲーム中に食べるおやつの話などをする回です。\nニンダイ関連の話題もあります。",
+   "games": [
+    "HER TREES : PUZZLE DREAM",
+    "HER TREES公式サイト",
+    "Cairn",
+    "Vampire Crawlers: The Turbo Wildcard from Vampire Survivors",
+    "Monster Train 2",
+    "Text Dungeon: The Ring of Life",
+    "第3次スーパーロボット大戦α 終焉の銀河へ",
+    "エイプリル探偵事務所",
+    "クリムゾン・ヴァイパー（ストリートファイターシリーズ）",
+    "テイルズ オブ エターニア",
+    "呪術廻戦 RUMBLE: SURVIVATON",
+    "Stellar Blade",
+    "東方紅魔郷：New Classic",
+    "メタファー：リファンタジオ",
+    "ゼルダの伝説 時のオカリナ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:39",
+     "label": "ゲームの儀式"
+    },
+    {
+     "time": "26:59",
+     "label": "ゲームのお供"
+    },
+    {
+     "time": "36:59",
+     "label": "まとめ"
+    },
+    {
+     "time": "39:53",
+     "label": "滝壺3分ゲーム紹介（HER TREES : PUZZLE DREAM）"
+    },
+    {
+     "time": "42:35",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "55:39",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:04:17",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/110-e3ktkc1"
+   },
+   "guid": "4b6496e9-05ec-4e69-a228-12bd6d1be6d5",
+   "image": "assets/img/ep/110.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1781696854455-36ae8bf058716.jpg"
+  },
+  {
+   "number": 111,
+   "title": "パーティーが分断されて一時的に別行動するパート、そこそこ好き！！",
+   "date": "2026-06-24",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "滝壺メンバーがバラバラになってしまいました……。\nなのでマルチ要素のあるゲームをひとりで遊んだ思い出について話します。ひとりで。",
+   "games": [
+    "ゴエモン もののけ双六",
+    "ファイナルファンタジー・クリスタルクロニクル",
+    "バイオハザード アウトブレイク",
+    "モンスターハンター ポータブル",
+    "モンスターハンター2",
+    ".hackシリーズ",
+    "ポケットモンスターSV",
+    "桃太郎電鉄シリーズ",
+    "カルドセプトシリーズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:18",
+     "label": "ひゅうまパート"
+    },
+    {
+     "time": "13:54",
+     "label": "イチィゴォー"
+    },
+    {
+     "time": "19:10",
+     "label": "夜中たわし"
+    },
+    {
+     "time": "27:21",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "37:19",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/111-e3l79l9"
+   },
+   "guid": "6f2b67a3-8960-419d-ba82-b19153e900af",
+   "image": "assets/img/ep/111.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1782288419222-c52ee9626980d.jpg"
+  },
+  {
+   "number": 112,
+   "title": "アクスレイ、上から見るか？ 横から見るか？",
+   "date": "2026-07-01",
+   "date_estimated": false,
+   "tags": [],
+   "series": null,
+   "description": "・コナミのSFC用シューティング『アクスレイ』の話\n・敵の技「とっぷう」でスカートがめくれて行動不能になるのはわるい状態か！？（わるい状態完結編）\n・『ギルド探求団へようこそ！』が嫌気持ちいい話\nなどなど盛り沢山です！",
+   "games": [
+    "アクスレイ",
+    "XCOM 2",
+    "将棋ライク",
+    "METAL MAX",
+    "星をみるひと",
+    "ライトファンタジー",
+    "G.O.D 目覚めよと呼ぶ声が聴こえ",
+    "ギルド探求団へようこそ！",
+    "鏡のマジョリティア",
+    "ドカポンUP! 夢幻のルーレット",
+    "カルドセプト ビギンズ",
+    ".hack//シリーズ",
+    "Stellar Blade",
+    "Baby Steps",
+    "かまいたいちの夜3",
+    "パラサイト・イヴ",
+    "ドラゴンクエストV",
+    "スプリット・フィクション"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:26",
+     "label": "アクスレイ"
+    },
+    {
+     "time": "27:02",
+     "label": "わるい状態目撃情報"
+    },
+    {
+     "time": "45:57",
+     "label": "滝壺3分ゲーム紹介（ギルド探求団へようこそ！）"
+    },
+    {
+     "time": "53:00",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:10:17",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:18:31",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/112-e3lh2ml"
+   },
+   "guid": "8991808f-9767-4569-94ce-2c884262aef4",
+   "image": "assets/img/ep/112.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1782910835539-9d14f46777794.jpg"
+  }
+ ]
+}

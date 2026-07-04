@@ -1,0 +1,35 @@
+name: RSSから自動更新
+
+on:
+  schedule:
+    # 毎週水曜 23:30 JST(= 14:30 UTC)と木曜朝に念のためもう1回
+    - cron: "30 14 * * 3"
+    - cron: "0 22 * * 3"
+  workflow_dispatch: {}   # 手動実行も可能
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 依存ライブラリ(画像縮小用)
+        run: pip install Pillow
+
+      - name: RSS取得とページ再生成
+        run: python3 scripts/update_from_rss.py
+
+      - name: 変更があればコミット
+        run: |
+          git config user.name "takitsubo-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "auto: RSSからエピソード更新"
+          git push
