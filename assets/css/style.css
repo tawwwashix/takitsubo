@@ -17,8 +17,8 @@
   --berry: #E4484F;
   --accent: #EE5A3A;       /* 暖色アクセント(いちご・カニ系)。CTAと強調に1色だけ使う */
   --accent-deep: #D8462A;  /* リンク文字用に少し濃く */
-  --band-soft: #F6FBFF;    /* セクション帯: ほぼ白 */
-  --band-blue: #DDEFFC;    /* セクション帯: 水色 */
+  --band-soft: #F4FAFF;    /* セクション帯: ほぼ白 */
+  --band-blue: #CDE6FB;    /* セクション帯: 水色 */
   --line: #D5E8F5;
   --radius: 16px;
   --shadow: 0 4px 20px rgba(30, 126, 214, .10);
@@ -271,13 +271,34 @@ img { max-width: 100%; display: block; }
 }
 
 /* トップページ: 画面幅いっぱいの帯で白↔水色のリズムをつける */
+:root {
+  --wave-1: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 34' preserveAspectRatio='none'%3E%3Cpath d='M0 34 H1440 V17 Q720 -8 0 17 Z' fill='%23000'/%3E%3C/svg%3E");
+  --wave-2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 34' preserveAspectRatio='none'%3E%3Cpath d='M0 34 H1440 V18 Q1260 1 1080 18 T720 18 T360 18 T0 18 Z' fill='%23000'/%3E%3C/svg%3E");
+  --wave-3: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 34' preserveAspectRatio='none'%3E%3Cpath d='M0 34 H1440 V22 C1040 29 780 18 520 9 C350 1 160 17 0 6 Z' fill='%23000'/%3E%3C/svg%3E");
+  --wave-4: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 34' preserveAspectRatio='none'%3E%3Cpath d='M0 34 H1440 V19 C1220 -4 1030 29 760 13 C520 1 320 30 0 8 Z' fill='%23000'/%3E%3C/svg%3E");
+}
 .band {
+  position: relative;
   margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
   padding-left: calc(50vw - 50%); padding-right: calc(50vw - 50%);
-  padding-top: 42px; padding-bottom: 34px; margin-top: 26px; margin-bottom: 10px;
+  padding-top: 46px; padding-bottom: 38px; margin-top: 0; margin-bottom: 0;
 }
 .band-soft { background: var(--band-soft); }
 .band-blue { background: var(--band-blue); }
+/* 帯の上端を波形にして、区切りをまっすぐな横線ではなく波打たせる */
+.band::before {
+  content: ""; position: absolute; left: 0; right: 0;
+  top: -31px; height: 33px; pointer-events: none;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+}
+.band-soft::before { background-color: var(--band-soft); }
+.band-blue::before { background-color: var(--band-blue); }
+/* セクションごとに波の形を変えて単調さを避ける */
+.band:nth-of-type(4n+2)::before { -webkit-mask-image: var(--wave-1); mask-image: var(--wave-1); }
+.band:nth-of-type(4n+3)::before { -webkit-mask-image: var(--wave-2); mask-image: var(--wave-2); }
+.band:nth-of-type(4n)::before   { -webkit-mask-image: var(--wave-3); mask-image: var(--wave-3); }
+.band:nth-of-type(4n+1)::before { -webkit-mask-image: var(--wave-4); mask-image: var(--wave-4); }
 
 /* ヒーロー直下のNEWSティッカー */
 .news-bar {

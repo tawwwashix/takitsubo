@@ -179,6 +179,7 @@ def build_index():
     root = ""
     latest = EPS[-1]
     recent = list(reversed(EPS[-7:-1]))  # 最新を除く直近6件(3列×2段)
+    ep_count = sum(1 for e in EPS if e["number"] > 0)  # 第0回(番組紹介)は配信回数に含めない
     rock = {"tawashi": "rock_tawashi.png", "hyuuma": "rock_hyuuma.png", "ichigoo": "rock_ichigo.png"}
     members = "".join(
         f"""<div class="card member-card">
@@ -220,7 +221,7 @@ def build_index():
 <p class="catch">{esc(SITE['tagline']).replace('ならなんでも', 'なら<br>なんでも')}</p>
 <div class="hero-chips">
 <span class="chip">{esc(SITE['schedule'])}</span>
-<span class="chip">全{len(EPS)}回配信中</span>
+<span class="chip">全{ep_count}回配信中</span>
 </div>
 <a class="cta-primary" href="episodes/{latest['number']}.html">{SVG['play']}最新回 #{latest['number']} を聴く</a>
 <span class="cta-note">アプリ不要・会員登録不要・すべて無料</span>
@@ -245,17 +246,17 @@ def build_index():
 {ep_card(latest, root, featured=True)}
 </section>
 
-<section class="section">
+<section class="section band band-blue">
 {sec_title("最近の配信", "RECENT", '<a class="section-more" href="episodes/">すべて見る →</a>')}
 <div class="ep-grid">{''.join(ep_card(e, root) for e in recent)}</div>
 </section>
 
-<section class="section band band-blue">
+<section class="section band band-soft">
 {sec_title("名物企画", "SPECIAL SERIES", '<a class="section-more" href="series/">一覧へ →</a>')}
 <div class="grid-2">{series_cards}</div>
 </section>
 
-<section class="section band band-soft">
+<section class="section band band-blue">
 {sec_title("パーソナリティ", "MEMBERS")}
 <div class="grid-3">{members}</div>
 <p style="font-size:12px;color:var(--sub);margin-top:12px;">
@@ -263,12 +264,12 @@ def build_index():
 YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel="noopener">ゲーム実況</a>も配信中!</p>
 </section>
 
-<section class="section">
+<section class="section band band-soft">
 {sec_title("お知らせ", "NEWS", '<a class="section-more" href="news/">一覧へ →</a>')}
 <div class="news-list">{news_items}</div>
 </section>
 
-<section class="section band band-soft">
+<section class="section band band-blue">
 {sec_title("公式X", "OFFICIAL X")}
 <div class="card" style="text-align:center;">
 <p style="font-size:13px;color:var(--sub);margin-bottom:12px;">最新情報・こぼれ話は公式Xで。感想は {esc(SITE['hashtag'])} でお待ちしています!</p>
@@ -278,7 +279,7 @@ YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel=
 </div>
 </section>
 
-<section class="section band band-blue">
+<section class="section band band-soft">
 {sec_title("おたより募集中", "LETTERS")}
 <div class="grid-2">
 <a class="card" href="otayori.html"><strong>📮 おたよりフォーム</strong><br><span style="font-size:12px;color:var(--sub);">番組の感想・リクエスト・クイズの回答はこちらから</span></a>
