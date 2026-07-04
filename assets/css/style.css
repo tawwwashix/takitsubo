@@ -166,9 +166,12 @@ img { max-width: 100%; display: block; }
   transition: transform .3s cubic-bezier(.2, .8, .3, 1);
 }
 .stage-layer img { width: 100%; height: auto; display: block; }
+/* 左右反転(向きを合わせる)。アニメ用transformと競合しないよう最内側のimgに掛ける */
+.flip-x { transform: scaleX(-1); }
+/* === 位置・サイズの微調整はこの4行だけいじればOK(left/top=定位置, width=大きさ) === */
 .layer-logo    { left: 2%;  top: 3%;  width: 96%; z-index: 2; }
 .layer-tawashi { left: 0;   top: 0;   width: 21%; z-index: 3; }
-.layer-ichigoo { left: 75%; top: 16%; width: 23%; z-index: 3; }
+.layer-ichigoo { left: 75%; top: 22%; width: 23%; z-index: 3; }
 .layer-hyuuma  { left: 2%;  top: 56%; width: 27%; z-index: 3; }
 
 .stage-logo {
@@ -182,7 +185,7 @@ img { max-width: 100%; display: block; }
   85%  { transform: translateY(-3%); }
   to   { transform: translateY(0); }
 }
-.stage-char { filter: drop-shadow(0 6px 14px rgba(14, 90, 168, .4)); }
+.stage-char { display: block; filter: drop-shadow(0 6px 14px rgba(14, 90, 168, .4)); }
 /* --fx/--fy: ロゴ下部中央から各定位置への飛び出し始点(逆ベクトル) */
 .char-a { --fx: 150px; --fy: 260px; animation: char-pop .7s cubic-bezier(.3, 1.5, .5, 1) .8s  both, char-float-a 4.6s ease-in-out 1.6s infinite; }
 .char-b { --fx: -140px; --fy: 210px; animation: char-pop .7s cubic-bezier(.3, 1.5, .5, 1) .95s both, char-float-b 5.4s ease-in-out 1.9s infinite; }
@@ -215,10 +218,11 @@ img { max-width: 100%; display: block; }
   position: absolute; bottom: 6%; border-radius: 50%;
   background: #fff; opacity: .95; filter: blur(1.5px);
 }
-.foam.f1 { left: 0;   width: 36%; height: 34px; animation: foam-bob 3.2s ease-in-out infinite; }
-.foam.f2 { left: 27%; width: 44%; height: 46px; bottom: 0; animation: foam-bob 2.7s ease-in-out -.9s infinite; }
-.foam.f3 { left: 62%; width: 36%; height: 36px; animation: foam-bob 3.6s ease-in-out -1.8s infinite; }
-.foam.f4 { left: 15%; width: 26%; height: 24px; bottom: 26%; opacity: .8; animation: foam-bob 3s ease-in-out -.5s infinite; }
+/* === 泡の位置・大きさはこの4行(left=左位置, width=横幅, height=高さ)で微調整 === */
+.foam.f1 { left: 25%; width: 22%; height: 24px; animation: foam-bob 3.2s ease-in-out infinite; }
+.foam.f2 { left: 37%; width: 27%; height: 32px; bottom: 0; animation: foam-bob 2.7s ease-in-out -.9s infinite; }
+.foam.f3 { left: 55%; width: 22%; height: 25px; animation: foam-bob 3.6s ease-in-out -1.8s infinite; }
+.foam.f4 { left: 43%; width: 15%; height: 17px; bottom: 26%; opacity: .8; animation: foam-bob 3s ease-in-out -.5s infinite; }
 @keyframes foam-bob {
   0%, 100% { transform: scale(1) translateY(0); }
   50% { transform: scale(1.07, .93) translateY(-4px); }
@@ -594,6 +598,11 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
 .listen-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
 .listen-row .service-btn { background: var(--surface); border: 1.5px solid var(--line); box-shadow: none; }
 .listen-row .service-btn:hover { border-color: var(--primary); }
+/* 概要欄: RSSの改行(空行含む)をそのまま表示 */
+.ep-desc {
+  font-size: 14px; color: var(--sub); margin: 16px 0;
+  white-space: pre-line;
+}
 .game-tags { display: flex; flex-wrap: wrap; gap: 7px; }
 .game-tags .tag { font-size: 12px; padding: 5px 14px; }
 /* 水深で背景が暗くなっても読めるよう、チャプターはカードに載せる */

@@ -218,9 +218,9 @@ def build_index():
 <div class="hero-inner">
 <div class="hero-stage" id="heroStage" aria-hidden="true">
 <div class="stage-layer layer-logo" data-depth="0.35"><img class="stage-logo" src="assets/img/mainlogo.png" alt=""></div>
-<div class="stage-layer layer-tawashi" data-depth="1.1"><img class="stage-char char-a" src="assets/img/tawashi.png" alt=""></div>
-<div class="stage-layer layer-ichigoo" data-depth="1.4"><img class="stage-char char-b" src="assets/img/ichigoo.png" alt=""></div>
-<div class="stage-layer layer-hyuuma" data-depth="0.8"><img class="stage-char char-c" src="assets/img/hyuuma.png" alt=""></div>
+<div class="stage-layer layer-tawashi" data-depth="1.1"><span class="stage-char char-a"><img class="flip-x" src="assets/img/tawashi.png" alt=""></span></div>
+<div class="stage-layer layer-ichigoo" data-depth="1.4"><span class="stage-char char-b"><img src="assets/img/ichigoo.png" alt=""></span></div>
+<div class="stage-layer layer-hyuuma" data-depth="0.8"><span class="stage-char char-c"><img class="flip-x" src="assets/img/hyuuma.png" alt=""></span></div>
 <div class="stage-splash">
 <i class="foam f1"></i><i class="foam f2"></i><i class="foam f3"></i><i class="foam f4"></i>
 <i class="drop d1"></i><i class="drop d2"></i><i class="drop d3"></i><i class="drop d4"></i><i class="drop d5"></i>
@@ -348,7 +348,7 @@ def build_episode_pages():
         tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in e["tags"])
         date_note = ' <span class="date-note">(推定)</span>' if e.get("date_estimated") else ""
 
-        desc_html = f'<div class="card" style="font-size:14px;color:var(--sub);margin:16px 0;">{esc(e["description"])}</div>' if e["description"] else ""
+        desc_html = f'<div class="card ep-desc">{esc(e["description"])}</div>' if e["description"] else ""
 
         games_html = ""
         if e["games"]:

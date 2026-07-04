@@ -92,7 +92,7 @@ def main():
     tree = ET.fromstring(xml_text)
     ns = {"itunes": "http://www.itunes.com/dtds/podcast-1.0.dtd"}
 
-    updated, created, images, unknown_games = 0, 0, 0, set()
+    updated, created, images, locked, unknown_games = 0, 0, 0, 0, set()
 
     for item in tree.iter("item"):
         title = (item.findtext("title") or "").strip()
@@ -149,6 +149,10 @@ def main():
                     if label not in ep["tags"]:
                         ep["tags"].append(label)
         else:
+            # "locked": true の回は手動修正を優先し、RSSでの上書きを一切行わない
+            if ep.get("locked"):
+                locked += 1
+                continue
             updated += 1
 
         ep["title"] = clean_title
@@ -178,7 +182,7 @@ def main():
     data["episodes"].sort(key=lambda e: e["number"])
     DATA_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
 
-    print(f"更新: {updated}件 / 新規: {created}件 / 画像取得: {images}件")
+    print(f"更新: {updated}件 / 新規: {created}件 / 画像取得: {images}件 / ロック保護: {locked}件")
     if unknown_games:
         print("--- 表記ゆれ辞書に未登録のゲーム名(必要ならaliases.jsonへ追加) ---")
         for g in sorted(unknown_games):

@@ -69,14 +69,97 @@ takitsubo/
 タイトルに「わるい村」「ふさわしいゲーム」等が含まれていれば自動でタグ付けされます。
 外れた場合は `data/episodes.json` の該当回の `"series"` と `"tags"` を手で直すだけ。
 
-### お知らせを追加
-`data/news.json` に1ブロック追加 → `python3 scripts/build.py`(GitHub上ならcommitすればActions実行時に反映)
-
-### 名物企画を追加
-`data/series.json` に1ブロック追加し、対象回の `series` フィールドにslugを設定 → ビルド
-
 ### アートワーククイズランキング(後日実装)
 `data/ranking.json` に毎週の結果を追記しておけば、ページ実装時にそのまま集計できます。
+
+---
+
+## 手動メンテナンス手順
+
+> 前提: どの作業も、最後に **`python scripts/build.py`**(または `update_from_rss.py`)を実行してHTMLを再生成し、
+> GitHubにpushすれば公開サイトに反映されます。ローカルだけの再生成ではサイトは更新されません。
+> RSSを触るスクリプトは画像縮小に **Pillow** が必要です(初回のみ `pip install Pillow`)。
+
+### 1. 水曜23時以外に更新したとき(手動でRSSを取り込む)
+配信を早めた・遅らせた・臨時で出した等で、GitHub Actionsの定期実行を待たずに反映したいとき:
+
+```bash
+python scripts/update_from_rss.py
+```
+
+これでRSSを取りに行き、新着回の追加・既存回の更新・新しい画像の取得・全ページ再生成までまとめて行います。
+実行後、変更を `git add -A && git commit && git push` すれば公開されます。
+(GitHub上で `Actions → RSSから自動更新 → Run workflow` を押しても同じことが手動でできます)
+
+### 2. 元エピソードのタイトル・概要が変わったとき(再取得)
+配信側でタイトルや概要欄を編集した場合も、同じコマンドで取り直せます:
+
+```bash
+python scripts/update_from_rss.py
+```
+
+`update_from_rss.py` は毎回RSSの全エピソードを読み直し、タイトル・配信日・概要文・チャプター・
+登場ゲームタイトルを**最新のRSS内容で上書き**します。特定回だけを狙う仕組みはありません(全回を突き合わせて更新)。
+
+### 3. 概要などがおかしいとき(手直しと、上書き防止)
+自動抽出がうまくいかない回(概要が途中で切れる・ゲーム名に変なものが混じる等)は、
+`data/episodes.json` の該当回を直接編集してください。主なフィールド:
+
+| フィールド | 意味 |
+|---|---|
+| `title` | タイトル(「第N回」は除いた本文) |
+| `description` | 概要文。**改行はそのまま表示されます**(`\n` を入れればページでも改行) |
+| `games` | 登場ゲームタイトルの配列。不要な要素を消す/正式名に直す |
+| `chapters` | `{ "time": "00:00", "label": "..." }` の配列 |
+| `date` / `date_estimated` | 配信日(`YYYY-MM-DD`)と推定フラグ |
+| `series` / `tags` | 名物企画のslugと表示タグ |
+
+編集したら `python scripts/build.py` で再生成します。
+
+**⚠ 上書きされない対策(重要):**
+`update_from_rss.py` は次回実行時、RSSの内容で `title`/`description`/`games`/`chapters`/`date` を上書きします。
+そのため手直しした回は、その回に **`"locked": true`** を足してください。ロックした回はRSS更新の対象から
+完全に外れ、手動の内容が保持されます(自動実行のログに「ロック保護: N件」と出ます)。
+
+```json
+{
+  "number": 45,
+  "title": "手直ししたタイトル",
+  "description": "手直しした概要",
+  "locked": true,
+  ...
+}
+```
+
+※ ロックを解除して再びRSS追従に戻したいときは、その行を消す(または `false` にする)だけです。
+
+### 4. 新しい名物企画を追加する
+1. `data/series.json` の `series` 配列に1ブロック追加(挿入位置がサイトの表示順になります):
+   ```json
+   { "slug": "英数字とハイフンのID", "name": "企画名", "icon": "📦", "description": "説明文。" }
+   ```
+2. 対象回それぞれの `data/episodes.json` で `"series"` にそのslugを設定し、`"tags"` の先頭に企画名を入れる。
+3. (任意)今後の新着回で**タイトルから自動タグ付け**したい場合は、`scripts/update_from_rss.py` の
+   `SERIES_KEYWORDS` に1行足す:
+   ```python
+   "slug名": ("企画名", ["タイトルに含まれるキーワード"]),
+   ```
+4. `python scripts/build.py` で再生成。カード画像はそのシリーズの**最新回のアートワーク**が自動で使われます。
+
+### 5. お知らせを追加する
+`data/news.json` の `news` 配列の**末尾**に1ブロック足すだけ(新しいものが自動で上に並びます):
+
+```json
+{
+  "date": "2026-08-01",
+  "slug": "2026-08-01-example",
+  "title": "お知らせのタイトル",
+  "body": ["1段落目。", "2段落目。", "3段落目。"]
+}
+```
+
+`slug` はURLになるので英数字とハイフンで。`body` の配列1要素が1段落です。
+追加したら `python scripts/build.py`(GitHubへcommit/pushで公開。ヒーロー直下のNEWS帯とお知らせ一覧に反映)。
 
 ## Claude Code への引き継ぎ方
 
