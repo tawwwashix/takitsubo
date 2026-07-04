@@ -102,6 +102,7 @@ def footer(root):
     )
     return f"""<footer class="site-footer"><div class="footer-inner">
 <div class="footer-brand"><img src="{root}assets/img/favicon_192.png" alt="">{SITE['title']}</div>
+<div class="footer-en">GAME NO TAKITSUBO — WEEKLY GAME TALK PODCAST</div>
 <p class="footer-desc">{esc(SITE['tagline'])}。{esc(SITE['schedule'])}。感想は {esc(SITE['hashtag'])} でどうぞ。</p>
 <nav class="footer-nav" aria-label="フッターメニュー">{nav}</nav>
 <p class="footer-note">お問い合わせ: <a href="mailto:{SITE['email']}">{SITE['email']}</a><br>
@@ -130,6 +131,12 @@ def ep_image(e):
     """エピソード画像の相対パス(サイトルート基準)。無ければNone。"""
     img = e.get("image")
     return img if img else None
+
+
+def sec_title(jp, en="", more_html=""):
+    """セクション見出し。enに英字ラベルを渡すと公式サイト風の2段見出しになる。"""
+    en_html = f'<span class="en">{esc(en)}</span>' if en else ""
+    return f'<h2 class="section-title"><span class="st-text">{en_html}<span>{esc(jp)}</span></span>{more_html}</h2>'
 
 
 def series_card(s, root, desc_len=None):
@@ -188,6 +195,14 @@ def build_index():
         f'<a class="news-item" href="news/{n["slug"]}.html"><span class="news-date">{jd(n["date"])}</span><span class="news-title">{esc(n["title"])}</span></a>'
         for n in list(reversed(NEWS))[:3])
 
+    # ヒーロー直下のNEWSティッカー(最新1件)
+    news_bar = ""
+    if NEWS:
+        n = list(reversed(NEWS))[0]
+        news_bar = (f'<div class="news-bar"><span class="nb-label">NEWS</span>'
+                    f'<a class="nb-item" href="news/{n["slug"]}.html"><span class="nb-date">{jd(n["date"])}</span>{esc(n["title"])}</a>'
+                    f'<a class="nb-more" href="news/">一覧 →</a></div>')
+
     tawashi = SITE["members"][0]
     blog_url = tawashi.get("blog", {}).get("url", "#")
     if blog_url.startswith("TODO"): blog_url = "#"
@@ -201,9 +216,15 @@ def build_index():
 <div class="hero-inner">
 <img class="hero-art" src="assets/img/artwork_600.jpg" alt="ゲームの滝壺 アートワーク" width="600" height="600">
 <div class="hero-text">
-<h1>{SITE['title']}</h1>
-<p class="tagline">{esc(SITE['tagline'])}<br>{esc(SITE['schedule'])}</p>
-<span class="free-badge">🎧 すべて無料で聴けます</span>
+<h1 class="visually-hidden">{SITE['title']}</h1>
+<p class="catch">{esc(SITE['tagline']).replace('ならなんでも', 'なら<br>なんでも')}</p>
+<div class="hero-chips">
+<span class="chip">{esc(SITE['schedule'])}</span>
+<span class="chip">全{len(EPS)}回配信中</span>
+</div>
+<a class="cta-primary" href="episodes/{latest['number']}.html">{SVG['play']}最新回 #{latest['number']} を聴く</a>
+<span class="cta-note">アプリ不要・会員登録不要・すべて無料</span>
+<span class="services-label">ON AIR — 各サービスで配信中</span>
 <div class="services">{service_buttons(root)}</div>
 </div>
 </div>
@@ -211,29 +232,31 @@ def build_index():
 {WAVE}
 <main class="container">
 
+{news_bar}
+
 <section class="section">
 <div class="info-box"><strong>ポッドキャストってなに?</strong><br>
 無料で聴けるネットラジオのようなものです。アプリを入れなくても、上のボタンからブラウザですぐ再生できます。通勤・家事・寝る前のおともにどうぞ。
 <a href="guide.html">くわしい聴き方はこちら →</a></div>
 </section>
 
-<section class="section">
-<h2 class="section-title">最新エピソード</h2>
+<section class="section band band-soft">
+{sec_title("最新エピソード", "LATEST")}
 {ep_card(latest, root, featured=True)}
 </section>
 
 <section class="section">
-<h2 class="section-title">最近の配信<a class="section-more" href="episodes/">すべて見る →</a></h2>
+{sec_title("最近の配信", "RECENT", '<a class="section-more" href="episodes/">すべて見る →</a>')}
 <div class="ep-grid">{''.join(ep_card(e, root) for e in recent)}</div>
 </section>
 
 <section class="section band band-blue">
-<h2 class="section-title">名物企画<a class="section-more" href="series/">一覧へ →</a></h2>
+{sec_title("名物企画", "SPECIAL SERIES", '<a class="section-more" href="series/">一覧へ →</a>')}
 <div class="grid-2">{series_cards}</div>
 </section>
 
-<section class="section band band-cream">
-<h2 class="section-title">パーソナリティ</h2>
+<section class="section band band-soft">
+{sec_title("パーソナリティ", "MEMBERS")}
 <div class="grid-3">{members}</div>
 <p style="font-size:12px;color:var(--sub);margin-top:12px;">
 夜中たわしのブログ「<a href="{esc(blog_url)}" target="_blank" rel="noopener">夜中に前へ</a>」では、ポッドキャストの更新情報も記事になっています。
@@ -241,12 +264,12 @@ YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel=
 </section>
 
 <section class="section">
-<h2 class="section-title">お知らせ<a class="section-more" href="news/">一覧へ →</a></h2>
+{sec_title("お知らせ", "NEWS", '<a class="section-more" href="news/">一覧へ →</a>')}
 <div class="news-list">{news_items}</div>
 </section>
 
-<section class="section">
-<h2 class="section-title">公式X</h2>
+<section class="section band band-soft">
+{sec_title("公式X", "OFFICIAL X")}
 <div class="card" style="text-align:center;">
 <p style="font-size:13px;color:var(--sub);margin-bottom:12px;">最新情報・こぼれ話は公式Xで。感想は {esc(SITE['hashtag'])} でお待ちしています!</p>
 <a class="twitter-timeline" data-height="480" data-lang="ja" href="{SITE['x_url']}?ref_src=twsrc%5Etfw">{esc(SITE['x_handle'])} のポストを読み込み中…</a>
@@ -255,8 +278,8 @@ YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel=
 </div>
 </section>
 
-<section class="section band band-pink">
-<h2 class="section-title">おたより募集中</h2>
+<section class="section band band-blue">
+{sec_title("おたより募集中", "LETTERS")}
 <div class="grid-2">
 <a class="card" href="otayori.html"><strong>📮 おたよりフォーム</strong><br><span style="font-size:12px;color:var(--sub);">番組の感想・リクエスト・クイズの回答はこちらから</span></a>
 <a class="card" href="mailto:{SITE['email']}"><strong>✉️ メールでも受付</strong><br><span style="font-size:12px;color:var(--sub);font-family:var(--font-num);">{SITE['email']}</span></a>
@@ -287,7 +310,7 @@ def build_episode_list():
     page += header(root, "episodes")
     page += f"""
 <main class="container">
-<div class="page-head"><h1 class="page-title">エピソード一覧</h1>
+<div class="page-head"><h1 class="page-title"><span class="en">EPISODES</span>エピソード一覧</h1>
 <p class="result-count" id="count"></p></div>
 
 <div class="searchbox">{SVG['search']}
@@ -319,12 +342,12 @@ def build_episode_pages():
         games_html = ""
         if e["games"]:
             gtags = "".join(f'<a class="tag" href="index.html?q={esc(g)}">{esc(g)}</a>' for g in e["games"])
-            games_html = f'<section class="section"><h2 class="section-title">登場ゲームタイトル</h2><div class="game-tags">{gtags}</div></section>'
+            games_html = f'<section class="section">{sec_title("登場ゲームタイトル", "FEATURED GAMES")}<div class="game-tags">{gtags}</div></section>'
 
         chapters_html = ""
         if e["chapters"]:
             items = "".join(f'<li><span class="chapter-time">{esc(c["time"])}</span><span>{esc(c["label"])}</span></li>' for c in e["chapters"])
-            chapters_html = f'<section class="section"><h2 class="section-title">チャプター</h2><ul class="chapter-list">{items}</ul></section>'
+            chapters_html = f'<section class="section">{sec_title("チャプター", "CHAPTERS")}<ul class="chapter-list">{items}</ul></section>'
 
         series_html = ""
         if e["series"]:
@@ -368,7 +391,7 @@ def build_series():
     page = head("名物企画", "ゲームの滝壺の名物企画・シリーズ一覧。", root, "series/")
     page += header(root, "series")
     page += f"""<main class="container">
-<div class="page-head"><h1 class="page-title">名物企画</h1>
+<div class="page-head"><h1 class="page-title"><span class="en">SPECIAL SERIES</span>名物企画</h1>
 <p style="font-size:13px;color:var(--sub);">繰り返し配信しているシリーズ企画のまとめです。気になる企画からどうぞ。</p></div>
 <div class="grid-2" style="margin-top:14px;">{cards}</div>
 </main>"""
@@ -406,7 +429,7 @@ def build_news():
     page = head("お知らせ", "ゲームの滝壺からのお知らせ一覧。", root, "news/")
     page += header(root, "news")
     page += f"""<main class="container">
-<div class="page-head"><h1 class="page-title">お知らせ</h1></div>
+<div class="page-head"><h1 class="page-title"><span class="en">NEWS</span>お知らせ</h1></div>
 <div class="news-list" style="margin-top:10px;">{items}</div>
 </main>"""
     page += footer(root)
@@ -433,10 +456,10 @@ def build_guide():
     page = head("ポッドキャストの聴き方", "ポッドキャストとは?無料?アプリは必要?ゲームの滝壺の聴き方をやさしく解説。", root, "guide.html")
     page += header(root, "guide")
     page += f"""<main class="container">
-<div class="page-head"><h1 class="page-title">ポッドキャストの聴き方</h1></div>
+<div class="page-head"><h1 class="page-title"><span class="en">HOW TO LISTEN</span>ポッドキャストの聴き方</h1></div>
 
 <section class="section">
-<h2 class="section-title">ポッドキャストってなに?</h2>
+{sec_title("ポッドキャストってなに?", "ABOUT PODCAST")}
 <div class="card" style="font-size:14px;color:var(--sub);">
 <p style="margin-bottom:1em;">ポッドキャストは、<strong style="color:var(--ink);">無料で聴けるインターネットラジオ</strong>のようなものです。好きなときに、好きな回から、何度でも聴けます。</p>
 <p style="margin-bottom:1em;">「ゲームの滝壺」もすべての回を無料で配信しています。会員登録や課金は一切不要です。</p>
@@ -445,7 +468,7 @@ def build_guide():
 </section>
 
 <section class="section">
-<h2 class="section-title">いちばんかんたんな聴き方</h2>
+{sec_title("いちばんかんたんな聴き方", "3 STEPS")}
 <div class="card" style="font-size:14px;color:var(--sub);">
 <p style="margin-bottom:1em;"><strong style="color:var(--ink);">1. 下のボタンから好きなサービスを選ぶ</strong><br>
 ふだん使っているものがあればそれでOK。迷ったらSpotifyかYouTubeが手軽です。</p>
@@ -458,7 +481,7 @@ def build_guide():
 </section>
 
 <section class="section">
-<h2 class="section-title">YouTubeではゲーム実況も!</h2>
+{sec_title("YouTubeではゲーム実況も!", "YOUTUBE")}
 <div class="card" style="font-size:14px;color:var(--sub);">
 <p>YouTubeチャンネルではポッドキャストに加えて<strong style="color:var(--ink);">ゲーム実況</strong>も配信しています。トークで気になったゲームの実際のプレイもぜひ。</p>
 <p style="margin-top:12px;"><a class="service-btn" style="display:inline-flex;" href="{SITE['services']['youtube']['url']}" target="_blank" rel="noopener">{SVG['youtube']}YouTubeチャンネルへ</a></p>
@@ -475,7 +498,7 @@ def build_otayori():
     page = head("おたより", "ゲームの滝壺へのおたより・感想・リクエストはこちらから。", root, "otayori.html")
     page += header(root, "otayori")
     page += f"""<main class="container">
-<div class="page-head"><h1 class="page-title">おたよりフォーム</h1>
+<div class="page-head"><h1 class="page-title"><span class="en">LETTER FORM</span>おたよりフォーム</h1>
 <p style="font-size:13px;color:var(--sub);margin-top:6px;">番組の感想、話してほしいテーマ、アートワーククイズの回答など、なんでもお寄せください。いただいたおたよりは番組内で紹介させていただくことがあります。</p></div>
 
 <div class="form-embed" style="margin-top:16px;">
