@@ -90,11 +90,15 @@ def header(root, current=""):
 
 
 def footer(root):
+    blog = SITE["members"][0].get("blog", {})
+    blog_url = blog.get("url", "#")
+    if blog_url.startswith("TODO"): blog_url = "#"
     nav = (
         f'<a href="{root}index.html">ホーム</a><a href="{root}episodes/">エピソード</a>'
         f'<a href="{root}series/">名物企画</a><a href="{root}news/">お知らせ</a>'
         f'<a href="{root}guide.html">ポッドキャストの聴き方</a><a href="{root}otayori.html">おたより</a>'
         f'<a href="{SITE["x_url"]}" target="_blank" rel="noopener">公式X</a>'
+        f'<a href="{esc(blog_url)}" target="_blank" rel="noopener">ブログ「{esc(blog.get("label", "ブログ"))}」</a>'
     )
     return f"""<footer class="site-footer"><div class="footer-inner">
 <div class="footer-brand"><img src="{root}assets/img/favicon_192.png" alt="">{SITE['title']}</div>
@@ -103,7 +107,11 @@ def footer(root):
 <p class="footer-note">お問い合わせ: <a href="mailto:{SITE['email']}">{SITE['email']}</a><br>
 おたよりフォームでいただいた内容は番組内で紹介させていただくことがあります。個人情報は番組運営の目的以外には使用しません。<br>
 &copy; {datetime.date.today().year} {SITE['title']}</p>
-</div></footer></body></html>"""
+</div></footer>
+<button class="datyou-top" aria-label="ページの先頭へ戻る" title="てっぺんへ戻る">
+<img src="{root}assets/img/datyou.png" alt=""></button>
+<script src="{root}assets/js/site.js"></script>
+</body></html>"""
 
 
 def service_buttons(root, links=None):
@@ -114,7 +122,7 @@ def service_buttons(root, links=None):
         if url.startswith("TODO"):
             url = "#"  # 未設定は無効リンク(README参照)
         icon = SVG[SERVICE_ICON[key]]
-        out.append(f'<a class="service-btn" href="{esc(url)}" target="_blank" rel="noopener">{icon}{s["label"]}</a>')
+        out.append(f'<a class="service-btn svc-{key}" href="{esc(url)}" target="_blank" rel="noopener">{icon}{s["label"]}</a>')
     return "".join(out)
 
 
@@ -122,6 +130,21 @@ def ep_image(e):
     """エピソード画像の相対パス(サイトルート基準)。無ければNone。"""
     img = e.get("image")
     return img if img else None
+
+
+def series_card(s, root, desc_len=None):
+    """名物企画カード。そのシリーズ最新回のアートワークを上部に表示。"""
+    eps = [e for e in EPS if e["series"] == s["slug"]]
+    latest_img = next((ep_image(e) for e in reversed(eps) if ep_image(e)), None)
+    art = f'<img class="series-card-img" src="{root}{latest_img}" alt="" loading="lazy">' if latest_img else ""
+    desc = s["description"] if desc_len is None else s["description"][:desc_len] + "…"
+    return f"""<a class="series-card" href="{root}series/{s['slug']}.html">
+{art}
+<span class="series-card-body">
+<span class="s-name">{esc(s['name'])}</span>
+<span class="s-count">全{len(eps)}回</span>
+<span class="s-desc">{esc(desc)}</span>
+</span></a>"""
 
 
 def ep_card(e, root, meta_prefix="", featured=False):
@@ -149,20 +172,17 @@ def build_index():
     root = ""
     latest = EPS[-1]
     recent = list(reversed(EPS[-7:-1]))  # 最新を除く直近6件(3列×2段)
+    rock = {"tawashi": "rock_tawashi.png", "hyuuma": "rock_hyuuma.png", "ichigoo": "rock_ichigo.png"}
     members = "".join(
         f"""<div class="card member-card">
+{f'<img class="member-rock" src="assets/img/{rock[m["id"]]}" alt="" aria-hidden="true">' if m['id'] in rock else ''}
 <img src="assets/img/{m['id']}.png" alt="{esc(m['name'])}のアイコン">
 <div class="name">{esc(m['name'])}</div>
 <p class="bio">{esc(m['bio'])}</p>
 <a class="x-link" href="{m['x']}" target="_blank" rel="noopener">{SVG['x']}{m['x_handle']}</a>
 </div>""" for m in SITE["members"])
 
-    series_cards = "".join(
-        f"""<a class="card series-card" href="series/{s['slug']}.html">
-<div class="s-name">{esc(s['name'])}</div>
-<div class="s-count">全{len([e for e in EPS if e['series'] == s['slug']])}回</div>
-<p class="s-desc">{esc(s['description'][:52])}…</p>
-</a>""" for s in SERIES)
+    series_cards = "".join(series_card(s, root, desc_len=52) for s in SERIES)
 
     news_items = "".join(
         f'<a class="news-item" href="news/{n["slug"]}.html"><span class="news-date">{jd(n["date"])}</span><span class="news-title">{esc(n["title"])}</span></a>'
@@ -176,11 +196,17 @@ def build_index():
     page += header(root, "home")
     page += f"""
 <div class="hero">
-<img class="hero-art" src="assets/img/artwork_320.jpg" alt="ゲームの滝壺 アートワーク" width="320" height="320">
+<img class="float-img float-maguro" src="assets/img/maguro.png" alt="" aria-hidden="true">
+<img class="float-img float-kani" src="assets/img/kani.png" alt="" aria-hidden="true">
+<div class="hero-inner">
+<img class="hero-art" src="assets/img/artwork_600.jpg" alt="ゲームの滝壺 アートワーク" width="600" height="600">
+<div class="hero-text">
 <h1>{SITE['title']}</h1>
 <p class="tagline">{esc(SITE['tagline'])}<br>{esc(SITE['schedule'])}</p>
 <span class="free-badge">🎧 すべて無料で聴けます</span>
 <div class="services">{service_buttons(root)}</div>
+</div>
+</div>
 </div>
 {WAVE}
 <main class="container">
@@ -201,12 +227,12 @@ def build_index():
 <div class="ep-grid">{''.join(ep_card(e, root) for e in recent)}</div>
 </section>
 
-<section class="section">
+<section class="section band band-blue">
 <h2 class="section-title">名物企画<a class="section-more" href="series/">一覧へ →</a></h2>
 <div class="grid-2">{series_cards}</div>
 </section>
 
-<section class="section">
+<section class="section band band-cream">
 <h2 class="section-title">パーソナリティ</h2>
 <div class="grid-3">{members}</div>
 <p style="font-size:12px;color:var(--sub);margin-top:12px;">
@@ -229,7 +255,7 @@ YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel=
 </div>
 </section>
 
-<section class="section">
+<section class="section band band-pink">
 <h2 class="section-title">おたより募集中</h2>
 <div class="grid-2">
 <a class="card" href="otayori.html"><strong>📮 おたよりフォーム</strong><br><span style="font-size:12px;color:var(--sub);">番組の感想・リクエスト・クイズの回答はこちらから</span></a>
@@ -337,13 +363,7 @@ def build_episode_pages():
 # ============================================================ series/
 def build_series():
     root = "../"
-    cards = ""
-    for s in SERIES:
-        eps = [e for e in EPS if e["series"] == s["slug"]]
-        cards += f"""<a class="card series-card" href="{s['slug']}.html">
-<div class="s-name">{esc(s['name'])}</div>
-<div class="s-count">全{len(eps)}回</div>
-<p class="s-desc">{esc(s['description'])}</p></a>"""
+    cards = "".join(series_card(s, root) for s in SERIES)
 
     page = head("名物企画", "ゲームの滝壺の名物企画・シリーズ一覧。", root, "series/")
     page += header(root, "series")
@@ -365,7 +385,7 @@ def build_series():
         page += f"""<main class="container">
 <div class="page-head">
 <a class="back-link" href="index.html">{SVG['arrow_l']}名物企画一覧へ</a>
-<div class="card series-card" style="margin-bottom:20px;">
+<div class="card series-hero" style="margin-bottom:20px;">
 <div style="font-size:11px;color:var(--faint);font-family:var(--font-num);">名物企画</div>
 <div class="s-name" style="font-size:22px;">{esc(s['name'])}</div>
 <p class="s-desc" style="font-size:13px;">{esc(s['description'])}</p>
