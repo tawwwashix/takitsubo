@@ -38,20 +38,40 @@ html, body { overflow-x: clip; }
 
 body {
   font-family: var(--font-body);
-  /* 水中に漂う泡のような固定パターンで単調さを回避 */
-  background:
-    radial-gradient(circle 7px at 6% 22%, rgba(124, 196, 242, .22) 97%, transparent),
-    radial-gradient(circle 4px at 13% 64%, rgba(41, 185, 214, .18) 97%, transparent),
-    radial-gradient(circle 9px at 91% 38%, rgba(124, 196, 242, .16) 97%, transparent),
-    radial-gradient(circle 5px at 84% 78%, rgba(41, 185, 214, .2) 97%, transparent),
-    radial-gradient(circle 6px at 45% 92%, rgba(124, 196, 242, .14) 97%, transparent),
-    radial-gradient(circle 3px at 68% 12%, rgba(41, 185, 214, .22) 97%, transparent),
-    var(--bg);
-  background-attachment: fixed;
+  /* 水深グラデーション: ページを下るほど夜の水底へ沈んでいく。
+     本文はカード・帯(不透明)の上に載るため可読性は保たれる */
+  background: linear-gradient(180deg,
+    var(--bg) 0%, #E2F1FD 40%, #C9E3F8 62%,
+    #9CC5E8 74%, #5E92C2 84%, #2B6191 92%, #123C63 97%, #092743 100%);
   color: var(--ink);
   line-height: 1.8;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
+}
+
+/* 全ページ共通: 画面全体を泡がゆっくり上っていく(コンテンツの背後) */
+.ambient-bubbles {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    radial-gradient(circle 6px at 10% 88%, rgba(255,255,255,.34) 97%, transparent),
+    radial-gradient(circle 3px at 26% 52%, rgba(255,255,255,.30) 97%, transparent),
+    radial-gradient(circle 8px at 89% 72%, rgba(255,255,255,.22) 97%, transparent),
+    radial-gradient(circle 4px at 64% 28%, rgba(255,255,255,.28) 97%, transparent),
+    radial-gradient(circle 5px at 44% 8%, rgba(255,255,255,.20) 97%, transparent),
+    radial-gradient(circle 10px at 78% 42%, rgba(174,222,255,.20) 97%, transparent),
+    radial-gradient(circle 4px at 6% 30%, rgba(174,222,255,.26) 97%, transparent),
+    radial-gradient(circle 7px at 52% 66%, rgba(174,222,255,.18) 97%, transparent);
+  background-size:
+    auto 860px, auto 860px, auto 860px, auto 860px, auto 860px,
+    auto 1500px, auto 1500px, auto 1500px;
+  animation: ambient-rise 30s linear infinite;
+}
+@keyframes ambient-rise {
+  to {
+    background-position:
+      0 -860px, 0 -860px, 0 -860px, 0 -860px, 0 -860px,
+      0 -1500px, 0 -1500px, 0 -1500px;
+  }
 }
 
 a { color: var(--accent-deep); text-decoration: none; }
@@ -281,7 +301,8 @@ img { max-width: 100%; display: block; }
   position: relative;
   margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
   padding-left: calc(50vw - 50%); padding-right: calc(50vw - 50%);
-  padding-top: 46px; padding-bottom: 38px; margin-top: 0; margin-bottom: 0;
+  padding-top: 46px; padding-bottom: 38px;
+  margin-top: 40px; margin-bottom: 0;  /* 帯の間に「水」が見える隙間を作る */
 }
 .band-soft { background: var(--band-soft); }
 .band-blue { background: var(--band-blue); }
@@ -506,14 +527,28 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
 .listen-row .service-btn:hover { border-color: var(--primary); }
 .game-tags { display: flex; flex-wrap: wrap; gap: 7px; }
 .game-tags .tag { font-size: 12px; padding: 5px 14px; }
-.chapter-list { border-top: 1px solid var(--line); }
+/* 水深で背景が暗くなっても読めるよう、チャプターはカードに載せる */
+.chapter-list {
+  background: var(--surface); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 8px 20px;
+}
 .chapter-list li {
   list-style: none; display: flex; gap: 14px;
   padding: 10px 4px; border-bottom: 1px solid var(--line); font-size: 14px;
 }
+.chapter-list li:last-child { border-bottom: none; }
 .chapter-time { font-family: var(--font-num); color: var(--primary); font-variant-numeric: tabular-nums; }
 .prevnext { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 26px 0; }
 .prevnext .card { padding: 13px 15px; font-size: 12px; }
+/* ページ下部(水中)に直接載るテキストは、深度に関係なく読める半透明の濃紺ピルに */
+.deep-note {
+  text-align: center; font-size: 13px; color: #D6EAF8;
+  background: rgba(10, 39, 67, .55);
+  border-radius: 999px; padding: 8px 24px;
+  width: fit-content; margin: 0 auto;
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+.deep-note a { color: #FFC9B4; }
 .prevnext .pn-label { color: var(--faint); font-size: 11px; font-family: var(--font-num); }
 .prevnext .pn-title { font-weight: 700; margin-top: 2px; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .prevnext .next { text-align: right; }
@@ -535,8 +570,9 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
 
 /* ---------- フッター ---------- */
 .site-footer {
-  margin-top: 56px;
-  background: linear-gradient(165deg, var(--sky-3), var(--primary-deep));
+  margin-top: 120px;  /* フッター手前に深い水域を見せる */
+  /* 水底に溶け込む夜の深海色 */
+  background: linear-gradient(180deg, #16406B, #081D36);
   color: #EAF6FE; padding: 40px 0 26px;
 }
 .footer-inner { max-width: 760px; margin: 0 auto; padding: 0 18px; }

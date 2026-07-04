@@ -109,6 +109,7 @@ def footer(root):
 おたよりフォームでいただいた内容は番組内で紹介させていただくことがあります。個人情報は番組運営の目的以外には使用しません。<br>
 &copy; {datetime.date.today().year} {SITE['title']}</p>
 </div></footer>
+<div class="ambient-bubbles" aria-hidden="true"></div>
 <button class="datyou-top" aria-label="ページの先頭へ戻る" title="てっぺんへ戻る">
 <img src="{root}assets/img/datyou.png" alt=""></button>
 <script src="{root}assets/js/site.js"></script>
@@ -378,7 +379,7 @@ def build_episode_pages():
 {games_html}
 {chapters_html}
 {pn}
-<p style="text-align:center;font-size:13px;"><a href="../otayori.html">この回の感想をおたよりで送る 📮</a>  /  Xで {esc(SITE['hashtag'])}</p>
+<p class="deep-note"><a href="../otayori.html">この回の感想をおたよりで送る 📮</a>  /  Xで {esc(SITE['hashtag'])}</p>
 </main>"""
         page += footer(root)
         (ROOT / f"episodes/{n}.html").write_text(page, encoding="utf-8")

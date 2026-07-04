@@ -3448,8 +3448,10 @@
    "title": "キメラのつばさ ★★★★☆ とてもいい商品ですが、天井に穴があいたので星マイナス1です",
    "date": "2025-04-01",
    "date_estimated": false,
-   "tags": [],
-   "series": null,
+   "tags": [
+    "とてもいい商品"
+   ],
+   "series": "ii-shouhin",
    "description": "滝壺の3人が通販で買った（？）アイテムの紹介をしています！",
    "games": [
     "ドラゴンクエストI＆II",
@@ -7787,8 +7789,10 @@
    "title": "しんかのひほう ★★★★☆ とてもいい商品ですが、目が5つ、口が2つになったので星マイナス1です",
    "date": "2026-04-01",
    "date_estimated": false,
-   "tags": [],
-   "series": null,
+   "tags": [
+    "とてもいい商品"
+   ],
+   "series": "ii-shouhin",
    "description": "滝壺の3人が通販で買った（？）アイテムの紹介をしています！\n\n以下は利用した通販サイトです。\n※見た目のみですが、レビューの★を選択するとコメントが読めます！\n\nTakiExTuboss：\nhttps://takiextuboss.aprilfools.pgw.jp/\n\n滝壺市場：\nhttps://takitsuboichiba.aprilfools.pgw.jp/",
    "games": [
     "俺の屍を越えてゆけ",
