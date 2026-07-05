@@ -146,7 +146,19 @@ python scripts/update_from_rss.py
    ```
 4. `python scripts/build.py` で再生成。カード画像はそのシリーズの**最新回のアートワーク**が自動で使われます。
 
-### 5. お知らせを追加する
+### 5. トップページに表示する名物企画を入れ替える
+トップページの「名物企画」枠は**最大4件**で、`data/site.json` の `featured_series` で選びます:
+
+```json
+"featured_series": ["waruimura", "fusawashii", "sfc-ranking", "ii-shouhin"],
+```
+
+- 配列の並び順 = トップページでの表示順。slugは `data/series.json` の `slug` と同じものを書く
+- 5件以上書いても先頭4件しか表示されません
+- この設定は**トップページだけ**に効きます。名物企画の一覧ページ(`series/`)には常に全企画が並びます
+- 変更したら `python scripts/build.py` で再生成
+
+### 6. お知らせを追加する
 `data/news.json` の `news` 配列の**末尾**に1ブロック足すだけ(新しいものが自動で上に並びます):
 
 ```json

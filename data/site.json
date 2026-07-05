@@ -23,6 +23,7 @@
     { "id": "ichigoo", "name": "イチィゴォー", "x": "https://x.com/ichigo_tktb", "x_handle": "@ichigo_tktb",
       "bio": "眼鏡っ娘が出てくるゲームが好物。" }
   ],
+  "featured_series": ["waruimura", "fusawashii", "sfc-ranking", "ii-shouhin"],
   "otayori_form": "https://forms.gle/jot3ETXF19whQUEP9",
   "email": "game.tktb@gmail.com"
 }

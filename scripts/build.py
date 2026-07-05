@@ -37,10 +37,11 @@ WAVE = (
 )
 
 
-def head(title, desc, root, path="", og_image=None):
+def head(title, desc, root, path="", og_image=None, jsonld=None):
     full = f'{esc(title)} | {SITE["title"]}' if title else esc(SITE["title"])
     url = SITE["base_url"].rstrip("/") + "/" + path
     og_img = SITE["base_url"].rstrip("/") + "/" + (og_image or "assets/img/ogp.png")
+    ld = f'\n<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
     return f"""<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -59,7 +60,7 @@ def head(title, desc, root, path="", og_image=None):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{root}assets/css/style.css">
+<link rel="stylesheet" href="{root}assets/css/style.css">{ld}
 </head>
 <body>"""
 
@@ -84,8 +85,10 @@ def header(root, current=""):
     links += f'<a class="nav-ext" href="{SITE["x_url"]}" target="_blank" rel="noopener">{SVG["x"]}公式X</a>'
     links += f'<a class="nav-ext" href="{esc(blog_url)}" target="_blank" rel="noopener">ブログ</a>'
     return f"""<header class="site-header"><div class="header-inner">
-<a class="brand" href="{root}index.html"><img class="brand-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}"></a>
-<nav class="nav" aria-label="メインメニュー">{links}</nav>
+<a class="brand" href="{root}index.html"><img class="brand-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}" width="600" height="200"></a>
+<button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="siteNav">
+<span></span><span></span><span></span></button>
+<nav class="nav" id="siteNav" aria-label="メインメニュー">{links}</nav>
 </div></header>"""
 
 
@@ -101,7 +104,7 @@ def footer(root):
         f'<a href="{esc(blog_url)}" target="_blank" rel="noopener">ブログ「{esc(blog.get("label", "ブログ"))}」</a>'
     )
     return f"""<footer class="site-footer"><div class="footer-inner">
-<div class="footer-brand"><img class="footer-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}"></div>
+<div class="footer-brand"><img class="footer-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}" width="600" height="200"></div>
 <div class="footer-en">GAME NO TAKITSUBO — WEEKLY GAME TALK PODCAST</div>
 <p class="footer-desc">{esc(SITE['tagline'])}。{esc(SITE['schedule'])}。感想は {esc(SITE['hashtag'])} でどうぞ。</p>
 <nav class="footer-nav" aria-label="フッターメニュー">{nav}</nav>
@@ -111,7 +114,7 @@ def footer(root):
 </div></footer>
 <div class="ambient-bubbles" aria-hidden="true"></div>
 <button class="datyou-top" aria-label="ページの先頭へ戻る" title="てっぺんへ戻る">
-<img src="{root}assets/img/datyou.png" alt=""></button>
+<img src="{root}assets/img/datyou.png" alt="" width="200" height="200"></button>
 <script src="{root}assets/js/site.js"></script>
 </body></html>"""
 
@@ -144,7 +147,7 @@ def series_card(s, root, desc_len=None):
     """名物企画カード。そのシリーズ最新回のアートワークを上部に表示。"""
     eps = [e for e in EPS if e["series"] == s["slug"]]
     latest_img = next((ep_image(e) for e in reversed(eps) if ep_image(e)), None)
-    art = f'<img class="series-card-img" src="{root}{latest_img}" alt="" loading="lazy">' if latest_img else ""
+    art = f'<img class="series-card-img" src="{root}{latest_img}" alt="" loading="lazy" width="800" height="800">' if latest_img else ""
     desc = s["description"] if desc_len is None else s["description"][:desc_len] + "…"
     return f"""<a class="series-card" href="{root}series/{s['slug']}.html">
 {art}
@@ -160,7 +163,7 @@ def ep_card(e, root, meta_prefix="", featured=False):
     tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in e["tags"][:2])
     img = ep_image(e)
     if img:
-        art = f'<img class="ep-card-img" src="{root}{img}" alt="" loading="lazy">'
+        art = f'<img class="ep-card-img" src="{root}{img}" alt="" loading="lazy" width="800" height="800">'
     else:
         art = f'<span class="ep-card-img ep-card-num">#{e["number"]}</span>'
     cls = "ep-card featured" if featured else "ep-card"
@@ -185,13 +188,16 @@ def build_index():
     members = "".join(
         f"""<div class="card member-card">
 {f'<img class="member-rock" src="assets/img/{rock[m["id"]]}" alt="" aria-hidden="true">' if m['id'] in rock else ''}
-<img src="assets/img/{m['id']}.png" alt="{esc(m['name'])}のアイコン">
+<img src="assets/img/{m['id']}.webp" alt="{esc(m['name'])}のアイコン" width="240" height="240">
 <div class="name">{esc(m['name'])}</div>
 <p class="bio">{esc(m['bio'])}</p>
 <a class="x-link" href="{m['x']}" target="_blank" rel="noopener">{SVG['x']}{m['x_handle']}</a>
 </div>""" for m in SITE["members"])
 
-    series_cards = "".join(series_card(s, root, desc_len=52) for s in SERIES)
+    # トップに出す名物企画: site.json の featured_series(slugの配列)で選択。未設定なら先頭4件
+    feat_slugs = SITE.get("featured_series") or [s["slug"] for s in SERIES[:4]]
+    featured = [s for slug in feat_slugs for s in SERIES if s["slug"] == slug][:4]
+    series_cards = "".join(series_card(s, root, desc_len=52) for s in featured)
 
     news_items = "".join(
         f'<a class="news-item" href="news/{n["slug"]}.html"><span class="news-date">{jd(n["date"])}</span><span class="news-title">{esc(n["title"])}</span></a>'
@@ -209,18 +215,29 @@ def build_index():
     blog_url = tawashi.get("blog", {}).get("url", "#")
     if blog_url.startswith("TODO"): blog_url = "#"
 
-    page = head("", f"{SITE['tagline']}。{SITE['schedule']}。すべて無料で聴けます。", root, "")
+    base = SITE["base_url"].rstrip("/")
+    series_ld = {
+        "@context": "https://schema.org",
+        "@type": "PodcastSeries",
+        "name": SITE["title"],
+        "description": SITE["tagline"],
+        "url": base + "/",
+        "image": base + "/assets/img/ogp.png",
+        "inLanguage": "ja",
+        "webFeed": SITE["rss"],
+    }
+    page = head("", f"{SITE['tagline']}。{SITE['schedule']}。すべて無料で聴けます。", root, "", jsonld=series_ld)
     page += header(root, "home")
     page += f"""
 <div class="hero">
-<img class="float-img float-maguro" src="assets/img/maguro.png" alt="" aria-hidden="true">
-<img class="float-img float-kani" src="assets/img/kani.png" alt="" aria-hidden="true">
+<img class="float-img float-maguro" src="assets/img/maguro.webp" alt="" aria-hidden="true" width="320" height="320">
+<img class="float-img float-kani" src="assets/img/kani.webp" alt="" aria-hidden="true" width="240" height="240">
 <div class="hero-inner">
 <div class="hero-stage" id="heroStage" aria-hidden="true">
-<div class="stage-layer layer-logo" data-depth="0.35"><img class="stage-logo" src="assets/img/mainlogo.png" alt=""></div>
-<div class="stage-layer layer-tawashi" data-depth="1.1"><span class="stage-char char-a"><img class="flip-x" src="assets/img/tawashi.png" alt=""></span></div>
-<div class="stage-layer layer-ichigoo" data-depth="1.4"><span class="stage-char char-b"><img src="assets/img/ichigoo.png" alt=""></span></div>
-<div class="stage-layer layer-hyuuma" data-depth="0.8"><span class="stage-char char-c"><img class="flip-x" src="assets/img/hyuuma.png" alt=""></span></div>
+<div class="stage-layer layer-logo" data-depth="0.35"><img class="stage-logo" src="assets/img/mainlogo.webp" alt="" width="800" height="800"></div>
+<div class="stage-layer layer-tawashi" data-depth="1.1"><span class="stage-char char-a"><img class="flip-x" src="assets/img/tawashi.webp" alt="" width="240" height="240"></span></div>
+<div class="stage-layer layer-ichigoo" data-depth="1.4"><span class="stage-char char-b"><img src="assets/img/ichigoo.webp" alt="" width="240" height="240"></span></div>
+<div class="stage-layer layer-hyuuma" data-depth="0.8"><span class="stage-char char-c"><img class="flip-x" src="assets/img/hyuuma.webp" alt="" width="240" height="240"></span></div>
 <div class="stage-splash">
 <i class="foam f1"></i><i class="foam f2"></i><i class="foam f3"></i><i class="foam f4"></i>
 <i class="drop d1"></i><i class="drop d2"></i><i class="drop d3"></i><i class="drop d4"></i><i class="drop d5"></i>
@@ -281,11 +298,10 @@ YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel=
 
 <section class="section band band-blue">
 {sec_title("公式X", "OFFICIAL X")}
-<div class="card" style="text-align:center;">
-<p style="font-size:13px;color:var(--sub);margin-bottom:12px;">最新情報・こぼれ話は公式Xで。感想は {esc(SITE['hashtag'])} でお待ちしています!</p>
-<a class="twitter-timeline" data-height="480" data-lang="ja" href="{SITE['x_url']}?ref_src=twsrc%5Etfw">{esc(SITE['x_handle'])} のポストを読み込み中…</a>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<p style="margin-top:10px;"><a class="service-btn" href="{SITE['x_url']}" target="_blank" rel="noopener" style="display:inline-flex;">{SVG['x']}Xで {esc(SITE['x_handle'])} をフォロー</a></p>
+<div class="card" style="text-align:center;padding:26px 20px;">
+<p style="font-size:14px;color:var(--sub);margin-bottom:16px;">最新情報・配信告知・こぼれ話は公式Xで。<br>
+感想は <strong style="color:var(--ink);">{esc(SITE['hashtag'])}</strong> でポストしていただければ、すべて読んでいます!</p>
+<a class="service-btn" href="{SITE['x_url']}" target="_blank" rel="noopener" style="display:inline-flex;">{SVG['x']}Xで {esc(SITE['x_handle'])} をフォロー</a>
 </div>
 </section>
 
@@ -353,7 +369,7 @@ def build_episode_pages():
         games_html = ""
         if e["games"]:
             gtags = "".join(f'<a class="tag" href="index.html?q={esc(g)}">{esc(g)}</a>' for g in e["games"])
-            games_html = f'<section class="section">{sec_title("登場ゲームタイトル", "FEATURED GAMES")}<div class="game-tags">{gtags}</div></section>'
+            games_html = f'<section class="section">{sec_title("登場ゲームタイトル・キーワード", "GAMES & KEYWORDS")}<div class="game-tags">{gtags}</div></section>'
 
         chapters_html = ""
         if e["chapters"]:
@@ -370,14 +386,27 @@ def build_episode_pages():
         pn += (f'<a class="card next" href="{next_e["number"]}.html"><span class="pn-label">次の回 #{next_e["number"]} →</span><div class="pn-title">{esc(next_e["title"])}</div></a>' if next_e else "<span></span>")
         pn += "</div>"
 
-        page = head(f"第{n}回 {e['title']}", f"ゲームの滝壺 第{n}回。{e['title']}", root, f"episodes/{n}.html", og_image=ep_image(e))
+        base = SITE["base_url"].rstrip("/")
+        ep_ld = {
+            "@context": "https://schema.org",
+            "@type": "PodcastEpisode",
+            "name": f"第{n}回 {e['title']}",
+            "episodeNumber": n,
+            "datePublished": e["date"],
+            "url": f"{base}/episodes/{n}.html",
+            "description": (e["description"][:200] if e["description"] else f"ゲームの滝壺 第{n}回"),
+            "image": base + "/" + (ep_image(e) or "assets/img/ogp.png"),
+            "partOfSeries": {"@type": "PodcastSeries", "name": SITE["title"], "url": base + "/"},
+            "inLanguage": "ja",
+        }
+        page = head(f"第{n}回 {e['title']}", f"ゲームの滝壺 第{n}回。{e['title']}", root, f"episodes/{n}.html", og_image=ep_image(e), jsonld=ep_ld)
         page += header(root, "episodes")
         page += f"""
 <main class="container">
 <div class="page-head">
 <a class="back-link" href="index.html">{SVG['arrow_l']}エピソード一覧へ</a>
 <div class="detail-hero">
-{f'<img class="detail-art" src="{root}{ep_image(e)}" alt="第{n}回のアートワーク" width="96" height="96">' if ep_image(e) else f'<span class="detail-num">#{n}</span>'}
+{f'<img class="detail-art" src="{root}{ep_image(e)}" alt="第{n}回のアートワーク" width="800" height="800">' if ep_image(e) else f'<span class="detail-num">#{n}</span>'}
 <div><h1 class="page-title" style="font-size:20px;">{esc(e['title'])}</h1>
 <p class="detail-meta">{f'#{n} ・ ' if ep_image(e) else ''}{jd(e['date'])} 配信{date_note}</p>
 <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;">{tags}</div></div>
@@ -526,6 +555,20 @@ Xのハッシュタグ {esc(SITE['hashtag'])} での感想もすべて読んで�
     (ROOT / "otayori.html").write_text(page, encoding="utf-8")
 
 
+# ============================================================ 検索用スリムJSON
+def build_search_json():
+    """一覧ページの検索が読む軽量JSON。表示に使う項目だけ残す
+    (episodes.json の image_src 等の内部情報は公開物に含めない)"""
+    slim = [
+        {"number": e["number"], "title": e["title"], "date": e["date"],
+         "tags": e["tags"], "games": e["games"], "image": e.get("image")}
+        for e in EPS
+    ]
+    (ROOT / "data/search.json").write_text(
+        json.dumps({"episodes": slim}, ensure_ascii=False, separators=(",", ":")),
+        encoding="utf-8")
+
+
 # ============================================================ sitemap
 def build_sitemap():
     base = SITE["base_url"].rstrip("/")
@@ -548,5 +591,6 @@ if __name__ == "__main__":
     build_news()
     build_guide()
     build_otayori()
+    build_search_json()
     build_sitemap()
     print(f"ビルド完了: エピソード{len(EPS)}ページ + シリーズ{len(SERIES)}ページ + その他")

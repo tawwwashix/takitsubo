@@ -35,7 +35,7 @@
     listEl.innerHTML = out.map(function (e) {
       var tags = e.tags.slice(0, 2).map(function (t) { return '<span class="tag">' + esc(t) + "</span>"; }).join("");
       var art = e.image
-        ? '<img class="ep-card-img" src="../' + esc(e.image) + '" alt="" loading="lazy">'
+        ? '<img class="ep-card-img" src="../' + esc(e.image) + '" alt="" loading="lazy" width="800" height="800">'
         : '<span class="ep-card-img ep-card-num">#' + e.number + "</span>";
       return '<a class="ep-card" href="' + e.number + '.html">' + art +
         '<span class="ep-card-body"><span class="ep-title">' + esc(e.title) + "</span>" +
@@ -57,7 +57,7 @@
   var params = new URLSearchParams(location.search);
   if (params.get("q")) { state.q = params.get("q"); input.value = state.q; }
 
-  fetch("../data/episodes.json")
+  fetch("../data/search.json")
     .then(function (r) { return r.json(); })
     .then(function (d) {
       episodes = d.episodes.slice().reverse(); // 新しい順

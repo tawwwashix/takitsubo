@@ -118,6 +118,40 @@ img { max-width: 100%; display: block; }
 .nav a.nav-ext { display: inline-flex; align-items: center; gap: 5px; }
 .nav a.nav-ext svg { width: 13px; height: 13px; }
 
+/* ハンバーガーボタン(スマホ幅のみ表示) */
+.nav-toggle {
+  display: none; position: relative; margin-left: auto;
+  width: 44px; height: 44px; border: none; border-radius: 12px;
+  background: var(--bg); cursor: pointer; flex-shrink: 0;
+}
+.nav-toggle span {
+  position: absolute; left: 12px; right: 12px; height: 2.5px;
+  border-radius: 2px; background: var(--primary-deep);
+  transition: transform .25s, opacity .2s, top .25s;
+}
+.nav-toggle span:nth-child(1) { top: 14px; }
+.nav-toggle span:nth-child(2) { top: 21px; }
+.nav-toggle span:nth-child(3) { top: 28px; }
+.nav-toggle.open span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+@media (max-width: 860px) {
+  .nav-toggle { display: block; }
+  .nav {
+    /* ドロップダウンパネルに変形 */
+    position: absolute; left: 10px; right: 10px; top: calc(100% + 6px);
+    flex-direction: column; gap: 2px; margin-left: 0; padding: 10px;
+    background: var(--surface); border-radius: 18px;
+    box-shadow: 0 14px 40px rgba(14, 90, 168, .25);
+    border: 1px solid var(--line);
+    display: none;
+  }
+  .nav.open { display: flex; }
+  .nav a { font-size: 14px; padding: 11px 16px; border-radius: 12px; }
+  .header-inner { position: relative; }
+}
+
 /* ---------- ヒーロー ---------- */
 .hero {
   background: linear-gradient(165deg, var(--sky-1) 0%, var(--sky-2) 55%, var(--sky-3) 100%);
@@ -291,7 +325,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* ---------- 漂う住民たち ---------- */
-.float-img { position: absolute; pointer-events: none; z-index: 0; }
+.float-img { position: absolute; pointer-events: none; z-index: 0; height: auto; }
 .float-maguro {
   width: 120px; left: 2%; bottom: 12%;
   animation: swim 9s ease-in-out infinite;
@@ -435,7 +469,7 @@ a.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); tex
 }
 a.ep-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); text-decoration: none; }
 .ep-card-img {
-  width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
+  width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; display: block;
   background: var(--line);
 }
 span.ep-card-num {
@@ -547,7 +581,7 @@ span.ep-card-num {
 }
 a.series-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); text-decoration: none; }
 .series-card-img {
-  width: 100%; aspect-ratio: 2 / 1; object-fit: cover; display: block;
+  width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; display: block;
   background: var(--line);
 }
 .series-card-body { display: block; padding: 14px 18px 16px; }
@@ -673,7 +707,7 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   transition: bottom .45s cubic-bezier(.34, 1.6, .64, 1);
 }
 .datyou-top img {
-  width: 100%; display: block;
+  width: 100%; height: auto; display: block;
   filter: drop-shadow(0 3px 8px rgba(14, 90, 168, .35));
 }
 .datyou-top.show { bottom: -6px; }

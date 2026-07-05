@@ -1,3 +1,31 @@
+/* 全ページ共通: スマホ幅ではハンバーガーメニューで開閉 */
+(function () {
+  var btn = document.querySelector(".nav-toggle");
+  var nav = document.getElementById("siteNav");
+  if (!btn || !nav) return;
+
+  function setOpen(open) {
+    nav.classList.toggle("open", open);
+    btn.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+  }
+  btn.addEventListener("click", function (ev) {
+    ev.stopPropagation();
+    setOpen(!nav.classList.contains("open"));
+  });
+  // メニュー内リンクを押したら閉じる / メニュー外をタップしても閉じる
+  nav.addEventListener("click", function (ev) {
+    if (ev.target.closest("a")) setOpen(false);
+  });
+  document.addEventListener("click", function (ev) {
+    if (nav.classList.contains("open") && !ev.target.closest(".header-inner")) setOpen(false);
+  });
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape") setOpen(false);
+  });
+})();
+
 /* トップページ: ヒーローのアートワーク再現ステージをマウスに追従させて立体感を出す */
 (function () {
   var stage = document.getElementById("heroStage");
