@@ -3,7 +3,7 @@
 data/*.json を読み込み、全HTMLページを生成する。
 使い方:  python3 scripts/build.py
 """
-import json, html, pathlib, datetime, hashlib, urllib.parse
+import json, html, pathlib, datetime, hashlib, re, urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
@@ -11,6 +11,16 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 def x_post_url(text):
     """押すとXの投稿画面が開き、textが本文に入っているリンクを返す"""
     return "https://x.com/intent/post?text=" + urllib.parse.quote(text)
+
+
+def spotify_embed_url(link):
+    """SpotifyのエピソードリンクをiFrame埋め込み用URLに変換。変換不能ならNone"""
+    m = re.match(
+        r"https://(?:podcasters|creators)\.spotify\.com/pod/(?:show|profile)/([^/]+)/(?:embed/)?episodes/([^/?#]+)",
+        link or "")
+    if m:
+        return f"https://creators.spotify.com/pod/profile/{m.group(1)}/embed/episodes/{m.group(2)}"
+    return None
 
 
 def av(rel):
@@ -158,16 +168,22 @@ def sec_title(jp, en="", more_html=""):
 
 
 def series_card(s, root, desc_len=None):
-    """名物企画カード。そのシリーズ最新回のアートワークを上部に表示。"""
+    """名物企画カード。最新回のアートワークを「ぼかし背景+全体表示」で見せ、
+    企画名は画像上に白文字で重ねる(下部に暗グラデを敷いて可読性を確保)。"""
     eps = [e for e in EPS if e["series"] == s["slug"]]
     latest_img = next((ep_image(e) for e in reversed(eps) if ep_image(e)), None)
-    art = f'<img class="series-card-img" src="{root}{latest_img}" alt="" loading="lazy">' if latest_img else ""
+    art = ""
+    if latest_img:
+        art = f"""<span class="series-card-art">
+<img class="sc-bg" src="{root}{latest_img}" alt="" aria-hidden="true">
+<img class="sc-main" src="{root}{latest_img}" alt="" loading="lazy">
+<span class="sc-shade"></span>
+<span class="sc-title">{esc(s['name'])}<span class="sc-count">全{len(eps)}回</span></span>
+</span>"""
     desc = s["description"] if desc_len is None else s["description"][:desc_len] + "…"
     return f"""<a class="series-card" href="{root}series/{s['slug']}.html">
 {art}
 <span class="series-card-body">
-<span class="s-name">{esc(s['name'])}</span>
-<span class="s-count">全{len(eps)}回</span>
 <span class="s-desc">{esc(desc)}</span>
 </span></a>"""
 
@@ -419,6 +435,22 @@ def build_episode_pages():
         }
         page = head(f"第{n}回 {e['title']}", f"ゲームの滝壺 第{n}回。{e['title']}", root, f"episodes/{n}.html", og_image=ep_image(e), jsonld=ep_ld)
         page += header(root, "episodes")
+
+        # Spotify埋め込みプレイヤー(クリックしたときだけiframeを読み込む軽量方式)
+        embed = spotify_embed_url(e["links"].get("spotify"))
+        player_html = ""
+        if embed:
+            player_html = f"""<div class="player-box" data-embed="{esc(embed)}">
+<button class="player-load" type="button">{SVG['play']}この回をこのページで再生<span class="player-note">(Spotifyプレイヤーを読み込みます)</span></button>
+</div>"""
+
+        # おたより/Xポストのボタン(上下2箇所に置く)
+        share_text = f'第{n}回「{e["title"]}」\n{SITE["hashtag"]}\n{SITE["base_url"].rstrip("/")}/episodes/{n}.html'
+        actions_html = f"""<div class="ep-actions">
+<a class="service-btn otayori" href="../otayori.html">📮 この回の感想をおたよりで送る</a>
+<a class="service-btn x-post" href="{esc(x_post_url(share_text))}" target="_blank" rel="noopener">{SVG['x']}Xで感想をポスト</a>
+</div>"""
+
         page += f"""
 <main class="container">
 <div class="page-head">
@@ -429,16 +461,15 @@ def build_episode_pages():
 <p class="detail-meta">{f'#{n} ・ ' if ep_image(e) else ''}{jd(e['date'])} 配信{date_note}</p>
 <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;">{tags}</div></div>
 </div>
+{player_html}
 <div class="listen-row">{service_buttons(root, e['links'])}</div>
 {desc_html}{series_html}
+{actions_html}
 </div>
 {games_html}
 {chapters_html}
 {pn}
-<div class="ep-actions">
-<a class="service-btn otayori" href="../otayori.html">📮 この回の感想をおたよりで送る</a>
-<a class="service-btn x-post" href="{esc(x_post_url(f'第{n}回「{e["title"]}」\n{SITE["hashtag"]} '))}" target="_blank" rel="noopener">{SVG['x']}Xで感想をポスト</a>
-</div>
+{actions_html}
 </main>"""
         page += footer(root)
         (ROOT / f"episodes/{n}.html").write_text(page, encoding="utf-8")
@@ -545,7 +576,7 @@ def build_guide():
 {sec_title("YouTubeではゲーム実況も!", "YOUTUBE")}
 <div class="card" style="font-size:14px;color:var(--sub);">
 <p>YouTubeチャンネルではポッドキャストに加えて<strong style="color:var(--ink);">ゲーム実況</strong>も配信しています。トークで気になったゲームの実際のプレイもぜひ。</p>
-<p style="margin-top:12px;"><a class="service-btn" style="display:inline-flex;" href="{SITE['services']['youtube']['url']}" target="_blank" rel="noopener">{SVG['youtube']}YouTubeチャンネルへ</a></p>
+<p style="margin-top:12px;"><a class="service-btn svc-youtube" style="display:inline-flex;" href="{SITE['services']['youtube']['url']}" target="_blank" rel="noopener">{SVG['youtube']}YouTubeチャンネルへ</a></p>
 </div>
 </section>
 </main>"""
@@ -570,6 +601,9 @@ def build_otayori():
 フォームがうまく表示されない場合は <a href="{SITE['otayori_form']}" target="_blank" rel="noopener">こちらから直接開く</a> か、
 メール(<a href="mailto:{SITE['email']}">{SITE['email']}</a>)でも受け付けています。
 Xのハッシュタグ {esc(SITE['hashtag'])} での感想もすべて読んでいます!
+<div class="x-actions" style="margin-top:14px;">
+<a class="service-btn x-post" href="{esc(x_post_url(SITE['hashtag'] + ' '))}" target="_blank" rel="noopener">{SVG['x']}{esc(SITE['hashtag'])} でポストする</a>
+</div>
 </div>
 </main>"""
     page += footer(root)
