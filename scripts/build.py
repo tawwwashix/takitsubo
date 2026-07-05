@@ -445,7 +445,7 @@ def build_episode_pages():
 </div>"""
 
         # おたより/Xポストのボタン(上下2箇所に置く)
-        share_text = f'第{n}回「{e["title"]}」\n{SITE["hashtag"]}\n{SITE["base_url"].rstrip("/")}/episodes/{n}.html'
+        share_text = f'第{n}回 {e["title"]}\n{SITE["hashtag"]}\n{SITE["base_url"].rstrip("/")}/episodes/{n}.html'
         actions_html = f"""<div class="ep-actions">
 <a class="service-btn otayori" href="../otayori.html">📮 この回の感想をおたよりで送る</a>
 <a class="service-btn x-post" href="{esc(x_post_url(share_text))}" target="_blank" rel="noopener">{SVG['x']}Xで感想をポスト</a>
