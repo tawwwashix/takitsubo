@@ -209,7 +209,7 @@ img { max-width: 100%; display: block; }
 .layer-logo    { left: 2%;  top: 3%;  width: 96%; z-index: 2; }
 .layer-tawashi { left: 3%;  top: 4%;  width: 23%; z-index: 3; }
 .layer-ichigoo { left: 75%; top: 22%; width: 23%; z-index: 3; }
-.layer-hyuuma  { left: 15%; top: 64%; width: 23%; z-index: 3; }
+.layer-hyuuma  { left: 9%;  top: 64%; width: 23%; z-index: 3; }
 
 .stage-logo {
   filter: drop-shadow(0 18px 30px rgba(14, 90, 168, .45));
