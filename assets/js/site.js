@@ -67,6 +67,9 @@
       f.title = "Spotifyエピソードプレイヤー";
       f.setAttribute("allow", "autoplay; encrypted-media; fullscreen");
       f.setAttribute("frameborder", "0");
+      // 狭い画面ではこの埋め込みが最低300pxの高さを取り余白が出るため、
+      // scrolling=no + CSSの低い高さでミニカード部分だけをクリップ表示する
+      f.setAttribute("scrolling", "no");
       f.className = "player-frame";
       box.replaceChildren(f);
     });

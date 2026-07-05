@@ -391,11 +391,12 @@ img { max-width: 100%; display: block; }
   display: block; width: 100%; height: 168px; border: 0;
   border-radius: var(--radius); box-shadow: var(--shadow);
 }
-/* このAnchor系埋め込みは横幅が広いときだけ全コントロールが横一列に収まる。
-   狭い画面では内部スクロールや余白が避けられないため、ページ内プレイヤーは
-   広い画面限定にし、狭い画面ではSpotifyボタン(タップでアプリが開く)に委ねる。 */
+/* このAnchor系埋め込みは横幅が広いとき(約860px以上)だけ全コントロール
+   (シークバー含む)が横一列に収まる。狭い画面では内部が最低300pxを取り
+   余白が出るため、scrolling=no(site.js)と低い高さでミニカード部分だけを
+   クリップ表示し、スクロールバーと余白を隠す。 */
 @media (max-width: 859px) {
-  .player-box { display: none; }
+  .player-frame { height: 136px; }
 }
 
 /* X投稿ボタン(Xブランドの黒) / おたよりボタン(暖色) */
