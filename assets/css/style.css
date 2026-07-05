@@ -204,9 +204,9 @@ img { max-width: 100%; display: block; }
 .flip-x { transform: scaleX(-1); }
 /* === 位置・サイズの微調整はこの4行だけいじればOK(left/top=定位置, width=大きさ) === */
 .layer-logo    { left: 2%;  top: 3%;  width: 96%; z-index: 2; }
-.layer-tawashi { left: 0;   top: 0;   width: 21%; z-index: 3; }
+.layer-tawashi { left: 3%;  top: 4%;  width: 23%; z-index: 3; }
 .layer-ichigoo { left: 75%; top: 22%; width: 23%; z-index: 3; }
-.layer-hyuuma  { left: 2%;  top: 56%; width: 27%; z-index: 3; }
+.layer-hyuuma  { left: 15%; top: 64%; width: 23%; z-index: 3; }
 
 .stage-logo {
   filter: drop-shadow(0 18px 30px rgba(14, 90, 168, .45));
