@@ -3,9 +3,14 @@
 data/*.json を読み込み、全HTMLページを生成する。
 使い方:  python3 scripts/build.py
 """
-import json, html, pathlib, datetime, hashlib
+import json, html, pathlib, datetime, hashlib, urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+
+
+def x_post_url(text):
+    """押すとXの投稿画面が開き、textが本文に入っているリンクを返す"""
+    return "https://x.com/intent/post?text=" + urllib.parse.quote(text)
 
 
 def av(rel):
@@ -308,9 +313,12 @@ YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel=
 <section class="section band band-blue">
 {sec_title("公式X", "OFFICIAL X")}
 <div class="card" style="text-align:center;padding:26px 20px;">
-<p style="font-size:14px;color:var(--sub);margin-bottom:16px;">最新情報・配信告知・こぼれ話は公式Xで。<br>
+<p style="font-size:14px;color:var(--sub);margin-bottom:18px;">最新情報・配信告知・こぼれ話は公式Xで。<br>
 感想は <strong style="color:var(--ink);">{esc(SITE['hashtag'])}</strong> でポストしていただければ、すべて読んでいます!</p>
-<a class="service-btn" href="{SITE['x_url']}" target="_blank" rel="noopener" style="display:inline-flex;">{SVG['x']}Xで {esc(SITE['x_handle'])} をフォロー</a>
+<div class="x-actions">
+<a class="service-btn x-post" href="{esc(x_post_url(SITE['hashtag'] + ' '))}" target="_blank" rel="noopener">{SVG['x']}{esc(SITE['hashtag'])} でポストする</a>
+<a class="service-btn" href="{SITE['x_url']}" target="_blank" rel="noopener">{SVG['x']}{esc(SITE['x_handle'])} をフォロー</a>
+</div>
 </div>
 </section>
 
@@ -427,7 +435,10 @@ def build_episode_pages():
 {games_html}
 {chapters_html}
 {pn}
-<p class="deep-note"><a href="../otayori.html">この回の感想をおたよりで送る 📮</a>  /  Xで {esc(SITE['hashtag'])}</p>
+<div class="ep-actions">
+<a class="service-btn otayori" href="../otayori.html">📮 この回の感想をおたよりで送る</a>
+<a class="service-btn x-post" href="{esc(x_post_url(f'第{n}回「{e["title"]}」\n{SITE["hashtag"]} '))}" target="_blank" rel="noopener">{SVG['x']}Xで感想をポスト</a>
+</div>
 </main>"""
         page += footer(root)
         (ROOT / f"episodes/{n}.html").write_text(page, encoding="utf-8")

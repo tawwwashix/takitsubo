@@ -370,6 +370,19 @@ img { max-width: 100%; display: block; }
 .svc-listen  { color: #F4801F; }
 .svc-youtube { color: #E62117; }
 
+/* X投稿ボタン(Xブランドの黒) / おたよりボタン(暖色) */
+.service-btn.x-post { background: #101419; color: #fff; }
+.service-btn.x-post svg { color: #fff; }
+.service-btn.otayori {
+  background: linear-gradient(135deg, var(--accent), #FF8A54); color: #fff;
+}
+/* ボタンを横並び・中央寄せ。狭い画面ではボタン単位で折り返す(語中改行しない) */
+.x-actions, .ep-actions {
+  display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+}
+.ep-actions { margin-top: 4px; }
+.ep-actions .service-btn { font-size: 14px; padding: 12px 20px; }
+
 /* ---------- セクション ---------- */
 .section { padding: 38px 0 18px; }
 .section-title {
