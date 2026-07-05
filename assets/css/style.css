@@ -388,8 +388,14 @@ img { max-width: 100%; display: block; }
 .player-load svg { width: 20px; height: 20px; }
 .player-note { font-family: var(--font-body); font-weight: 400; font-size: 11px; opacity: .85; }
 .player-frame {
-  display: block; width: 100%; height: 152px; border: 0;
+  display: block; width: 100%; height: 168px; border: 0;
   border-radius: var(--radius); box-shadow: var(--shadow);
+}
+/* このAnchor系埋め込みは横幅が広いときだけ全コントロールが横一列に収まる。
+   狭い画面では内部スクロールや余白が避けられないため、ページ内プレイヤーは
+   広い画面限定にし、狭い画面ではSpotifyボタン(タップでアプリが開く)に委ねる。 */
+@media (max-width: 859px) {
+  .player-box { display: none; }
 }
 
 /* X投稿ボタン(Xブランドの黒) / おたよりボタン(暖色) */
