@@ -3,9 +3,18 @@
 data/*.json を読み込み、全HTMLページを生成する。
 使い方:  python3 scripts/build.py
 """
-import json, html, pathlib, datetime
+import json, html, pathlib, datetime, hashlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+
+
+def av(rel):
+    """アセットのキャッシュバスター。内容が変わるとURLの ?v= も変わり、
+    ブラウザ(特にスマホ)が古いCSS/JSを掴み続けるのを防ぐ。"""
+    try:
+        return hashlib.md5((ROOT / rel).read_bytes()).hexdigest()[:8]
+    except FileNotFoundError:
+        return "0"
 SITE = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 EPS = json.loads((ROOT / "data/episodes.json").read_text(encoding="utf-8"))["episodes"]
 SERIES = json.loads((ROOT / "data/series.json").read_text(encoding="utf-8"))["series"]
@@ -60,7 +69,7 @@ def head(title, desc, root, path="", og_image=None, jsonld=None):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{root}assets/css/style.css">{ld}
+<link rel="stylesheet" href="{root}assets/css/style.css?v={av('assets/css/style.css')}">{ld}
 </head>
 <body>"""
 
@@ -85,7 +94,7 @@ def header(root, current=""):
     links += f'<a class="nav-ext" href="{SITE["x_url"]}" target="_blank" rel="noopener">{SVG["x"]}公式X</a>'
     links += f'<a class="nav-ext" href="{esc(blog_url)}" target="_blank" rel="noopener">ブログ</a>'
     return f"""<header class="site-header"><div class="header-inner">
-<a class="brand" href="{root}index.html"><img class="brand-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}" width="600" height="200"></a>
+<a class="brand" href="{root}index.html"><img class="brand-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}"></a>
 <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="siteNav">
 <span></span><span></span><span></span></button>
 <nav class="nav" id="siteNav" aria-label="メインメニュー">{links}</nav>
@@ -104,7 +113,7 @@ def footer(root):
         f'<a href="{esc(blog_url)}" target="_blank" rel="noopener">ブログ「{esc(blog.get("label", "ブログ"))}」</a>'
     )
     return f"""<footer class="site-footer"><div class="footer-inner">
-<div class="footer-brand"><img class="footer-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}" width="600" height="200"></div>
+<div class="footer-brand"><img class="footer-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}"></div>
 <div class="footer-en">GAME NO TAKITSUBO — WEEKLY GAME TALK PODCAST</div>
 <p class="footer-desc">{esc(SITE['tagline'])}。{esc(SITE['schedule'])}。感想は {esc(SITE['hashtag'])} でどうぞ。</p>
 <nav class="footer-nav" aria-label="フッターメニュー">{nav}</nav>
@@ -114,8 +123,8 @@ def footer(root):
 </div></footer>
 <div class="ambient-bubbles" aria-hidden="true"></div>
 <button class="datyou-top" aria-label="ページの先頭へ戻る" title="てっぺんへ戻る">
-<img src="{root}assets/img/datyou.png" alt="" width="200" height="200"></button>
-<script src="{root}assets/js/site.js"></script>
+<img src="{root}assets/img/datyou.png" alt=""></button>
+<script src="{root}assets/js/site.js?v={av('assets/js/site.js')}"></script>
 </body></html>"""
 
 
@@ -147,7 +156,7 @@ def series_card(s, root, desc_len=None):
     """名物企画カード。そのシリーズ最新回のアートワークを上部に表示。"""
     eps = [e for e in EPS if e["series"] == s["slug"]]
     latest_img = next((ep_image(e) for e in reversed(eps) if ep_image(e)), None)
-    art = f'<img class="series-card-img" src="{root}{latest_img}" alt="" loading="lazy" width="800" height="800">' if latest_img else ""
+    art = f'<img class="series-card-img" src="{root}{latest_img}" alt="" loading="lazy">' if latest_img else ""
     desc = s["description"] if desc_len is None else s["description"][:desc_len] + "…"
     return f"""<a class="series-card" href="{root}series/{s['slug']}.html">
 {art}
@@ -163,7 +172,7 @@ def ep_card(e, root, meta_prefix="", featured=False):
     tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in e["tags"][:2])
     img = ep_image(e)
     if img:
-        art = f'<img class="ep-card-img" src="{root}{img}" alt="" loading="lazy" width="800" height="800">'
+        art = f'<img class="ep-card-img" src="{root}{img}" alt="" loading="lazy">'
     else:
         art = f'<span class="ep-card-img ep-card-num">#{e["number"]}</span>'
     cls = "ep-card featured" if featured else "ep-card"
@@ -188,7 +197,7 @@ def build_index():
     members = "".join(
         f"""<div class="card member-card">
 {f'<img class="member-rock" src="assets/img/{rock[m["id"]]}" alt="" aria-hidden="true">' if m['id'] in rock else ''}
-<img src="assets/img/{m['id']}.webp" alt="{esc(m['name'])}のアイコン" width="240" height="240">
+<img src="assets/img/{m['id']}.webp" alt="{esc(m['name'])}のアイコン">
 <div class="name">{esc(m['name'])}</div>
 <p class="bio">{esc(m['bio'])}</p>
 <a class="x-link" href="{m['x']}" target="_blank" rel="noopener">{SVG['x']}{m['x_handle']}</a>
@@ -230,14 +239,14 @@ def build_index():
     page += header(root, "home")
     page += f"""
 <div class="hero">
-<img class="float-img float-maguro" src="assets/img/maguro.webp" alt="" aria-hidden="true" width="320" height="320">
-<img class="float-img float-kani" src="assets/img/kani.webp" alt="" aria-hidden="true" width="240" height="240">
+<img class="float-img float-maguro" src="assets/img/maguro.webp" alt="" aria-hidden="true">
+<img class="float-img float-kani" src="assets/img/kani.webp" alt="" aria-hidden="true">
 <div class="hero-inner">
 <div class="hero-stage" id="heroStage" aria-hidden="true">
-<div class="stage-layer layer-logo" data-depth="0.35"><img class="stage-logo" src="assets/img/mainlogo.webp" alt="" width="800" height="800"></div>
-<div class="stage-layer layer-tawashi" data-depth="1.1"><span class="stage-char char-a"><img class="flip-x" src="assets/img/tawashi.webp" alt="" width="240" height="240"></span></div>
-<div class="stage-layer layer-ichigoo" data-depth="1.4"><span class="stage-char char-b"><img src="assets/img/ichigoo.webp" alt="" width="240" height="240"></span></div>
-<div class="stage-layer layer-hyuuma" data-depth="0.8"><span class="stage-char char-c"><img class="flip-x" src="assets/img/hyuuma.webp" alt="" width="240" height="240"></span></div>
+<div class="stage-layer layer-logo" data-depth="0.35"><img class="stage-logo" src="assets/img/mainlogo.webp" alt=""></div>
+<div class="stage-layer layer-tawashi" data-depth="1.1"><span class="stage-char char-a"><img class="flip-x" src="assets/img/tawashi.webp" alt=""></span></div>
+<div class="stage-layer layer-ichigoo" data-depth="1.4"><span class="stage-char char-b"><img src="assets/img/ichigoo.webp" alt=""></span></div>
+<div class="stage-layer layer-hyuuma" data-depth="0.8"><span class="stage-char char-c"><img class="flip-x" src="assets/img/hyuuma.webp" alt=""></span></div>
 <div class="stage-splash">
 <i class="foam f1"></i><i class="foam f2"></i><i class="foam f3"></i><i class="foam f4"></i>
 <i class="drop d1"></i><i class="drop d2"></i><i class="drop d3"></i><i class="drop d4"></i><i class="drop d5"></i>
@@ -348,7 +357,8 @@ def build_episode_list():
 <div class="ep-grid" id="list" aria-live="polite"></div>
 <p id="empty" style="display:none;text-align:center;color:var(--faint);padding:34px 0;">該当するエピソードが見つかりませんでした</p>
 </main>
-<script src="{root}assets/js/search.js"></script>"""
+<script>window.__searchVer="{av('data/search.json')}";</script>
+<script src="{root}assets/js/search.js?v={av('assets/js/search.js')}"></script>"""
     page += footer(root)
     (ROOT / "episodes/index.html").write_text(page, encoding="utf-8")
 
@@ -406,7 +416,7 @@ def build_episode_pages():
 <div class="page-head">
 <a class="back-link" href="index.html">{SVG['arrow_l']}エピソード一覧へ</a>
 <div class="detail-hero">
-{f'<img class="detail-art" src="{root}{ep_image(e)}" alt="第{n}回のアートワーク" width="800" height="800">' if ep_image(e) else f'<span class="detail-num">#{n}</span>'}
+{f'<img class="detail-art" src="{root}{ep_image(e)}" alt="第{n}回のアートワーク">' if ep_image(e) else f'<span class="detail-num">#{n}</span>'}
 <div><h1 class="page-title" style="font-size:20px;">{esc(e['title'])}</h1>
 <p class="detail-meta">{f'#{n} ・ ' if ep_image(e) else ''}{jd(e['date'])} 配信{date_note}</p>
 <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;">{tags}</div></div>
@@ -584,6 +594,7 @@ def build_sitemap():
 
 
 if __name__ == "__main__":
+    build_search_json()   # 先に生成(episode一覧ページが ?v= のハッシュを参照するため)
     build_index()
     build_episode_list()
     build_episode_pages()
@@ -591,6 +602,5 @@ if __name__ == "__main__":
     build_news()
     build_guide()
     build_otayori()
-    build_search_json()
     build_sitemap()
     print(f"ビルド完了: エピソード{len(EPS)}ページ + シリーズ{len(SERIES)}ページ + その他")

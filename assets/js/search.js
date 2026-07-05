@@ -57,7 +57,7 @@
   var params = new URLSearchParams(location.search);
   if (params.get("q")) { state.q = params.get("q"); input.value = state.q; }
 
-  fetch("../data/search.json")
+  fetch("../data/search.json" + (window.__searchVer ? "?v=" + window.__searchVer : ""))
     .then(function (r) { return r.json(); })
     .then(function (d) {
       episodes = d.episodes.slice().reverse(); // 新しい順
