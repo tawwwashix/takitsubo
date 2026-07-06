@@ -635,8 +635,13 @@ span.ep-card-num {
   box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
 }
 @media (max-width: 640px) {
-  .shindan-banner { flex-wrap: wrap; padding: 20px; }
-  .sb-cta { margin-left: auto; }
+  /* スマホ: 横並びのままコンパクトに。改行で背が高くなるのを防ぐ */
+  .shindan-banner { gap: 12px; padding: 15px 16px; border-radius: 18px; }
+  .sb-chara { width: 50px; height: 50px; }
+  .sb-en { font-size: 9px; letter-spacing: .14em; }
+  .sb-title { font-size: 16px; line-height: 1.35; margin-top: 2px; }
+  .sb-desc { display: none; }            /* 説明はスマホでは省略(タップ先で読める) */
+  .sb-cta { font-size: 13px; padding: 9px 15px; align-self: center; }
 }
 
 .shindan-stage {
@@ -778,9 +783,14 @@ span.ep-card-num {
 .sh-ep-hash { font-family: var(--font-num); font-weight: 700; font-size: 12px; color: var(--primary-deep); display: block; }
 .sh-ep-title { font-size: 13px; font-weight: 700; line-height: 1.55; }
 
-.sh-canvas-wrap { margin-top: 20px; }
+.sh-canvas-wrap { margin-top: 20px; text-align: center; }
 .sh-canvas-wrap canvas {
-  width: 100%; height: auto; border-radius: 16px; box-shadow: var(--shadow-hover);
+  /* 縦長プレビュー。スマホの画面に収まるよう幅を抑える */
+  width: 100%; max-width: 340px; height: auto;
+  border-radius: 18px; box-shadow: var(--shadow-hover);
+}
+.sh-canvas-caption {
+  font-size: 11.5px; color: var(--faint); margin-top: 8px; text-align: center;
 }
 .sh-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
 .sh-btn {
@@ -793,11 +803,17 @@ span.ep-card-num {
 .sh-btn.copy { background: var(--band-blue); color: var(--primary-deep); box-shadow: 0 5px 0 #A9CFEE; }
 .sh-btn.share { background: #101419; color: #fff; box-shadow: 0 5px 0 #000; }
 .sh-btn:hover { transform: translateY(2px); box-shadow: 0 3px 0 rgba(0,0,0,.25); text-decoration: none; }
+/* もう一度診断する: 主要ボタンより控えめだが、押す場所は明確な小ボタン */
 .sh-btn.retry {
-  flex: none; width: 100%; margin-top: 6px; background: transparent;
-  color: var(--sub); font-weight: 700; font-size: 13px; box-shadow: none;
+  flex: none; display: block; width: auto; margin: 14px auto 0;
+  padding: 10px 22px; font-size: 13px; border-radius: 999px;
+  background: var(--surface); color: var(--sub);
+  border: 1.5px solid var(--line); box-shadow: 0 3px 0 var(--line);
 }
-.sh-btn.retry:hover { color: var(--accent-deep); transform: none; }
+.sh-btn.retry:hover {
+  color: var(--accent-deep); border-color: var(--accent);
+  box-shadow: 0 3px 0 #F3C0B2; transform: translateY(1px);
+}
 
 /* 検索該当なしのヘルプボックス */
 .empty-box {

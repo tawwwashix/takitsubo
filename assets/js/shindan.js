@@ -247,14 +247,14 @@
       '<div class="sh-ep-block"><p class="sh-ep-label">🎧 ' + epLabel + '</p>' +
       '<a class="sh-ep-card" href="episodes/' + g[2] + '.html">' + epImg +
       '<span class="sh-ep-body"><span class="sh-ep-hash">#' + g[2] + '</span><span class="sh-ep-title">' + esc(ep[0]) + '</span></span></a></div>' +
-      '<div class="sh-canvas-wrap"><canvas id="shCanvas" width="1200" height="630"></canvas></div>' +
+      '<div class="sh-canvas-wrap"><canvas id="shCanvas" width="1080" height="1350"></canvas></div>' +
       '<div class="sh-actions">' +
       '<button class="sh-btn save" id="shSave">📥 画像を保存</button>' +
       '<button class="sh-btn copy" id="shCopy">📋 画像をコピー</button>' +
       '<a class="sh-btn share" id="shX" href="https://x.com/intent/post?text=' + encodeURIComponent(shareText) + '" target="_blank" rel="noopener">𝕏 Xでシェアする</a>' +
       '</div>' +
       '<p class="sh-note">画像を保存/コピーしてから、Xのポストに添付すると盛り上がります!</p>' +
-      '<button class="sh-btn retry" id="shRetry">もう一度診断する</button>' +
+      '<button class="sh-btn retry" id="shRetry">🔄 もう一度診断する</button>' +
       '<p class="sh-fusa-link">※「ふさわしいゲーム」は番組の<a href="series/fusawashii.html">名物企画</a>から生まれた診断です</p>' +
       '</div>';
 
@@ -302,9 +302,9 @@
     return min;
   }
   // タイトルを折り返し。最大3行+高さ制約。それでも収まらない超長タイトルは「…」で切る
-  function fitTitle(ctx, text, maxW, maxH, family) {
+  function fitTitle(ctx, text, maxW, maxH, family, startSize) {
     var size, lines, cur, i;
-    for (size = 52; size >= 30; size -= 4) {
+    for (size = (startSize || 52); size >= 30; size -= 4) {
       var maxLines = Math.min(3, Math.floor(maxH / (size * 1.22)));
       if (maxLines < 1) continue;
       ctx.font = "900 " + size + "px " + family;
@@ -334,126 +334,147 @@
   function drawShareImage(name, typeName, g, ep, rare, pct) {
     var canvas = document.getElementById("shCanvas");
     var ctx = canvas.getContext("2d");
-    var W = 1200, H = 630;
+    var W = 1080, H = 1350;                 // スマホ向け縦長(X表示に最適な4:5)
+    var CX = W / 2;
     var FAMILY = '"Zen Maru Gothic","Hiragino Maru Gothic ProN",sans-serif';
 
+    function pill(text, cy, font, padX, hgt, fillCb, textColor) {
+      ctx.font = font + " " + FAMILY;
+      var w = ctx.measureText(text).width + padX * 2;
+      var x = CX - w / 2;
+      roundRect(ctx, x, cy, w, hgt, hgt / 2);
+      fillCb(x, w);
+      ctx.fillStyle = textColor;
+      ctx.textBaseline = "middle";
+      ctx.fillText(text, CX, cy + hgt / 2 + 2);
+      ctx.textBaseline = "alphabetic";
+    }
+
     var draw = function (img) {
+      ctx.textAlign = "center";
       // 背景: 空〜滝壺の水
       var bg = ctx.createLinearGradient(0, 0, 0, H);
-      bg.addColorStop(0, "#BFE5FB"); bg.addColorStop(.6, "#7CC4F2"); bg.addColorStop(1, "#3D97E0");
+      bg.addColorStop(0, "#Dff1FE"); bg.addColorStop(.5, "#9FD4F6"); bg.addColorStop(1, "#4FA0E4");
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
-      // レア専用の後光
+      // レア専用の後光(アートワーク中心に)
+      var glowCY = 620;
       if (rare === 2) {
-        var glow = ctx.createRadialGradient(W * .62, H * .42, 60, W * .62, H * .42, 620);
-        glow.addColorStop(0, "rgba(255,214,90,.55)");
+        var glow = ctx.createRadialGradient(CX, glowCY, 80, CX, glowCY, 640);
+        glow.addColorStop(0, "rgba(255,214,90,.6)");
         glow.addColorStop(.55, "rgba(255,214,90,.18)");
         glow.addColorStop(1, "rgba(255,214,90,0)");
         ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
-        // 金の粒
         ctx.fillStyle = "rgba(255,226,130,.9)";
-        [[520, 90, 5], [1130, 150, 7], [990, 70, 4], [700, 560, 5], [1150, 420, 4], [560, 480, 6], [880, 600, 4]].forEach(function (p) {
+        [[120, 360, 6], [980, 420, 8], [900, 300, 5], [200, 700, 6], [960, 760, 5], [140, 900, 5], [930, 980, 6]].forEach(function (p) {
           ctx.beginPath(); ctx.arc(p[0], p[1], p[2], 0, 7); ctx.fill();
         });
       } else if (rare === 1) {
-        var pglow = ctx.createRadialGradient(W * .62, H * .42, 60, W * .62, H * .42, 600);
-        pglow.addColorStop(0, "rgba(180,130,240,.4)");
+        var pglow = ctx.createRadialGradient(CX, glowCY, 80, CX, glowCY, 620);
+        pglow.addColorStop(0, "rgba(180,130,240,.42)");
         pglow.addColorStop(1, "rgba(180,130,240,0)");
         ctx.fillStyle = pglow; ctx.fillRect(0, 0, W, H);
       }
       // 泡
-      ctx.fillStyle = "rgba(255,255,255,.35)";
-      [[80, 520, 10], [150, 420, 6], [1100, 480, 12], [1040, 380, 7], [620, 560, 8], [980, 560, 5], [60, 300, 5]].forEach(function (b) {
+      ctx.fillStyle = "rgba(255,255,255,.34)";
+      [[90, 300, 9], [180, 430, 5], [980, 340, 11], [930, 250, 6], [70, 660, 6], [1000, 640, 7], [120, 1080, 8]].forEach(function (b) {
         ctx.beginPath(); ctx.arc(b[0], b[1], b[2], 0, 7); ctx.fill();
       });
-      // 下部の波
-      ctx.fillStyle = "rgba(255,255,255,.25)";
-      ctx.beginPath(); ctx.moveTo(0, 574);
-      for (var x = 0; x <= W; x += 20) ctx.lineTo(x, 574 + Math.sin(x / 90) * 12);
-      ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fill();
 
-      // 左: アートワーク
-      var ax = 70, ay = 108, as = 390;
+      // ===== 上部: 番組ブランド帯(いちばん目立たせる) =====
+      var bandH = 176;
+      var band = ctx.createLinearGradient(0, 0, 0, bandH);
+      band.addColorStop(0, "#2E8CE0"); band.addColorStop(1, "#0E5AA8");
+      ctx.fillStyle = band; ctx.fillRect(0, 0, W, bandH);
+      ctx.fillStyle = "rgba(255,255,255,.14)";
+      [[900, 44, 7], [1000, 120, 5], [150, 130, 6], [70, 50, 4]].forEach(function (b) {
+        ctx.beginPath(); ctx.arc(b[0], b[1], b[2], 0, 7); ctx.fill();
+      });
+      ctx.fillStyle = "rgba(255,255,255,.9)";
+      ctx.font = "700 30px " + FAMILY;
+      ctx.fillText("ゲーム系ポッドキャスト", CX, 52);
+      ctx.fillStyle = "#fff";
+      ctx.font = "900 66px " + FAMILY;
+      ctx.fillText("💧 ゲームの滝壺", CX, 120);
+      // 診断名の帯(コーラルのリボン)
+      pill("ふさわしいゲーム診断", 148, "900 34px", 34, 56,
+        function () { ctx.fillStyle = "#EE5A3A"; ctx.fill(); }, "#fff");
+
+      // ===== 名前行 =====
+      ctx.fillStyle = "#0E5AA8";
+      var nameLine = "🎮 " + name + " さんに ふさわしい一本は…";
+      var ns = fitFont(ctx, nameLine, W - 120, 40, 26, "700", FAMILY);
+      ctx.font = "700 " + ns + "px " + FAMILY;
+      ctx.fillText(nameLine, CX, 268);
+
+      // ===== アートワーク(大きく中央) =====
+      var as = 480, ax = CX - as / 2, ay = 288;
       ctx.save();
-      ctx.shadowColor = "rgba(14,90,168,.5)"; ctx.shadowBlur = 40; ctx.shadowOffsetY = 14;
-      roundRect(ctx, ax, ay, as, as, 34); ctx.fillStyle = "#fff"; ctx.fill();
+      ctx.shadowColor = "rgba(14,90,168,.5)"; ctx.shadowBlur = 46; ctx.shadowOffsetY = 16;
+      roundRect(ctx, ax, ay, as, as, 40); ctx.fillStyle = "#fff"; ctx.fill();
       ctx.restore();
       ctx.save();
-      roundRect(ctx, ax, ay, as, as, 34); ctx.clip();
+      roundRect(ctx, ax, ay, as, as, 40); ctx.clip();
       if (img) ctx.drawImage(img, ax, ay, as, as);
       else {
         ctx.fillStyle = "#1E7ED6"; ctx.fillRect(ax, ay, as, as);
-        ctx.fillStyle = "#fff"; ctx.font = "900 90px " + FAMILY;
-        ctx.textAlign = "center"; ctx.fillText("#" + g[2], ax + as / 2, ay + as / 2 + 32);
+        ctx.fillStyle = "#fff"; ctx.font = "900 130px " + FAMILY;
+        ctx.textBaseline = "middle"; ctx.fillText("#" + g[2], CX, ay + as / 2);
+        ctx.textBaseline = "alphabetic";
       }
       ctx.restore();
-      // 画像の注釈(ジャケットはあくまで「話してそうな回」のもの)
-      ctx.textAlign = "left";
-      ctx.font = "700 16px " + FAMILY;
+      // 画像の注釈
+      ctx.font = "700 21px " + FAMILY;
       ctx.fillStyle = "#0E5AA8";
-      ctx.fillText("※画像は“この話をしてそうな回”のジャケットです", ax - 6, ay + as + 40);
+      ctx.fillText("※画像は“この話をしてそうな回”のジャケットです", CX, ay + as + 42);
 
-      // 右: テキスト
-      var tx = 520, tw = 616;
-      var nameLine = name + " さんの “ふさわしいゲーム” は";
-      var ns = fitFont(ctx, nameLine, tw, 30, 18, "700", FAMILY);
-      ctx.font = "700 " + ns + "px " + FAMILY;
-      ctx.fillStyle = "#0E5AA8";
-      ctx.fillText(nameLine, tx, 128);
-
-      // 右カラムは上から積む。フッター帯(y>=548)には絶対にかぶらないよう
-      // タイトルの最大高さを抑え、各行間隔も詰めてある。
-      // タイトル(最大高さ150px内・最大3行)
-      var fit = fitTitle(ctx, g[0], tw, 150, FAMILY);
+      // ===== ゲームタイトル(大きく) =====
+      var titleTop = 858;
+      var fit = fitTitle(ctx, g[0], W - 110, 160, FAMILY, 72);
       ctx.fillStyle = "#10395C";
-      var ty = 164 + fit.size;
+      var ty = titleTop + fit.size;
       fit.lines.forEach(function (ln) {
         ctx.font = "900 " + fit.size + "px " + FAMILY;
-        ctx.fillText(ln, tx, ty);
+        ctx.fillText(ln, CX, ty);
         ty += fit.size * 1.22;
       });
-      ty += 8;
+      ty += 18;
 
-      // タイプ(コーラルのピル)
-      ctx.font = "700 27px " + FAMILY;
-      var tpw = ctx.measureText(typeName).width + 42;
-      roundRect(ctx, tx, ty, tpw, 48, 24);
-      ctx.fillStyle = "#EE5A3A"; ctx.fill();
-      ctx.fillStyle = "#fff"; ctx.fillText(typeName, tx + 21, ty + 33);
-      ty += 48 + 16;
+      // タイプのピル
+      pill(typeName, ty, "700 34px", 30, 60,
+        function () { ctx.fillStyle = "#EE5A3A"; ctx.fill(); }, "#fff");
+      ty += 60 + 18;
 
-      // レアバッジ(あれば)
+      // レアバッジ
       if (rare === 2) {
-        var t2 = "★★★ 超レア!! 一度だけ話題に出た幻の一本";
-        ctx.font = "900 24px " + FAMILY;
-        var bw2 = ctx.measureText(t2).width + 38;
-        var bgrad = ctx.createLinearGradient(tx, 0, tx + bw2, 0);
-        bgrad.addColorStop(0, "#FFD75E"); bgrad.addColorStop(1, "#FFAF2E");
-        roundRect(ctx, tx, ty, bw2, 46, 23);
-        ctx.fillStyle = bgrad; ctx.fill();
-        ctx.fillStyle = "#6B3C00"; ctx.fillText(t2, tx + 19, ty + 32);
-        ty += 46 + 14;
+        pill("★★★ 超レア!! 一度だけ話題に出た幻の一本", ty, "900 30px", 28, 58,
+          function (x, w) {
+            var gr = ctx.createLinearGradient(x, 0, x + w, 0);
+            gr.addColorStop(0, "#FFD75E"); gr.addColorStop(1, "#FFAF2E");
+            ctx.fillStyle = gr; ctx.fill();
+          }, "#6B3C00");
+        ty += 58 + 18;
       } else if (rare === 1) {
-        var t1 = "★★ レア! 知る人ぞ知る一本";
-        ctx.font = "900 24px " + FAMILY;
-        var bw1 = ctx.measureText(t1).width + 36;
-        roundRect(ctx, tx, ty, bw1, 44, 22);
-        ctx.fillStyle = "#B482F0"; ctx.fill();
-        ctx.fillStyle = "#fff"; ctx.fillText(t1, tx + 18, ty + 30);
-        ty += 44 + 14;
+        pill("★★ レア! 知る人ぞ知る一本", ty, "900 30px", 26, 56,
+          function () { ctx.fillStyle = "#B482F0"; ctx.fill(); }, "#fff");
+        ty += 56 + 18;
       }
 
-      // ふさわしさ% + 登場回数
-      ctx.font = "700 23px " + FAMILY;
+      // ふさわしさ% / 登場回数
+      ctx.font = "700 32px " + FAMILY;
       ctx.fillStyle = "#0E5AA8";
-      ctx.fillText("ふさわしさ " + pct + "% ／ 滝壺での登場 " + g[1] + "回", tx, ty + 20);
+      ctx.fillText("ふさわしさ " + pct + "%　／　滝壺での登場 " + g[1] + "回", CX, ty + 30);
 
-      // フッター(下端に固定。上のコンテンツとは必ず離れる)
-      ctx.font = "700 21px " + FAMILY;
+      // ===== 下部フッター帯 =====
+      var fTop = 1258;
+      var fb = ctx.createLinearGradient(0, fTop, 0, H);
+      fb.addColorStop(0, "#1E7ED6"); fb.addColorStop(1, "#0E5AA8");
+      ctx.fillStyle = fb; ctx.fillRect(0, fTop, W, H - fTop);
       ctx.fillStyle = "rgba(255,255,255,.9)";
-      ctx.fillText(HASHTAG + " #ふさわしいゲーム診断", tx, 556);
-      ctx.font = "900 26px " + FAMILY;
+      ctx.font = "700 26px " + FAMILY;
+      ctx.fillText(HASHTAG + "　#ふさわしいゲーム診断", CX, fTop + 44);
       ctx.fillStyle = "#fff";
-      ctx.fillText("💧 ゲームの滝壺｜ふさわしいゲーム診断", tx, 590);
+      ctx.font = "900 34px " + FAMILY;
+      ctx.fillText("あなたもゲームの滝壺で診断しよう!", CX, fTop + 82);
     };
 
     var start = function () {

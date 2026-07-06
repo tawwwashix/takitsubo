@@ -63,7 +63,13 @@ WAVE = (
 
 
 def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="website", published=None):
-    full = f'{esc(title)} | {SITE["title"]}' if title else esc(SITE["title"])
+    # ブラウザのタブ/OGPタイトル。トップは「番組名 | 接尾辞」、下層は「ページ名 | 番組名」。
+    # 番組名(SITE["title"])はフッターのコピーライトやロゴのalt等にそのまま使うので短いままにする。
+    suffix = SITE.get("title_suffix", "")
+    if title:
+        full = f'{esc(title)} | {esc(SITE["title"])}'
+    else:
+        full = f'{esc(SITE["title"])} | {esc(suffix)}' if suffix else esc(SITE["title"])
     url = SITE["base_url"].rstrip("/") + "/" + path
     og_img = SITE["base_url"].rstrip("/") + "/" + (og_image or "assets/img/ogp.png")
     ld = f'\n<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
@@ -97,7 +103,7 @@ def header(root, current=""):
         ("index.html", "ホーム", "home"),
         ("episodes/", "エピソード", "episodes"),
         ("series/", "名物企画", "series"),
-        ("shindan.html", "診断", "shindan"),
+        ("shindan.html", "ふさわしいゲーム診断", "shindan"),
         ("news/", "お知らせ", "news"),
         ("guide.html", "聴き方", "guide"),
         ("otayori.html", "おたより", "otayori"),
