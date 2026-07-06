@@ -350,7 +350,7 @@
       ctx.textBaseline = "alphabetic";
     }
 
-    var draw = function (img) {
+    var draw = function (img, logo) {
       ctx.textAlign = "center";
       // 背景: 空〜滝壺の水
       var bg = ctx.createLinearGradient(0, 0, 0, H);
@@ -380,24 +380,42 @@
         ctx.beginPath(); ctx.arc(b[0], b[1], b[2], 0, 7); ctx.fill();
       });
 
-      // ===== 上部: 番組ブランド帯(いちばん目立たせる) =====
-      var bandH = 176;
+      // ===== 上部: 番組ブランド帯(ロゴを主役に) =====
+      var bandH = 200;
       var band = ctx.createLinearGradient(0, 0, 0, bandH);
       band.addColorStop(0, "#2E8CE0"); band.addColorStop(1, "#0E5AA8");
       ctx.fillStyle = band; ctx.fillRect(0, 0, W, bandH);
-      ctx.fillStyle = "rgba(255,255,255,.14)";
-      [[900, 44, 7], [1000, 120, 5], [150, 130, 6], [70, 50, 4]].forEach(function (b) {
+      ctx.fillStyle = "rgba(255,255,255,.13)";
+      [[930, 46, 8], [1010, 130, 5], [500, 40, 6], [560, 150, 5]].forEach(function (b) {
         ctx.beginPath(); ctx.arc(b[0], b[1], b[2], 0, 7); ctx.fill();
       });
+
+      // ロゴ(白い角丸カードに載せて左に)
+      var ls = 168, lx = 40, ly = (bandH - ls) / 2;
+      ctx.save();
+      ctx.shadowColor = "rgba(0,0,0,.25)"; ctx.shadowBlur = 20; ctx.shadowOffsetY = 6;
+      roundRect(ctx, lx, ly, ls, ls, 30); ctx.fillStyle = "#EAF6FE"; ctx.fill();
+      ctx.restore();
+      if (logo) {
+        ctx.save();
+        roundRect(ctx, lx, ly, ls, ls, 30); ctx.clip();
+        ctx.drawImage(logo, lx, ly, ls, ls);
+        ctx.restore();
+      }
+
+      // ロゴ右のテキスト(左寄せ)
+      var htx = lx + ls + 34;
+      ctx.textAlign = "left";
       ctx.fillStyle = "rgba(255,255,255,.9)";
-      ctx.font = "700 30px " + FAMILY;
-      ctx.fillText("ゲーム系ポッドキャスト", CX, 52);
+      ctx.font = "700 27px " + FAMILY;
+      ctx.fillText("ゲームの滝壺｜ゲーム系ポッドキャスト", htx, 74);
       ctx.fillStyle = "#fff";
-      ctx.font = "900 66px " + FAMILY;
-      ctx.fillText("💧 ゲームの滝壺", CX, 120);
-      // 診断名の帯(コーラルのリボン)
-      pill("ふさわしいゲーム診断", 148, "900 34px", 34, 56,
-        function () { ctx.fillStyle = "#EE5A3A"; ctx.fill(); }, "#fff");
+      ctx.font = "900 62px " + FAMILY;
+      ctx.fillText("ふさわしいゲーム診断", htx, 140);
+      // コーラルのアクセント下線
+      ctx.fillStyle = "#EE5A3A";
+      roundRect(ctx, htx, 158, 300, 8, 4); ctx.fill();
+      ctx.textAlign = "center";
 
       // ===== 名前行 =====
       ctx.fillStyle = "#0E5AA8";
@@ -477,13 +495,18 @@
       ctx.fillText("あなたもゲームの滝壺で診断しよう!", CX, fTop + 82);
     };
 
+    // ロゴ画像とエピソード画像を両方読み込んでから描画
+    function load(src, cb) {
+      if (!src) { cb(null); return; }
+      var im = new Image();
+      im.onload = function () { cb(im); };
+      im.onerror = function () { cb(null); };
+      im.src = src;
+    }
     var start = function () {
-      if (ep[1]) {
-        var img = new Image();
-        img.onload = function () { draw(img); };
-        img.onerror = function () { draw(null); };
-        img.src = ep[1];
-      } else draw(null);
+      load("assets/img/mainlogo.webp", function (logo) {
+        load(ep[1], function (art) { draw(art, logo); });
+      });
     };
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
     else start();
