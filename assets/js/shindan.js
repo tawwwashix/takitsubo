@@ -352,10 +352,30 @@
 
     var draw = function (img, logo) {
       ctx.textAlign = "center";
-      // 背景: 空〜滝壺の水
+      // 背景: 境界のない一枚の水中グラデーション。
+      // 上部(白文字ゾーン)と下部(フッター)は濃い青、中央(タイトルゾーン)は明るく。
       var bg = ctx.createLinearGradient(0, 0, 0, H);
-      bg.addColorStop(0, "#Dff1FE"); bg.addColorStop(.5, "#9FD4F6"); bg.addColorStop(1, "#4FA0E4");
+      bg.addColorStop(0, "#1E7ED6");
+      bg.addColorStop(.2, "#83C6F2");
+      bg.addColorStop(.46, "#E3F3FD");
+      bg.addColorStop(.72, "#D2EBFB");
+      bg.addColorStop(.86, "#7FB4E4");
+      bg.addColorStop(1, "#184C87");
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+      // 水面から差し込む光(スタイリッシュな斜めビーム)
+      ctx.save();
+      ctx.globalAlpha = .16;
+      [[180, 340], [520, 260], [860, 380]].forEach(function (p) {
+        var beam = ctx.createLinearGradient(p[0], 0, p[0] - 120, p[1] + 500);
+        beam.addColorStop(0, "rgba(255,255,255,.9)");
+        beam.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = beam;
+        ctx.beginPath();
+        ctx.moveTo(p[0] - 26, -20); ctx.lineTo(p[0] + 46, -20);
+        ctx.lineTo(p[0] - 60, p[1] + 520); ctx.lineTo(p[0] - 150, p[1] + 520);
+        ctx.closePath(); ctx.fill();
+      });
+      ctx.restore();
       // レア専用の後光(アートワーク中心に)
       var glowCY = 620;
       if (rare === 2) {
@@ -374,55 +394,49 @@
         pglow.addColorStop(1, "rgba(180,130,240,0)");
         ctx.fillStyle = pglow; ctx.fillRect(0, 0, W, H);
       }
-      // 泡
-      ctx.fillStyle = "rgba(255,255,255,.34)";
-      [[90, 300, 9], [180, 430, 5], [980, 340, 11], [930, 250, 6], [70, 660, 6], [1000, 640, 7], [120, 1080, 8]].forEach(function (b) {
+      // 泡(全体に散らして水中の一体感を出す)
+      ctx.fillStyle = "rgba(255,255,255,.35)";
+      [[90, 300, 9], [180, 430, 5], [980, 340, 11], [930, 250, 6], [70, 660, 6], [1000, 640, 7],
+       [120, 1080, 8], [940, 60, 7], [1010, 140, 5], [520, 66, 5], [80, 1240, 6], [990, 1180, 8], [880, 1300, 5]].forEach(function (b) {
         ctx.beginPath(); ctx.arc(b[0], b[1], b[2], 0, 7); ctx.fill();
       });
 
-      // ===== 上部: 番組ブランド帯(ロゴを主役に) =====
-      var bandH = 200;
-      var band = ctx.createLinearGradient(0, 0, 0, bandH);
-      band.addColorStop(0, "#2E8CE0"); band.addColorStop(1, "#0E5AA8");
-      ctx.fillStyle = band; ctx.fillRect(0, 0, W, bandH);
-      ctx.fillStyle = "rgba(255,255,255,.13)";
-      [[930, 46, 8], [1010, 130, 5], [500, 40, 6], [560, 150, 5]].forEach(function (b) {
-        ctx.beginPath(); ctx.arc(b[0], b[1], b[2], 0, 7); ctx.fill();
-      });
-
-      // ロゴ(白い角丸カードに載せて左に)
-      var ls = 168, lx = 40, ly = (bandH - ls) / 2;
-      ctx.save();
-      ctx.shadowColor = "rgba(0,0,0,.25)"; ctx.shadowBlur = 20; ctx.shadowOffsetY = 6;
-      roundRect(ctx, lx, ly, ls, ls, 30); ctx.fillStyle = "#EAF6FE"; ctx.fill();
-      ctx.restore();
+      // ===== 上部: ブランド(境界なし、透過ロゴをそのまま浮かべる) =====
+      var ls = 210, lx = 30, ly = 16;
       if (logo) {
         ctx.save();
-        roundRect(ctx, lx, ly, ls, ls, 30); ctx.clip();
-        ctx.drawImage(logo, lx, ly, ls, ls);
+        ctx.shadowColor = "rgba(8, 40, 80, .45)"; ctx.shadowBlur = 26; ctx.shadowOffsetY = 10;
+        ctx.translate(lx + ls / 2, ly + ls / 2);
+        ctx.rotate(-4 * Math.PI / 180);
+        ctx.drawImage(logo, -ls / 2, -ls / 2, ls, ls);
         ctx.restore();
       }
-
-      // ロゴ右のテキスト(左寄せ)
-      var htx = lx + ls + 34;
+      // ロゴ右のテキスト(白+影で濃青の上に)
+      var htx = lx + ls + 26;
       ctx.textAlign = "left";
-      ctx.fillStyle = "rgba(255,255,255,.9)";
+      ctx.save();
+      ctx.shadowColor = "rgba(10, 50, 100, .5)"; ctx.shadowBlur = 12; ctx.shadowOffsetY = 3;
+      ctx.fillStyle = "rgba(255,255,255,.92)";
       ctx.font = "700 27px " + FAMILY;
-      ctx.fillText("ゲームの滝壺｜ゲーム系ポッドキャスト", htx, 74);
+      ctx.fillText("ゲームの滝壺｜ゲーム系ポッドキャスト", htx, 92);
       ctx.fillStyle = "#fff";
-      ctx.font = "900 62px " + FAMILY;
-      ctx.fillText("ふさわしいゲーム診断", htx, 140);
+      ctx.font = "900 60px " + FAMILY;
+      ctx.fillText("ふさわしいゲーム診断", htx, 158);
+      ctx.restore();
       // コーラルのアクセント下線
       ctx.fillStyle = "#EE5A3A";
-      roundRect(ctx, htx, 158, 300, 8, 4); ctx.fill();
+      roundRect(ctx, htx, 176, 296, 8, 4); ctx.fill();
       ctx.textAlign = "center";
 
-      // ===== 名前行 =====
-      ctx.fillStyle = "#0E5AA8";
+      // ===== 名前行(まだ青が濃いゾーンなので白+影) =====
+      ctx.save();
+      ctx.shadowColor = "rgba(10, 50, 100, .45)"; ctx.shadowBlur = 10; ctx.shadowOffsetY = 3;
+      ctx.fillStyle = "#fff";
       var nameLine = "🎮 " + name + " さんに ふさわしい一本は…";
       var ns = fitFont(ctx, nameLine, W - 120, 40, 26, "700", FAMILY);
       ctx.font = "700 " + ns + "px " + FAMILY;
       ctx.fillText(nameLine, CX, 268);
+      ctx.restore();
 
       // ===== アートワーク(大きく中央) =====
       var as = 480, ax = CX - as / 2, ay = 288;
@@ -477,22 +491,20 @@
         ty += 56 + 18;
       }
 
-      // ふさわしさ% / 登場回数
-      ctx.font = "700 32px " + FAMILY;
-      ctx.fillStyle = "#0E5AA8";
-      ctx.fillText("ふさわしさ " + pct + "%　／　滝壺での登場 " + g[1] + "回", CX, ty + 30);
+      // ふさわしさ% / 登場回数(半透明の濃紺ピルに白文字。どの背景でも読める)
+      pill("ふさわしさ " + pct + "%　／　滝壺での登場 " + g[1] + "回", ty, "700 30px", 26, 56,
+        function () { ctx.fillStyle = "rgba(12, 46, 90, .30)"; ctx.fill(); }, "#fff");
 
-      // ===== 下部フッター帯 =====
-      var fTop = 1258;
-      var fb = ctx.createLinearGradient(0, fTop, 0, H);
-      fb.addColorStop(0, "#1E7ED6"); fb.addColorStop(1, "#0E5AA8");
-      ctx.fillStyle = fb; ctx.fillRect(0, fTop, W, H - fTop);
-      ctx.fillStyle = "rgba(255,255,255,.9)";
+      // ===== 下部: フッター(帯なし。背景の濃青に白文字を地続きで載せる) =====
+      ctx.save();
+      ctx.shadowColor = "rgba(6, 34, 70, .55)"; ctx.shadowBlur = 12; ctx.shadowOffsetY = 3;
+      ctx.fillStyle = "rgba(255,255,255,.92)";
       ctx.font = "700 26px " + FAMILY;
-      ctx.fillText(HASHTAG + "　#ふさわしいゲーム診断", CX, fTop + 44);
+      ctx.fillText(HASHTAG + "　#ふさわしいゲーム診断", CX, 1298);
       ctx.fillStyle = "#fff";
-      ctx.font = "900 34px " + FAMILY;
-      ctx.fillText("あなたもゲームの滝壺で診断しよう!", CX, fTop + 82);
+      ctx.font = "900 36px " + FAMILY;
+      ctx.fillText("あなたもゲームの滝壺で診断しよう!", CX, 1340);
+      ctx.restore();
     };
 
     // ロゴ画像とエピソード画像を両方読み込んでから描画
