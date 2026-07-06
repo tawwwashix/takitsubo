@@ -786,7 +786,7 @@ span.ep-card-num {
 .sh-canvas-wrap { margin-top: 20px; text-align: center; }
 .sh-canvas-wrap canvas {
   /* 縦長プレビュー。スマホの画面に収まるよう幅を抑える */
-  width: 100%; max-width: 340px; height: auto;
+  width: 100%; max-width: 540px; height: auto;
   border-radius: 18px; box-shadow: var(--shadow-hover);
 }
 .sh-canvas-caption {
