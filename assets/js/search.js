@@ -37,9 +37,20 @@
     return (e.games || []).filter(function (g) { return norm(g).indexOf(kw) !== -1; });
   }
 
+  // 検索状態をURLに反映(共有・ブックマーク可能に)。履歴は汚さない
+  function syncUrl() {
+    var p = new URLSearchParams();
+    if (state.q) p.set("q", state.q);
+    if (state.tag !== "all") p.set("tag", state.tag);
+    if (state.sort !== "relevance") p.set("sort", state.sort);
+    var qs = p.toString();
+    history.replaceState(null, "", location.pathname + (qs ? "?" + qs : ""));
+  }
+
   function render() {
     var kw = norm(state.q.trim());
     clearBtn.hidden = state.q.length === 0;
+    syncUrl();
 
     var out = episodes.filter(function (e) {
       var okTag = state.tag === "all" || e.tags.indexOf(state.tag) !== -1;
@@ -98,9 +109,30 @@
     });
   });
 
-  // URLパラメータ ?q= で初期検索(個別ページのゲームタグから遷移)
+  // 「/」キーで検索欄にフォーカス(入力中は除く)
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "/" && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) {
+      ev.preventDefault();
+      input.focus();
+    }
+  });
+
+  // URLパラメータで初期状態を復元(?q= / ?tag= / ?sort=)
   var params = new URLSearchParams(location.search);
   if (params.get("q")) { state.q = params.get("q"); input.value = state.q; }
+  if (params.get("sort") && ["relevance", "new", "old"].indexOf(params.get("sort")) !== -1) {
+    state.sort = params.get("sort");
+    sortEl.value = state.sort;
+  }
+  if (params.get("tag")) {
+    var tagBtn = [].slice.call(document.querySelectorAll(".filter-btn"))
+      .filter(function (b) { return b.dataset.tag === params.get("tag"); })[0];
+    if (tagBtn) {
+      document.querySelectorAll(".filter-btn").forEach(function (x) { x.classList.remove("on"); });
+      tagBtn.classList.add("on");
+      state.tag = params.get("tag");
+    }
+  }
 
   fetch("../data/search.json" + (window.__searchVer ? "?v=" + window.__searchVer : ""))
     .then(function (r) { return r.json(); })

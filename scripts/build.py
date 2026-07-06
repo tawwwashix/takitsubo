@@ -62,11 +62,12 @@ WAVE = (
 )
 
 
-def head(title, desc, root, path="", og_image=None, jsonld=None):
+def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="website", published=None):
     full = f'{esc(title)} | {SITE["title"]}' if title else esc(SITE["title"])
     url = SITE["base_url"].rstrip("/") + "/" + path
     og_img = SITE["base_url"].rstrip("/") + "/" + (og_image or "assets/img/ogp.png")
     ld = f'\n<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
+    pub = f'\n<meta property="article:published_time" content="{published}">' if published else ""
     return f"""<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -76,10 +77,11 @@ def head(title, desc, root, path="", og_image=None, jsonld=None):
 <meta name="description" content="{esc(desc)}">
 <meta property="og:title" content="{full}">
 <meta property="og:description" content="{esc(desc)}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{og_type}">
 <meta property="og:url" content="{esc(url)}">
-<meta property="og:image" content="{og_img}">
+<meta property="og:image" content="{og_img}">{pub}
 <meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="{esc(SITE['title'])} ポッドキャストRSS" href="{esc(SITE['rss'])}">
 <link rel="icon" type="image/png" sizes="32x32" href="{root}assets/img/favicon_32.png">
 <link rel="apple-touch-icon" href="{root}assets/img/favicon_192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -160,6 +162,23 @@ def ep_image(e):
     """エピソード画像の相対パス(サイトルート基準)。無ければNone。"""
     img = e.get("image")
     return img if img else None
+
+
+def related_eps(e, limit=3):
+    """関連する回: 同じ名物企画を最優先し、共通の登場ゲーム数でスコアリング"""
+    egames = set(e["games"])
+    scored = []
+    for o in EPS:
+        if o["number"] == e["number"]:
+            continue
+        score = 0
+        if e["series"] and o["series"] == e["series"]:
+            score += 3
+        score += min(len(egames & set(o["games"])), 3)
+        if score:
+            scored.append((score, o["number"], o))
+    scored.sort(key=lambda t: (-t[0], -t[1]))
+    return [t[2] for t in scored[:limit]]
 
 
 def sec_title(jp, en="", more_html=""):
@@ -391,7 +410,14 @@ def build_episode_list():
 </div>
 
 <div class="ep-grid" id="list" aria-live="polite"></div>
-<p id="empty" style="display:none;text-align:center;color:var(--faint);padding:34px 0;">該当するエピソードが見つかりませんでした</p>
+<div id="empty" style="display:none;" class="empty-box">
+<p class="empty-title">🔍 該当するエピソードが見つかりませんでした</p>
+<ul class="empty-hint">
+<li>別の表記で試してみてください(例: FF ↔ ファイナルファンタジー、ドラクエ ↔ ドラゴンクエスト)</li>
+<li>ひらがな・カタカナは自動で変換されます(「どらくえ」でもOK)</li>
+<li>上の「絞り込み」タグから企画・テーマで探すこともできます</li>
+</ul>
+</div>
 </main>
 <script>window.__searchVer="{av('data/search.json')}";</script>
 <script src="{root}assets/js/search.js?v={av('assets/js/search.js')}"></script>"""
@@ -445,8 +471,24 @@ def build_episode_pages():
             "partOfSeries": {"@type": "PodcastSeries", "name": SITE["title"], "url": base + "/"},
             "inLanguage": "ja",
         }
-        page = head(f"第{n}回 {e['title']}", f"ゲームの滝壺 第{n}回。{e['title']}", root, f"episodes/{n}.html", og_image=ep_image(e), jsonld=ep_ld)
+        crumbs_ld = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "ホーム", "item": base + "/"},
+                {"@type": "ListItem", "position": 2, "name": "エピソード", "item": base + "/episodes/"},
+                {"@type": "ListItem", "position": 3, "name": f"第{n}回 {e['title']}"},
+            ],
+        }
+        page = head(f"第{n}回 {e['title']}", f"ゲームの滝壺 第{n}回。{e['title']}", root, f"episodes/{n}.html",
+                    og_image=ep_image(e), jsonld=[ep_ld, crumbs_ld], og_type="article", published=e["date"])
         page += header(root, "episodes")
+
+        # 関連する回(同じ企画・同じゲームの話をした回)
+        rel = related_eps(e)
+        related_html = ""
+        if rel:
+            related_html = f'<section class="section">{sec_title("関連する回", "RELATED")}<div class="ep-grid">{"".join(ep_card(r, root) for r in rel)}</div></section>'
 
         # Spotify埋め込みプレイヤー(クリックしたときだけiframeを読み込む軽量方式)
         embed = spotify_embed_url(e["links"].get("spotify"))
@@ -480,6 +522,7 @@ def build_episode_pages():
 </div>
 {games_html}
 {chapters_html}
+{related_html}
 {pn}
 {actions_html}
 </main>"""
@@ -507,7 +550,17 @@ def build_series():
         rows = "".join(
             ep_card(e, root, meta_prefix=f'<span class="ep-hash">ep{idx:02d}</span>')
             for idx, e in enumerate(eps, 1))
-        page = head(s["name"], f"名物企画「{s['name']}」の全エピソード。{s['description'][:60]}", root, f"series/{s['slug']}.html")
+        base = SITE["base_url"].rstrip("/")
+        crumbs_ld = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "ホーム", "item": base + "/"},
+                {"@type": "ListItem", "position": 2, "name": "名物企画", "item": base + "/series/"},
+                {"@type": "ListItem", "position": 3, "name": s["name"]},
+            ],
+        }
+        page = head(s["name"], f"名物企画「{s['name']}」の全エピソード。{s['description'][:60]}", root, f"series/{s['slug']}.html", jsonld=crumbs_ld)
         page += header(root, "series")
         page += f"""<main class="container">
 <div class="page-head">
@@ -639,11 +692,16 @@ def build_search_json():
 # ============================================================ sitemap
 def build_sitemap():
     base = SITE["base_url"].rstrip("/")
-    urls = ["", "episodes/", "series/", "news/", "guide.html", "otayori.html"]
-    urls += [f"episodes/{e['number']}.html" for e in EPS]
-    urls += [f"series/{s['slug']}.html" for s in SERIES]
-    urls += [f"news/{n['slug']}.html" for n in NEWS]
-    body = "".join(f"<url><loc>{base}/{u}</loc></url>" for u in urls)
+    today = datetime.date.today().isoformat()
+    latest = EPS[-1]["date"] if EPS else today
+    # (URL, 最終更新日): エピソード=配信日 / お知らせ=掲載日 / 一覧系=最新回の配信日
+    urls = [("", latest), ("episodes/", latest), ("series/", latest),
+            ("news/", NEWS[-1]["date"] if NEWS else today),
+            ("guide.html", today), ("otayori.html", today)]
+    urls += [(f"episodes/{e['number']}.html", e["date"]) for e in EPS]
+    urls += [(f"series/{s['slug']}.html", latest) for s in SERIES]
+    urls += [(f"news/{n['slug']}.html", n["date"]) for n in NEWS]
+    body = "".join(f"<url><loc>{base}/{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
     (ROOT / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{body}</urlset>',
         encoding="utf-8")

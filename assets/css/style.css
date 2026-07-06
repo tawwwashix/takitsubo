@@ -593,6 +593,18 @@ span.ep-card-num {
   padding: 5px 12px; cursor: pointer;
 }
 .sort-field select:focus { border-color: var(--primary); outline: none; }
+/* 検索該当なしのヘルプボックス */
+.empty-box {
+  background: var(--surface); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 26px 24px; text-align: center;
+}
+.empty-box .empty-title { font-weight: 700; font-size: 15px; margin-bottom: 12px; }
+.empty-box .empty-hint {
+  list-style: none; text-align: left; max-width: 560px; margin: 0 auto;
+  font-size: 13px; color: var(--sub); line-height: 2;
+}
+.empty-box .empty-hint li::before { content: "・"; color: var(--primary); }
+
 /* 検索で登場ゲームに一致した回の「話題に出た」表示 */
 .ep-match {
   display: block; margin-top: 7px; font-size: 11px; color: var(--sub);
