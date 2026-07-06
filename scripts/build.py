@@ -46,6 +46,7 @@ def jd(iso):  # 2026-07-01 -> 2026.07.01
 SVG = {
     "play": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg>',
     "search": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+    "close": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
     "arrow_l": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>',
     "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
     "x": '<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.4Z"/></svg>',
@@ -370,13 +371,24 @@ def build_episode_list():
     page += header(root, "episodes")
     page += f"""
 <main class="container">
-<div class="page-head"><h1 class="page-title"><span class="en">EPISODES</span>エピソード一覧</h1>
-<p class="result-count" id="count"></p></div>
+<div class="page-head"><h1 class="page-title"><span class="en">EPISODES</span>エピソード一覧</h1></div>
 
 <div class="searchbox">{SVG['search']}
-<input type="search" id="q" placeholder="ゲーム名・キーワードで検索(例:ドラクエ、わるい村、#50)" aria-label="エピソードを検索">
+<input type="search" id="q" placeholder="ゲーム名・キーワードで検索(例:ドラクエ、わるい村、#50)" aria-label="エピソードを検索" autocomplete="off">
+<button type="button" class="search-clear" id="qClear" aria-label="検索キーワードを消す" hidden>{SVG['close']}</button>
 </div>
+<p class="search-note">💡 タイトルだけでなく、<strong>番組内で話題に出たゲームタイトル</strong>も検索対象です。</p>
 <div class="filter-row" role="group" aria-label="タグで絞り込み"><span class="filter-label">絞り込み</span>{filter_btns}</div>
+
+<div class="list-toolbar">
+<p class="result-count" id="count"></p>
+<label class="sort-field">並び順
+<select id="sort" aria-label="並び順">
+<option value="relevance">関連度順</option>
+<option value="new">新しい順</option>
+<option value="old">古い順</option>
+</select></label>
+</div>
 
 <div class="ep-grid" id="list" aria-live="polite"></div>
 <p id="empty" style="display:none;text-align:center;color:var(--faint);padding:34px 0;">該当するエピソードが見つかりませんでした</p>

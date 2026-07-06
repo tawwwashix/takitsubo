@@ -1,10 +1,12 @@
-/* エピソード一覧: 検索 + タグ絞り込み */
+/* エピソード一覧: 検索 + タグ絞り込み + 並び替え */
 (function () {
-  var state = { q: "", tag: "all" };
+  var state = { q: "", tag: "all", sort: "relevance" };
   var listEl = document.getElementById("list");
   var countEl = document.getElementById("count");
   var emptyEl = document.getElementById("empty");
   var input = document.getElementById("q");
+  var clearBtn = document.getElementById("qClear");
+  var sortEl = document.getElementById("sort");
   var episodes = [];
 
   function esc(s) {
@@ -16,20 +18,50 @@
 
   function norm(s) {
     // ひら→カタ変換 + 小文字化で「どらくえ」でもヒットさせる
-    return s.toLowerCase().replace(/[\u3041-\u3096]/g, function (ch) {
+    return s.toLowerCase().replace(/[ぁ-ゖ]/g, function (ch) {
       return String.fromCharCode(ch.charCodeAt(0) + 0x60);
     });
   }
 
+  // キーワードがどこに一致したか(小さいほど関連度が高い)
+  // 0=タイトル/番号, 1=タグ, 2=登場ゲーム, 99=不一致
+  function matchRank(e, kw) {
+    if (norm(e.title + " #" + e.number).indexOf(kw) !== -1) return 0;
+    if (norm(e.tags.join(" ")).indexOf(kw) !== -1) return 1;
+    if (norm((e.games || []).join(" ")).indexOf(kw) !== -1) return 2;
+    return 99;
+  }
+
+  // 登場ゲームで一致した回は、どのゲームで当たったかをカードに表示する
+  function matchedGames(e, kw) {
+    return (e.games || []).filter(function (g) { return norm(g).indexOf(kw) !== -1; });
+  }
+
   function render() {
     var kw = norm(state.q.trim());
+    clearBtn.hidden = state.q.length === 0;
+
     var out = episodes.filter(function (e) {
       var okTag = state.tag === "all" || e.tags.indexOf(state.tag) !== -1;
       if (!okTag) return false;
       if (!kw) return true;
-      var hay = norm(e.title + " #" + e.number + " " + e.tags.join(" ") + " " + (e.games || []).join(" "));
-      return hay.indexOf(kw) !== -1;
+      return matchRank(e, kw) !== 99;
     });
+
+    // 並び替え
+    var byNew = function (a, b) { return b.number - a.number; };
+    if (state.sort === "old") {
+      out.sort(function (a, b) { return a.number - b.number; });
+    } else if (state.sort === "new" || !kw) {
+      out.sort(byNew); // キーワード未入力の関連度順は「新しい順」と同義
+    } else {
+      // 関連度順: 一致場所(タイトル→タグ→ゲーム)を最優先、同順位内は新しい回順
+      out.sort(function (a, b) {
+        var ra = matchRank(a, kw), rb = matchRank(b, kw);
+        return ra !== rb ? ra - rb : byNew(a, b);
+      });
+    }
+
     countEl.textContent = "全" + episodes.length + "回中 " + out.length + "件";
     emptyEl.style.display = out.length ? "none" : "block";
     listEl.innerHTML = out.map(function (e) {
@@ -37,13 +69,26 @@
       var art = e.image
         ? '<img class="ep-card-img" src="../' + esc(e.image) + '" alt="" loading="lazy" width="800" height="800">'
         : '<span class="ep-card-img ep-card-num">#' + e.number + "</span>";
+      // タイトルに無い語でヒットした回は、当たったゲーム名を明示して分かりやすく
+      var reason = "";
+      if (kw && matchRank(e, kw) === 2) {
+        var gs = matchedGames(e, kw).slice(0, 2).map(function (g) {
+          return '<span class="mg">' + esc(g) + "</span>";
+        }).join("");
+        reason = '<span class="ep-match">🎮 この回で話題に: ' + gs + "</span>";
+      }
       return '<a class="ep-card" href="' + e.number + '.html">' + art +
         '<span class="ep-card-body"><span class="ep-title">' + esc(e.title) + "</span>" +
-        '<span class="ep-meta"><span class="ep-hash">#' + e.number + "</span>" + jd(e.date) + tags + "</span></span></a>";
+        '<span class="ep-meta"><span class="ep-hash">#' + e.number + "</span>" + jd(e.date) + tags + "</span>" +
+        reason + "</span></a>";
     }).join("");
   }
 
   input.addEventListener("input", function (ev) { state.q = ev.target.value; render(); });
+  clearBtn.addEventListener("click", function () {
+    state.q = ""; input.value = ""; input.focus(); render();
+  });
+  sortEl.addEventListener("change", function (ev) { state.sort = ev.target.value; render(); });
   document.querySelectorAll(".filter-btn").forEach(function (b) {
     b.addEventListener("click", function () {
       document.querySelectorAll(".filter-btn").forEach(function (x) { x.classList.remove("on"); });
