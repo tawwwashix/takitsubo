@@ -3,7 +3,7 @@
   "tagline": "ゲームと名のつくものならなんでも気ままに話すポッドキャスト",
   "schedule": "毎週水曜 23時ごろ更新",
   "hashtag": "#ゲームの滝壺",
-  "base_url": "https://example.com",
+  "base_url": "https://game-takitsubo.com",
   "rss": "https://anchor.fm/s/f61a3794/podcast/rss",
   "services": {
     "spotify":  { "label": "Spotify",        "url": "https://open.spotify.com/show/4WrzkgGGM4d0glV7d3ApfZ" },
