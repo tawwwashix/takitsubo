@@ -304,7 +304,7 @@
   // タイトルを折り返し。最大3行+高さ制約。それでも収まらない超長タイトルは「…」で切る
   function fitTitle(ctx, text, maxW, maxH, family) {
     var size, lines, cur, i;
-    for (size = 60; size >= 30; size -= 4) {
+    for (size = 52; size >= 30; size -= 4) {
       var maxLines = Math.min(3, Math.floor(maxH / (size * 1.22)));
       if (maxLines < 1) continue;
       ctx.font = "900 " + size + "px " + family;
@@ -400,57 +400,54 @@
       ctx.fillStyle = "#0E5AA8";
       ctx.fillText(nameLine, tx, 128);
 
-      // タイトル(y=168起点、最大高さ190px内に収める)
-      var fit = fitTitle(ctx, g[0], tw, 190, FAMILY);
+      // 右カラムは上から積む。フッター帯(y>=548)には絶対にかぶらないよう
+      // タイトルの最大高さを抑え、各行間隔も詰めてある。
+      // タイトル(最大高さ150px内・最大3行)
+      var fit = fitTitle(ctx, g[0], tw, 150, FAMILY);
       ctx.fillStyle = "#10395C";
-      var ty = 168 + fit.size;
+      var ty = 164 + fit.size;
       fit.lines.forEach(function (ln) {
         ctx.font = "900 " + fit.size + "px " + FAMILY;
         ctx.fillText(ln, tx, ty);
         ty += fit.size * 1.22;
       });
-      ty += 14;
+      ty += 8;
 
       // タイプ(コーラルのピル)
-      ctx.font = "700 28px " + FAMILY;
-      var tpw = ctx.measureText(typeName).width + 44;
-      roundRect(ctx, tx, ty - 4, tpw, 52, 26);
+      ctx.font = "700 27px " + FAMILY;
+      var tpw = ctx.measureText(typeName).width + 42;
+      roundRect(ctx, tx, ty, tpw, 48, 24);
       ctx.fillStyle = "#EE5A3A"; ctx.fill();
-      ctx.fillStyle = "#fff"; ctx.fillText(typeName, tx + 22, ty + 32);
-      ty += 88;
+      ctx.fillStyle = "#fff"; ctx.fillText(typeName, tx + 21, ty + 33);
+      ty += 48 + 16;
 
-      // ふさわしさ% + 登場回数(レアはバッジで強調)
+      // レアバッジ(あれば)
       if (rare === 2) {
         var t2 = "★★★ 超レア!! 一度だけ話題に出た幻の一本";
-        ctx.font = "900 25px " + FAMILY;
-        var bw2 = ctx.measureText(t2).width + 40;
+        ctx.font = "900 24px " + FAMILY;
+        var bw2 = ctx.measureText(t2).width + 38;
         var bgrad = ctx.createLinearGradient(tx, 0, tx + bw2, 0);
         bgrad.addColorStop(0, "#FFD75E"); bgrad.addColorStop(1, "#FFAF2E");
-        roundRect(ctx, tx, ty - 6, bw2, 50, 25);
+        roundRect(ctx, tx, ty, bw2, 46, 23);
         ctx.fillStyle = bgrad; ctx.fill();
-        ctx.fillStyle = "#6B3C00"; ctx.fillText(t2, tx + 20, ty + 28);
-        ty += 66;
-        ctx.font = "700 23px " + FAMILY;
-        ctx.fillStyle = "#0E5AA8";
-        ctx.fillText("ふさわしさ " + pct + "% ／ 滝壺での登場 " + g[1] + "回", tx, ty + 8);
+        ctx.fillStyle = "#6B3C00"; ctx.fillText(t2, tx + 19, ty + 32);
+        ty += 46 + 14;
       } else if (rare === 1) {
         var t1 = "★★ レア! 知る人ぞ知る一本";
         ctx.font = "900 24px " + FAMILY;
         var bw1 = ctx.measureText(t1).width + 36;
-        roundRect(ctx, tx, ty - 6, bw1, 46, 23);
+        roundRect(ctx, tx, ty, bw1, 44, 22);
         ctx.fillStyle = "#B482F0"; ctx.fill();
-        ctx.fillStyle = "#fff"; ctx.fillText(t1, tx + 18, ty + 26);
-        ty += 60;
-        ctx.font = "700 23px " + FAMILY;
-        ctx.fillStyle = "#0E5AA8";
-        ctx.fillText("ふさわしさ " + pct + "% ／ 滝壺での登場 " + g[1] + "回", tx, ty + 8);
-      } else {
-        ctx.font = "700 24px " + FAMILY;
-        ctx.fillStyle = "#0E5AA8";
-        ctx.fillText("ふさわしさ " + pct + "% ／ 滝壺での登場 " + g[1] + "回", tx, ty + 10);
+        ctx.fillStyle = "#fff"; ctx.fillText(t1, tx + 18, ty + 30);
+        ty += 44 + 14;
       }
 
-      // フッター
+      // ふさわしさ% + 登場回数
+      ctx.font = "700 23px " + FAMILY;
+      ctx.fillStyle = "#0E5AA8";
+      ctx.fillText("ふさわしさ " + pct + "% ／ 滝壺での登場 " + g[1] + "回", tx, ty + 20);
+
+      // フッター(下端に固定。上のコンテンツとは必ず離れる)
       ctx.font = "700 21px " + FAMILY;
       ctx.fillStyle = "rgba(255,255,255,.9)";
       ctx.fillText(HASHTAG + " #ふさわしいゲーム診断", tx, 556);
