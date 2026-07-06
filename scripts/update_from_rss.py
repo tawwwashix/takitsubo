@@ -121,7 +121,9 @@ def main():
                 continue
             # 基本1行1タイトル。「、」区切りのみ分割(「/」「・」はゲーム名に含まれるため分割しない)
             for piece in re.split(r"[、,]", s):
-                piece = piece.strip("　 ・-")
+                # 箇条書き記号(・や-)は先頭からのみ除去。
+                # 末尾は空白だけ落とす(「HUNDRED LINE -最終防衛学園-」のような末尾の-を守る)
+                piece = piece.strip("　 ").lstrip("・-").strip("　 ")
                 if not piece:
                     continue
                 canonical = aliases.get(piece)

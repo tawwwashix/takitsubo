@@ -12,6 +12,7 @@
   var SITE_URL = (panel.dataset.site || "").replace(/\/$/, "") + "/shindan.html";
   var HASHTAG = panel.dataset.hashtag || "#ゲームの滝壺";
   var AX = 5; // [歯ごたえC, 物語S, わいわいP, クセK, 時代T(+新作/-レトロ)]
+  var NAME_MAX = 10; // なまえは全角10文字まで
 
   var QUESTIONS = [
     { q: "ゲームを始めるとき、いちばん胸が高鳴るのは?",
@@ -117,17 +118,22 @@
   /* ---------- 画面: イントロ ---------- */
   function renderIntro() {
     state.idx = 0; state.answers = []; state.axes = [0, 0, 0, 0, 0];
+    var introShare = "ゲームの滝壺「ふさわしいゲーム診断」\nあなたに“ふさわしい一本”を全" + DATA.games.length + "タイトルから診断!\n" +
+      HASHTAG + " #ふさわしいゲーム診断\n" + SITE_URL;
     panel.innerHTML =
       '<div class="sh-screen">' +
       '<p class="sh-lede">8つの質問に直感で答えるだけ。<br>診断結果は <strong>' + DATA.games.length + 'タイトル</strong>。あなたは何を引き当てる?</p>' +
-      '<label class="sh-name-label" for="shName">なまえ(結果の画像に入ります)</label>' +
-      '<input class="sh-name" id="shName" type="text" maxlength="12" placeholder="例: たわし" autocomplete="off">' +
+      '<p class="sh-lede-sub">なまえや答えが変わると、結果も変わります。<br>新しい回が配信されるたびに結果の種類も増えるので、何度でも遊べます。</p>' +
+      '<label class="sh-name-label" for="shName">なまえ(結果の画像に入ります・全角' + NAME_MAX + '文字まで)</label>' +
+      '<input class="sh-name" id="shName" type="text" maxlength="' + NAME_MAX + '" placeholder="例: たわし" autocomplete="off">' +
       '<button class="sh-primary" id="shStart">診断をはじめる</button>' +
+      '<div class="sh-intro-actions"><a class="sh-btn share" href="https://x.com/intent/post?text=' + encodeURIComponent(introShare) + '" target="_blank" rel="noopener">𝕏 この診断をシェアする</a></div>' +
       '<p class="sh-note">結果は画像でシェアできます。' + esc(HASHTAG) + ' を付けてポストしてくれたら、番組が喜びます。</p>' +
+      '<p class="sh-fusa-link">※「ふさわしいゲーム」は番組の<a href="series/fusawashii.html">名物企画</a>から生まれた診断です</p>' +
       '</div>';
     var nameInput = document.getElementById("shName");
     var start = function () {
-      state.name = nameInput.value.trim().slice(0, 12);
+      state.name = nameInput.value.trim().slice(0, NAME_MAX);
       renderQuestion();
     };
     document.getElementById("shStart").addEventListener("click", start);
@@ -195,29 +201,36 @@
       return w;
     });
     var r = rng() * total;
+    var game = DATA.games[DATA.games.length - 1];
     for (var i = 0; i < weights.length; i++) {
       r -= weights[i];
-      if (r <= 0) return DATA.games[i];
+      if (r <= 0) { game = DATA.games[i]; break; }
     }
-    return DATA.games[DATA.games.length - 1];
+    var rare = game[1] === 1 ? 2 : (game[1] <= 3 ? 1 : 0);
+    // ふさわしさ%(お遊び): シード由来で決定。超レアは運命の99%
+    var pct = rare === 2 ? 99 : 80 + Math.floor(rng() * 20);
+    return { g: game, rare: rare, pct: pct };
   }
 
   /* ---------- 画面: 結果 ---------- */
   function renderResult() {
     var type = judgeType();
-    var g = pickGame();                    // [title, count, epNum, mainFlag]
+    var picked = pickGame();
+    var g = picked.g;                      // [title, count, epNum, mainFlag]
+    var rare = picked.rare;
+    var pct = picked.pct;
     var ep = DATA.eps[String(g[2])];       // [epTitle, image]
     var dispName = state.name || "あなた";
-    var rare = g[1] === 1 ? 2 : (g[1] <= 3 ? 1 : 0);
     var rareBadge = rare === 2
-      ? '<span class="sh-rare r2">★★★ 超レア! 全' + DATA.games.length + 'タイトル中、一度だけ話題に出た幻の一本</span>'
+      ? '<span class="sh-rare r2">★★★ 超レア!! 全' + DATA.games.length + 'タイトル中、一度だけ話題に出た幻の一本</span>'
       : rare === 1 ? '<span class="sh-rare r1">★★ レア! 知る人ぞ知る一本を引き当てました</span>' : "";
     var epLabel = g[3] ? "このタイトルについて話していそうな回" : "このタイトルの話をしているかもしれない回";
     var epImg = ep[1]
       ? '<img class="sh-ep-img" src="' + esc(ep[1]) + '" alt="" loading="lazy">'
       : '<span class="sh-ep-img sh-ep-num">#' + g[2] + "</span>";
 
-    var shareText = dispName + "の“ふさわしいゲーム”は【" + g[0] + "】でした!\n(" + type[0] + ")\n" +
+    var shareText = dispName + "の“ふさわしいゲーム”は【" + g[0] + "】でした!\n(" + type[0] + "・ふさわしさ" + pct + "%)\n" +
+      (rare === 2 ? "★一度しか話題に出ていない幻の一本を引き当てた!\n" : "") +
       HASHTAG + " #ふさわしいゲーム診断\n" + SITE_URL;
 
     panel.innerHTML =
@@ -225,11 +238,11 @@
       '<div class="sh-r-eyebrow">RESULT</div>' +
       '<p class="sh-r-type">' + esc(dispName) + ' さんは…<strong>' + esc(type[0]) + '</strong></p>' +
       '<p class="sh-r-typedesc">' + esc(type[1]) + '</p>' +
-      '<div class="sh-r-card">' +
+      '<div class="sh-r-card' + (rare === 2 ? " r2" : rare === 1 ? " r1" : "") + '">' +
       '<div class="sh-r-label">そんなあなたに、滝壺データベースが選んだ一本は</div>' +
       '<div class="sh-r-title">' + esc(g[0]) + '</div>' +
       rareBadge +
-      '<div class="sh-r-count">滝壺での登場: <strong>' + g[1] + '回</strong></div>' +
+      '<div class="sh-r-count">ふさわしさ <strong>' + pct + '%</strong> ・ 滝壺での登場 <strong>' + g[1] + '回</strong></div>' +
       '</div>' +
       '<div class="sh-ep-block"><p class="sh-ep-label">🎧 ' + epLabel + '</p>' +
       '<a class="sh-ep-card" href="episodes/' + g[2] + '.html">' + epImg +
@@ -242,9 +255,10 @@
       '</div>' +
       '<p class="sh-note">画像を保存/コピーしてから、Xのポストに添付すると盛り上がります!</p>' +
       '<button class="sh-btn retry" id="shRetry">もう一度診断する</button>' +
+      '<p class="sh-fusa-link">※「ふさわしいゲーム」は番組の<a href="series/fusawashii.html">名物企画</a>から生まれた診断です</p>' +
       '</div>';
 
-    drawShareImage(dispName, type[0], g, ep, rare);
+    drawShareImage(dispName, type[0], g, ep, rare, pct);
 
     document.getElementById("shRetry").addEventListener("click", renderIntro);
     document.getElementById("shSave").addEventListener("click", function () {
@@ -279,24 +293,45 @@
     ctx.arcTo(x, y, x + w, y, r);
     ctx.closePath();
   }
-  // タイトルを折り返し、行数に応じてフォントを縮める
-  function fitLines(ctx, text, maxW, baseSize, family, maxLines) {
-    var size = baseSize;
-    for (; size >= 26; size -= 4) {
+  // 1行テキストが収まるフォントサイズを探す
+  function fitFont(ctx, text, maxW, base, min, weight, family) {
+    for (var s = base; s >= min; s -= 2) {
+      ctx.font = weight + " " + s + "px " + family;
+      if (ctx.measureText(text).width <= maxW) return s;
+    }
+    return min;
+  }
+  // タイトルを折り返し。最大3行+高さ制約。それでも収まらない超長タイトルは「…」で切る
+  function fitTitle(ctx, text, maxW, maxH, family) {
+    var size, lines, cur, i;
+    for (size = 60; size >= 30; size -= 4) {
+      var maxLines = Math.min(3, Math.floor(maxH / (size * 1.22)));
+      if (maxLines < 1) continue;
       ctx.font = "900 " + size + "px " + family;
-      var lines = [], cur = "";
-      for (var i = 0; i < text.length; i++) {
+      lines = []; cur = "";
+      for (i = 0; i < text.length; i++) {
         if (ctx.measureText(cur + text[i]).width > maxW) { lines.push(cur); cur = text[i]; }
         else cur += text[i];
       }
       lines.push(cur);
       if (lines.length <= maxLines) return { lines: lines, size: size };
     }
-    ctx.font = "900 26px " + family;
-    return { lines: [text.slice(0, 24) + "…"], size: 26 };
+    // 最小サイズでも入らない → 3行に詰めて末尾を「…」に
+    size = 34;
+    ctx.font = "900 " + size + "px " + family;
+    lines = []; cur = "";
+    for (i = 0; i < text.length && lines.length < 3; i++) {
+      if (ctx.measureText(cur + text[i]).width > maxW) { lines.push(cur); cur = text[i]; }
+      else cur += text[i];
+    }
+    if (lines.length < 3 && cur) lines.push(cur);
+    var last = lines[lines.length - 1];
+    while (last.length && ctx.measureText(last + "…").width > maxW) last = last.slice(0, -1);
+    lines[lines.length - 1] = last + "…";
+    return { lines: lines, size: size };
   }
 
-  function drawShareImage(name, typeName, g, ep, rare) {
+  function drawShareImage(name, typeName, g, ep, rare, pct) {
     var canvas = document.getElementById("shCanvas");
     var ctx = canvas.getContext("2d");
     var W = 1200, H = 630;
@@ -307,6 +342,24 @@
       var bg = ctx.createLinearGradient(0, 0, 0, H);
       bg.addColorStop(0, "#BFE5FB"); bg.addColorStop(.6, "#7CC4F2"); bg.addColorStop(1, "#3D97E0");
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+      // レア専用の後光
+      if (rare === 2) {
+        var glow = ctx.createRadialGradient(W * .62, H * .42, 60, W * .62, H * .42, 620);
+        glow.addColorStop(0, "rgba(255,214,90,.55)");
+        glow.addColorStop(.55, "rgba(255,214,90,.18)");
+        glow.addColorStop(1, "rgba(255,214,90,0)");
+        ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
+        // 金の粒
+        ctx.fillStyle = "rgba(255,226,130,.9)";
+        [[520, 90, 5], [1130, 150, 7], [990, 70, 4], [700, 560, 5], [1150, 420, 4], [560, 480, 6], [880, 600, 4]].forEach(function (p) {
+          ctx.beginPath(); ctx.arc(p[0], p[1], p[2], 0, 7); ctx.fill();
+        });
+      } else if (rare === 1) {
+        var pglow = ctx.createRadialGradient(W * .62, H * .42, 60, W * .62, H * .42, 600);
+        pglow.addColorStop(0, "rgba(180,130,240,.4)");
+        pglow.addColorStop(1, "rgba(180,130,240,0)");
+        ctx.fillStyle = pglow; ctx.fillRect(0, 0, W, H);
+      }
       // 泡
       ctx.fillStyle = "rgba(255,255,255,.35)";
       [[80, 520, 10], [150, 420, 6], [1100, 480, 12], [1040, 380, 7], [620, 560, 8], [980, 560, 5], [60, 300, 5]].forEach(function (b) {
@@ -314,12 +367,12 @@
       });
       // 下部の波
       ctx.fillStyle = "rgba(255,255,255,.25)";
-      ctx.beginPath(); ctx.moveTo(0, 570);
-      for (var x = 0; x <= W; x += 20) ctx.lineTo(x, 570 + Math.sin(x / 90) * 12);
+      ctx.beginPath(); ctx.moveTo(0, 574);
+      for (var x = 0; x <= W; x += 20) ctx.lineTo(x, 574 + Math.sin(x / 90) * 12);
       ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fill();
 
       // 左: アートワーク
-      var ax = 70, ay = 120, as = 390;
+      var ax = 70, ay = 108, as = 390;
       ctx.save();
       ctx.shadowColor = "rgba(14,90,168,.5)"; ctx.shadowBlur = 40; ctx.shadowOffsetY = 14;
       roundRect(ctx, ax, ay, as, as, 34); ctx.fillStyle = "#fff"; ctx.fill();
@@ -333,22 +386,30 @@
         ctx.textAlign = "center"; ctx.fillText("#" + g[2], ax + as / 2, ay + as / 2 + 32);
       }
       ctx.restore();
+      // 画像の注釈(ジャケットはあくまで「話してそうな回」のもの)
+      ctx.textAlign = "left";
+      ctx.font = "700 16px " + FAMILY;
+      ctx.fillStyle = "#0E5AA8";
+      ctx.fillText("※画像は“この話をしてそうな回”のジャケットです", ax - 6, ay + as + 40);
 
       // 右: テキスト
-      var tx = 520, tw = 620;
-      ctx.textAlign = "left";
+      var tx = 520, tw = 616;
+      var nameLine = name + " さんの “ふさわしいゲーム” は";
+      var ns = fitFont(ctx, nameLine, tw, 30, 18, "700", FAMILY);
+      ctx.font = "700 " + ns + "px " + FAMILY;
       ctx.fillStyle = "#0E5AA8";
-      ctx.font = "700 30px " + FAMILY;
-      ctx.fillText(name + " さんの “ふさわしいゲーム” は", tx, 150);
+      ctx.fillText(nameLine, tx, 128);
 
-      var fit = fitLines(ctx, g[0], tw, 64, FAMILY, 3);
+      // タイトル(y=168起点、最大高さ190px内に収める)
+      var fit = fitTitle(ctx, g[0], tw, 190, FAMILY);
       ctx.fillStyle = "#10395C";
-      var ty = 230;
+      var ty = 168 + fit.size;
       fit.lines.forEach(function (ln) {
         ctx.font = "900 " + fit.size + "px " + FAMILY;
         ctx.fillText(ln, tx, ty);
-        ty += fit.size * 1.25;
+        ty += fit.size * 1.22;
       });
+      ty += 14;
 
       // タイプ(コーラルのピル)
       ctx.font = "700 28px " + FAMILY;
@@ -356,23 +417,46 @@
       roundRect(ctx, tx, ty - 4, tpw, 52, 26);
       ctx.fillStyle = "#EE5A3A"; ctx.fill();
       ctx.fillStyle = "#fff"; ctx.fillText(typeName, tx + 22, ty + 32);
-      ty += 84;
+      ty += 88;
 
-      // 登場回数 or レア
-      ctx.font = "700 24px " + FAMILY;
-      ctx.fillStyle = "#0E5AA8";
-      var info = rare === 2 ? "★★★ 超レア! 一度だけ話題に出た幻の一本"
-        : rare === 1 ? "★★ レア! 滝壺での登場 " + g[1] + "回"
-        : "滝壺での登場: " + g[1] + "回";
-      ctx.fillText(info, tx, ty);
+      // ふさわしさ% + 登場回数(レアはバッジで強調)
+      if (rare === 2) {
+        var t2 = "★★★ 超レア!! 一度だけ話題に出た幻の一本";
+        ctx.font = "900 25px " + FAMILY;
+        var bw2 = ctx.measureText(t2).width + 40;
+        var bgrad = ctx.createLinearGradient(tx, 0, tx + bw2, 0);
+        bgrad.addColorStop(0, "#FFD75E"); bgrad.addColorStop(1, "#FFAF2E");
+        roundRect(ctx, tx, ty - 6, bw2, 50, 25);
+        ctx.fillStyle = bgrad; ctx.fill();
+        ctx.fillStyle = "#6B3C00"; ctx.fillText(t2, tx + 20, ty + 28);
+        ty += 66;
+        ctx.font = "700 23px " + FAMILY;
+        ctx.fillStyle = "#0E5AA8";
+        ctx.fillText("ふさわしさ " + pct + "% ／ 滝壺での登場 " + g[1] + "回", tx, ty + 8);
+      } else if (rare === 1) {
+        var t1 = "★★ レア! 知る人ぞ知る一本";
+        ctx.font = "900 24px " + FAMILY;
+        var bw1 = ctx.measureText(t1).width + 36;
+        roundRect(ctx, tx, ty - 6, bw1, 46, 23);
+        ctx.fillStyle = "#B482F0"; ctx.fill();
+        ctx.fillStyle = "#fff"; ctx.fillText(t1, tx + 18, ty + 26);
+        ty += 60;
+        ctx.font = "700 23px " + FAMILY;
+        ctx.fillStyle = "#0E5AA8";
+        ctx.fillText("ふさわしさ " + pct + "% ／ 滝壺での登場 " + g[1] + "回", tx, ty + 8);
+      } else {
+        ctx.font = "700 24px " + FAMILY;
+        ctx.fillStyle = "#0E5AA8";
+        ctx.fillText("ふさわしさ " + pct + "% ／ 滝壺での登場 " + g[1] + "回", tx, ty + 10);
+      }
 
       // フッター
+      ctx.font = "700 21px " + FAMILY;
+      ctx.fillStyle = "rgba(255,255,255,.9)";
+      ctx.fillText(HASHTAG + " #ふさわしいゲーム診断", tx, 556);
       ctx.font = "900 26px " + FAMILY;
       ctx.fillStyle = "#fff";
-      ctx.fillText("💧 ゲームの滝壺｜ふさわしいゲーム診断", tx, 585);
-      ctx.font = "700 21px " + FAMILY;
-      ctx.fillStyle = "rgba(255,255,255,.85)";
-      ctx.fillText(HASHTAG, tx, 555);
+      ctx.fillText("💧 ゲームの滝壺｜ふさわしいゲーム診断", tx, 590);
     };
 
     var start = function () {

@@ -648,6 +648,17 @@ span.ep-card-num {
 @keyframes sh-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; } }
 .sh-lede { text-align: center; font-size: 14px; color: var(--sub); line-height: 2; }
 .sh-lede strong { color: var(--primary-deep); font-family: var(--font-num); }
+.sh-lede-sub {
+  text-align: center; font-size: 12px; color: var(--faint);
+  line-height: 1.9; margin-top: 10px;
+}
+.sh-intro-actions { margin-top: 12px; display: flex; }
+.sh-intro-actions .sh-btn { flex: 1; }
+.sh-fusa-link {
+  margin-top: 14px; text-align: center; font-size: 11px; color: var(--faint);
+}
+.sh-fusa-link a { color: var(--faint); text-decoration: underline; }
+.sh-fusa-link a:hover { color: var(--accent-deep); }
 .sh-name-label {
   display: block; margin: 22px 0 6px; font-size: 12px; font-weight: 700; color: var(--sub);
 }
@@ -713,7 +724,26 @@ span.ep-card-num {
   margin-top: 16px; padding: 24px 20px;
   background: linear-gradient(160deg, #F3F8FF, #E3F0FE);
   border: 2px solid var(--band-blue); border-radius: 20px;
+  position: relative; overflow: hidden;
 }
+/* レア(2〜3回登場): 紫のご褒美カード */
+.sh-r-card.r1 {
+  background: linear-gradient(160deg, #F7F0FF, #EBDDFC);
+  border-color: #C9A9F0;
+}
+/* 超レア(1回だけ登場): 金のきらめきカード */
+.sh-r-card.r2 {
+  background: linear-gradient(160deg, #FFF8DD, #FFE9A8);
+  border-color: #F0BE45;
+  box-shadow: 0 6px 24px rgba(240, 190, 69, .45);
+}
+.sh-r-card.r2::after { /* 流れるきらめき */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 32%, rgba(255,255,255,.8) 50%, transparent 68%);
+  transform: translateX(-100%);
+  animation: sh-shine 2.8s ease-in-out infinite;
+}
+@keyframes sh-shine { 55%, 100% { transform: translateX(100%); } }
 .sh-r-label { font-size: 12.5px; font-weight: 700; color: var(--sub); }
 .sh-r-title {
   font-family: var(--font-display); font-weight: 900;
