@@ -127,8 +127,8 @@
       '<label class="sh-name-label" for="shName">なまえ(結果の画像に入ります・全角' + NAME_MAX + '文字まで)</label>' +
       '<input class="sh-name" id="shName" type="text" maxlength="' + NAME_MAX + '" placeholder="例: たわし" autocomplete="off">' +
       '<button class="sh-primary" id="shStart">診断をはじめる</button>' +
-      '<div class="sh-intro-actions"><a class="sh-btn share" href="https://x.com/intent/post?text=' + encodeURIComponent(introShare) + '" target="_blank" rel="noopener">𝕏 この診断をシェアする</a></div>' +
       '<p class="sh-note">結果は画像でシェアできます。' + esc(HASHTAG) + ' を付けてポストしてくれたら、番組が喜びます。</p>' +
+      '<p class="sh-intro-share"><a href="https://x.com/intent/post?text=' + encodeURIComponent(introShare) + '" target="_blank" rel="noopener">𝕏 この診断を友達にシェア</a></p>' +
       '<p class="sh-fusa-link">※「ふさわしいゲーム」は番組の<a href="series/fusawashii.html">名物企画</a>から生まれた診断です</p>' +
       '</div>';
     var nameInput = document.getElementById("shName");
@@ -454,7 +454,35 @@
         ctx.textBaseline = "alphabetic";
       }
       ctx.restore();
+
+      // レアはアートワーク右上に「スタンプ」で表示(縦の積み上げから外して重なりを防ぐ)
+      if (rare === 2 || rare === 1) {
+        var bt = rare === 2 ? "★★★ 超レア!" : "★★ レア!";
+        ctx.save();
+        ctx.translate(ax + as - 34, ay + 30);
+        ctx.rotate(9 * Math.PI / 180);
+        ctx.font = "900 34px " + FAMILY;
+        var bw = ctx.measureText(bt).width + 44, bh = 62;
+        ctx.shadowColor = "rgba(0,0,0,.32)"; ctx.shadowBlur = 14; ctx.shadowOffsetY = 4;
+        roundRect(ctx, -bw / 2, -bh / 2, bw, bh, bh / 2);
+        if (rare === 2) {
+          var gg = ctx.createLinearGradient(-bw / 2, 0, bw / 2, 0);
+          gg.addColorStop(0, "#FFD75E"); gg.addColorStop(1, "#FFAF2E");
+          ctx.fillStyle = gg;
+        } else ctx.fillStyle = "#A96BE8";
+        ctx.fill();
+        ctx.shadowColor = "transparent";
+        ctx.lineWidth = 4; ctx.strokeStyle = "rgba(255,255,255,.9)";
+        roundRect(ctx, -bw / 2, -bh / 2, bw, bh, bh / 2); ctx.stroke();
+        ctx.fillStyle = rare === 2 ? "#6B3C00" : "#fff";
+        ctx.textBaseline = "middle";
+        ctx.fillText(bt, 0, 2);
+        ctx.textBaseline = "alphabetic";
+        ctx.restore();
+      }
+
       // 画像の注釈
+      ctx.textAlign = "center";
       ctx.font = "700 21px " + FAMILY;
       ctx.fillStyle = "#0E5AA8";
       ctx.fillText("※画像は“この話をしてそうな回”のジャケットです", CX, ay + as + 42);
@@ -476,22 +504,8 @@
         function () { ctx.fillStyle = "#EE5A3A"; ctx.fill(); }, "#fff");
       ty += 60 + 18;
 
-      // レアバッジ
-      if (rare === 2) {
-        pill("★★★ 超レア!! 一度だけ話題に出た幻の一本", ty, "900 30px", 28, 58,
-          function (x, w) {
-            var gr = ctx.createLinearGradient(x, 0, x + w, 0);
-            gr.addColorStop(0, "#FFD75E"); gr.addColorStop(1, "#FFAF2E");
-            ctx.fillStyle = gr; ctx.fill();
-          }, "#6B3C00");
-        ty += 58 + 18;
-      } else if (rare === 1) {
-        pill("★★ レア! 知る人ぞ知る一本", ty, "900 30px", 26, 56,
-          function () { ctx.fillStyle = "#B482F0"; ctx.fill(); }, "#fff");
-        ty += 56 + 18;
-      }
-
       // ふさわしさ% / 登場回数(半透明の濃紺ピルに白文字。どの背景でも読める)
+      // レアはアートワーク角のスタンプに出しているので、ここは常にこの1行だけ
       pill("ふさわしさ " + pct + "%　／　滝壺での登場 " + g[1] + "回", ty, "700 30px", 26, 56,
         function () { ctx.fillStyle = "rgba(12, 46, 90, .30)"; ctx.fill(); }, "#fff");
 
