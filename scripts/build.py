@@ -311,7 +311,7 @@ def build_index():
 <h1 class="visually-hidden">{SITE['title']}</h1>
 <p class="catch">
     {esc(SITE['tagline'])
-        .replace('最新作まで！ ゲーム', '最新作まで！<br>ゲーム')
+        .replace('最新作まで、ゲーム', '最新作まで<br>ゲーム')
         .replace('ありのゲーム', 'ありの<br>ゲーム')}
 </p>
 <div class="hero-chips">
@@ -391,7 +391,7 @@ YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel=
 <section class="section band band-soft">
 {sec_title("おたより募集中", "LETTERS")}
 <div class="grid-2">
-<a class="card" href="otayori.html"><strong>📮 おたよりフォーム</strong><br><span style="font-size:12px;color:var(--sub);">番組の感想・リクエスト・クイズの回答はこちらから</span></a>
+<a class="card" href="otayori.html"><strong>📮 おたよりフォーム</strong><br><span style="font-size:12px;color:var(--sub);">番組の感想・リクエストなどはこちらから</span></a>
 <a class="card" href="mailto:{SITE['email']}"><strong>✉️ メールでも受付</strong><br><span style="font-size:12px;color:var(--sub);font-family:var(--font-num);">{SITE['email']}</span></a>
 </div>
 </section>
@@ -686,7 +686,7 @@ def build_otayori():
     page += header(root, "otayori")
     page += f"""<main class="container">
 <div class="page-head"><h1 class="page-title"><span class="en">LETTER FORM</span>おたよりフォーム</h1>
-<p style="font-size:13px;color:var(--sub);margin-top:6px;">番組の感想、話してほしいテーマ、アートワーククイズの回答など、なんでもお寄せください。<br>いただいたおたよりは番組内で紹介させていただくことがあります。</p></div>
+<p style="font-size:13px;color:var(--sub);margin-top:6px;">番組の感想、話してほしいテーマなど、なんでもお寄せください。<br>いただいたおたよりは番組内で紹介させていただくことがあります。</p></div>
 
 <div class="form-embed" style="margin-top:16px;">
 <iframe src="{SITE['otayori_form']}" title="おたよりフォーム" loading="lazy">読み込んでいます…</iframe>
@@ -773,12 +773,12 @@ def build_shindan():
 <main class="container">
 <div class="page-head" style="text-align:center;">
 <h1 class="page-title"><span class="en">FUSAWASHII GAME SHINDAN</span>ふさわしいゲーム診断</h1>
-<p style="font-size:13px;color:var(--sub);margin-top:8px;">滝壺の3人がこれまでに語ってきた <strong style="color:var(--primary-deep);">全{n_games}タイトル</strong> の中から、<br>いまのあなたに"ふさわしい一本"を診断します。</p>
+<p style="font-size:13px;color:var(--sub);margin-top:8px;">滝壺の3人がこれまでに語ってきた <br><strong style="color:var(--primary-deep);">全{n_games}タイトル</strong> の中から<br>いまのあなたに"ふさわしい一本"を診断します。</p>
 </div>
 <div class="shindan-stage" id="shindanPanel" data-site="{esc(base)}" data-hashtag="{esc(SITE['hashtag'])}">
 <p style="text-align:center;color:var(--faint);padding:40px 0;">読み込み中…</p>
 </div>
-<p class="search-note" style="text-align:center;margin-top:14px;">診断プールは番組の全エピソードから自動生成。<br>新しい回が配信されるたびに、結果の種類も増えていきます。<br>ごく稀にゲームでないものが出てしまう場合があります。</p>
+<p class="search-note" style="text-align:center;margin-top:14px;">診断プールは番組の全エピソードから自動生成。<br>新しい回が配信されるたびに、結果の種類も増えていきます。<br>※ごく稀にゲームでないものが出てしまう場合があります。</p>
 </main>
 <script>window.__shindanVer="{av('data/shindan.json')}";</script>
 <script src="{root}assets/js/shindan.js?v={av('assets/js/shindan.js')}"></script>"""
