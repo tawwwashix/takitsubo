@@ -260,7 +260,11 @@
 
     drawShareImage(dispName, type[0], g, ep, rare, pct);
 
-    document.getElementById("shRetry").addEventListener("click", renderIntro);
+    document.getElementById("shRetry").addEventListener("click", function () {
+      renderIntro();
+      // 結果ページの下部にいるので、診断の先頭(ページ最上部)へ戻す
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
     document.getElementById("shSave").addEventListener("click", function () {
       var a = document.createElement("a");
       a.download = "fusawashii-shindan.png";
