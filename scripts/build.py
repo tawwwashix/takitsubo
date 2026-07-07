@@ -132,8 +132,8 @@ def footer(root):
     if blog_url.startswith("TODO"): blog_url = "#"
     nav = (
         f'<a href="{root}index.html">ホーム</a><a href="{root}episodes/">エピソード</a>'
-        f'<a href="{root}series/">名物企画</a><a href="{root}news/">お知らせ</a>'
-        f'<a href="{root}shindan.html">ふさわしいゲーム診断</a>'
+        f'<a href="{root}series/">名物企画</a><a href="{root}shindan.html">ふさわしいゲーム診断</a>'
+        f'<a href="{root}news/">お知らせ</a>'
         f'<a href="{root}guide.html">ポッドキャストの聴き方</a><a href="{root}otayori.html">おたより</a>'
         f'<a href="{SITE["x_url"]}" target="_blank" rel="noopener">公式X</a>'
         f'<a href="{esc(blog_url)}" target="_blank" rel="noopener">ブログ「{esc(blog.get("label", "ブログ"))}」</a>'
@@ -141,7 +141,7 @@ def footer(root):
     return f"""<footer class="site-footer"><div class="footer-inner">
 <div class="footer-brand"><img class="footer-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}"></div>
 <div class="footer-en">GAME NO TAKITSUBO — WEEKLY GAME TALK PODCAST</div>
-<p class="footer-desc">{esc(SITE['tagline'])}。{esc(SITE['schedule'])}。感想は {esc(SITE['hashtag'])} でどうぞ。</p>
+<p class="footer-desc">{esc(SITE['tagline'])}。{esc(SITE['schedule'])}。<br>感想は {esc(SITE['hashtag'])} でどうぞ。</p>
 <nav class="footer-nav" aria-label="フッターメニュー">{nav}</nav>
 <p class="footer-note">お問い合わせ: <a href="mailto:{SITE['email']}">{SITE['email']}</a><br>
 おたよりフォームでいただいた内容は番組内で紹介させていただくことがあります。個人情報は番組運営の目的以外には使用しません。<br>
@@ -304,7 +304,11 @@ def build_index():
 </div>
 <div class="hero-text">
 <h1 class="visually-hidden">{SITE['title']}</h1>
-<p class="catch">{esc(SITE['tagline']).replace('ならなんでも', 'なら<br>なんでも')}</p>
+<p class="catch">
+    {esc(SITE['tagline'])
+        .replace('最新作まで！ ゲーム', '最新作まで！<br>ゲーム')
+        .replace('ありのゲーム', 'ありの<br>ゲーム')}
+</p>
 <div class="hero-chips">
 <span class="chip">{esc(SITE['schedule'])}</span>
 <span class="chip">全{ep_count}回配信中</span>
@@ -677,7 +681,7 @@ def build_otayori():
     page += header(root, "otayori")
     page += f"""<main class="container">
 <div class="page-head"><h1 class="page-title"><span class="en">LETTER FORM</span>おたよりフォーム</h1>
-<p style="font-size:13px;color:var(--sub);margin-top:6px;">番組の感想、話してほしいテーマ、アートワーククイズの回答など、なんでもお寄せください。いただいたおたよりは番組内で紹介させていただくことがあります。</p></div>
+<p style="font-size:13px;color:var(--sub);margin-top:6px;">番組の感想、話してほしいテーマ、アートワーククイズの回答など、なんでもお寄せください。<br>いただいたおたよりは番組内で紹介させていただくことがあります。</p></div>
 
 <div class="form-embed" style="margin-top:16px;">
 <iframe src="{SITE['otayori_form']}" title="おたよりフォーム" loading="lazy">読み込んでいます…</iframe>
@@ -769,7 +773,7 @@ def build_shindan():
 <div class="shindan-stage" id="shindanPanel" data-site="{esc(base)}" data-hashtag="{esc(SITE['hashtag'])}">
 <p style="text-align:center;color:var(--faint);padding:40px 0;">読み込み中…</p>
 </div>
-<p class="search-note" style="text-align:center;margin-top:14px;">診断プールは番組の全エピソードから自動生成。<br>新しい回が配信されるたびに、結果の種類も増えていきます。</p>
+<p class="search-note" style="text-align:center;margin-top:14px;">診断プールは番組の全エピソードから自動生成。<br>新しい回が配信されるたびに、結果の種類も増えていきます。<br>ごく稀にゲームでないものが出てしまう場合があります。</p>
 </main>
 <script>window.__shindanVer="{av('data/shindan.json')}";</script>
 <script src="{root}assets/js/shindan.js?v={av('assets/js/shindan.js')}"></script>"""
