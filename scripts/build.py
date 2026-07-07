@@ -74,6 +74,11 @@ def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="websit
     og_img = SITE["base_url"].rstrip("/") + "/" + (og_image or "assets/img/ogp.png")
     ld = f'\n<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
     pub = f'\n<meta property="article:published_time" content="{published}">' if published else ""
+    # Googleアナリティクス(site.jsonのga_idを入れると全ページに読み込まれる。空なら何も出さない)
+    gid = SITE.get("ga_id", "").strip()
+    ga = (f'\n<script async src="https://www.googletagmanager.com/gtag/js?id={gid}"></script>'
+          f'\n<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}'
+          f'gtag("js",new Date());gtag("config","{gid}");</script>') if gid else ""
     return f"""<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -93,7 +98,7 @@ def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="websit
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{root}assets/css/style.css?v={av('assets/css/style.css')}">{ld}
+<link rel="stylesheet" href="{root}assets/css/style.css?v={av('assets/css/style.css')}">{ld}{ga}
 </head>
 <body>"""
 

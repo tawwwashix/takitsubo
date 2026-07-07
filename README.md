@@ -190,6 +190,16 @@ python scripts/update_from_rss.py
 `slug` はURLになるので英数字とハイフンで。`body` の配列1要素が1段落です。
 追加したら `python scripts/build.py`(GitHubへcommit/pushで公開。ヒーロー直下のNEWS帯とお知らせ一覧に反映)。
 
+### 9. Googleアナリティクス(GA4)を入れる
+1. Googleアナリティクスで**この番組用のプロパティ / データストリーム**を新規作成
+   (別サイトのストリームは使い回さない)。`G-XXXXXXXXXX` という**測定ID**が発行される
+2. `data/site.json` の `ga_id` にそのIDを入れる:
+   ```json
+   "ga_id": "G-XXXXXXXXXX",
+   ```
+3. `python scripts/build.py` → commit → push。全ページに計測タグが入る
+   (空文字のあいだは何も読み込まれないので、入れるまで影響なし)
+
 ## Claude Code への引き継ぎ方
 
 このフォルダごとClaude Codeに渡せば、続きの開発ができます。手順:
