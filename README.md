@@ -31,12 +31,8 @@ takitsubo/
 
 ## 最初にやること(公開前チェックリスト)
 
-1. **`data/site.json` の TODO を埋める**
-   - Spotify / Apple Podcasts / Amazon Music / LISTEN の番組URL
-   - 夜中たわしのブログ「夜中に前へ」のURL
-   - `base_url` を実際の公開URLに(例: `https://ユーザー名.github.io/takitsubo`)
-2. `python3 scripts/build.py` を実行して再生成
-3. ローカル確認: `python3 -m http.server` を実行して `http://localhost:8000` を開く
+1. `python3 scripts/build.py` を実行して再生成
+2. ローカル確認: `python3 -m http.server` を実行して `http://localhost:8000` を開く
    (※検索機能は fetch を使うため、ファイル直開きでは動きません。必ずサーバー経由で確認)
 
 ## 公開のしかた(GitHub Pages・無料)
