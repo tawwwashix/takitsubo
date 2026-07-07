@@ -310,7 +310,7 @@ def build_index():
 <span class="chip">全{ep_count}回配信中</span>
 </div>
 <a class="cta-primary" href="episodes/{latest['number']}.html">{SVG['play']}最新回 #{latest['number']} を聴く</a>
-<span class="cta-note">アプリ不要・会員登録不要・すべて無料</span>
+<span class="cta-note">アプリやブラウザからすべて無料で聴けます！</span>
 <span class="services-label">ON AIR — 各サービスで配信中</span>
 <div class="services">{service_buttons(root)}</div>
 </div>
