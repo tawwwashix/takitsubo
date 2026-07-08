@@ -9082,6 +9082,87 @@
    "guid": "8991808f-9767-4569-94ce-2c884262aef4",
    "image": "assets/img/ep/112.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1782910835539-9d14f46777794.jpg"
+  },
+  {
+   "number": 113,
+   "title": "みんなのゲームにまつわる儀式！ 冷たいお茶と熱いコーヒーでメドローア",
+   "tags": [],
+   "series": null,
+   "description": "リスナーのみなさんから投稿いただいた、ゲームに関係する儀式を紹介します！\nさらにシュレディンガーズ・コールの話、\nそして今回は重要なお知らせもあります！\nいいお知らせですが状況はわるいです！",
+   "games": [
+    "ドラゴンボールZ 超サイヤ伝説",
+    "リズム天国 ミラクルスターズ",
+    "ドラゴンボール3 悟空伝",
+    "ポケットモンスターシリーズ",
+    "シュレディンガーズ・コール",
+    "アクスレイ",
+    "ファイナルファンタジー6",
+    "アイギーナの予言",
+    "アイドルマスターシリーズ",
+    "アーバンチャンピオン",
+    "アクトレイザー",
+    "ウマ娘 プリティーダービー",
+    "原神",
+    "がんばれゴエモン大集合！"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "00:55",
+     "label": "準備の儀式"
+    },
+    {
+     "time": "10:36",
+     "label": "おまじない"
+    },
+    {
+     "time": "15:34",
+     "label": "音ゲーの儀式"
+    },
+    {
+     "time": "20:58",
+     "label": "その他の儀式"
+    },
+    {
+     "time": "35:32",
+     "label": "わるい儀式"
+    },
+    {
+     "time": "43:55",
+     "label": "まとめの儀式"
+    },
+    {
+     "time": "47:11",
+     "label": "滝壺3分ゲーム紹介（シュレディンガーズ・コール）"
+    },
+    {
+     "time": "56:17",
+     "label": "重要なお知らせ"
+    },
+    {
+     "time": "1:04:01",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:13:33",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:26:55",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/113-e3lqion"
+   },
+   "guid": "d364eea2-fb46-49b0-bdec-56863ea2128c",
+   "date": "2026-07-08",
+   "date_estimated": false,
+   "image": "assets/img/ep/113.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1783516430186-9fe0553d96516.jpg"
   }
  ]
 }
