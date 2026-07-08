@@ -463,7 +463,7 @@
       if (rare === 2 || rare === 1) {
         var bt = rare === 2 ? "★★★ 超レア!" : "★★ レア!";
         ctx.save();
-        ctx.translate(ax + as - 34, ay + 30);
+        ctx.translate(ax + as - 18, ay + 39);
         ctx.rotate(9 * Math.PI / 180);
         ctx.font = "900 34px " + FAMILY;
         var bw = ctx.measureText(bt).width + 44, bh = 62;
