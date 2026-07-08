@@ -251,7 +251,7 @@
       '<div class="sh-actions">' +
       '<button class="sh-btn save" id="shSave">📥 画像を保存</button>' +
       '<button class="sh-btn copy" id="shCopy">📋 画像をコピー</button>' +
-      '<a class="sh-btn share" id="shX" href="https://x.com/intent/post?text=' + encodeURIComponent(shareText) + '" target="_blank" rel="noopener">𝕏 Xでシェアする</a>' +
+      '<a class="sh-btn share" id="shX" href="https://x.com/intent/post?text=' + encodeURIComponent(shareText) + '" target="_blank" rel="noopener">𝕏 でシェアする</a>' +
       '</div>' +
       '<p class="sh-note">画像を保存/コピーしてから、Xのポストに添付すると盛り上がります!</p>' +
       '<button class="sh-btn retry" id="shRetry">🔄 もう一度診断する</button>' +
