@@ -24,8 +24,8 @@ SITE = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 DATA_PATH = ROOT / "data/episodes.json"
 IMG_DIR = ROOT / "assets/img/ep"
 IMG_REL = "assets/img/ep"
-IMG_SIZE = 800      # 保存する最大辺(px)。カード表示には十分な解像度
-IMG_QUALITY = 82    # JPEG品質
+IMG_SIZE = 640      # 保存する最大辺(px)。カード表示・シェア画像(480px描画)に十分
+IMG_QUALITY = 80    # JPEG品質
 
 
 def save_resized(raw_bytes, num):

@@ -49,30 +49,38 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* 全ページ共通: 画面全体を泡がゆっくり上っていく(コンテンツの背後) */
+/* 全ページ共通: 画面全体を泡がゆっくり上っていく(コンテンツの背後)。
+   GPU合成されるtransformで動かし、再描画コストを避ける(::before/::afterで2速度) */
 .ambient-bubbles {
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  overflow: hidden;
+}
+.ambient-bubbles::before, .ambient-bubbles::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 0;
+  will-change: transform;
+}
+.ambient-bubbles::before {
+  height: calc(100% + 860px);
   background-image:
     radial-gradient(circle 6px at 10% 88%, rgba(255,255,255,.34) 97%, transparent),
     radial-gradient(circle 3px at 26% 52%, rgba(255,255,255,.30) 97%, transparent),
     radial-gradient(circle 8px at 89% 72%, rgba(255,255,255,.22) 97%, transparent),
     radial-gradient(circle 4px at 64% 28%, rgba(255,255,255,.28) 97%, transparent),
-    radial-gradient(circle 5px at 44% 8%, rgba(255,255,255,.20) 97%, transparent),
+    radial-gradient(circle 5px at 44% 8%, rgba(255,255,255,.20) 97%, transparent);
+  background-size: auto 860px;
+  animation: ambient-rise-a 30s linear infinite;
+}
+.ambient-bubbles::after {
+  height: calc(100% + 1500px);
+  background-image:
     radial-gradient(circle 10px at 78% 42%, rgba(174,222,255,.20) 97%, transparent),
     radial-gradient(circle 4px at 6% 30%, rgba(174,222,255,.26) 97%, transparent),
     radial-gradient(circle 7px at 52% 66%, rgba(174,222,255,.18) 97%, transparent);
-  background-size:
-    auto 860px, auto 860px, auto 860px, auto 860px, auto 860px,
-    auto 1500px, auto 1500px, auto 1500px;
-  animation: ambient-rise 30s linear infinite;
+  background-size: auto 1500px;
+  animation: ambient-rise-b 30s linear infinite;
 }
-@keyframes ambient-rise {
-  to {
-    background-position:
-      0 -860px, 0 -860px, 0 -860px, 0 -860px, 0 -860px,
-      0 -1500px, 0 -1500px, 0 -1500px;
-  }
-}
+@keyframes ambient-rise-a { to { transform: translateY(-860px); } }
+@keyframes ambient-rise-b { to { transform: translateY(-1500px); } }
 
 a { color: var(--accent-deep); text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -157,8 +165,10 @@ img { max-width: 100%; display: block; }
   background: linear-gradient(165deg, var(--sky-1) 0%, var(--sky-2) 55%, var(--sky-3) 100%);
   padding: 52px 0 96px; position: relative; overflow: hidden;
 }
-.hero::before { /* 湧き上がる泡 */
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+.hero::before { /* 湧き上がる泡(GPU合成のtransformで動かす) */
+  content: ""; position: absolute; left: 0; right: 0; top: 0;
+  height: calc(100% + 520px);
+  pointer-events: none; z-index: 0; will-change: transform;
   background:
     radial-gradient(circle 5px at 12% 78%, rgba(255,255,255,.55) 98%, transparent),
     radial-gradient(circle 8px at 20% 60%, rgba(255,255,255,.35) 98%, transparent),
@@ -181,7 +191,7 @@ img { max-width: 100%; display: block; }
   opacity: .55;
 }
 @keyframes waterfall { to { background-position: 0 54px, 0 82px; } }
-@keyframes bubbles-rise { to { background-position: 0 -520px; } }
+@keyframes bubbles-rise { to { transform: translateY(-520px); } }
 
 .hero-inner {
   max-width: 960px; margin: 0 auto; padding: 0 24px;

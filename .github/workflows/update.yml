@@ -2,8 +2,10 @@ name: RSSから自動更新
 
 on:
   schedule:
-    # 毎週水曜 23:10 JST(= 14:10 UTC)と木曜朝に念のためもう1回
-    - cron: "10 14 * * 3"
+    # 毎週水曜 23:30 JST(= 14:30 UTC)と木曜朝に念のためもう1回。
+    # 注意: GitHub Actionsのcronは混雑時に1〜2時間遅れることがある(仕様)。
+    #       時刻ぴったりに動かしたいときは Actions → Run workflow で手動実行する。
+    - cron: "30 14 * * 3"
     - cron: "0 22 * * 3"
   workflow_dispatch: {}   # 手動実行も可能
 
@@ -14,9 +16,9 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
