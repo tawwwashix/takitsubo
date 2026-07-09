@@ -812,27 +812,32 @@ span.ep-card-num {
 .sh-canvas-caption {
   font-size: 11.5px; color: var(--faint); margin-top: 8px; text-align: center;
 }
-.sh-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+/* 結果アクション: トップ/エピソードページの .service-btn と同じピル型テイスト */
+.sh-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; justify-content: center; }
 .sh-btn {
-  appearance: none; border: none; cursor: pointer; flex: 1 1 160px;
-  font-family: var(--font-display); font-weight: 900; font-size: 14px;
-  padding: 14px 16px; border-radius: 14px; text-align: center;
-  transition: transform .12s, box-shadow .12s;
+  appearance: none; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  font-family: inherit; font-weight: 700; font-size: 14px;
+  padding: 12px 20px; border-radius: 999px;
+  background: rgba(255, 255, 255, .95); color: var(--primary-deep);
+  border: 1.5px solid var(--line);
+  box-shadow: 0 3px 12px rgba(14, 90, 168, .2);
+  transition: transform .15s, box-shadow .15s, border-color .15s;
 }
-.sh-btn.save { background: var(--band-blue); color: var(--primary-deep); box-shadow: 0 5px 0 #A9CFEE; }
-.sh-btn.copy { background: var(--band-blue); color: var(--primary-deep); box-shadow: 0 5px 0 #A9CFEE; }
-.sh-btn.share { background: #101419; color: #fff; box-shadow: 0 5px 0 #000; }
-.sh-btn:hover { transform: translateY(2px); box-shadow: 0 3px 0 rgba(0,0,0,.25); text-decoration: none; }
+.sh-btn svg { width: 15px; height: 15px; }
+.sh-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: var(--primary); text-decoration: none; }
+.sh-btn.share { background: #101419; color: #fff; border-color: #101419; }
+.sh-btn.share svg { color: #fff; }
+.sh-btn.share:hover { border-color: #101419; }
 /* もう一度診断する: 主要ボタンより控えめだが、押す場所は明確な小ボタン */
 .sh-btn.retry {
-  flex: none; display: block; width: auto; margin: 14px auto 0;
-  padding: 10px 22px; font-size: 13px; border-radius: 999px;
-  background: var(--surface); color: var(--sub);
-  border: 1.5px solid var(--line); box-shadow: 0 3px 0 var(--line);
+  flex: none; width: auto; margin: 14px auto 0;
+  padding: 10px 22px; font-size: 13px;
+  color: var(--sub); box-shadow: none;
 }
 .sh-btn.retry:hover {
   color: var(--accent-deep); border-color: var(--accent);
-  box-shadow: 0 3px 0 #F3C0B2; transform: translateY(1px);
+  box-shadow: 0 3px 12px rgba(238, 90, 58, .18);
 }
 
 /* 検索該当なしのヘルプボックス */

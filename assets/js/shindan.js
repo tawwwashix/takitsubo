@@ -91,6 +91,9 @@
   var state = { name: "", idx: 0, answers: [], axes: [0, 0, 0, 0, 0] };
   var DATA = null; // shindan.json
 
+  // Xロゴ(サイト共通のヘッダー/エピソードページと同じもの)
+  var X_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.4Z"/></svg>';
+
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
@@ -128,7 +131,7 @@
       '<input class="sh-name" id="shName" type="text" maxlength="' + NAME_MAX + '" placeholder="例: たわし" autocomplete="off" value="' + esc(state.name || "") + '">' +
       '<button class="sh-primary" id="shStart">診断をはじめる</button>' +
       '<p class="sh-note">結果は画像でシェアできます。' + esc(HASHTAG) + ' を付けてポストしてくれたら、番組が喜びます。</p>' +
-      '<p class="sh-intro-share"><a href="https://x.com/intent/post?text=' + encodeURIComponent(introShare) + '" target="_blank" rel="noopener">𝕏 この診断を友達にシェア</a></p>' +
+      '<p class="sh-intro-share"><a href="https://x.com/intent/post?text=' + encodeURIComponent(introShare) + '" target="_blank" rel="noopener">' + X_SVG + 'この診断を友達にシェア</a></p>' +
       '<p class="sh-fusa-link">※「ふさわしいゲーム」は番組の<a href="series/fusawashii.html">名物企画</a>から生まれた診断です</p>' +
       '</div>';
     var nameInput = document.getElementById("shName");
@@ -251,7 +254,7 @@
       '<div class="sh-actions">' +
       '<button class="sh-btn save" id="shSave">📥 画像を保存</button>' +
       '<button class="sh-btn copy" id="shCopy">📋 画像をコピー</button>' +
-      '<a class="sh-btn share" id="shX" href="https://x.com/intent/post?text=' + encodeURIComponent(shareText) + '" target="_blank" rel="noopener">𝕏 でシェアする</a>' +
+      '<a class="sh-btn share" id="shX" href="https://x.com/intent/post?text=' + encodeURIComponent(shareText) + '" target="_blank" rel="noopener">' + X_SVG + 'Xでシェアする</a>' +
       '</div>' +
       '<p class="sh-note">画像を保存/コピーしてから、Xのポストに添付すると盛り上がります!</p>' +
       '<button class="sh-btn retry" id="shRetry">🔄 もう一度診断する</button>' +
