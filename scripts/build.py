@@ -334,7 +334,7 @@ def build_index():
 {news_bar}
 
 <section class="section">
-<div class="info-box"><strong>ポッドキャストってなに?</strong><br>
+<div class="info-box"><strong>ポッドキャストってなに？</strong><br>
 無料で聴けるネットラジオのようなものです。アプリを入れなくても、上のボタンからブラウザですぐ再生できます。通勤・家事・寝る前のおともにどうぞ。
 <a href="guide.html">くわしい聴き方はこちら →</a></div>
 </section>
@@ -344,7 +344,7 @@ def build_index():
 <img class="sb-chara" src="assets/img/rock_ichigo.png" alt="" aria-hidden="true">
 <span class="sb-body">
 <span class="sb-en">FUSAWASHII GAME SHINDAN</span>
-<span class="sb-title">あなたに"ふさわしいゲーム"を診断!</span>
+<span class="sb-title">あなたに"ふさわしいゲーム"を診断！</span>
 <span class="sb-desc">全{ep_count}回のトークデータ・{shindan_count}タイトルの中から、運命の一本が見つかる。結果はシェアして自慢しよう。</span>
 </span>
 <span class="sb-cta">診断する →</span>
@@ -371,7 +371,7 @@ def build_index():
 <div class="grid-3">{members}</div>
 <p style="font-size:12px;color:var(--sub);margin-top:12px;">
 夜中たわしのブログ「<a href="{esc(blog_url)}" target="_blank" rel="noopener">夜中に前へ</a>」では、ポッドキャストの更新情報も記事になっています。
-YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel="noopener">ゲーム実況</a>も配信中!</p>
+YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel="noopener">ゲーム実況</a>も配信中！</p>
 </section>
 
 <section class="section band band-soft">
@@ -383,7 +383,7 @@ YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel=
 {sec_title("公式X", "OFFICIAL X")}
 <div class="card" style="text-align:center;padding:26px 20px;">
 <p style="font-size:14px;color:var(--sub);margin-bottom:18px;">最新情報・配信告知・こぼれ話は公式Xで。<br>
-感想は <strong style="color:var(--ink);">{esc(SITE['hashtag'])}</strong> でポストしていただければ、すべて読んでいます!</p>
+感想は <strong style="color:var(--ink);">{esc(SITE['hashtag'])}</strong> でポストしていただければ、すべて読んでいます！</p>
 <div class="x-actions">
 <a class="service-btn x-post" href="{esc(x_post_url(SITE['hashtag'] + ' '))}" target="_blank" rel="noopener">{SVG['x']}{esc(SITE['hashtag'])} でポストする</a>
 <a class="service-btn" href="{SITE['x_url']}" target="_blank" rel="noopener">{SVG['x']}{esc(SITE['x_handle'])} をフォロー</a>
@@ -426,7 +426,7 @@ def build_episode_list():
 <div class="page-head"><h1 class="page-title"><span class="en">EPISODES</span>エピソード一覧</h1></div>
 
 <div class="searchbox">{SVG['search']}
-<input type="search" id="q" placeholder="ゲーム名・キーワードで検索(例:ドラクエ、わるい村、#50)" aria-label="エピソードを検索" autocomplete="off">
+<input type="search" id="q" placeholder="ゲーム名・キーワードで検索（例:ドラクエ、わるい村、#50）" aria-label="エピソードを検索" autocomplete="off">
 <button type="button" class="search-clear" id="qClear" aria-label="検索キーワードを消す" hidden>{SVG['close']}</button>
 </div>
 <p class="search-note">💡 タイトルだけでなく、<strong>番組内で話題に出たゲームタイトル</strong>も検索対象です。</p>
@@ -446,8 +446,8 @@ def build_episode_list():
 <div id="empty" style="display:none;" class="empty-box">
 <p class="empty-title">🔍 該当するエピソードが見つかりませんでした</p>
 <ul class="empty-hint">
-<li>別の表記で試してみてください(例: FF ↔ ファイナルファンタジー、ドラクエ ↔ ドラゴンクエスト)</li>
-<li>ひらがな・カタカナは自動で変換されます(「どらくえ」でもOK)</li>
+<li>別の表記で試してみてください（例: FF ↔ ファイナルファンタジー、ドラクエ ↔ ドラゴンクエスト）</li>
+<li>ひらがな・カタカナは自動で変換されます（「どらくえ」でもOK）</li>
 <li>上の「絞り込み」タグから企画・テーマで探すこともできます</li>
 </ul>
 </div>
@@ -467,7 +467,7 @@ def build_episode_pages():
         next_e = EPS[i + 1] if i < len(EPS) - 1 else None
 
         tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in e["tags"])
-        date_note = ' <span class="date-note">(推定)</span>' if e.get("date_estimated") else ""
+        date_note = ' <span class="date-note">（推定）</span>' if e.get("date_estimated") else ""
 
         desc_html = f'<div class="card ep-desc">{esc(e["description"])}</div>' if e["description"] else ""
 
@@ -528,7 +528,7 @@ def build_episode_pages():
         player_html = ""
         if embed:
             player_html = f"""<div class="player-box" data-embed="{esc(embed)}">
-<button class="player-load" type="button">{SVG['play']}この回をこのページで再生<span class="player-note">(Spotifyプレイヤーを読み込みます)</span></button>
+<button class="player-load" type="button">{SVG['play']}この回をこのページで再生<span class="player-note">（Spotifyプレイヤーを読み込みます）</span></button>
 </div>"""
 
         # おたより/Xポストのボタン(上下2箇所に置く)
@@ -643,13 +643,13 @@ def build_news():
 # ============================================================ guide.html
 def build_guide():
     root = ""
-    page = head("ポッドキャストの聴き方", "ポッドキャストとは?無料?アプリは必要?ゲームの滝壺の聴き方をやさしく解説。", root, "guide.html")
+    page = head("ポッドキャストの聴き方", "ポッドキャストとは？無料？アプリは必要？ゲームの滝壺の聴き方をやさしく解説。", root, "guide.html")
     page += header(root, "guide")
     page += f"""<main class="container">
 <div class="page-head"><h1 class="page-title"><span class="en">HOW TO LISTEN</span>ポッドキャストの聴き方</h1></div>
 
 <section class="section">
-{sec_title("ポッドキャストってなに?", "ABOUT PODCAST")}
+{sec_title("ポッドキャストってなに？", "ABOUT PODCAST")}
 <div class="card" style="font-size:14px;color:var(--sub);">
 <p style="margin-bottom:1em;">ポッドキャストは、<strong style="color:var(--ink);">無料で聴けるインターネットラジオ</strong>のようなものです。好きなときに、好きな回から、何度でも聴けます。</p>
 <p style="margin-bottom:1em;">「ゲームの滝壺」もすべての回を無料で配信しています。会員登録や課金は一切不要です。</p>
@@ -663,7 +663,7 @@ def build_guide():
 <p style="margin-bottom:1em;"><strong style="color:var(--ink);">1. 下のボタンから好きなサービスを選ぶ</strong><br>
 ふだん使っているものがあればそれでOK。迷ったらSpotifyかYouTubeが手軽です。</p>
 <p style="margin-bottom:1em;"><strong style="color:var(--ink);">2. 再生ボタンを押す</strong><br>
-それだけです! アプリを入れると、新しい回の通知を受け取れて便利です。</p>
+それだけです！ アプリを入れると、新しい回の通知を受け取れて便利です。</p>
 <p><strong style="color:var(--ink);">3. 気に入ったら「フォロー」</strong><br>
 毎週水曜23時ごろの新エピソードを見逃さずに聴けます。</p>
 <div class="services" style="margin-top:18px;">{service_buttons(root)}</div>
@@ -671,7 +671,7 @@ def build_guide():
 </section>
 
 <section class="section">
-{sec_title("YouTubeではゲーム実況も!", "YOUTUBE")}
+{sec_title("YouTubeではゲーム実況も！", "YOUTUBE")}
 <div class="card" style="font-size:14px;color:var(--sub);">
 <p>YouTubeチャンネルではポッドキャストに加えて<strong style="color:var(--ink);">ゲーム実況</strong>も配信しています。トークで気になったゲームの実際のプレイもぜひ。</p>
 <p style="margin-top:12px;"><a class="service-btn svc-youtube" style="display:inline-flex;" href="{SITE['services']['youtube']['url']}" target="_blank" rel="noopener">{SVG['youtube']}YouTubeチャンネルへ</a></p>
@@ -697,8 +697,8 @@ def build_otayori():
 
 <div class="info-box" style="margin-top:18px;">
 フォームがうまく表示されない場合は <a href="{SITE['otayori_form']}" target="_blank" rel="noopener">こちらから直接開く</a> か、
-メール(<a href="mailto:{SITE['email']}">{SITE['email']}</a>)でも受け付けています。
-Xのハッシュタグ {esc(SITE['hashtag'])} での感想もすべて読んでいます!
+メール（<a href="mailto:{SITE['email']}">{SITE['email']}</a>）でも受け付けています。
+Xのハッシュタグ {esc(SITE['hashtag'])} での感想もすべて読んでいます！
 <div class="x-actions" style="margin-top:14px;">
 <a class="service-btn x-post" href="{esc(x_post_url(SITE['hashtag'] + ' '))}" target="_blank" rel="noopener">{SVG['x']}{esc(SITE['hashtag'])} でポストする</a>
 </div>
@@ -716,7 +716,7 @@ def build_privacy():
     ga_used = bool(SITE.get("ga_id", "").strip())
     ga_section = ("""
 <h2 class="pp-h">1. アクセス解析ツールについて</h2>
-<p>当サイトでは、サイトの利用状況を把握し改善するために、Googleが提供するアクセス解析ツール「Googleアナリティクス」を使用しています。Googleアナリティクスは、Cookie(クッキー)を利用して、個人を特定しない形で当サイトの利用データ(閲覧ページ、滞在時間、使用しているブラウザや地域などの統計情報)を収集します。</p>
+<p>当サイトでは、サイトの利用状況を把握し改善するために、Googleが提供するアクセス解析ツール「Googleアナリティクス」を使用しています。Googleアナリティクスは、Cookie（クッキー）を利用して、個人を特定しない形で当サイトの利用データ（閲覧ページ、滞在時間、使用しているブラウザや地域などの統計情報）を収集します。</p>
 <p>これらのデータは匿名で収集されており、個人を特定するものではありません。収集の仕組みやGoogleにおけるデータの取り扱いについては、<a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">「ユーザーがGoogleパートナーのサイトやアプリを使用する際のGoogleによるデータ使用」</a> をご覧ください。</p>
 <p>Cookieによるデータ収集は、お使いのブラウザの設定でCookieを無効にすることで拒否できます。また、<a href="https://tools.google.com/dlpage/gaoptout/" target="_blank" rel="noopener">Googleアナリティクス オプトアウト アドオン</a> を導入することでも無効化できます。</p>
 """ if ga_used else """
@@ -726,14 +726,14 @@ def build_privacy():
 
     body = f"""
 <h2 class="pp-h">はじめに</h2>
-<p>「{esc(SITE['title'])}」(以下「当サイト」)は、来訪者のプライバシーを尊重し、個人情報および個人に関連する情報の保護に努めます。本プライバシーポリシーは、当サイトにおける情報の取り扱いについて定めたものです。</p>
+<p>「{esc(SITE['title'])}」（以下「当サイト」）は、来訪者のプライバシーを尊重し、個人情報および個人に関連する情報の保護に努めます。本プライバシーポリシーは、当サイトにおける情報の取り扱いについて定めたものです。</p>
 {ga_section}
 <h2 class="pp-h">2. おたより・お問い合わせでいただく情報について</h2>
-<p>当サイトの「おたよりフォーム」は外部サービス(Googleフォーム)を利用しています。フォームやメールでお寄せいただいた内容(お名前・ラジオネーム・メールアドレス・本文など)は、番組制作・番組内での紹介・返信などの目的にのみ使用し、ご本人の同意なく第三者へ提供することはありません。</p>
+<p>当サイトの「おたよりフォーム」は外部サービス（Googleフォーム）を利用しています。フォームやメールでお寄せいただいた内容（お名前・ラジオネーム・メールアドレス・本文など）は、番組制作・番組内での紹介・返信などの目的にのみ使用し、ご本人の同意なく第三者へ提供することはありません。</p>
 <p>いただいたおたよりは、番組やSNS・当サイト上で内容の一部または全部を紹介させていただくことがあります。掲載を希望されない場合は、その旨を明記してお送りください。</p>
 
 <h2 class="pp-h">3. 外部サービス・リンクについて</h2>
-<p>当サイトには、Spotify・Apple Podcasts・Amazon Music・LISTEN・YouTube・X(旧Twitter)などの外部サービスへのリンクや埋め込みが含まれます。これら外部サービスにおける情報の取り扱いは、各サービスのプライバシーポリシーが適用されます。当サイトはリンク先の内容について責任を負いません。</p>
+<p>当サイトには、Spotify・Apple Podcasts・Amazon Music・LISTEN・YouTube・X（旧Twitter）などの外部サービスへのリンクや埋め込みが含まれます。これら外部サービスにおける情報の取り扱いは、各サービスのプライバシーポリシーが適用されます。当サイトはリンク先の内容について責任を負いません。</p>
 
 <h2 class="pp-h">4. 免責事項</h2>
 <p>当サイトに掲載する情報には正確を期していますが、その内容の正確性・安全性を保証するものではありません。当サイトの利用によって生じたいかなる損害についても、責任を負いかねます。</p>

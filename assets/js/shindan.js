@@ -15,56 +15,56 @@
   var NAME_MAX = 10; // なまえは全角10文字まで
 
   var QUESTIONS = [
-    { q: "ゲームを始めるとき、いちばん胸が高鳴るのは?",
+    { q: "ゲームを始めるとき、いちばん胸が高鳴るのは？",
       c: [
         { t: "手強い相手や難関に挑むとき", d: [3, 0, 0, 0, 0] },
         { t: "物語や世界にのめり込むとき", d: [0, 3, 0, 0, 0] },
         { t: "誰かと一緒に盛り上がるとき", d: [0, 0, 3, 0, 0] },
         { t: "見たこともない変な遊びに出会うとき", d: [0, 0, 0, 3, 0] }
       ] },
-    { q: "積みゲーを崩すなら、どんな夜?",
+    { q: "積みゲーを崩すなら、どんな夜？",
       c: [
         { t: "とことん歯を食いしばりたい夜", d: [3, 0, -1, 0, 0] },
         { t: "しみじみ物語に浸りたい夜", d: [-1, 3, 0, 0, 0] },
         { t: "だらだら癒されたい夜", d: [-3, 0, 0, 0, 0] },
         { t: "友達と通話しながら遊びたい夜", d: [0, 0, 3, 0, 0] }
       ] },
-    { q: "あなたにとって「いいゲーム」の条件は?",
+    { q: "あなたにとって「いいゲーム」の条件は？",
       c: [
         { t: "骨太な手応えがあること", d: [3, 0, 0, 0, 0] },
         { t: "忘れられない物語があること", d: [0, 3, 0, 0, 0] },
         { t: "何度でも遊べるシステムがあること", d: [1, -3, 0, 1, 0] },
         { t: "みんなの話題になっていること", d: [0, 0, 2, -1, 2] }
       ] },
-    { q: "滝壺の3人でいうと、いちばん気になるのは?",
+    { q: "滝壺の3人でいうと、いちばん気になるのは？",
       c: [
         { t: "歯ごたえと歯ざわりにうるさい人", d: [3, 0, 0, 0, 0] },
         { t: "レトロの名作を掘り続ける人", d: [0, 1, 0, 0, -3] },
         { t: "変なゲームを見つけてくる人", d: [0, 0, 0, 3, 0] },
         { t: "眼鏡っ娘に一途な人", d: [0, 2, 0, 2, 0] }
       ] },
-    { q: "次に遊ぶなら、どんな一本?",
+    { q: "次に遊ぶなら、どんな一本？",
       c: [
         { t: "誰も知らない尖った一本", d: [0, 0, -1, 3, 1] },
         { t: "みんなが知る王道の名作", d: [0, 1, 0, -3, 0] },
         { t: "いま話題の最新作", d: [0, 0, 1, 0, 3] },
         { t: "何年も語り継がれるレトロ", d: [0, 0, 0, 0, -3] }
       ] },
-    { q: "ゲームオーバー画面を見たとき、あなたは?",
+    { q: "ゲームオーバー画面を見たとき、あなたは？",
       c: [
         { t: "燃える。もう一回。", d: [3, 0, 0, 0, 0] },
         { t: "続きが気になって攻略を見ちゃう", d: [-1, 3, 0, 0, 0] },
         { t: "そっと電源を切って寝る", d: [-3, 0, 0, 0, 0] },
         { t: "「今のはわるい死に方だったな」と笑う", d: [0, 0, 1, 2, -1] }
       ] },
-    { q: "理想の遊び方は?",
+    { q: "理想の遊び方は？",
       c: [
         { t: "深夜にひとりでじっくり潜る", d: [1, 0, -3, 0, 0] },
         { t: "友達とわいわい騒ぎながら", d: [0, 0, 3, 0, 0] },
         { t: "実況や配信をおともに", d: [0, 1, 1, 0, 1] },
         { t: "ポッドキャストを聴きながら別ゲー", d: [0, 0, 0, 2, -1] }
       ] },
-    { q: "ゲームに求める“余韻”は?",
+    { q: "ゲームに求める“余韻”は？",
       c: [
         { t: "心に刺さる読後感", d: [0, 3, 0, 0, 0] },
         { t: "手が勝手に伸びる中毒性", d: [2, -2, 0, 1, 0] },
@@ -94,6 +94,11 @@
   // Xロゴ(サイト共通のヘッダー/エピソードページと同じもの)
   var X_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.4Z"/></svg>';
 
+  // GA4イベント送信(GA未導入・広告ブロッカー環境では何もしない)
+  function track(name, params) {
+    if (typeof window.gtag === "function") window.gtag("event", name, params || {});
+  }
+
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
@@ -121,13 +126,13 @@
   /* ---------- 画面: イントロ ---------- */
   function renderIntro() {
     state.idx = 0; state.answers = []; state.axes = [0, 0, 0, 0, 0];
-    var introShare = "ゲームの滝壺「ふさわしいゲーム診断」\nあなたに“ふさわしい一本”を全" + DATA.games.length + "タイトルから診断!\n" +
+    var introShare = "ゲームの滝壺「ふさわしいゲーム診断」\nあなたに“ふさわしい一本”を全" + DATA.games.length + "タイトルから診断！\n" +
       HASHTAG + " #ふさわしいゲーム診断\n" + SITE_URL;
     panel.innerHTML =
       '<div class="sh-screen">' +
-      '<p class="sh-lede">8つの質問に直感で答えるだけ。<br>診断結果は <strong>' + DATA.games.length + 'タイトル</strong>。あなたは何を引き当てる?</p>' +
+      '<p class="sh-lede">8つの質問に直感で答えるだけ。<br>診断結果は <strong>' + DATA.games.length + 'タイトル</strong>。あなたは何を引き当てる？</p>' +
       '<p class="sh-lede-sub">なまえや答えが変わると、結果も変わります。<br>新しい回が配信されるたびに結果の種類も増えるので、何度でも遊べます。</p>' +
-      '<label class="sh-name-label" for="shName">なまえ(結果の画像に入ります・全角' + NAME_MAX + '文字まで)</label>' +
+      '<label class="sh-name-label" for="shName">なまえ（結果の画像に入ります・全角' + NAME_MAX + '文字まで）</label>' +
       '<input class="sh-name" id="shName" type="text" maxlength="' + NAME_MAX + '" placeholder="例: たわし" autocomplete="off" value="' + esc(state.name || "") + '">' +
       '<button class="sh-primary" id="shStart">診断をはじめる</button>' +
       '<p class="sh-note">結果は画像でシェアできます。' + esc(HASHTAG) + ' を付けてポストしてくれたら、番組が喜びます。</p>' +
@@ -137,6 +142,7 @@
     var nameInput = document.getElementById("shName");
     var start = function () {
       state.name = nameInput.value.trim().slice(0, NAME_MAX);
+      track("shindan_start");
       renderQuestion();
     };
     document.getElementById("shStart").addEventListener("click", start);
@@ -225,15 +231,15 @@
     var ep = DATA.eps[String(g[2])];       // [epTitle, image]
     var dispName = state.name || "あなた";
     var rareBadge = rare === 2
-      ? '<span class="sh-rare r2">★★★ 超レア!! 全' + DATA.games.length + 'タイトル中、一度だけ話題に出た幻の一本</span>'
-      : rare === 1 ? '<span class="sh-rare r1">★★ レア! 知る人ぞ知る一本を引き当てました</span>' : "";
+      ? '<span class="sh-rare r2">★★★ 超レア！！ 全' + DATA.games.length + 'タイトル中、一度だけ話題に出た幻の一本</span>'
+      : rare === 1 ? '<span class="sh-rare r1">★★ レア！ 知る人ぞ知る一本を引き当てました</span>' : "";
     var epLabel = g[3] ? "このタイトルについて話していそうな回" : "このタイトルの話をしているかもしれない回";
     var epImg = ep[1]
       ? '<img class="sh-ep-img" src="' + esc(ep[1]) + '" alt="" loading="lazy">'
       : '<span class="sh-ep-img sh-ep-num">#' + g[2] + "</span>";
 
-    var shareText = dispName + "の“ふさわしいゲーム”は【" + g[0] + "】でした!\n(" + type[0] + "・ふさわしさ" + pct + "%)\n" +
-      (rare === 2 ? "★一度しか話題に出ていない幻の一本を引き当てた!\n" : "") +
+    var shareText = dispName + "の“ふさわしいゲーム”は【" + g[0] + "】でした！\n（" + type[0] + "・ふさわしさ" + pct + "%）\n" +
+      (rare === 2 ? "★一度しか話題に出ていない幻の一本を引き当てた！\n" : "") +
       HASHTAG + " #ふさわしいゲーム診断\n" + SITE_URL;
 
     panel.innerHTML =
@@ -256,31 +262,44 @@
       '<button class="sh-btn copy" id="shCopy">📋 画像をコピー</button>' +
       '<a class="sh-btn share" id="shX" href="https://x.com/intent/post?text=' + encodeURIComponent(shareText) + '" target="_blank" rel="noopener">' + X_SVG + 'Xでシェアする</a>' +
       '</div>' +
-      '<p class="sh-note">画像を保存/コピーしてから、Xのポストに添付すると盛り上がります!</p>' +
+      '<p class="sh-note">画像を保存/コピーしてから、Xのポストに添付すると盛り上がります！</p>' +
       '<button class="sh-btn retry" id="shRetry">🔄 もう一度診断する</button>' +
       '<p class="sh-fusa-link">※「ふさわしいゲーム」は番組の<a href="series/fusawashii.html">名物企画</a>から生まれた診断です</p>' +
       '</div>';
 
     drawShareImage(dispName, type[0], g, ep, rare, pct);
 
+    track("shindan_complete", {
+      result_title: g[0],
+      result_type: type[0],
+      result_rare: rare,
+      result_pct: pct
+    });
+
+    document.getElementById("shX").addEventListener("click", function () {
+      track("shindan_share_x", { result_title: g[0] });
+    });
     document.getElementById("shRetry").addEventListener("click", function () {
+      track("shindan_retry");
       renderIntro();
       // 結果ページの下部にいるので、診断の先頭(ページ最上部)へ戻す
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
     document.getElementById("shSave").addEventListener("click", function () {
+      track("shindan_save", { result_title: g[0] });
       var a = document.createElement("a");
       a.download = "fusawashii-shindan.png";
       a.href = document.getElementById("shCanvas").toDataURL("image/png");
       a.click();
     });
     document.getElementById("shCopy").addEventListener("click", function () {
+      track("shindan_copy", { result_title: g[0] });
       var btn = this;
       var canvas = document.getElementById("shCanvas");
       canvas.toBlob(function (blob) {
         if (blob && navigator.clipboard && window.ClipboardItem) {
           navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]).then(
-            function () { btn.textContent = "✅ コピーしました!"; setTimeout(function () { btn.textContent = "📋 画像をコピー"; }, 1800); },
+            function () { btn.textContent = "✅ コピーしました！"; setTimeout(function () { btn.textContent = "📋 画像をコピー"; }, 1800); },
             function () { btn.textContent = "保存ボタンをお使いください"; setTimeout(function () { btn.textContent = "📋 画像をコピー"; }, 2200); });
         } else {
           btn.textContent = "このブラウザでは保存をお使いください";
@@ -464,7 +483,7 @@
 
       // レアはアートワーク右上に「スタンプ」で表示(縦の積み上げから外して重なりを防ぐ)
       if (rare === 2 || rare === 1) {
-        var bt = rare === 2 ? "★★★ 超レア!" : "★★ レア!";
+        var bt = rare === 2 ? "★★★ 超レア！" : "★★ レア！";
         ctx.save();
         ctx.translate(ax + as - 18, ay + 39);
         ctx.rotate(9 * Math.PI / 180);
@@ -524,7 +543,7 @@
       ctx.fillText(HASHTAG + "　#ふさわしいゲーム診断", CX, 1298);
       ctx.fillStyle = "#fff";
       ctx.font = "900 36px " + FAMILY;
-      ctx.fillText("あなたもゲームの滝壺で診断しよう!", CX, 1340);
+      ctx.fillText("あなたもゲームの滝壺で診断しよう！", CX, 1340);
       ctx.restore();
     };
 
