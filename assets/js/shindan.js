@@ -255,7 +255,8 @@
       '</div>' +
       '<div class="sh-ep-block"><p class="sh-ep-label">🎧 ' + epLabel + '</p>' +
       '<a class="sh-ep-card" href="episodes/' + g[2] + '.html">' + epImg +
-      '<span class="sh-ep-body"><span class="sh-ep-hash">#' + g[2] + '</span><span class="sh-ep-title">' + esc(ep[0]) + '</span></span></a></div>' +
+      '<span class="sh-ep-body"><span class="sh-ep-hash">#' + g[2] + '</span><span class="sh-ep-title">' + esc(ep[0]) + '</span></span></a>' +
+      '<p class="sh-db-link">📚 <a href="games/?q=' + encodeURIComponent(g[0]) + '">滝壺データベースで「' + esc(g[0]) + '」の登場回をぜんぶ見る</a></p></div>' +
       '<div class="sh-canvas-wrap"><canvas id="shCanvas" width="1080" height="1350"></canvas></div>' +
       '<div class="sh-actions">' +
       '<button class="sh-btn save" id="shSave">📥 画像を保存</button>' +
