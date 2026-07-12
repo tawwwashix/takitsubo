@@ -913,26 +913,55 @@ def game_slug(key):
 _GAMES_DB = None
 
 
+def sanbun_titles(e):
+    """「滝壺3分ゲーム紹介」で紹介したタイトルを返す。
+    チャプター名に「滝壺3分ゲーム紹介」と（）の両方がある行から（）内を抽出
+    (「その2（○○）」形式も拾い、無関係な（）付きチャプターは拾わない)。
+    手動指定 "sanbun_games": ["タイトル"] があれば合わせて返す(RSS更新でも消えない)"""
+    out = []
+    for c in e.get("chapters", []):
+        label = c.get("label", "")
+        if "滝壺3分ゲーム紹介" not in label:
+            continue
+        for m in re.finditer(r"[（(]([^（）()]+)[）)]", label):
+            t = m.group(1).strip()
+            if t and t != "仮":
+                out.append(t)
+    out += e.get("sanbun_games", [])
+    return out
+
+
 def games_db():
     """全エピソードからタイトル索引データを作る(結果はキャッシュ)。
     各タイトル×各回に「語られ度」を付ける:
-      2=エピソードタイトルに登場(メインで語られた回)
+      3=メインで語られた回(featured_games指定 or エピソードタイトルに登場)
+      2=滝壺3分ゲーム紹介で紹介
       1=チャプターに登場(コーナー等でまとまった話)
       0=トーク内で話題に出ただけ"""
     global _GAMES_DB
     if _GAMES_DB is not None:
         return _GAMES_DB
     stats = {}
-    # 手動指定: episodes.json の各回に "featured_games": ["タイトル"] を書くと、
-    # その回がそのタイトルの「🎙メインで語られた回」として扱われる
-    # (概要欄が「○○シリーズ」表記でも個別タイトルのページに載せられる。RSS更新でも消えない)
-    featured = {}
+    # メイン指定: episodes.json の "featured_games"(手動 or 概要欄★から自動)。
+    # このキーがある回はタイトル文字列からの自動推定を行わない(空配列=メインなしの明示)
+    featured, explicit = {}, set()
+    sanbun = {}
     for e in EPS:
+        if "featured_games" in e:
+            explicit.add(e["number"])
         for name in e.get("featured_games", []):
             k = _shindan_norm(name)
             if not k:
                 continue
             featured.setdefault(e["number"], set()).add(k)
+            s = stats.setdefault(k, {"names": {}, "eps": {}})
+            s["names"][name] = s["names"].get(name, 0) + 1
+            s["eps"].setdefault(e["number"], set()).add(name)
+        for name in sanbun_titles(e):
+            k = _shindan_norm(name)
+            if not k:
+                continue
+            sanbun.setdefault(e["number"], set()).add(k)
             s = stats.setdefault(k, {"names": {}, "eps": {}})
             s["names"][name] = s["names"].get(name, 0) + 1
             s["eps"].setdefault(e["number"], set()).add(name)
@@ -955,7 +984,14 @@ def games_db():
             raws = {_n_light(x) for x in (s["eps"][num] | {title})}
             raws = {x for x in raws if len(x) >= 4}  # 短すぎる語は誤ヒットするので照合しない
             et = _n_light(e["title"])
-            level = 2 if (k in featured.get(num, set()) or any(r in et for r in raws)) else 0
+            if k in featured.get(num, set()):
+                level = 3
+            elif num not in explicit and any(r in et for r in raws):
+                level = 3  # 自動推定(featured_games指定のある回では行わない)
+            elif k in sanbun.get(num, set()):
+                level = 2
+            else:
+                level = 0
             chaps = []
             for c in e.get("chapters", []):
                 cl = _n_light(c["label"])
@@ -1030,10 +1066,12 @@ def game_slug_map():
 
 
 LEVEL_BADGE = {
-    2: ("l2", "🎙 メインで語られた回"),
+    3: ("l3", "🎙 メインで語られた回"),
+    2: ("l2", "🎮 滝壺3分ゲーム紹介"),
     1: ("l1", "📑 チャプターで登場"),
     0: ("l0", "💬 トーク内で登場"),
 }
+LEVEL_MARK = {3: "🎙", 2: "🎮", 1: "📑", 0: ""}
 
 
 def _game_aliases_for(item, alias_pairs):
@@ -1056,7 +1094,8 @@ def build_games():
 
     total = len(items)
     nobe = sum(i["count"] for i in items)
-    main_count = sum(1 for i in items if i["max_level"] == 2)
+    main_count = sum(1 for i in items if i["max_level"] == 3)
+    sanbun_count = sum(1 for i in items if any(x["level"] == 2 for x in i["eps"]))
     base = SITE["base_url"].rstrip("/")
 
     # ---------- 索引ページ ----------
@@ -1083,7 +1122,7 @@ def build_games():
         search_key = _to_kata(_n_light(i["title"])) + _to_kata(_n_light(i["reading"]))
         for a in _game_aliases_for(i, alias_pairs):
             search_key += _to_kata(_n_light(a))
-        mark = "🎙" if i["max_level"] == 2 else ("📑" if i["max_level"] == 1 else "")
+        mark = LEVEL_MARK[i["max_level"]]
         cls = "gm-item child" if child else "gm-item"
         return (f'<a class="{cls}" href="{game_item_href(i)}" data-s="{esc(search_key)}">'
                 f'<span class="gm-item-title">{esc(i["title"])}</span>'
@@ -1120,6 +1159,7 @@ def build_games():
 <span class="gm-stat"><strong>{total}</strong>タイトル</span>
 <span class="gm-stat"><strong>{nobe}</strong>延べ登場</span>
 <span class="gm-stat"><strong>{main_count}</strong>メインで語られた</span>
+<span class="gm-stat"><strong>{sanbun_count}</strong>3分ゲーム紹介</span>
 </div>
 
 <div class="searchbox" style="margin-top:18px;">{SVG['search']}
@@ -1136,7 +1176,7 @@ def build_games():
 <nav class="gm-letter-nav" aria-label="五十音で移動">{letter_nav}</nav>
 {body_sections}
 
-<div class="gm-note">🎙=メインで語られた回あり ／ 📑=チャプターに登場 ／ 無印=トークの中で話題に出たタイトル<br>一度だけ話題に出たタイトルは、その回のページへ直接リンクします。<br>索引は毎週の配信にあわせて自動で増えていきます。</div>
+<div class="gm-note">🎙=メインで語られた回あり ／ 🎮=滝壺3分ゲーム紹介で紹介 ／ 📑=チャプターに登場 ／ 無印=トークの中で話題に出たタイトル<br>一度だけ話題に出たタイトルは、その回のページへ直接リンクします。<br>索引は毎週の配信にあわせて自動で増えていきます。</div>
 </main>
 <script src="{root}assets/js/games.js?v={av('assets/js/games.js')}"></script>"""
     page += footer(root)
@@ -1160,8 +1200,10 @@ def build_games():
         best_img = next((ep_image(EPS_BY_NUM[x["num"]]) for x in eps_sorted if ep_image(EPS_BY_NUM[x["num"]])), None)
 
         # 期待値を正直に伝えるサマリー
-        if i["max_level"] == 2:
+        if i["max_level"] == 3:
             summary = "メインテーマとして語られた回があります。"
+        elif i["max_level"] == 2:
+            summary = "コーナー「滝壺3分ゲーム紹介」で紹介したタイトルです。"
         elif i["max_level"] == 1:
             summary = "コーナーやチャプターの話題として語られています。"
         elif i["count"] >= 2:
@@ -1189,6 +1231,40 @@ def build_games():
 <span class="gm-ep-title">{esc(e['title'])}</span>
 {chap_html}{desc}
 </span></a>"""
+
+        # シリーズ親ページ: 子作品の登場回を自動合算して表示
+        # (概要欄に「シリーズ」を併記しなくても、作品の回がここに集まる)
+        agg_html = ""
+        if i["key"] in children_of:
+            own_level = {x["num"]: x["level"] for x in i["eps"]}
+            agg = {}
+            for ck in children_of[i["key"]]:
+                for x in by_key[ck]["eps"]:
+                    # 自分(シリーズ)の一覧に既にあっても、作品側の語られ度が上回る回は載せる
+                    # (例: 第1回はシリーズとしては💬だが「風来のシレン」の🎙回)
+                    if x["level"] > own_level.get(x["num"], -1):
+                        agg.setdefault(x["num"], []).append((by_key[ck], x["level"]))
+            if agg:
+                agg_rows = ""
+                for num in sorted(agg, key=lambda n: (-max(lv for _, lv in agg[n]), -n)):
+                    e = EPS_BY_NUM[num]
+                    best = max(lv for _, lv in agg[num])
+                    img = ep_image(e)
+                    art = (f'<img class="gm-ep-img" src="../{img}" alt="" loading="lazy">' if img
+                           else f'<span class="gm-ep-img gm-ep-num">#{e["number"]}</span>')
+                    cls, label = LEVEL_BADGE[best]
+                    works_list = sorted(agg[num], key=lambda t: -t[1])
+                    works = "、".join(f'{esc(m["title"])}{LEVEL_MARK[lv]}' for m, lv in works_list[:4])
+                    if len(works_list) > 4:
+                        works += f" ほか{len(works_list) - 4}作品"
+                    agg_rows += f"""<a class="gm-ep" href="../episodes/{e['number']}.html">{art}
+<span class="gm-ep-body">
+<span class="gm-ep-head"><span class="gm-ep-hash">#{e['number']}</span><span class="gm-ep-date">{jd(e['date'])}</span><span class="gm-badge {cls}">{label}</span></span>
+<span class="gm-ep-title">{esc(e['title'])}</span>
+<span class="gm-ep-desc">この回の作品: {works}</span>
+</span></a>"""
+                agg_html = (f'<section class="section">{sec_title("シリーズ作品が登場した回", "TITLES IN SERIES")}'
+                            f'<div class="gm-eps">{agg_rows}</div></section>')
 
         # 同シリーズのタイトル(「○○シリーズ」による自動グループ)
         series_html = ""
@@ -1234,6 +1310,7 @@ def build_games():
 <p class="gm-summary"><span class="gm-summary-count">滝壺での登場 <strong>{i['count']}回</strong></span>{esc(summary)}</p>
 </div>
 <div class="gm-eps">{rows}</div>
+{agg_html}
 {series_html}
 {rel_html}
 <div class="info-box" style="margin-top:22px;">🎧 気になった回は、各ページのプレイヤーからすぐ再生できます。

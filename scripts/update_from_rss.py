@@ -111,7 +111,11 @@ def main():
 
         # 見出しは時期により「主な登場ゲームタイトル」「主な登場作品」「主な登場タイトル」等
         games_raw = parse_section(desc, ["主な登場", "登場ゲームタイトル"])
-        games = []
+        # 新フォーマット判定: 見出し行に★が含まれる回
+        # (例:「■主な登場ゲームタイトル（★=メインで語ったタイトル）」)は、
+        # ★付きの行をメイン(featured_games)として自動抽出する。★なし=メインなしの明示
+        star_format = bool(re.search(r"■[^\n]*(主な登場|登場ゲームタイトル)[^\n]*★", desc))
+        games, mains = [], []
         for g in games_raw:
             s = g.strip()
             # URL行・サブ見出し(【本編】等)はゲーム名ではないので除外
@@ -119,11 +123,12 @@ def main():
                 continue
             if re.fullmatch(r"【[^】]*】", s):
                 continue
+            is_main = s.startswith("★")
             # 基本1行1タイトル。「、」区切りのみ分割(「/」「・」はゲーム名に含まれるため分割しない)
             for piece in re.split(r"[、,]", s):
-                # 箇条書き記号(・や-)は先頭からのみ除去。
+                # 箇条書き記号(・や-)と★は先頭からのみ除去。
                 # 末尾は空白だけ落とす(「HUNDRED LINE -最終防衛学園-」のような末尾の-を守る)
-                piece = piece.strip("　 ").lstrip("・-").strip("　 ")
+                piece = piece.strip("　 ").lstrip("★・-").strip("　 ")
                 if not piece:
                     continue
                 canonical = aliases.get(piece)
@@ -132,6 +137,8 @@ def main():
                 else:
                     games.append(piece)
                     unknown_games.add(piece)
+                if is_main:
+                    mains.append(canonical or piece)
         chapters = parse_chapters(parse_section(desc, ["チャプター"]))
 
         # 概要文: ■より前の本文をリード文として使う
@@ -166,6 +173,9 @@ def main():
             ep["description"] = lead
         if games:
             ep["games"] = sorted(set(games), key=games.index)
+        if star_format:
+            # 新フォーマットの回は概要欄が正: メイン指定を上書き(0件も「メインなし」として有効)
+            ep["featured_games"] = sorted(set(mains), key=mains.index)
         if chapters:
             ep["chapters"] = chapters
         ep["guid"] = guid

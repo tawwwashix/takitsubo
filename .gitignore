@@ -9,3 +9,6 @@ __pycache__/
 # エディタ/ローカル
 .claude/launch.json
 .claude/settings.local.json
+
+# 概要欄整形ツールの出力(Spotifyへ貼るための一時ファイル)
+desc_export/
