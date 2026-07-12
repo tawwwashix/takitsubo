@@ -49,7 +49,10 @@
    },
    "guid": "f1563334-d8a9-4134-bca1-0020a8cfc6ef",
    "image": "assets/img/ep/1.jpg",
-   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1717073741824-8c78885a3ab6b.jpg"
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1717073741824-8c78885a3ab6b.jpg",
+   "featured_games": [
+    "風来のシレン"
+   ]
   },
   {
    "number": 2,

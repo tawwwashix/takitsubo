@@ -923,6 +923,19 @@ def games_db():
     if _GAMES_DB is not None:
         return _GAMES_DB
     stats = {}
+    # 手動指定: episodes.json の各回に "featured_games": ["タイトル"] を書くと、
+    # その回がそのタイトルの「🎙メインで語られた回」として扱われる
+    # (概要欄が「○○シリーズ」表記でも個別タイトルのページに載せられる。RSS更新でも消えない)
+    featured = {}
+    for e in EPS:
+        for name in e.get("featured_games", []):
+            k = _shindan_norm(name)
+            if not k:
+                continue
+            featured.setdefault(e["number"], set()).add(k)
+            s = stats.setdefault(k, {"names": {}, "eps": {}})
+            s["names"][name] = s["names"].get(name, 0) + 1
+            s["eps"].setdefault(e["number"], set()).add(name)
     for e in EPS:
         for g in e["games"]:
             if "／" in g or g.startswith("【") or "※" in g or "さん：" in g:
@@ -942,7 +955,7 @@ def games_db():
             raws = {_n_light(x) for x in (s["eps"][num] | {title})}
             raws = {x for x in raws if len(x) >= 4}  # 短すぎる語は誤ヒットするので照合しない
             et = _n_light(e["title"])
-            level = 2 if any(r in et for r in raws) else 0
+            level = 2 if (k in featured.get(num, set()) or any(r in et for r in raws)) else 0
             chaps = []
             for c in e.get("chapters", []):
                 cl = _n_light(c["label"])
@@ -1057,6 +1070,7 @@ def build_games():
 
 <div class="searchbox" style="margin-top:18px;">{SVG['search']}
 <input type="search" id="gmQ" placeholder="ゲーム名で探す（例:シレン、どらくえ、FF）" aria-label="タイトルを検索" autocomplete="off">
+<button type="button" class="search-clear" id="gmClear" aria-label="検索キーワードを消す" hidden>{SVG['close']}</button>
 </div>
 <p class="gm-count" id="gmCount"></p>
 
@@ -1068,7 +1082,7 @@ def build_games():
 <nav class="gm-letter-nav" aria-label="五十音で移動">{letter_nav}</nav>
 {body_sections}
 
-<p class="search-note" style="text-align:center;margin-top:20px;">🎙=メインで語られた回あり ／ 📑=チャプターに登場 ／ 無印=トークの中で話題に出たタイトル<br>索引は毎週の配信にあわせて自動で増えていきます。</p>
+<div class="gm-note">🎙=メインで語られた回あり ／ 📑=チャプターに登場 ／ 無印=トークの中で話題に出たタイトル<br>索引は毎週の配信にあわせて自動で増えていきます。</div>
 </main>
 <script src="{root}assets/js/games.js?v={av('assets/js/games.js')}"></script>"""
     page += footer(root)

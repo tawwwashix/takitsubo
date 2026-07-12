@@ -7,6 +7,7 @@
 
   var input = document.getElementById("gmQ");
   if (!input) return;
+  var clearBtn = document.getElementById("gmClear");
   var countEl = document.getElementById("gmCount");
   var items = Array.prototype.slice.call(document.querySelectorAll(".gm-item"));
   var sections = Array.prototype.slice.call(document.querySelectorAll(".gm-section"));
@@ -37,9 +38,15 @@
     if (topBlock) topBlock.closest(".section").hidden = filtering;
     if (letterNav) letterNav.hidden = filtering;
     countEl.textContent = filtering ? shown + "件ヒット" : "";
+    if (clearBtn) clearBtn.hidden = input.value.length === 0;
   }
 
   input.addEventListener("input", function () { apply(input.value); });
+  if (clearBtn) clearBtn.addEventListener("click", function () {
+    input.value = "";
+    apply("");
+    input.focus();
+  });
 
   var q = new URLSearchParams(location.search).get("q");
   if (q) {
