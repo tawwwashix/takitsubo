@@ -968,10 +968,14 @@ def games_db():
         while slug in used_slugs:  # 万一のハッシュ衝突
             slug += "x"
         used_slugs[slug] = k
+        max_level = max(x["level"] for x in eps_info)
         items.append({
             "key": k, "title": title, "slug": slug, "eps": eps_info,
             "count": len(eps_info),
-            "max_level": max(x["level"] for x in eps_info),
+            "max_level": max_level,
+            # 品質ゲート: 1回ちょい出しのみのタイトルは個別ページを作らない
+            # (索引には載せ、該当エピソードへ直接リンクする)
+            "paged": len(eps_info) >= 2 or max_level >= 1,
             "reading": game_reading(title),
             "section": game_section(title),
         })
@@ -979,11 +983,49 @@ def games_db():
     return items
 
 
+def games_series_map():
+    """シリーズ自動グループ化: 「○○シリーズ」というタイトルが存在するとき、
+    名寄せキーが「○○」で始まるタイトルをその子とみなす(人間の統合判断は不要)。
+    返り値: (child_of: 子キー→親item, children_of: 親キー→子キーのリスト)"""
+    items = games_db()
+    by_key = {i["key"]: i for i in items}
+    parents = {}
+    for i in items:
+        if i["key"].endswith("シリーズ"):
+            # 名寄せキーは末尾の長音等を落とすので、語幹にも同じ正規化を適用して比較する
+            stem = i["key"][: -len("シリーズ")].rstrip("-ー–—・:：")
+            if len(stem) >= 3:
+                parents[stem] = i
+    child_of, children_of = {}, {}
+    for i in items:
+        if i["key"].endswith("シリーズ"):
+            continue
+        best = None
+        for stem, p in parents.items():
+            if i["key"].startswith(stem) and (best is None or len(stem) > len(best[0])):
+                best = (stem, p)
+        if best:
+            child_of[i["key"]] = best[1]
+            children_of.setdefault(best[1]["key"], []).append(i["key"])
+    for k in children_of:
+        children_of[k].sort(key=lambda ck: by_key[ck]["reading"])
+    return child_of, children_of
+
+
+def game_item_href(item, root_to_games=""):
+    """索引・チップからのリンク先: ページがあれば個別ページ、なければ唯一の登場回へ"""
+    if item["paged"]:
+        return f"{root_to_games}{item['slug']}.html"
+    return f"{root_to_games}../episodes/{item['eps'][0]['num']}.html"
+
+
 def game_slug_map():
-    """エピソードページのタグリンク用: 生の表記 → データベースページのスラッグ"""
+    """エピソードページのタグリンク用: 名寄せキー → データベースページのスラッグ
+    (個別ページを持つタイトルのみ)"""
     m = {}
     for item in games_db():
-        m[item["key"]] = item["slug"]
+        if item["paged"]:
+            m[item["key"]] = item["slug"]
     return m
 
 
@@ -1025,14 +1067,27 @@ def build_games():
     for sec in sections:
         sections[sec].sort(key=lambda i: (i["reading"], i["title"]))
 
-    top_items = sorted(items, key=lambda i: (-i["count"], i["reading"]))[:12]
+    top_items = sorted(items, key=lambda i: (-i["count"], i["reading"]))[:20]
     top_html = "".join(
-        f'<a class="gm-top-chip" href="{i["slug"]}.html"><span class="gm-top-rank">{n + 1}</span>'
+        f'<a class="gm-top-chip" href="{game_item_href(i)}"><span class="gm-top-rank">{n + 1}</span>'
         f'<span class="gm-top-title">{esc(i["title"])}</span><span class="gm-top-count">{i["count"]}回</span></a>'
         for n, i in enumerate(top_items))
 
     letter_nav = "".join(
         f'<a href="#sec-{esc(sec)}">{esc(sec)}</a>' for sec in GAME_SECTIONS if sections[sec])
+
+    child_of, children_of = games_series_map()
+    by_key = {i["key"]: i for i in items}
+
+    def item_card(i, child=False):
+        search_key = _to_kata(_n_light(i["title"])) + _to_kata(_n_light(i["reading"]))
+        for a in _game_aliases_for(i, alias_pairs):
+            search_key += _to_kata(_n_light(a))
+        mark = "🎙" if i["max_level"] == 2 else ("📑" if i["max_level"] == 1 else "")
+        cls = "gm-item child" if child else "gm-item"
+        return (f'<a class="{cls}" href="{game_item_href(i)}" data-s="{esc(search_key)}">'
+                f'<span class="gm-item-title">{esc(i["title"])}</span>'
+                f'<span class="gm-item-meta">{mark}{i["count"]}回</span></a>')
 
     body_sections = ""
     for sec in GAME_SECTIONS:
@@ -1041,13 +1096,12 @@ def build_games():
             continue
         cards = ""
         for i in rows:
-            search_key = _to_kata(_n_light(i["title"])) + _to_kata(_n_light(i["reading"]))
-            for a in _game_aliases_for(i, alias_pairs):
-                search_key += _to_kata(_n_light(a))
-            mark = "🎙" if i["max_level"] == 2 else ("📑" if i["max_level"] == 1 else "")
-            cards += (f'<a class="gm-item" href="{i["slug"]}.html" data-s="{esc(search_key)}">'
-                      f'<span class="gm-item-title">{esc(i["title"])}</span>'
-                      f'<span class="gm-item-meta">{mark}{i["count"]}回</span></a>')
+            if i["key"] in child_of and child_of[i["key"]]["section"] == sec:
+                continue  # 親(○○シリーズ)の直後にぶら下げて表示する
+            cards += item_card(i)
+            for ck in children_of.get(i["key"], []):
+                if by_key[ck]["section"] == sec:
+                    cards += item_card(by_key[ck], child=True)
         body_sections += (f'<section class="gm-section" id="sec-{esc(sec)}">'
                           f'<h2 class="gm-letter">{esc(sec)}<span class="gm-letter-count">{len(rows)}</span></h2>'
                           f'<div class="gm-grid">{cards}</div></section>')
@@ -1082,13 +1136,16 @@ def build_games():
 <nav class="gm-letter-nav" aria-label="五十音で移動">{letter_nav}</nav>
 {body_sections}
 
-<div class="gm-note">🎙=メインで語られた回あり ／ 📑=チャプターに登場 ／ 無印=トークの中で話題に出たタイトル<br>索引は毎週の配信にあわせて自動で増えていきます。</div>
+<div class="gm-note">🎙=メインで語られた回あり ／ 📑=チャプターに登場 ／ 無印=トークの中で話題に出たタイトル<br>一度だけ話題に出たタイトルは、その回のページへ直接リンクします。<br>索引は毎週の配信にあわせて自動で増えていきます。</div>
 </main>
 <script src="{root}assets/js/games.js?v={av('assets/js/games.js')}"></script>"""
     page += footer(root)
     (ROOT / "games/index.html").write_text(page, encoding="utf-8")
 
     # ---------- タイトル個別ページ ----------
+    # 品質ゲートの変動で残る古いページを掃除してから生成する
+    for old in (ROOT / "games").glob("g*.html"):
+        old.unlink()
     co_all = {i["key"]: i for i in items}
     eps_to_titles = {}
     for i in items:
@@ -1096,6 +1153,8 @@ def build_games():
             eps_to_titles.setdefault(ep["num"], []).append(i["key"])
 
     for i in items:
+        if not i["paged"]:
+            continue  # 1回ちょい出しのみのタイトルは個別ページを作らない(索引→該当回へ直接)
         title = i["title"]
         eps_sorted = sorted(i["eps"], key=lambda x: (-x["level"], -x["num"]))
         best_img = next((ep_image(EPS_BY_NUM[x["num"]]) for x in eps_sorted if ep_image(EPS_BY_NUM[x["num"]])), None)
@@ -1131,6 +1190,16 @@ def build_games():
 {chap_html}{desc}
 </span></a>"""
 
+        # 同シリーズのタイトル(「○○シリーズ」による自動グループ)
+        series_html = ""
+        group_parent = i if i["key"] in children_of else child_of.get(i["key"])
+        if group_parent is not None:
+            members = [group_parent] + [by_key[ck] for ck in children_of.get(group_parent["key"], [])]
+            others = [m for m in members if m["key"] != i["key"]]
+            if others:
+                chips = "".join(f'<a class="tag" href="{game_item_href(m)}">{esc(m["title"])}</a>' for m in others)
+                series_html = f'<section class="section">{sec_title("同シリーズのタイトル", "SAME SERIES")}<div class="game-tags">{chips}</div></section>'
+
         # 同じ回で話題に出た他タイトル(内部リンク)
         co = {}
         for x in i["eps"]:
@@ -1140,7 +1209,7 @@ def build_games():
         related = sorted(co.items(), key=lambda kv: (-kv[1], co_all[kv[0]]["reading"]))[:8]
         rel_html = ""
         if related:
-            chips = "".join(f'<a class="tag" href="{co_all[k2]["slug"]}.html">{esc(co_all[k2]["title"])}</a>'
+            chips = "".join(f'<a class="tag" href="{game_item_href(co_all[k2])}">{esc(co_all[k2]["title"])}</a>'
                             for k2, _ in related)
             rel_html = f'<section class="section">{sec_title("同じ回で話題に出たタイトル", "TALKED TOGETHER")}<div class="game-tags">{chips}</div></section>'
 
@@ -1165,6 +1234,7 @@ def build_games():
 <p class="gm-summary"><span class="gm-summary-count">滝壺での登場 <strong>{i['count']}回</strong></span>{esc(summary)}</p>
 </div>
 <div class="gm-eps">{rows}</div>
+{series_html}
 {rel_html}
 <div class="info-box" style="margin-top:22px;">🎧 気になった回は、各ページのプレイヤーからすぐ再生できます。
 「{esc(title)}」の話がもっと聴きたくなったら、<a href="../otayori.html">おたより</a>でリクエストしてもらえると番組が喜びます。</div>
@@ -1173,7 +1243,7 @@ def build_games():
         page += footer(root)
         (ROOT / f"games/{i['slug']}.html").write_text(page, encoding="utf-8")
 
-    return total
+    return sum(1 for i in items if i["paged"])
 
 
 # ============================================================ 検索用スリムJSON
@@ -1201,7 +1271,8 @@ def build_sitemap():
             ("shindan.html", latest), ("games/", latest),
             ("guide.html", today), ("otayori.html", today), ("privacy.html", today)]
     urls += [(f"episodes/{e['number']}.html", e["date"]) for e in EPS]
-    urls += [(f"games/{i['slug']}.html", EPS_BY_NUM[max(x["num"] for x in i["eps"])]["date"]) for i in games_db()]
+    urls += [(f"games/{i['slug']}.html", EPS_BY_NUM[max(x["num"] for x in i["eps"])]["date"])
+             for i in games_db() if i["paged"]]
     urls += [(f"series/{s['slug']}.html", latest) for s in SERIES]
     urls += [(f"news/{n['slug']}.html", n["date"]) for n in NEWS]
     body = "".join(f"<url><loc>{base}/{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
