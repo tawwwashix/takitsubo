@@ -110,8 +110,8 @@ def header(root, current=""):
         ("index.html", "ホーム", "home"),
         ("episodes/", "エピソード", "episodes"),
         ("series/", "名物企画", "series"),
-        ("shindan.html", "ふさわしいゲーム診断", "shindan"),
-        ("games/", "滝壺データベース", "games"),
+        ("shindan.html", "ゲーム診断", "shindan"),
+        ("games/", "滝壺DB", "games"),
         ("news/", "お知らせ", "news"),
         ("guide.html", "聴き方", "guide"),
         ("otayori.html", "おたより", "otayori"),
@@ -780,10 +780,27 @@ def _shindan_norm(t):
 def shindan_pool():
     """診断プール: 全エピソードの登場ゲームを集計。番組が更新されると自動で増える。
     表記ゆれ(括弧注記・全半角など)は名寄せして1タイトルに統合。
-    各ゲームに「最も関連していそうな回」(エピソードタイトルにゲーム名を含む回>
-    概要欄の先頭近くで挙がった回>新しい回)を紐づける。"""
+    各ゲームに「最も関連していそうな回」(featured_games指定の回>
+    エピソードタイトルにゲーム名を含む回>概要欄の先頭近くで挙がった回>新しい回)を紐づける。"""
     stats = {}
+    counted = set()  # (キー, 回番号) — 同じ回での二重カウント防止
+
+    def bump(key_norm, name, num, score):
+        s = stats.setdefault(key_norm, {"count": 0, "best": None, "names": {}})
+        if (key_norm, num) not in counted:
+            counted.add((key_norm, num))
+            s["count"] += 1
+        s["names"][name] = s["names"].get(name, 0) + 1
+        key = (score, num)
+        if s["best"] is None or key > s["best"]:
+            s["best"] = key
+
     for e in EPS:
+        # メイン指定(featured_games)の回は、そのタイトルのジャケットとして最優先
+        for name in e.get("featured_games", []):
+            key_norm = _shindan_norm(name)
+            if key_norm:
+                bump(key_norm, name, e["number"], 300)
         for i, g in enumerate(e["games"]):
             # まとめ行(○○／○○)・見出しの取りこぼし(【…】や※付き)・
             # 投稿者名付き(「○○さん:タイトル」)は診断プールから除外
@@ -792,15 +809,10 @@ def shindan_pool():
             key_norm = _shindan_norm(g)
             if not key_norm:
                 continue
-            s = stats.setdefault(key_norm, {"count": 0, "best": None, "names": {}})
-            s["count"] += 1
-            s["names"][g] = s["names"].get(g, 0) + 1
             pos_score = max(0, 10 - i)  # 概要欄の先頭に近いほどメインの話題
             # エピソードタイトルにゲーム名が入っていれば、確実にメインで語った回
             title_hit = len(g) >= 4 and (g in e["title"] or g[:6] in e["title"])
-            key = ((100 if title_hit else 0) + pos_score, e["number"])
-            if s["best"] is None or key > s["best"]:
-                s["best"] = key
+            bump(key_norm, g, e["number"], (100 if title_hit else 0) + pos_score)
     games, used_eps = [], {}
     for s in sorted(stats.values(), key=lambda v: (-v["count"], min(v["names"]))):
         # 代表表記: いちばん多く使われた表記(同数なら短いほう)
@@ -1065,13 +1077,14 @@ def game_slug_map():
     return m
 
 
+# 語られ度の絵文字とバッジ文言(変えたいときはここ。索引の凡例・絞り込みボタンにも反映される)
 LEVEL_BADGE = {
-    3: ("l3", "🎙 メインで語られた回"),
-    2: ("l2", "🎮 滝壺3分ゲーム紹介"),
+    3: ("l3", "⭐ メインで語られた回"),
+    2: ("l2", "🍜 滝壺3分ゲーム紹介"),
     1: ("l1", "📑 チャプターで登場"),
     0: ("l0", "💬 トーク内で登場"),
 }
-LEVEL_MARK = {3: "🎙", 2: "🎮", 1: "📑", 0: ""}
+LEVEL_MARK = {3: "⭐", 2: "🍜", 1: "📑", 0: ""}
 
 
 def _game_aliases_for(item, alias_pairs):
@@ -1123,8 +1136,16 @@ def build_games():
         for a in _game_aliases_for(i, alias_pairs):
             search_key += _to_kata(_n_light(a))
         mark = LEVEL_MARK[i["max_level"]]
-        cls = "gm-item child" if child else "gm-item"
-        return (f'<a class="{cls}" href="{game_item_href(i)}" data-s="{esc(search_key)}">'
+        has_sanbun = any(x["level"] == 2 for x in i["eps"])
+        # メイン(lv3)>3分(s3)の順で目立つ背景色を付ける(色は style.css の .gm-item.lv3 / .s3)
+        cls = ("gm-item child" if child else "gm-item")
+        cls += " lv3" if i["max_level"] == 3 else (" s3" if has_sanbun else "")
+        attrs = f' data-s="{esc(search_key)}"'
+        if i["max_level"] == 3:
+            attrs += ' data-lv3="1"'
+        if has_sanbun:
+            attrs += ' data-s3="1"'
+        return (f'<a class="{cls}" href="{game_item_href(i)}"{attrs}>'
                 f'<span class="gm-item-title">{esc(i["title"])}</span>'
                 f'<span class="gm-item-meta">{mark}{i["count"]}回</span></a>')
 
@@ -1166,7 +1187,21 @@ def build_games():
 <input type="search" id="gmQ" placeholder="ゲーム名で探す（例:シレン、どらくえ、FF）" aria-label="タイトルを検索" autocomplete="off">
 <button type="button" class="search-clear" id="gmClear" aria-label="検索キーワードを消す" hidden>{SVG['close']}</button>
 </div>
+<div class="filter-row" role="group" aria-label="語られ度で絞り込み" style="justify-content:center;margin-bottom:0;">
+<span class="filter-label">絞り込み</span>
+<button class="filter-btn on" data-flv="all">すべて</button>
+<button class="filter-btn" data-flv="lv3">{LEVEL_MARK[3]} メインで語られた</button>
+<button class="filter-btn" data-flv="s3">{LEVEL_MARK[2]} 3分ゲーム紹介</button>
+</div>
 <p class="gm-count" id="gmCount"></p>
+<div id="gmEmpty" class="empty-box" hidden>
+<p class="empty-title">🔍 該当するタイトルが見つかりませんでした</p>
+<ul class="empty-hint">
+<li>別の表記で試してみてください（例: FF ↔ ファイナルファンタジー、ドラクエ ↔ ドラゴンクエスト）</li>
+<li>ひらがな・カタカナは自動で変換されます（「しれん」でもOK）</li>
+<li>絞り込みボタンを「すべて」に戻すと対象が広がります</li>
+</ul>
+</div>
 
 <section class="section" style="padding-top:20px;">
 {sec_title("よく語られているタイトル", "MOST TALKED")}
@@ -1176,7 +1211,7 @@ def build_games():
 <nav class="gm-letter-nav" aria-label="五十音で移動">{letter_nav}</nav>
 {body_sections}
 
-<div class="gm-note">🎙=メインで語られた回あり ／ 🎮=滝壺3分ゲーム紹介で紹介 ／ 📑=チャプターに登場 ／ 無印=トークの中で話題に出たタイトル<br>一度だけ話題に出たタイトルは、その回のページへ直接リンクします。<br>索引は毎週の配信にあわせて自動で増えていきます。</div>
+<div class="gm-note">{LEVEL_MARK[3]}=メインで語られた回あり ／ {LEVEL_MARK[2]}=滝壺3分ゲーム紹介で紹介 ／ {LEVEL_MARK[1]}=チャプターに登場 ／ 無印=トークの中で話題に出たタイトル<br>一度だけ話題に出たタイトルは、その回のページへ直接リンクします。<br>索引は毎週の配信にあわせて自動で増えていきます。</div>
 </main>
 <script src="{root}assets/js/games.js?v={av('assets/js/games.js')}"></script>"""
     page += footer(root)
