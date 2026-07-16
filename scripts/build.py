@@ -48,7 +48,6 @@ SVG = {
     "search": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
     "close": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
     "arrow_l": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>',
-    "mail": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
     "x": '<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.4Z"/></svg>',
     "spotify": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24Zm5.5 17.3a.75.75 0 0 1-1.03.25c-2.83-1.73-6.39-2.12-10.59-1.16a.75.75 0 1 1-.33-1.46c4.56-1.04 8.49-.59 11.64 1.34.36.22.47.68.31 1.03Zm1.47-3.27a.94.94 0 0 1-1.29.31c-3.24-1.99-8.18-2.57-12-1.4a.94.94 0 1 1-.55-1.79c4.38-1.34 9.8-.69 13.53 1.6.44.27.58.85.31 1.28Zm.13-3.4C15.24 8.32 8.85 8.11 5.15 9.24a1.12 1.12 0 1 1-.65-2.16c4.25-1.29 11.32-1.04 15.78 1.6a1.12 1.12 0 0 1-1.18 1.95Z"/></svg>',
     "podcast": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="11" r="2.5"/><path d="M8.5 20.5 9.7 15a3.9 3.9 0 0 1 4.6 0l1.2 5.5M6.2 14.4a7 7 0 1 1 11.6 0M3.4 16.6a11 11 0 1 1 17.2 0"/></svg>',
@@ -777,10 +776,19 @@ def _shindan_norm(t):
     return s.rstrip("-ー–—・:：")
 
 
+def episode_game_entries(e):
+    """概要欄のゲームリストから索引・診断の対象行だけを返す(共通の除外規則)。
+    見出し行(【…】)・注記付き行(※)・まとめ行(／)は対象外"""
+    for i, g in enumerate(e["games"]):
+        if g.startswith("【") or "※" in g or "／" in g:
+            continue
+        yield i, g
+
+
 def shindan_pool():
     """診断プール: 全エピソードの登場ゲームを集計。番組が更新されると自動で増える。
     表記ゆれ(括弧注記・全半角など)は名寄せして1タイトルに統合。
-    各ゲームに「最も関連していそうな回」(featured_games指定の回>
+    各ゲームに「最も関連していそうな回」(featured_games指定の回>3分ゲーム紹介の回>
     エピソードタイトルにゲーム名を含む回>概要欄の先頭近くで挙がった回>新しい回)を紐づける。"""
     stats = {}
     counted = set()  # (キー, 回番号) — 同じ回での二重カウント防止
@@ -801,16 +809,17 @@ def shindan_pool():
             key_norm = _shindan_norm(name)
             if key_norm:
                 bump(key_norm, name, e["number"], 300)
-        for i, g in enumerate(e["games"]):
-            # まとめ行(○○／○○)・見出しの取りこぼし(【…】や※付き)・
-            # 投稿者名付き(「○○さん:タイトル」)は診断プールから除外
-            if "／" in g or g.startswith("【") or "※" in g or "さん：" in g:
-                continue
+        # 3分ゲーム紹介で扱った回は次点(索引と母集団を揃えるため、リスト外のタイトルも拾う)
+        for name in sanbun_titles(e):
+            key_norm = _shindan_norm(name)
+            if key_norm:
+                bump(key_norm, name, e["number"], 200)
+        for i, g in episode_game_entries(e):
             key_norm = _shindan_norm(g)
             if not key_norm:
                 continue
             pos_score = max(0, 10 - i)  # 概要欄の先頭に近いほどメインの話題
-            # エピソードタイトルにゲーム名が入っていれば、確実にメインで語った回
+            # エピソードタイトルにゲーム名が入っていれば、関連の深い回
             title_hit = len(g) >= 4 and (g in e["title"] or g[:6] in e["title"])
             bump(key_norm, g, e["number"], (100 if title_hit else 0) + pos_score)
     games, used_eps = [], {}
@@ -946,7 +955,7 @@ def sanbun_titles(e):
 def games_db():
     """全エピソードからタイトル索引データを作る(結果はキャッシュ)。
     各タイトル×各回に「語られ度」を付ける:
-      3=メインで語られた回(featured_games指定 or エピソードタイトルに登場)
+      3=メインで語られた回(featured_games = 概要欄の★ or 手動指定)
       2=滝壺3分ゲーム紹介で紹介
       1=チャプターに登場(コーナー等でまとまった話)
       0=トーク内で話題に出ただけ"""
@@ -954,63 +963,54 @@ def games_db():
     if _GAMES_DB is not None:
         return _GAMES_DB
     stats = {}
-    # メイン指定: episodes.json の "featured_games"(手動 or 概要欄★から自動)。
-    # このキーがある回はタイトル文字列からの自動推定を行わない(空配列=メインなしの明示)
-    featured, explicit = {}, set()
-    sanbun = {}
+
+    def note(k, name, num):
+        s = stats.setdefault(k, {"names": {}, "eps": {}})
+        s["names"][name] = s["names"].get(name, 0) + 1
+        s["eps"].setdefault(num, set()).add(name)
+
+    featured, sanbun = {}, {}
     for e in EPS:
-        if "featured_games" in e:
-            explicit.add(e["number"])
+        # 全回★フォーマット化済みの前提。ゲームが載っているのにfeatured_gamesが
+        # 無い回は、概要欄の★凡例の書き忘れの可能性が高いので警告する(推定はしない)
+        if e["games"] and "featured_games" not in e:
+            print(f"  ⚠ #{e['number']}: featured_games(★)が未設定。概要欄の見出しに「★=メインで語ったタイトル」があるか確認を")
         for name in e.get("featured_games", []):
             k = _shindan_norm(name)
-            if not k:
-                continue
-            featured.setdefault(e["number"], set()).add(k)
-            s = stats.setdefault(k, {"names": {}, "eps": {}})
-            s["names"][name] = s["names"].get(name, 0) + 1
-            s["eps"].setdefault(e["number"], set()).add(name)
+            if k:
+                featured.setdefault(e["number"], set()).add(k)
+                note(k, name, e["number"])
         for name in sanbun_titles(e):
             k = _shindan_norm(name)
-            if not k:
-                continue
-            sanbun.setdefault(e["number"], set()).add(k)
-            s = stats.setdefault(k, {"names": {}, "eps": {}})
-            s["names"][name] = s["names"].get(name, 0) + 1
-            s["eps"].setdefault(e["number"], set()).add(name)
-    for e in EPS:
-        for g in e["games"]:
-            if "／" in g or g.startswith("【") or "※" in g or "さん：" in g:
-                continue
+            if k:
+                sanbun.setdefault(e["number"], set()).add(k)
+                note(k, name, e["number"])
+        for _, g in episode_game_entries(e):
             k = _shindan_norm(g)
-            if not k:
-                continue
-            s = stats.setdefault(k, {"names": {}, "eps": {}})
-            s["names"][g] = s["names"].get(g, 0) + 1
-            s["eps"].setdefault(e["number"], set()).add(g)
+            if k:
+                note(k, g, e["number"])
     items, used_slugs = [], {}
     for k, s in sorted(stats.items()):
         title = sorted(s["names"].items(), key=lambda kv: (-kv[1], len(kv[0])))[0][0]
         eps_info = []
         for num in sorted(s["eps"]):
             e = EPS_BY_NUM[num]
+            # チャプター照合(語られ度📑と、個別ページのタイムスタンプ表示に使う)
             raws = {_n_light(x) for x in (s["eps"][num] | {title})}
             raws = {x for x in raws if len(x) >= 4}  # 短すぎる語は誤ヒットするので照合しない
-            et = _n_light(e["title"])
-            if k in featured.get(num, set()):
-                level = 3
-            elif num not in explicit and any(r in et for r in raws):
-                level = 3  # 自動推定(featured_games指定のある回では行わない)
-            elif k in sanbun.get(num, set()):
-                level = 2
-            else:
-                level = 0
             chaps = []
             for c in e.get("chapters", []):
                 cl = _n_light(c["label"])
                 if any(r in cl for r in raws):
                     chaps.append(c)
-            if level < 2 and chaps:
+            if k in featured.get(num, set()):
+                level = 3
+            elif k in sanbun.get(num, set()):
+                level = 2
+            elif chaps:
                 level = 1
+            else:
+                level = 0
             eps_info.append({"num": num, "level": level, "chapters": chaps})
         slug = game_slug(k)
         while slug in used_slugs:  # 万一のハッシュ衝突
