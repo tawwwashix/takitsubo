@@ -2,7 +2,7 @@
    - タイトル・読みがな・略称(aliases.json由来)を対象にインクリメンタル検索
    - ひらがな入力はカタカナに変換して照合(「しれん」→シレン)
    - 「メインで語られた」「3分ゲーム紹介」の絞り込みボタン(検索と併用可)
-   - URLの ?q= で初期絞り込み(診断結果ページなどからのリンク用) */
+   - 状態はURLに反映(?q=検索語&f=lv3|s3)。共有・ブックマーク・診断からのリンクに対応 */
 (function () {
   "use strict";
 
@@ -46,6 +46,15 @@
     countEl.textContent = filtering ? shown + "件ヒット" : "";
     if (emptyEl) emptyEl.hidden = !(filtering && shown === 0);
     if (clearBtn) clearBtn.hidden = input.value.length === 0;
+    syncUrl();
+  }
+
+  // 検索語と絞り込みをURLに反映(履歴は汚さない)
+  function syncUrl() {
+    var parts = [];
+    if (input.value.trim()) parts.push("q=" + encodeURIComponent(input.value.trim()));
+    if (flv !== "all") parts.push("f=" + flv);
+    history.replaceState(null, "", location.pathname + (parts.length ? "?" + parts.join("&") : ""));
   }
 
   input.addEventListener("input", function () { apply(input.value); });
@@ -65,10 +74,18 @@
     });
   });
 
-  var q = new URLSearchParams(location.search).get("q");
-  if (q) {
-    input.value = q;
-    apply(q);
+  var params = new URLSearchParams(location.search);
+  var q = params.get("q");
+  var f = params.get("f");
+  if (f === "lv3" || f === "s3") {
+    flv = f;
+    filterBtns.forEach(function (x) {
+      x.classList.toggle("on", x.getAttribute("data-flv") === flv);
+    });
+  }
+  if (q) input.value = q;
+  if (q || flv !== "all") {
+    apply(input.value);
     input.scrollIntoView({ block: "center" });
   }
 })();

@@ -350,6 +350,15 @@ def build_index():
 </span>
 <span class="sb-cta">診断する →</span>
 </a>
+<a class="shindan-banner db" href="games/" style="margin-top:14px;">
+<img class="sb-chara" src="assets/img/rock_tawashi.png" alt="" aria-hidden="true">
+<span class="sb-body">
+<span class="sb-en">TAKITSUBO DATABASE</span>
+<span class="sb-title">語られた全{shindan_count}タイトル、ぜんぶ引ける。</span>
+<span class="sb-desc">メインで語った回・3分ゲーム紹介・ちょい出しまで、あなたの好きなあのゲームをどの回で話したかがわかる索引です。</span>
+</span>
+<span class="sb-cta">索引を見る →</span>
+</a>
 </section>
 
 <section class="section band band-soft">
@@ -474,13 +483,23 @@ def build_episode_pages():
 
         games_html = ""
         if e["games"]:
-            # タグはデータベースの個別ページへ(索引に無いものは従来どおり検索へ)
+            # タグはデータベースの個別ページへ(索引に無いものは従来どおり検索へ)。
+            # メイン(★)と3分ゲーム紹介のタイトルはDB索引と同じ色分けで目立たせる
             slug_map = game_slug_map()
+            feat_keys = {_shindan_norm(x) for x in e.get("featured_games", [])}
+            sanbun_keys = {_shindan_norm(x) for x in sanbun_titles(e)}
             gtags = ""
             for g in e["games"]:
-                slug = slug_map.get(_shindan_norm(g))
+                k = _shindan_norm(g)
+                slug = slug_map.get(k)
                 href = f"../games/{slug}.html" if slug else f"index.html?q={esc(g)}"
-                gtags += f'<a class="tag" href="{href}">{esc(g)}</a>'
+                if k in feat_keys:
+                    cls, mark = "tag t3", LEVEL_MARK[3]
+                elif k in sanbun_keys:
+                    cls, mark = "tag t2", LEVEL_MARK[2]
+                else:
+                    cls, mark = "tag", ""
+                gtags += f'<a class="{cls}" href="{href}">{mark}{esc(g)}</a>'
             games_html = f'<section class="section">{sec_title("登場ゲームタイトル・キーワード", "GAMES & KEYWORDS")}<div class="game-tags">{gtags}</div></section>'
 
         chapters_html = ""
@@ -1145,9 +1164,11 @@ def build_games():
             attrs += ' data-lv3="1"'
         if has_sanbun:
             attrs += ' data-s3="1"'
+        # 個別ページのないタイトルは該当回へ直接飛ぶので、行き先の回番号を予告する
+        meta = f"{mark}{i['count']}回" if i["paged"] else f"1回 → #{i['eps'][0]['num']}"
         return (f'<a class="{cls}" href="{game_item_href(i)}"{attrs}>'
                 f'<span class="gm-item-title">{esc(i["title"])}</span>'
-                f'<span class="gm-item-meta">{mark}{i["count"]}回</span></a>')
+                f'<span class="gm-item-meta">{meta}</span></a>')
 
     body_sections = ""
     for sec in GAME_SECTIONS:

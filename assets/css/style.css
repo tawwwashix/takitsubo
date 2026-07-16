@@ -564,6 +564,9 @@ span.ep-card-num {
   background: #E3F2FD; color: var(--primary-deep);
   padding: 2px 10px; border-radius: 999px;
 }
+/* メイン(⭐)/3分ゲーム紹介(🍜)のタグ: DB索引の背景色と同じ視覚言語 */
+.tag.t3 { background: linear-gradient(135deg, #FFF3E7, #FFE3C8); color: #A34D1F; font-weight: 700; }
+.tag.t2 { background: linear-gradient(135deg, #EBF9F2, #D7F2E3); color: #177E5D; font-weight: 700; }
 
 /* ---------- 検索・フィルタ ---------- */
 .searchbox { position: relative; }
@@ -620,6 +623,13 @@ span.ep-card-num {
   transform: translateY(-3px); text-decoration: none; color: #fff;
   box-shadow: 0 16px 36px -8px rgba(238, 90, 58, .6);
 }
+/* 滝壺データベースのバナー: 診断より一段控えめな滝の青 */
+.shindan-banner.db {
+  background: linear-gradient(135deg, var(--primary-deep), var(--primary) 60%, var(--cyan));
+  box-shadow: 0 12px 30px -8px rgba(14, 90, 168, .5);
+}
+.shindan-banner.db:hover { box-shadow: 0 16px 36px -8px rgba(14, 90, 168, .55); }
+.shindan-banner.db .sb-cta { color: var(--primary-deep); }
 .shindan-banner::before { /* キラキラ泡 */
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
