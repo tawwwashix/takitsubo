@@ -110,11 +110,11 @@ def main():
         img_url = img_el.get("href") if img_el is not None else None
 
         # 見出しは時期により「主な登場ゲームタイトル」「主な登場作品」「主な登場タイトル」等
-        games_raw = parse_section(desc, ["主な登場", "登場ゲームタイトル"])
+        games_raw = parse_section(desc, ["登場ゲームタイトル"])
         # 新フォーマット判定: 見出し行に★が含まれる回
         # (例:「■主な登場ゲームタイトル（★=メインで語ったタイトル）」)は、
         # ★付きの行をメイン(featured_games)として自動抽出する。★なし=メインなしの明示
-        star_format = bool(re.search(r"■[^\n]*(主な登場|登場ゲームタイトル)[^\n]*★", desc))
+        star_format = bool(re.search(r"■[^\n]*(登場ゲームタイトル)[^\n]*★", desc))
         games, mains = [], []
         for g in games_raw:
             s = g.strip()
@@ -124,8 +124,8 @@ def main():
             if re.fullmatch(r"【[^】]*】", s):
                 continue
             is_main = s.startswith("★")
-            # 基本1行1タイトル。「、」区切りのみ分割(「/」「・」はゲーム名に含まれるため分割しない)
-            for piece in re.split(r"[、,]", s):
+            # 基本1行1タイトル。区切り文字利用時は@@@@部分を置き換えること。
+            for piece in re.split(r"[@@@@]", s):
                 # 箇条書き記号(・や-)と★は先頭からのみ除去。
                 # 末尾は空白だけ落とす(「HUNDRED LINE -最終防衛学園-」のような末尾の-を守る)
                 piece = piece.strip("　 ").lstrip("★・-").strip("　 ")

@@ -105,9 +105,9 @@ def cmd_export(only_ep=None):
 
 def parse_rss_games(desc):
     """RSS概要欄から (★フォーマットか, games, mains, chapters) を読む(update_from_rssと同じ規則)"""
-    star_format = bool(re.search(r"■[^\n]*(主な登場|登場ゲームタイトル)[^\n]*★", desc))
+    star_format = bool(re.search(r"■[^\n]*(登場ゲームタイトル)[^\n]*★", desc))
     games, mains = [], []
-    for g in parse_section(desc, ["主な登場", "登場ゲームタイトル"]):
+    for g in parse_section(desc, ["登場ゲームタイトル"]):
         s = g.strip()
         if re.search(r"https?://|www\.|%[0-9A-Fa-f]{2}", s) or re.fullmatch(r"【[^】]*】", s):
             continue
