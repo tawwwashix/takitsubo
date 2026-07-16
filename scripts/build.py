@@ -36,6 +36,8 @@ SERIES = json.loads((ROOT / "data/series.json").read_text(encoding="utf-8"))["se
 NEWS = json.loads((ROOT / "data/news.json").read_text(encoding="utf-8"))["news"]
 
 EPS_BY_NUM = {e["number"]: e for e in EPS}
+# 配信回数: 第0回(番組紹介)は「全N回」の数え上げに含めない
+EP_COUNT = sum(1 for e in EPS if e["number"] > 0)
 esc = html.escape
 
 
@@ -250,7 +252,7 @@ def build_index():
     root = ""
     latest = EPS[-1]
     recent = list(reversed(EPS[-7:-1]))  # 最新を除く直近6件(3列×2段)
-    ep_count = sum(1 for e in EPS if e["number"] > 0)  # 第0回(番組紹介)は配信回数に含めない
+    ep_count = EP_COUNT
     shindan_count = len(shindan_pool()[0])
     rock = {"tawashi": "rock_tawashi.png", "hyuuma": "rock_hyuuma.png", "ichigoo": "rock_ichigo.png"}
     members = "".join(
@@ -866,7 +868,7 @@ def build_shindan():
     games, _ = shindan_pool()
     n_games = len(games)
     base = SITE["base_url"].rstrip("/")
-    page = head("ふさわしいゲーム診断", f"8つの質問で、あなたに\"ふさわしいゲーム\"を診断。ゲームの滝壺が全{len(EPS)}回で語ってきた{n_games}タイトルの中から、運命の一本を選びます。",
+    page = head("ふさわしいゲーム診断", f"8つの質問で、あなたに\"ふさわしいゲーム\"を診断。ゲームの滝壺が全{EP_COUNT}回で語ってきた{n_games}タイトルの中から、運命の一本を選びます。",
                 root, "shindan.html")
     page += header(root, "shindan")
     page += f"""
@@ -1188,13 +1190,13 @@ def build_games():
                           f'<div class="gm-grid">{cards}</div></section>')
 
     page = head("滝壺データベース｜語られた全ゲームタイトル索引",
-                f"ゲーム系ポッドキャスト「ゲームの滝壺」全{len(EPS)}回で話題に出たゲーム全{total}タイトルの索引。どの回のどのあたりで語られたかまで引けます。あなたの好きなあのゲームも、もう語られているかも。",
+                f"ゲーム系ポッドキャスト「ゲームの滝壺」全{EP_COUNT}回で話題に出たゲーム全{total}タイトルの索引。どの回のどのあたりで語られたかまで引けます。あなたの好きなあのゲームも、もう語られているかも。",
                 root, "games/")
     page += header(root, "games")
     page += f"""<main class="container">
 <div class="page-head" style="text-align:center;">
 <h1 class="page-title"><span class="en">TAKITSUBO DATABASE</span>滝壺データベース</h1>
-<p style="font-size:13px;color:var(--sub);margin-top:8px;">これまでの全{len(EPS)}回で話題に出たゲームタイトルの索引です。<br>がっつり特集した一本も、雑談にちらっと出ただけの一本も、ぜんぶ載っています。</p>
+<p style="font-size:13px;color:var(--sub);margin-top:8px;">これまでの全{EP_COUNT}回で話題に出たゲームタイトルの索引です。<br>がっつり特集した一本も、雑談にちらっと出ただけの一本も、ぜんぶ載っています。</p>
 </div>
 
 <div class="gm-stats">
