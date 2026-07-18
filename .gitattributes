@@ -1,0 +1,8 @@
+# 改行コードはリポジトリ内でLFに統一(チェックアウト時の変換揺れを防ぐ)
+* text=auto
+
+# バイナリは変換対象外
+*.jpg -text
+*.png -text
+*.webp -text
+*.ico -text
