@@ -412,6 +412,8 @@ img { max-width: 100%; display: block; }
 @media (max-width: 802px) {
   .player-frame { height: 100px; }
 }
+/* open.spotify.com公式埋め込み(通常はこちら): コンパクト表示。全幅でレスポンシブに動く */
+.player-box.open .player-frame { height: 152px; }
 
 /* X投稿ボタン(Xブランドの黒) / おたよりボタン(暖色) */
 .service-btn.x-post { background: #101419; color: #fff; }

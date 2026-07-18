@@ -551,11 +551,18 @@ def build_episode_pages():
         if rel:
             related_html = f'<section class="section">{sec_title("関連する回", "RELATED")}<div class="ep-grid">{"".join(ep_card(r, root) for r in rel)}</div></section>'
 
-        # Spotify埋め込みプレイヤー(クリックしたときだけiframeを読み込む軽量方式)
-        embed = spotify_embed_url(e["links"].get("spotify"))
+        # Spotify埋め込みプレイヤー(クリックしたときだけiframeを読み込む軽量方式)。
+        # open.spotify.com の公式埋め込みを優先し、無い回は従来のcreators埋め込みへフォールバック
+        m_open = re.search(r"episode/([A-Za-z0-9]+)", e["links"].get("spotify_open", ""))
+        if m_open:
+            embed = f"https://open.spotify.com/embed/episode/{m_open.group(1)}"
+            box_cls = "player-box open"
+        else:
+            embed = spotify_embed_url(e["links"].get("spotify"))
+            box_cls = "player-box"
         player_html = ""
         if embed:
-            player_html = f"""<div class="player-box" data-embed="{esc(embed)}">
+            player_html = f"""<div class="{box_cls}" data-embed="{esc(embed)}">
 <button class="player-load" type="button">{SVG['play']}この回をこのページで再生<span class="player-note">（Spotifyプレイヤーを読み込みます）</span></button>
 </div>"""
 

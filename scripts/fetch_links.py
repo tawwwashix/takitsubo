@@ -109,23 +109,17 @@ def _walk_lockups(obj, out):
             _walk_lockups(v, out)
 
 
-def _find_continuation(obj):
+def _find_tokens(obj, out):
+    """JSON内の継続トークンをすべて集める(格納場所のUI変更に依存しないよう総当たり)"""
     if isinstance(obj, dict):
-        c = obj.get("continuationItemRenderer")
-        if isinstance(c, dict):
-            token = (c.get("continuationEndpoint", {}).get("continuationCommand", {}).get("token"))
-            if token:
-                return token
+        c = obj.get("continuationCommand")
+        if isinstance(c, dict) and c.get("token"):
+            out.add(c["token"])
         for v in obj.values():
-            t = _find_continuation(v)
-            if t:
-                return t
+            _find_tokens(v, out)
     elif isinstance(obj, list):
         for v in obj:
-            t = _find_continuation(v)
-            if t:
-                return t
-    return None
+            _find_tokens(v, out)
 
 
 def _youtube_playlist_links(site):
@@ -141,26 +135,37 @@ def _youtube_playlist_links(site):
     videos = {}
     _walk_lockups(data, videos)
 
-    # 100件を超えるプレイリストは innertube の継続APIで残りを取得
+    # 100件を超えるプレイリストは innertube の継続APIで残りを取得。
+    # トークンの格納場所はUI変更で動くため、見つかったものを総当たりで試す
     key = re.search(r'"INNERTUBE_API_KEY":"([^"]+)"', html)
     ver = re.search(r'"INNERTUBE_CLIENT_VERSION":"([^"]+)"', html)
-    token = _find_continuation(data)
-    for _ in range(10):  # 念のため上限(1000本まで)
-        if not (token and key and ver):
+    pending, seen = set(), set()
+    _find_tokens(data, pending)
+    # ytInitialDataの外側にトークンが置かれる場合があるのでHTML全体からも拾う
+    pending.update(re.findall(r'"continuationCommand":\{"token":"([^"]+)"', html))
+    for _ in range(15):  # 念のため上限
+        if not (pending and key and ver):
             break
-        resp = _post_json(INNERTUBE_BROWSE.format(key=key.group(1)), {
-            "context": {"client": {"clientName": "WEB", "clientVersion": ver.group(1)}},
-            "continuation": token,
-        })
-        before = len(videos)
+        token = pending.pop()
+        seen.add(token)
+        try:
+            # hl/glを指定しないとタイトルが英語自動翻訳で返り「第N回」が拾えないことがある
+            resp = _post_json(INNERTUBE_BROWSE.format(key=key.group(1)), {
+                "context": {"client": {"clientName": "WEB", "clientVersion": ver.group(1),
+                                       "hl": "ja", "gl": "JP"}},
+                "continuation": token,
+            })
+        except Exception:
+            continue
         _walk_lockups(resp, videos)
-        token = _find_continuation(resp)
-        if len(videos) == before:
-            break
+        new_tokens = set()
+        _find_tokens(resp, new_tokens)
+        pending |= (new_tokens - seen)
 
     out = {}
     for vid, title in videos.items():
-        m2 = re.search(r"第(\d+)回", title)
+        # 「第N回」のほか、自動翻訳された英語タイトル(Episode N / Ep. N)にも保険で対応
+        m2 = re.search(r"第(\d+)回", title) or re.search(r"\bEp(?:isode|\.)?\s*(\d+)", title, re.I)
         if m2:
             out[int(m2.group(1))] = f"https://www.youtube.com/watch?v={vid}"
     return out
