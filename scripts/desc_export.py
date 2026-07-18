@@ -35,7 +35,14 @@ GAMES_HEADER = "■主な登場ゲームタイトル（★=メインで語った
 
 def _n(s):
     import unicodedata
-    return re.sub(r"[\s　]", "", unicodedata.normalize("NFKC", str(s)).lower())
+    # ─と-は同一視(YouTube打消し線対策の代用表記のため)
+    return re.sub(r"[\s　]", "", unicodedata.normalize("NFKC", str(s)).lower()).replace("─", "-")
+
+
+def redash(s):
+    """「-」で挟まれた部分を「─」へ(update_from_rss.undashの逆変換)。
+    YouTube概要欄では-囲みが打消し線になるため、配信側へ貼るテキストは─表記に戻す"""
+    return re.sub(r"-([^-]*)-", r"─\1─", s)
 
 
 def episode_mains(e):
@@ -72,14 +79,14 @@ def render_description(e, lead):
     main_set = set(mains)
     lines = [lead.rstrip(), "", GAMES_HEADER]
     for g in mains:
-        lines.append(f"★{g}")
+        lines.append(f"★{redash(g)}")
     for g in e["games"]:
         if g not in main_set:
-            lines.append(g)
+            lines.append(redash(g))
     if e.get("chapters"):
         lines += ["", "■チャプター"]
         for c in e["chapters"]:
-            lines.append(f"({c['time']}) {c['label']}")
+            lines.append(f"({c['time']}) {redash(c['label'])}")
     return "\n".join(lines) + "\n"
 
 

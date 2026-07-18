@@ -70,6 +70,14 @@ def parse_section(text, header_names):
     return out
 
 
+def undash(s):
+    """「─(罫線)」で挟まれた部分を本来の「-」に戻す。
+    YouTube概要欄では-で挟むと打消し線になるため、配信側の概要欄では
+    ─で代用する運用にしており(例: HUNDRED LINE ─最終防衛学園─)、
+    サイト・診断の表示ではここで正式表記へ復元する"""
+    return re.sub(r"─([^─]*)─", r"-\1-", s)
+
+
 def parse_chapters(lines):
     """『(00:00) オープニング』『00:00 オープニング』などの形式に対応"""
     chapters = []
@@ -131,6 +139,7 @@ def main():
                 piece = piece.strip("　 ").lstrip("★・-").strip("　 ")
                 if not piece:
                     continue
+                piece = undash(piece)
                 canonical = aliases.get(piece)
                 if canonical:
                     games.append(canonical)
@@ -140,6 +149,8 @@ def main():
                 if is_main:
                     mains.append(canonical or piece)
         chapters = parse_chapters(parse_section(desc, ["チャプター"]))
+        for c in chapters:
+            c["label"] = undash(c["label"])
 
         # 概要文: ■より前の本文をリード文として使う
         lead = desc.split("■")[0].strip()[:300]
