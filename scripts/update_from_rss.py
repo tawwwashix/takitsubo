@@ -191,6 +191,14 @@ def main():
             except Exception as ex:
                 print(f"  画像取得失敗 #{num}: {ex}")
 
+    # エピソード別の配信リンク(Apple/LISTEN/YouTube)を自動更新
+    try:
+        from fetch_links import update_links
+        linked = update_links(data["episodes"], SITE)
+        print(f"配信リンク更新: {linked}件")
+    except Exception as ex:
+        print(f"配信リンク更新をスキップ({ex})")
+
     data["episodes"].sort(key=lambda e: e["number"])
     DATA_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
 

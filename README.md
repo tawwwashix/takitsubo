@@ -23,8 +23,10 @@ takitsubo/
 │   └── ranking.json      アートワーククイズ集計(ページは後日実装)
 ├── scripts/
 │   ├── build.py          データ→全HTML生成
-│   ├── update_from_rss.py RSSから新着取得→自動更新(画像も取得)
+│   ├── update_from_rss.py RSSから新着取得→自動更新(画像・配信リンクも取得)
+│   ├── fetch_links.py    エピソード別の配信リンク自動取得(Apple/LISTEN/YouTube)
 │   ├── fetch_images.py   既存回のエピソード画像を一括取り込み(初回用)
+│   ├── title_audit.py    タイトル表記ゆれの検出(統廃合の仕上げ用)
 │   └── desc_export.py    概要欄の整形補助(貼るだけテキスト生成+RSS突合)
 └── .github/workflows/update.yml  毎週水曜に自動更新するGitHub Actions
 ```
@@ -51,6 +53,25 @@ takitsubo/
 ### 表記ゆれ辞書を育てる(ときどき)
 自動実行のログに「表記ゆれ辞書に未登録のゲーム名」が出力されます。
 気になったら `data/aliases.json` に1行追加 → 次回実行から自動で名寄せされます。
+canonicalを「ファイナルファンタジー」のようなシリーズ語幹にすると、その語幹を含む
+全タイトルが別名(FF等)で滝壺データベースを検索できるようになります。
+※検索されたのにヒットしなかった語は、GA4の「サイト内検索」レポートで確認できます
+
+### エピソード別の配信リンク(自動)
+各回ページの配信ボタン(Spotify/Apple/LISTEN)は**その回のエピソードページ**に直接飛びます。
+毎週の自動更新で `fetch_links.py` が取得します(Apple=iTunes API、LISTEN=LISTENのRSS。
+どちらもguidで確実に対応付け)。
+- **YouTube**: チャンネルフィードが最新15件しか返さないため、新しい回は自動、
+  古い回は `data/episodes.json` の `"links": {"youtube": "動画URL"}` を手動設定
+- **Amazon Music**: 自動取得の手段がないため、必要なら `"links": {"amazon": "..."}` を手動設定
+- 手動設定したリンクは自動更新で消えません(自動対象はapple/listen/youtubeのみ)
+
+### シリーズツリーを補正する(ときどき)
+滝壺データベースのシリーズ親子は「○○シリーズ」の前方一致で自動判定されます。
+例外は `data/game_series.json` で補正:
+- `"stem"`: 語幹が2文字以下のシリーズ(鉄拳・東方・零など)はここで明示するとツリー化
+- `"add"`: 前方一致しないシリーズ作品(ディシディアFF等)。ページの関連表示にのみ反映
+- `"remove"`: 前方一致で誤って繋がった作品を外す
 
 ### エピソード画像 → 自動で取り込み・表示
 各回のアートワーク(RSSの `itunes:image`)を `assets/img/ep/<番号>.jpg` に取り込み、
