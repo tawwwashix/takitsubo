@@ -577,7 +577,7 @@ def build_episode_pages():
 <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;">{tags}</div></div>
 </div>
 {player_html}
-<div class="listen-row">{service_buttons(root, e['links'])}</div>
+<div class="listen-row">{service_buttons(root, {**e['links'], 'spotify': e['links'].get('spotify_open') or e['links'].get('spotify')})}</div>
 {desc_html}{series_html}
 {actions_html}
 </div>

@@ -13,6 +13,7 @@
     "listen":   { "label": "LISTEN",         "url": "https://listen.style/p/gamenotktb" },
     "youtube":  { "label": "YouTube",        "url": "https://youtube.com/@game-tktb" }
   },
+  "youtube_playlist": "https://www.youtube.com/playlist?list=PLlMspELqxZ7HpmlnbdFPmITauW3GRWySS",
   "x_url": "https://x.com/game_tktb",
   "x_handle": "@game_tktb",
   "members": [
