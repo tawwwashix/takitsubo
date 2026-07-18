@@ -185,7 +185,7 @@ def ep_image(e):
 
 def related_eps(e, limit=3):
     """関連する回: 同じ名物企画を最優先し、共通の登場ゲーム数でスコアリング"""
-    egames = set(e["games"])
+    egames = {g for _, g in episode_game_entries(e)}
     scored = []
     for o in EPS:
         if o["number"] == e["number"]:
@@ -193,7 +193,7 @@ def related_eps(e, limit=3):
         score = 0
         if e["series"] and o["series"] == e["series"]:
             score += 3
-        score += min(len(egames & set(o["games"])), 3)
+        score += min(len(egames & {g for _, g in episode_game_entries(o)}), 3)
         if score:
             scored.append((score, o["number"], o))
     scored.sort(key=lambda t: (-t[0], -t[1]))
@@ -491,7 +491,7 @@ def build_episode_pages():
             feat_keys = {_shindan_norm(x) for x in e.get("featured_games", [])}
             sanbun_keys = {_shindan_norm(x) for x in sanbun_titles(e)}
             gtags = ""
-            for g in e["games"]:
+            for _, g in episode_game_entries(e):  # 見出し行・注記行はDB側と同じ規則で除外
                 k = _shindan_norm(g)
                 slug = slug_map.get(k)
                 href = f"../games/{slug}.html" if slug else f"index.html?q={esc(g)}"
@@ -552,17 +552,12 @@ def build_episode_pages():
             related_html = f'<section class="section">{sec_title("関連する回", "RELATED")}<div class="ep-grid">{"".join(ep_card(r, root) for r in rel)}</div></section>'
 
         # Spotify埋め込みプレイヤー(クリックしたときだけiframeを読み込む軽量方式)。
-        # open.spotify.com の公式埋め込みを優先し、無い回は従来のcreators埋め込みへフォールバック
-        m_open = re.search(r"episode/([A-Za-z0-9]+)", e["links"].get("spotify_open", ""))
-        if m_open:
-            embed = f"https://open.spotify.com/embed/episode/{m_open.group(1)}"
-            box_cls = "player-box open"
-        else:
-            embed = spotify_embed_url(e["links"].get("spotify"))
-            box_cls = "player-box"
+        # ※open.spotify.comの公式埋め込みは、Spotify未ログインの閲覧者には
+        #   プレビュー再生しか許可されないため、全編再生できるcreators埋め込みを使う
+        embed = spotify_embed_url(e["links"].get("spotify"))
         player_html = ""
         if embed:
-            player_html = f"""<div class="{box_cls}" data-embed="{esc(embed)}">
+            player_html = f"""<div class="player-box" data-embed="{esc(embed)}">
 <button class="player-load" type="button">{SVG['play']}この回をこのページで再生<span class="player-note">（Spotifyプレイヤーを読み込みます）</span></button>
 </div>"""
 
@@ -1440,7 +1435,8 @@ def build_search_json():
     (episodes.json の image_src 等の内部情報は公開物に含めない)"""
     slim = [
         {"number": e["number"], "title": e["title"], "date": e["date"],
-         "tags": e["tags"], "games": e["games"], "image": e.get("image")}
+         "tags": e["tags"], "games": [g for _, g in episode_game_entries(e)],
+         "image": e.get("image")}
         for e in EPS
     ]
     (ROOT / "data/search.json").write_text(

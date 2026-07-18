@@ -412,8 +412,6 @@ img { max-width: 100%; display: block; }
 @media (max-width: 802px) {
   .player-frame { height: 100px; }
 }
-/* open.spotify.com公式埋め込み(通常はこちら): コンパクト表示。全幅でレスポンシブに動く */
-.player-box.open .player-frame { height: 152px; }
 
 /* X投稿ボタン(Xブランドの黒) / おたよりボタン(暖色) */
 .service-btn.x-post { background: #101419; color: #fff; }
@@ -1137,7 +1135,8 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   box-shadow: var(--shadow);
 }
 .detail-art {
-  width: 220px; height: 220px; border-radius: 22px; object-fit: cover;
+  /* 一覧カード(約300px)より小さく見えないよう、詳細ページは一回り大きく */
+  width: 320px; height: 320px; border-radius: 22px; object-fit: cover;
   flex-shrink: 0; box-shadow: var(--shadow-hover); background: var(--line);
 }
 .detail-meta { font-family: var(--font-num); font-size: 13px; color: var(--faint); margin-top: 7px; }
@@ -1258,7 +1257,9 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   .ep-card.featured { flex-direction: column; }
   .ep-card.featured .ep-card-img { width: 100%; }
   .detail-hero { flex-direction: column; }
-  .detail-art { width: min(300px, 100%); height: auto; aspect-ratio: 1 / 1; }
+  /* 縦積みのときは画像・番号バッジを中央寄せ */
+  .detail-art { width: min(300px, 100%); height: auto; aspect-ratio: 1 / 1; align-self: center; }
+  .detail-num { align-self: center; }
 }
 @media (max-width: 480px) {
   body { font-size: 14px; }
