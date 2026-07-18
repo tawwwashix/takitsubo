@@ -1055,16 +1055,45 @@ def games_db():
 def games_series_map():
     """シリーズ自動グループ化: 「○○シリーズ」というタイトルが存在するとき、
     名寄せキーが「○○」で始まるタイトルをその子とみなす(人間の統合判断は不要)。
-    返り値: (child_of: 子キー→親item, children_of: 親キー→子キーのリスト)"""
+    data/game_series.json で例外を補正できる(stem=短い語幹の明示 / add / remove)。
+    返り値: (child_of, children_of, page_child_of, page_children_of)
+      前者2つ=前方一致のみ(索引の字下げ用・五十音順を壊さない)
+      後者2つ=add補正込み(シリーズページ・個別ページの関連表示用)"""
     items = games_db()
     by_key = {i["key"]: i for i in items}
+
+    try:
+        overrides = json.loads((ROOT / "data/game_series.json").read_text(encoding="utf-8")).get("series", {})
+    except FileNotFoundError:
+        overrides = {}
+    ov = {}
+    for parent_title, o in overrides.items():
+        pk = _shindan_norm(parent_title)
+        if pk in by_key:
+            ov[pk] = o
+        else:
+            print(f"  ⚠ game_series.json: 「{parent_title}」というタイトルが索引に見つかりません")
+
     parents = {}
     for i in items:
-        if i["key"].endswith("シリーズ"):
+        if not i["key"].endswith("シリーズ"):
+            continue
+        o = ov.get(i["key"], {})
+        if o.get("stem"):
+            stem = _shindan_norm(o["stem"])
+            min_len = 1  # 明示された語幹は長さ制限なし
+        else:
             # 名寄せキーは末尾の長音等を落とすので、語幹にも同じ正規化を適用して比較する
             stem = i["key"][: -len("シリーズ")].rstrip("-ー–—・:：")
-            if len(stem) >= 3:
-                parents[stem] = i
+            min_len = 3  # 自動語幹は誤爆防止のため3文字以上
+        if len(stem) >= min_len:
+            parents[stem] = i
+
+    removed = {}  # 親キー → 外す子キーの集合
+    for pk, o in ov.items():
+        for t in o.get("remove", []):
+            removed.setdefault(pk, set()).add(_shindan_norm(t))
+
     child_of, children_of = {}, {}
     for i in items:
         if i["key"].endswith("シリーズ"):
@@ -1073,12 +1102,28 @@ def games_series_map():
         for stem, p in parents.items():
             if i["key"].startswith(stem) and (best is None or len(stem) > len(best[0])):
                 best = (stem, p)
-        if best:
+        if best and i["key"] not in removed.get(best[1]["key"], set()):
             child_of[i["key"]] = best[1]
             children_of.setdefault(best[1]["key"], []).append(i["key"])
-    for k in children_of:
-        children_of[k].sort(key=lambda ck: by_key[ck]["reading"])
-    return child_of, children_of
+
+    # ページ表示用: add(前方一致しないシリーズ作品)を合成
+    page_child_of = dict(child_of)
+    page_children_of = {k: list(v) for k, v in children_of.items()}
+    for pk, o in ov.items():
+        for t in o.get("add", []):
+            ck = _shindan_norm(t)
+            if ck not in by_key:
+                print(f"  ⚠ game_series.json: add指定「{t}」が索引に見つかりません")
+                continue
+            if ck in page_child_of:
+                continue
+            page_child_of[ck] = by_key[pk]
+            page_children_of.setdefault(pk, []).append(ck)
+
+    for m in (children_of, page_children_of):
+        for k in m:
+            m[k].sort(key=lambda ck: by_key[ck]["reading"])
+    return child_of, children_of, page_child_of, page_children_of
 
 
 def game_item_href(item, root_to_games=""):
@@ -1149,7 +1194,8 @@ def build_games():
     letter_nav = "".join(
         f'<a href="#sec-{esc(sec)}">{esc(sec)}</a>' for sec in GAME_SECTIONS if sections[sec])
 
-    child_of, children_of = games_series_map()
+    # 索引の字下げは前方一致(child_of)のみ、ページの関連表示はadd補正込み(page_*)を使う
+    child_of, children_of, page_child_of, page_children_of = games_series_map()
     by_key = {i["key"]: i for i in items}
 
     def item_card(i, child=False):
@@ -1293,10 +1339,10 @@ def build_games():
         # シリーズ親ページ: 子作品の登場回を自動合算して表示
         # (概要欄に「シリーズ」を併記しなくても、作品の回がここに集まる)
         agg_html = ""
-        if i["key"] in children_of:
+        if i["key"] in page_children_of:
             own_level = {x["num"]: x["level"] for x in i["eps"]}
             agg = {}
-            for ck in children_of[i["key"]]:
+            for ck in page_children_of[i["key"]]:
                 for x in by_key[ck]["eps"]:
                     # 自分(シリーズ)の一覧に既にあっても、作品側の語られ度が上回る回は載せる
                     # (例: 第1回はシリーズとしては💬だが「風来のシレン」の🎙回)
@@ -1324,11 +1370,11 @@ def build_games():
                 agg_html = (f'<section class="section">{sec_title("シリーズ作品が登場した回", "TITLES IN SERIES")}'
                             f'<div class="gm-eps">{agg_rows}</div></section>')
 
-        # 同シリーズのタイトル(「○○シリーズ」による自動グループ)
+        # 同シリーズのタイトル(「○○シリーズ」による自動グループ+game_series.jsonの補正)
         series_html = ""
-        group_parent = i if i["key"] in children_of else child_of.get(i["key"])
+        group_parent = i if i["key"] in page_children_of else page_child_of.get(i["key"])
         if group_parent is not None:
-            members = [group_parent] + [by_key[ck] for ck in children_of.get(group_parent["key"], [])]
+            members = [group_parent] + [by_key[ck] for ck in page_children_of.get(group_parent["key"], [])]
             others = [m for m in members if m["key"] != i["key"]]
             if others:
                 chips = "".join(f'<a class="tag" href="{game_item_href(m)}">{esc(m["title"])}</a>' for m in others)
