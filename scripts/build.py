@@ -13,16 +13,6 @@ def x_post_url(text):
     return "https://x.com/intent/post?text=" + urllib.parse.quote(text)
 
 
-def spotify_embed_url(link):
-    """SpotifyのエピソードリンクをiFrame埋め込み用URLに変換。変換不能ならNone"""
-    m = re.match(
-        r"https://(?:podcasters|creators)\.spotify\.com/pod/(?:show|profile)/([^/]+)/(?:embed/)?episodes/([^/?#]+)",
-        link or "")
-    if m:
-        return f"https://creators.spotify.com/pod/profile/{m.group(1)}/embed/episodes/{m.group(2)}"
-    return None
-
-
 def av(rel):
     """アセットのキャッシュバスター。内容が変わるとURLの ?v= も変わり、
     ブラウザ(特にスマホ)が古いCSS/JSを掴み続けるのを防ぐ。"""
@@ -45,8 +35,30 @@ def jd(iso):  # 2026-07-01 -> 2026.07.01
     return iso.replace("-", ".")
 
 
+def time_to_sec(t):
+    """チャプター表記の「45:57」「1:02:03」を秒数に。解釈できなければNone"""
+    try:
+        sec = 0
+        for p in str(t).split(":"):
+            sec = sec * 60 + int(p)
+        return sec
+    except ValueError:
+        return None
+
+
+def fmt_dur_min(sec):
+    """再生時間(秒)を「58分」「1時間17分」表記に。不明なら空文字"""
+    if not sec:
+        return ""
+    h, m = sec // 3600, round((sec % 3600) / 60)
+    if m == 60:
+        h, m = h + 1, 0
+    return f"{h}時間{m}分" if h else f"{m}分"
+
+
 SVG = {
     "play": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg>',
+    "pause": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.6v14H7V5zm6.4 0H17v14h-3.6V5z"/></svg>',
     "search": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
     "close": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
     "arrow_l": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>',
@@ -480,8 +492,8 @@ def build_episode_pages():
 
         tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in e["tags"])
         date_note = ' <span class="date-note">（推定）</span>' if e.get("date_estimated") else ""
-
-        desc_html = f'<div class="card ep-desc">{esc(e["description"])}</div>' if e["description"] else ""
+        audio = e.get("audio")
+        img = ep_image(e)
 
         games_html = ""
         if e["games"]:
@@ -504,15 +516,38 @@ def build_episode_pages():
                 gtags += f'<a class="{cls}" href="{href}">{mark}{esc(g)}</a>'
             games_html = f'<section class="section">{sec_title("登場ゲームタイトル・キーワード", "GAMES & KEYWORDS")}<div class="game-tags">{gtags}</div></section>'
 
+        # チャプター: 音声がある回はボタン化し、タップでその話題から再生できる
         chapters_html = ""
         if e["chapters"]:
-            items = "".join(f'<li><span class="chapter-time">{esc(c["time"])}</span><span>{esc(c["label"])}</span></li>' for c in e["chapters"])
-            chapters_html = f'<section class="section">{sec_title("チャプター", "CHAPTERS")}<ul class="chapter-list">{items}</ul></section>'
+            if audio:
+                rows = ""
+                for c in e["chapters"]:
+                    sec = time_to_sec(c["time"])
+                    if sec is None:
+                        rows += (f'<li><span class="chap-row"><span class="chapter-time">{esc(c["time"])}</span>'
+                                 f'<span class="chap-label">{esc(c["label"])}</span></span></li>')
+                    else:
+                        rows += (f'<li><button type="button" class="chap-row" data-t="{sec}">'
+                                 f'<span class="chapter-time">{esc(c["time"])}</span>'
+                                 f'<span class="chap-label">{esc(c["label"])}</span>'
+                                 f'<span class="chap-go">{SVG["play"]}<span class="eq"><i></i><i></i><i></i></span></span>'
+                                 f'</button></li>')
+                chapters_html = (f'<section class="section">{sec_title("チャプター", "CHAPTERS")}'
+                                 f'<p class="chap-hint">🎧 チャプターを押すと、その話題の頭から再生されます。</p>'
+                                 f'<ol class="chapter-list tk-chapters">{rows}</ol></section>')
+            else:
+                items = "".join(f'<li><span class="chapter-time">{esc(c["time"])}</span><span>{esc(c["label"])}</span></li>' for c in e["chapters"])
+                chapters_html = f'<section class="section">{sec_title("チャプター", "CHAPTERS")}<ul class="chapter-list">{items}</ul></section>'
 
-        series_html = ""
+        # 「この回について」: 概要文 + 名物企画への案内
+        series_note = ""
         if e["series"]:
             s = next(s for s in SERIES if s["slug"] == e["series"])
-            series_html = f'<p style="margin-top:14px;font-size:13px;">この回は名物企画「<a href="../series/{s["slug"]}.html">{esc(s["name"])}</a>」のひとつです。</p>'
+            series_note = f'<p style="margin-top:14px;font-size:13px;">この回は名物企画「<a href="../series/{s["slug"]}.html">{esc(s["name"])}</a>」のひとつです。</p>'
+        about_html = ""
+        if e["description"] or series_note:
+            body = f'<div class="card ep-desc">{esc(e["description"])}</div>' if e["description"] else ""
+            about_html = f'<section class="section">{sec_title("この回について", "ABOUT")}{body}{series_note}</section>'
 
         pn = '<div class="prevnext">'
         pn += (f'<a class="card" href="{prev_e["number"]}.html"><span class="pn-label">← 前の回 #{prev_e["number"]}</span><div class="pn-title">{esc(prev_e["title"])}</div></a>' if prev_e else "<span></span>")
@@ -532,6 +567,10 @@ def build_episode_pages():
             "partOfSeries": {"@type": "PodcastSeries", "name": SITE["title"], "url": base + "/"},
             "inLanguage": "ja",
         }
+        if audio:
+            ep_ld["associatedMedia"] = {"@type": "MediaObject", "contentUrl": audio}
+            if e.get("duration"):
+                ep_ld["timeRequired"] = f"PT{e['duration']}S"
         crumbs_ld = {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
@@ -551,15 +590,44 @@ def build_episode_pages():
         if rel:
             related_html = f'<section class="section">{sec_title("関連する回", "RELATED")}<div class="ep-grid">{"".join(ep_card(r, root) for r in rel)}</div></section>'
 
-        # Spotify埋め込みプレイヤー(クリックしたときだけiframeを読み込む軽量方式)。
-        # ※open.spotify.comの公式埋め込みは、Spotify未ログインの閲覧者には
-        #   プレビュー再生しか許可されないため、全編再生できるcreators埋め込みを使う
-        embed = spotify_embed_url(e["links"].get("spotify"))
-        player_html = ""
-        if embed:
-            player_html = f"""<div class="player-box" data-embed="{esc(embed)}">
-<button class="player-load" type="button">{SVG['play']}この回をこのページで再生<span class="player-note">（Spotifyプレイヤーを読み込みます）</span></button>
+        # サイト内プレイヤー: RSSの音声(MP3)をこのページで直接再生する。
+        # チャプター頭出し・倍速・続きから再生・?t=リンクは assets/js/player.js が担当
+        if audio:
+            image_attr = f' data-image="{root}{img}"' if img else ""
+            player_html = f"""<div class="tkp" id="tkPlayer" data-audio="{esc(audio)}" data-ep="{n}" data-duration="{e.get('duration') or ''}" data-title="第{n}回 {esc(e['title'])}" data-show="{esc(SITE['title'])}"{image_attr}>
+<div class="tkp-top">
+<button class="tkp-play" type="button" aria-label="再生 / 一時停止"><span class="i-play">{SVG['play']}</span><span class="i-pause">{SVG['pause']}</span></button>
+<div class="tkp-main">
+<input class="tkp-seek" type="range" min="0" max="{e.get('duration') or 1}" step="1" value="0" aria-label="再生位置">
+<div class="tkp-times"><span class="tkp-cur">0:00</span><span class="tkp-dur">--:--</span></div>
+</div>
+</div>
+<div class="tkp-sub">
+<button class="tkp-btn tkp-back" type="button" title="10秒戻る">⏪ 10秒</button>
+<button class="tkp-btn tkp-fwd" type="button" title="30秒進む">30秒 ⏩</button>
+<button class="tkp-btn tkp-rate" type="button" title="再生速度を変える">1.0x</button>
+<button class="tkp-btn tkp-copy" type="button" title="いま聴いている位置から始まるURLをコピー">🔗 この位置のリンク</button>
+</div>
+<p class="tkp-note" aria-live="polite"></p>
 </div>"""
+        else:
+            player_html = ('<div class="tkp"><p class="tkp-note">この回の音声はまだ取り込めていないため、'
+                           '下の各サービスからお聴きください。</p></div>')
+
+        art_html = (f'<img class="ep-hero-art" src="{root}{img}" alt="第{n}回のアートワーク">' if img
+                    else f'<span class="ep-hero-art">#{n}</span>')
+        dur_note = f" ・ {fmt_dur_min(e.get('duration'))}" if e.get("duration") else ""
+        hero_html = f"""<div class="ep-hero card">
+{art_html}
+<div class="ep-hero-body">
+<p class="detail-meta">#{n} ・ {jd(e['date'])} 配信{date_note}{dur_note}</p>
+<h1 class="page-title ep-hero-title">{esc(e['title'])}</h1>
+<div class="ep-hero-tags">{tags}</div>
+{player_html}
+</div>
+</div>"""
+        listen_html = f"""<div class="listen-block"><span class="listen-label">アプリ・他のサービスでも聴けます</span>
+<div class="listen-row">{service_buttons(root, {**e['links'], 'spotify': e['links'].get('spotify_open') or e['links'].get('spotify')})}</div></div>"""
 
         # おたより/Xポストのボタン(上下2箇所に置く)
         share_text = f'第{n}回 {e["title"]}\n{SITE["hashtag"]}\n{SITE["base_url"].rstrip("/")}/episodes/{n}.html'
@@ -572,23 +640,18 @@ def build_episode_pages():
 <main class="container">
 <div class="page-head">
 <a class="back-link" href="index.html">{SVG['arrow_l']}エピソード一覧へ</a>
-<div class="detail-hero">
-{f'<img class="detail-art" src="{root}{ep_image(e)}" alt="第{n}回のアートワーク">' if ep_image(e) else f'<span class="detail-num">#{n}</span>'}
-<div><h1 class="page-title" style="font-size:20px;">{esc(e['title'])}</h1>
-<p class="detail-meta">{f'#{n} ・ ' if ep_image(e) else ''}{jd(e['date'])} 配信{date_note}</p>
-<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;">{tags}</div></div>
+{hero_html}
+{listen_html}
 </div>
-{player_html}
-<div class="listen-row">{service_buttons(root, {**e['links'], 'spotify': e['links'].get('spotify_open') or e['links'].get('spotify')})}</div>
-{desc_html}{series_html}
-{actions_html}
-</div>
-{games_html}
 {chapters_html}
+{about_html}
+{actions_html}
+{games_html}
 {related_html}
 {pn}
 {actions_html}
-</main>"""
+</main>
+<script src="{root}assets/js/player.js?v={av('assets/js/player.js')}"></script>"""
         page += footer(root)
         (ROOT / f"episodes/{n}.html").write_text(page, encoding="utf-8")
 
@@ -1324,19 +1387,27 @@ def build_games():
             art = (f'<img class="gm-ep-img" src="../{img}" alt="" loading="lazy">' if img
                    else f'<span class="gm-ep-img gm-ep-num">#{e["number"]}</span>')
             cls, label = LEVEL_BADGE[x["level"]]
+            # 該当チャプター: 音声のある回は「▶ その話題の頭から再生」リンクにする
+            # (行全体のリンクは a.gm-ep-main の透明レイヤーが担い、チップはその上に載る)
             chap_html = ""
             if x["chapters"]:
-                chap_html = '<span class="gm-chaps">' + "".join(
-                    f'<span class="gm-chap">⏱ {esc(c["time"])}〜 {esc(c["label"])}</span>'
-                    for c in x["chapters"][:3]) + "</span>"
+                chips = ""
+                for c in x["chapters"][:3]:
+                    sec = time_to_sec(c["time"])
+                    if e.get("audio") and sec is not None:
+                        chips += (f'<a class="gm-chap play" href="../episodes/{e["number"]}.html?t={sec}" '
+                                  f'title="第{e["number"]}回をこの話題の頭から再生">▶ {esc(c["time"])}〜 {esc(c["label"])}</a>')
+                    else:
+                        chips += f'<span class="gm-chap">⏱ {esc(c["time"])}〜 {esc(c["label"])}</span>'
+                chap_html = f'<span class="gm-chaps">{chips}</span>'
             desc = (e["description"] or "").replace("\n", " ")
             desc = f'<span class="gm-ep-desc">{esc(desc[:110])}{"…" if len(desc) > 110 else ""}</span>' if desc else ""
-            rows += f"""<a class="gm-ep" href="../episodes/{e['number']}.html">{art}
+            rows += f"""<div class="gm-ep">{art}
 <span class="gm-ep-body">
 <span class="gm-ep-head"><span class="gm-ep-hash">#{e['number']}</span><span class="gm-ep-date">{jd(e['date'])}</span><span class="gm-badge {cls}">{label}</span></span>
-<span class="gm-ep-title">{esc(e['title'])}</span>
+<a class="gm-ep-main" href="../episodes/{e['number']}.html"><span class="gm-ep-title">{esc(e['title'])}</span></a>
 {chap_html}{desc}
-</span></a>"""
+</span></div>"""
 
         # シリーズ親ページ: 子作品の登場回を自動合算して表示
         # (概要欄に「シリーズ」を併記しなくても、作品の回がここに集まる)
@@ -1419,7 +1490,7 @@ def build_games():
 {agg_html}
 {series_html}
 {rel_html}
-<div class="info-box" style="margin-top:22px;">🎧 気になった回は、各ページのプレイヤーからすぐ再生できます。
+<div class="info-box" style="margin-top:22px;">🎧 ▶付きの時刻を押すと、その話題の頭からその場で再生できます。
 「{esc(title)}」の話がもっと聴きたくなったら、<a href="../otayori.html">おたより</a>でリクエストしてもらえると番組が喜びます。</div>
 <p style="text-align:center;margin-top:18px;"><a class="service-btn" style="display:inline-flex;" href="../shindan.html">👑 あなたに"ふさわしい一本"を診断する</a></p>
 </main>"""

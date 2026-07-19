@@ -387,31 +387,166 @@ img { max-width: 100%; display: block; }
 .svc-listen  { color: #F4801F; }
 .svc-youtube { color: #E62117; }
 
-/* Spotify埋め込みプレイヤー(クリック時にiframeへ差し替え) */
-.player-box { margin: 16px 0 4px; }
-.player-load {
-  display: flex; width: 100%; align-items: center; justify-content: center;
-  gap: 10px; flex-wrap: wrap;
-  padding: 16px 20px; border: none; border-radius: var(--radius);
-  background: linear-gradient(135deg, #14A64A, #1DB954);
-  color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 15px;
-  cursor: pointer; box-shadow: 0 8px 22px -6px rgba(20, 166, 74, .55);
+/* ---------- サイト内プレイヤー(RSSの音声を直接再生) ---------- */
+/* エピソードページのヒーローカード: アートワーク+タイトル+プレイヤー */
+.ep-hero {
+  display: flex; gap: 24px; align-items: stretch;
+  padding: 22px; margin-bottom: 14px;
+}
+.ep-hero-art {
+  width: min(250px, 34%); aspect-ratio: 1 / 1; flex-shrink: 0;
+  border-radius: 18px; object-fit: cover; align-self: flex-start;
+  box-shadow: var(--shadow); background: var(--line);
+}
+span.ep-hero-art {
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-num); font-weight: 700; font-size: 26px; color: #fff;
+  background: linear-gradient(150deg, var(--sky-2), var(--primary));
+}
+.ep-hero-body {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+}
+.ep-hero-title { font-size: 20px; margin-top: 4px; }
+.ep-hero-tags { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 6px; }
+
+.tkp { margin-top: auto; padding-top: 16px; }
+.tkp-top { display: flex; align-items: center; gap: 15px; }
+.tkp-play {
+  width: 62px; height: 62px; flex-shrink: 0;
+  border: none; border-radius: 50%; cursor: pointer;
+  background: linear-gradient(135deg, var(--primary), var(--cyan));
+  color: #fff; display: grid; place-items: center;
+  box-shadow: 0 10px 22px -6px rgba(30, 126, 214, .6);
   transition: transform .15s, box-shadow .15s;
 }
-.player-load:hover { transform: translateY(-2px); box-shadow: 0 12px 26px -6px rgba(20, 166, 74, .6); }
-.player-load svg { width: 20px; height: 20px; }
-.player-note { font-family: var(--font-body); font-weight: 400; font-size: 11px; opacity: .85; }
-.player-frame {
-  display: block; width: 100%; height: 161px; border: 0;
-  border-radius: var(--radius); box-shadow: var(--shadow);
+.tkp-play:hover { transform: scale(1.06); box-shadow: 0 12px 26px -6px rgba(30, 126, 214, .65); }
+.tkp-play svg { width: 26px; height: 26px; }
+.tkp-play .i-pause, .tkp.playing .tkp-play .i-play { display: none; }
+.tkp.playing .tkp-play .i-pause { display: block; }
+.tkp-main { flex: 1; min-width: 0; }
+.tkp-seek {
+  -webkit-appearance: none; appearance: none;
+  display: block; width: 100%; height: 8px; border-radius: 999px;
+  background: var(--line); cursor: pointer; margin: 6px 0 4px;
 }
-/* このAnchor系埋め込みは横幅が広いとき(約802px以上)だけ全コントロール
-   (シークバー含む)が横一列に収まる。狭い画面では内部が最低300pxを取り
-   余白が出るため、scrolling=no(site.js)と低い高さでミニカード部分だけを
-   クリップ表示し、スクロールバーと余白を隠す。 */
-@media (max-width: 802px) {
-  .player-frame { height: 100px; }
+.tkp-seek::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #fff; border: 3px solid var(--primary);
+  box-shadow: 0 1px 6px rgba(14, 90, 168, .45); cursor: grab;
 }
+.tkp-seek::-moz-range-thumb {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #fff; border: 3px solid var(--primary);
+  box-shadow: 0 1px 6px rgba(14, 90, 168, .45); cursor: grab;
+}
+.tkp-seek::-moz-range-track { background: transparent; }
+.tkp-times {
+  display: flex; justify-content: space-between;
+  font-family: var(--font-num); font-size: 12px; color: var(--faint);
+}
+.tkp-cur { color: var(--primary-deep); font-weight: 700; }
+.tkp-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 11px; }
+.tkp-btn {
+  cursor: pointer; font-family: var(--font-num); font-weight: 700; font-size: 12px;
+  color: var(--sub); background: var(--surface);
+  border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 13px;
+  transition: all .12s;
+}
+.tkp-btn:hover { border-color: var(--primary); color: var(--primary); }
+.tkp-copy { font-family: var(--font-body); font-weight: 700; }
+.tkp-note {
+  margin-top: 10px; font-size: 12px; color: var(--sub);
+  background: var(--band-soft); border-radius: 10px; padding: 7px 12px;
+  width: fit-content; max-width: 100%;
+}
+.tkp-note:empty { display: none; }
+.tkp-note strong { font-family: var(--font-num); color: var(--primary-deep); }
+.tkp-restart {
+  cursor: pointer; border: none; background: none; padding: 0;
+  font-family: inherit; font-size: 12px; font-weight: 700;
+  color: var(--accent-deep); text-decoration: underline;
+}
+
+/* 他サービスの行(ヒーロー直下) */
+.listen-block { margin: 0 0 6px; }
+.listen-label { display: block; font-size: 11.5px; color: var(--faint); font-weight: 700; margin-bottom: 7px; }
+
+/* チャプター: タップでその話題から再生 */
+.chap-hint { font-size: 12px; color: var(--sub); margin: -8px 0 10px; }
+.tk-chapters li { padding: 0; }
+.chap-row {
+  display: flex; width: 100%; align-items: center; gap: 14px;
+  padding: 11px 8px; border: none; background: none; cursor: pointer;
+  font-family: var(--font-body); font-size: 14px; color: var(--ink);
+  text-align: left; line-height: 1.6; border-radius: 10px;
+  transition: background .12s;
+}
+.chap-row:hover { background: var(--band-soft); }
+.chap-label { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.chap-go { flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; color: var(--faint); }
+.chap-go svg { width: 13px; height: 13px; }
+.chap-row:hover .chap-go { color: var(--primary); }
+.chap-row:hover .chapter-time { color: var(--primary-deep); font-weight: 700; }
+/* 再生中のチャプター */
+.tk-chapters li.now .chap-row { background: var(--band-blue); }
+.tk-chapters li.now .chapter-time { color: var(--primary-deep); font-weight: 700; }
+.tk-chapters li.now .chap-label { font-weight: 700; }
+.tk-chapters li.now .chap-go svg { display: none; }
+.eq { display: none; align-items: flex-end; gap: 2.5px; height: 14px; }
+.tk-chapters li.now .eq { display: inline-flex; }
+.eq i {
+  width: 3.5px; border-radius: 2px; background: var(--primary);
+  animation: eq-bounce 1s ease-in-out infinite;
+}
+.eq i:nth-child(1) { height: 60%; }
+.eq i:nth-child(2) { height: 100%; animation-delay: -.35s; }
+.eq i:nth-child(3) { height: 75%; animation-delay: -.7s; }
+@keyframes eq-bounce {
+  0%, 100% { transform: scaleY(.45); }
+  50% { transform: scaleY(1); }
+}
+
+/* ミニプレイヤー(本体が画面外に出たら下部に出現) */
+.tk-mini {
+  position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+  width: min(620px, calc(100% - 24px)); z-index: 60;
+  display: none; align-items: center; gap: 12px;
+  background: rgba(255, 255, 255, .95);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border: 1px solid var(--line); border-radius: 999px;
+  box-shadow: 0 12px 34px rgba(14, 90, 168, .35);
+  padding: 7px 20px 7px 7px; cursor: pointer;
+}
+.tk-mini.show { display: flex; animation: mini-rise .3s cubic-bezier(.22, 1, .36, 1); }
+@keyframes mini-rise { from { opacity: 0; transform: translate(-50%, 14px); } to { opacity: 1; } }
+.tk-mini-play {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border: none; border-radius: 50%; cursor: pointer;
+  background: linear-gradient(135deg, var(--primary), var(--cyan));
+  color: #fff; display: grid; place-items: center;
+}
+.tk-mini-play svg { width: 18px; height: 18px; }
+.tk-mini-play .i-pause, .tk-mini.playing .i-play { display: none; }
+.tk-mini.playing .i-pause { display: block; }
+.tk-mini-body { flex: 1; min-width: 0; }
+.tk-mini-title {
+  display: block; font-size: 12.5px; font-weight: 700; line-height: 1.5;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tk-mini-bar {
+  display: block; height: 4px; border-radius: 999px;
+  background: var(--line); margin-top: 5px; overflow: hidden;
+}
+.tk-mini-bar i {
+  display: block; height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--primary), var(--cyan));
+}
+.tk-mini-time { font-family: var(--font-num); font-size: 12px; font-weight: 700; color: var(--primary-deep); flex-shrink: 0; }
+/* ミニプレイヤー表示中は、出現済みのダチョウだけ上へ避難させる
+   (未出現のダチョウまで動かすと、隠れているはずの頭がはみ出す) */
+body.tk-mini-on .datyou-top.show { transform: translateY(-64px); }
 
 /* X投稿ボタン(Xブランドの黒) / おたよりボタン(暖色) */
 .service-btn.x-post { background: #101419; color: #fff; }
@@ -946,12 +1081,17 @@ span.ep-card-num {
 .gm-summary-count strong { font-family: var(--font-num); }
 .gm-eps { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
 .gm-ep {
+  position: relative;
   display: flex; gap: 14px; align-items: flex-start;
   background: var(--surface); border-radius: var(--radius);
   box-shadow: var(--shadow); padding: 14px; color: inherit;
   transition: transform .12s, box-shadow .12s;
 }
 .gm-ep:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); text-decoration: none; }
+/* 行全体をリンクにする透明レイヤー(⏱チップだけ別リンクとして上に載せる) */
+a.gm-ep-main { color: inherit; }
+a.gm-ep-main::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }
+a.gm-ep-main:hover { text-decoration: none; }
 .gm-ep-img {
   width: 74px; height: 74px; border-radius: 13px; object-fit: cover; flex-shrink: 0;
 }
@@ -972,12 +1112,19 @@ span.ep-card-num {
 .gm-badge.l1 { background: var(--band-blue); color: var(--primary-deep); }
 .gm-badge.l0 { background: var(--band-soft); border: 1px solid var(--line); color: var(--sub); }
 .gm-ep-title { font-weight: 700; font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; }
-.gm-chaps { display: flex; flex-direction: column; gap: 2px; }
+.gm-chaps { display: flex; flex-direction: column; gap: 3px; }
 .gm-chap {
   font-size: 11.5px; font-weight: 700; color: var(--primary-deep);
   background: var(--band-soft); border-radius: 8px; padding: 3px 9px;
   width: fit-content; max-width: 100%; overflow-wrap: anywhere;
 }
+/* ⏱チップが頭出しリンクのとき: 行リンクの上に重ねて押せるようにする */
+a.gm-chap.play {
+  position: relative; z-index: 1;
+  background: var(--band-blue); color: var(--primary-deep);
+  transition: background .12s, color .12s;
+}
+a.gm-chap.play:hover { background: var(--primary); color: #fff; text-decoration: none; }
 .gm-ep-desc { font-size: 11.5px; color: var(--faint); line-height: 1.7; overflow-wrap: anywhere; }
 @media (max-width: 520px) {
   .gm-ep { gap: 11px; padding: 12px; }
@@ -1124,22 +1271,7 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   display: inline-flex; align-items: center; gap: 5px;
   font-size: 13px; font-weight: 500; margin-bottom: 14px;
 }
-.detail-hero {
-  display: flex; gap: 16px; align-items: flex-start; margin-bottom: 18px;
-}
-.detail-num {
-  font-family: var(--font-num); font-weight: 700; font-size: 17px;
-  background: linear-gradient(150deg, var(--sky-2), var(--primary));
-  color: #fff; width: 68px; height: 68px; border-radius: 18px;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  box-shadow: var(--shadow);
-}
-.detail-art {
-  /* 一覧カード(約300px)より小さく見えないよう、詳細ページは一回り大きく */
-  width: 320px; height: 320px; border-radius: 22px; object-fit: cover;
-  flex-shrink: 0; box-shadow: var(--shadow-hover); background: var(--line);
-}
-.detail-meta { font-family: var(--font-num); font-size: 13px; color: var(--faint); margin-top: 7px; }
+.detail-meta { font-family: var(--font-num); font-size: 13px; color: var(--faint); }
 .date-note { font-size: 11px; color: var(--faint); }
 .listen-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
 .listen-row .service-btn { background: var(--surface); border: 1.5px solid var(--line); box-shadow: none; }
@@ -1229,7 +1361,7 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
 .datyou-top {
   position: fixed; right: 14px; bottom: -84px; z-index: 70;
   width: 56px; padding: 0; border: none; background: none; cursor: pointer;
-  transition: bottom .45s cubic-bezier(.34, 1.6, .64, 1);
+  transition: bottom .45s cubic-bezier(.34, 1.6, .64, 1), transform .3s;
 }
 .datyou-top img {
   width: 100%; height: auto; display: block;
@@ -1256,10 +1388,13 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
 @media (max-width: 640px) {
   .ep-card.featured { flex-direction: column; }
   .ep-card.featured .ep-card-img { width: 100%; }
-  .detail-hero { flex-direction: column; }
-  /* 縦積みのときは画像・番号バッジを中央寄せ */
-  .detail-art { width: min(300px, 100%); height: auto; aspect-ratio: 1 / 1; align-self: center; }
-  .detail-num { align-self: center; }
+  /* エピソードヒーロー: 縦積みにしてアートワークを中央寄せ */
+  .ep-hero { flex-direction: column; gap: 16px; padding: 16px; }
+  .ep-hero-art { width: min(300px, 100%); align-self: center; }
+  .ep-hero-title { font-size: 18px; }
+  .tkp-top { gap: 12px; }
+  .tkp-play { width: 54px; height: 54px; }
+  .tkp-play svg { width: 22px; height: 22px; }
 }
 @media (max-width: 480px) {
   body { font-size: 14px; }
@@ -1270,7 +1405,6 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   .member-card .member-rock { width: 46px; height: 46px; top: -24px; }
   .grid-2 { grid-template-columns: 1fr; }
   .prevnext { grid-template-columns: 1fr; }
-  .detail-num { width: 56px; height: 56px; font-size: 15px; border-radius: 15px; }
   .ep-card-body { padding: 10px 12px 12px; }
   .ep-title { font-size: 13px; }
   .page-title { font-size: 21px; }

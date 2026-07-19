@@ -57,25 +57,6 @@
   });
 })();
 
-/* エピソードページ: ボタンを押したときだけSpotifyプレイヤーを読み込む(初期表示を軽く保つ) */
-(function () {
-  document.querySelectorAll(".player-box .player-load").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var box = btn.closest(".player-box");
-      var f = document.createElement("iframe");
-      f.src = box.dataset.embed;
-      f.title = "Spotifyエピソードプレイヤー";
-      f.setAttribute("allow", "autoplay; encrypted-media; fullscreen");
-      f.setAttribute("frameborder", "0");
-      // 狭い画面ではこの埋め込みが最低300pxの高さを取り余白が出るため、
-      // scrolling=no + CSSの低い高さでミニカード部分だけをクリップ表示する
-      f.setAttribute("scrolling", "no");
-      f.className = "player-frame";
-      box.replaceChildren(f);
-    });
-  });
-})();
-
 /* 全ページ共通: ページ下部でダチョウがニュッと出現 → クリックで先頭へ */
 (function () {
   var btn = document.querySelector(".datyou-top");

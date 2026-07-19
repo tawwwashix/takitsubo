@@ -8,7 +8,8 @@ GitHub Actions から定期実行される想定(手動実行も可)。
   3. 概要欄の「■主な登場ゲームタイトル」「■チャプター」を自動抽出
   4. aliases.json の表記ゆれ辞書でゲーム名を正式名に名寄せ
   5. タイトルにシリーズのキーワードが含まれていたらタグ候補を自動付与
-  6. episodes.json を更新し、build.py を呼んでページを再生成
+  6. 音声ファイルURL(enclosure)と再生時間を取り込む(サイト内プレイヤーが使用)
+  7. episodes.json を更新し、build.py を呼んでページを再生成
 
 使い方:  python3 scripts/update_from_rss.py
 """
@@ -78,6 +79,22 @@ def undash(s):
     return re.sub(r"─([^─]*)─", r"-\1-", s)
 
 
+def parse_duration(s):
+    """itunes:durationを秒数に変換。「3504」でも「58:24」「1:02:03」でもOK。不明ならNone"""
+    s = (s or "").strip()
+    if not s:
+        return None
+    try:
+        if ":" in s:
+            sec = 0
+            for p in s.split(":"):
+                sec = sec * 60 + int(p)
+            return sec
+        return int(float(s))
+    except ValueError:
+        return None
+
+
 def parse_chapters(lines):
     """『(00:00) オープニング』『00:00 オープニング』などの形式に対応"""
     chapters = []
@@ -116,6 +133,10 @@ def main():
         link = item.findtext("link")
         img_el = item.find("itunes:image", ns)
         img_url = img_el.get("href") if img_el is not None else None
+        # 音声ファイル(MP3)のURLと再生時間。サイト内プレイヤーの再生・チャプター頭出しに使う
+        enc = item.find("enclosure")
+        audio_url = enc.get("url") if enc is not None else None
+        duration = parse_duration(item.findtext("itunes:duration", default="", namespaces=ns))
 
         # 見出しは時期により「主な登場ゲームタイトル」「主な登場作品」「主な登場タイトル」等
         games_raw = parse_section(desc, ["登場ゲームタイトル"])
@@ -169,9 +190,15 @@ def main():
                     if label not in ep["tags"]:
                         ep["tags"].append(label)
         else:
-            # "locked": true の回は手動修正を優先し、RSSでの上書きを一切行わない
+            # "locked": true の回は手動修正を優先し、RSSでの上書きを行わない。
+            # ただし音声URL・再生時間は手直しの対象外(RSS由来の機械的な情報)なので、
+            # ロック回でも常に最新へ更新する
             if ep.get("locked"):
                 locked += 1
+                if audio_url:
+                    ep["audio"] = audio_url
+                if duration:
+                    ep["duration"] = duration
                 continue
             updated += 1
 
@@ -192,6 +219,10 @@ def main():
         ep["guid"] = guid
         if link:
             ep["links"]["spotify"] = link  # anchor/Spotifyのエピソードリンク
+        if audio_url:
+            ep["audio"] = audio_url
+        if duration:
+            ep["duration"] = duration
 
         # エピソード個別画像: URLが変わった or ローカルに未保存のときだけ取得
         if img_url and (ep.get("image_src") != img_url or not (IMG_DIR / f"{num}.jpg").exists()):
