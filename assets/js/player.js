@@ -279,7 +279,6 @@
   function syncMini() {
     var show = started && !heroVisible;
     mini.classList.toggle("show", show);
-    document.body.classList.toggle("tk-mini-on", show);
     updateMini();
   }
   if ("IntersectionObserver" in window) {

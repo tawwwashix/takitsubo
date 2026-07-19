@@ -620,9 +620,6 @@ body.art-lightbox-open { overflow: hidden; }
   background: linear-gradient(90deg, var(--primary), var(--cyan));
 }
 .tk-mini-time { font-family: var(--font-num); font-size: 12px; font-weight: 700; color: var(--primary-deep); flex-shrink: 0; }
-/* ミニプレイヤー表示中は、出現済みのダチョウだけ上へ避難させる
-   (未出現のダチョウまで動かすと、隠れているはずの頭がはみ出す) */
-body.tk-mini-on .datyou-top.show { transform: translateY(-64px); }
 
 /* X投稿ボタン(Xブランドの黒) / おたよりボタン(暖色) */
 .service-btn.x-post { background: #101419; color: #fff; }
@@ -1437,7 +1434,7 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
 .datyou-top {
   position: fixed; right: 14px; bottom: -84px; z-index: 70;
   width: 56px; padding: 0; border: none; background: none; cursor: pointer;
-  transition: bottom .45s cubic-bezier(.34, 1.6, .64, 1), transform .3s;
+  transition: bottom .45s cubic-bezier(.34, 1.6, .64, 1);
 }
 .datyou-top img {
   width: 100%; height: auto; display: block;

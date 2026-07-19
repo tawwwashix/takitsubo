@@ -26,8 +26,7 @@ takitsubo/
 │   ├── update_from_rss.py RSSから新着取得→自動更新(画像・配信リンクも取得)
 │   ├── fetch_links.py    エピソード別の配信リンク自動取得(Apple/LISTEN/YouTube)
 │   ├── fetch_images.py   既存回のエピソード画像を一括取り込み(初回用)
-│   ├── title_audit.py    タイトル表記ゆれの検出(統廃合の仕上げ用)
-│   └── desc_export.py    概要欄の整形補助(貼るだけテキスト生成+RSS突合)
+│   └── title_audit.py    タイトル表記ゆれの検出(統廃合の仕上げ用)
 └── .github/workflows/update.yml  毎週水曜に自動更新するGitHub Actions
 ```
 
@@ -231,12 +230,6 @@ python scripts/update_from_rss.py
 "sanbun_games": ["○○"],             ← 🍜3分ゲーム紹介の指定(古い回のチャプターに（）がないとき用)
 ```
 
-**過去回の概要欄をSpotify上で新フォーマットに貼り替える**(任意・段階的でOK):
-```bash
-python scripts/desc_export.py           # 全回分の「貼るだけテキスト」を desc_export/ に生成
-python scripts/desc_export.py --ep 21   # 1回分だけ生成
-python scripts/desc_export.py --check   # 貼り替え後にRSSと突合。一致した回はlockedを外せる
-```
 - **読みがな辞書を育てる(ときどき)**: 漢字で始まる新タイトルはビルドログに
   「読みがな未登録」と出ます。`data/game_readings.json` にカタカナ読みを1行追加すれば
   五十音の正しい位置に並びます(未登録でも「その他」の欄に出るだけで壊れません)
