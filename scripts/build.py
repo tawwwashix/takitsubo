@@ -60,6 +60,7 @@ SVG = {
     "play": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg>',
     "pause": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.6v14H7V5zm6.4 0H17v14h-3.6V5z"/></svg>',
     "search": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+    "zoom": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v6M8 11h6"/></svg>',
     "close": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
     "arrow_l": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="15" height="15" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>',
     "x": '<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.4Z"/></svg>',
@@ -615,8 +616,16 @@ def build_episode_pages():
             player_html = ('<div class="tkp"><p class="tkp-note">この回の音声はまだ取り込めていないため、'
                            '下の各サービスからお聴きください。</p></div>')
 
-        art_html = (f'<img class="ep-hero-art" src="{root}{img}" alt="第{n}回のアートワーク">' if img
-                    else f'<span class="ep-hero-art">#{n}</span>')
+        # アートワーク: 画像がある回は下に「拡大」リンクを添える(PCのみ表示。
+        # スマホはピンチで拡大できるのでCSSで隠す)。押すとライトボックスで大きく表示
+        if img:
+            art_html = (f'<div class="ep-hero-media">'
+                        f'<img class="ep-hero-art" src="{root}{img}" alt="第{n}回のアートワーク">'
+                        f'<button type="button" class="art-zoom" data-full="{root}{img}" '
+                        f'data-caption="第{n}回 {esc(e["title"])}">{SVG["zoom"]}アートワークを大きく見る</button>'
+                        f'</div>')
+        else:
+            art_html = f'<div class="ep-hero-media"><span class="ep-hero-art">#{n}</span></div>'
         dur_note = f" ・ {fmt_dur_min(e.get('duration'))}" if e.get("duration") else ""
 
         # ⭐この回のメインゲーム: タイトル直下にDBリンク付きチップで最大5つ

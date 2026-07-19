@@ -396,9 +396,13 @@ img { max-width: 100%; display: block; }
   display: flex; gap: 24px; align-items: stretch;
   padding: 22px; margin-bottom: 14px;
 }
+.ep-hero-media {
+  width: min(250px, 34%); flex-shrink: 0; align-self: flex-start;
+  display: flex; flex-direction: column;
+}
 .ep-hero-art {
-  width: min(250px, 34%); aspect-ratio: 1 / 1; flex-shrink: 0;
-  border-radius: 18px; object-fit: cover; align-self: flex-start;
+  width: 100%; aspect-ratio: 1 / 1;
+  border-radius: 18px; object-fit: cover;
   box-shadow: var(--shadow); background: var(--line);
 }
 span.ep-hero-art {
@@ -406,6 +410,48 @@ span.ep-hero-art {
   font-family: var(--font-num); font-weight: 700; font-size: 26px; color: #fff;
   background: linear-gradient(150deg, var(--sky-2), var(--primary));
 }
+/* アートワーク下の「拡大」リンク(小さめ・控えめ) */
+.art-zoom {
+  align-self: center; margin-top: 9px; cursor: pointer;
+  border: none; background: none; padding: 3px 8px; border-radius: 999px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--primary-deep);
+  display: inline-flex; align-items: center; gap: 5px;
+}
+.art-zoom svg { width: 14px; height: 14px; }
+.art-zoom:hover { color: var(--accent-deep); background: var(--band-soft); }
+
+/* アートワーク拡大(ライトボックス)。リンクから開く。背景/×/Escで閉じる */
+.art-lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  display: none; align-items: center; justify-content: center; padding: 28px;
+  background: rgba(8, 30, 54, .84);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  cursor: zoom-out;
+}
+.art-lightbox.show { display: flex; animation: art-fade .22s ease; }
+@keyframes art-fade { from { opacity: 0; } to { opacity: 1; } }
+.art-lightbox-fig {
+  margin: 0; cursor: default;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  max-width: 100%; max-height: 100%;
+}
+.art-lightbox-fig img {
+  max-width: min(760px, 92vw); max-height: 80vh; width: auto; height: auto;
+  border-radius: 20px; box-shadow: 0 24px 60px rgba(0, 0, 0, .55); background: var(--line);
+}
+.art-lightbox-fig figcaption {
+  color: #EAF6FE; font-size: 13px; font-weight: 500;
+  text-align: center; max-width: 92vw; line-height: 1.6;
+}
+.art-lightbox-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 46px; height: 46px; border: none; border-radius: 50%;
+  background: rgba(255, 255, 255, .92); color: var(--ink); cursor: pointer;
+  display: grid; place-items: center; box-shadow: 0 4px 14px rgba(0, 0, 0, .3);
+}
+.art-lightbox-close:hover { background: #fff; }
+.art-lightbox-close svg { width: 20px; height: 20px; }
+body.art-lightbox-open { overflow: hidden; }
 .ep-hero-body {
   flex: 1; min-width: 0;
   display: flex; flex-direction: column;
@@ -1418,9 +1464,11 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
 @media (max-width: 640px) {
   .ep-card.featured { flex-direction: column; }
   .ep-card.featured .ep-card-img { width: 100%; }
-  /* エピソードヒーロー: 縦積みにしてアートワークを中央寄せ */
+  /* エピソードヒーロー: 縦積みにしてアートワークを中央寄せ。
+     スマホはピンチで拡大できるので「拡大」リンクは隠す */
   .ep-hero { flex-direction: column; gap: 16px; padding: 16px; }
-  .ep-hero-art { width: min(300px, 100%); align-self: center; }
+  .ep-hero-media { width: min(300px, 100%); align-self: center; }
+  .art-zoom { display: none; }
   .ep-hero-title { font-size: 18px; }
   .tkp-top { gap: 12px; }
   .tkp-play { width: 54px; height: 54px; }

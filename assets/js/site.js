@@ -57,6 +57,56 @@
   });
 })();
 
+/* エピソードページ: アートワークを拡大表示(ライトボックス)。
+   リンクはPCのみ表示(スマホはピンチ拡大でOK)。背景・×・Escで閉じる */
+(function () {
+  var triggers = document.querySelectorAll(".art-zoom");
+  if (!triggers.length) return;
+
+  var box = null, lastTrigger = null;
+
+  function build() {
+    box = document.createElement("div");
+    box.className = "art-lightbox";
+    box.setAttribute("role", "dialog");
+    box.setAttribute("aria-modal", "true");
+    box.innerHTML =
+      '<button class="art-lightbox-close" type="button" aria-label="閉じる">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>' +
+      '<figure class="art-lightbox-fig"><img alt=""><figcaption></figcaption></figure>';
+    document.body.appendChild(box);
+    box.addEventListener("click", function (ev) {
+      // 画像そのものをクリックしても閉じない(背景/×のみ閉じる)
+      if (ev.target === box || ev.target.closest(".art-lightbox-close")) close();
+    });
+  }
+  function open(src, caption) {
+    if (!box) build();
+    var img = box.querySelector("img");
+    img.src = src;
+    img.alt = caption || "";
+    box.querySelector("figcaption").textContent = caption || "";
+    box.classList.add("show");
+    document.body.classList.add("art-lightbox-open");
+    box.querySelector(".art-lightbox-close").focus();
+  }
+  function close() {
+    if (!box) return;
+    box.classList.remove("show");
+    document.body.classList.remove("art-lightbox-open");
+    if (lastTrigger) lastTrigger.focus();
+  }
+  triggers.forEach(function (t) {
+    t.addEventListener("click", function () {
+      lastTrigger = t;
+      open(t.dataset.full, t.dataset.caption);
+    });
+  });
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && box && box.classList.contains("show")) close();
+  });
+})();
+
 /* 全ページ共通: ページ下部でダチョウがニュッと出現 → クリックで先頭へ */
 (function () {
   var btn = document.querySelector(".datyou-top");
