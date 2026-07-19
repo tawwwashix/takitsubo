@@ -30,7 +30,10 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-html, body { overflow-x: hidden; max-width: 100%; }
+/* 横はみ出し(装飾の波・漂う住民)対策。hiddenはbodyをスクロールコンテナにして
+   position:stickyを無効化してしまうため、clip(スクロール文脈を作らない)を正とし、
+   clip未対応の古いブラウザだけhiddenにフォールバックする */
+html, body { overflow-x: hidden; overflow-x: clip; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -409,6 +412,33 @@ span.ep-hero-art {
 }
 .ep-hero-title { font-size: 20px; margin-top: 4px; }
 .ep-hero-tags { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 6px; }
+/* ⭐この回のメインゲーム(DBへのリンクチップ) */
+.ep-hero-games { margin-top: 7px; display: flex; flex-wrap: wrap; gap: 6px; }
+.ep-hero-games .tag { font-size: 12px; padding: 4px 13px; }
+.ep-hero-games .tag:hover { text-decoration: none; filter: brightness(.96); }
+
+/* PC: 本文2カラム(左=概要・ゲーム・関連回 / 右=追従チャプター)。
+   DOM順は 概要→チャプター→ゲーム→その他 なので、スマホは1列でそのまま積まれる */
+@media (min-width: 900px) {
+  .ep-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-areas: "about side" "games side" "rest side";
+    column-gap: 26px;
+  }
+  .eps-about { grid-area: about; }
+  .eps-games { grid-area: games; }
+  .eps-rest  { grid-area: rest; min-width: 0; }
+  .eps-side  { grid-area: side; min-width: 0; }
+  /* チャプターはスクロールに追従。画面より長いときはサイドバー内でスクロール */
+  .eps-side .side-sticky {
+    position: sticky; top: 74px;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto; overscroll-behavior: contain;
+    scrollbar-width: thin; padding-bottom: 6px;
+  }
+}
+.eps-rest .ep-actions { margin-top: 30px; }
 
 .tkp { margin-top: auto; padding-top: 16px; }
 .tkp-top { display: flex; align-items: center; gap: 15px; }

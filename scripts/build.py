@@ -485,6 +485,7 @@ def build_episode_list():
 # ============================================================ episodes/NNN.html
 def build_episode_pages():
     root = "../"
+    slug_map = game_slug_map()  # ゲーム名→DBページのスラッグ(全回で共通)
     for i, e in enumerate(EPS):
         n = e["number"]
         prev_e = EPS[i - 1] if i > 0 else None
@@ -499,7 +500,6 @@ def build_episode_pages():
         if e["games"]:
             # タグはデータベースの個別ページへ(索引に無いものは従来どおり検索へ)。
             # メイン(★)と3分ゲーム紹介のタイトルはDB索引と同じ色分けで目立たせる
-            slug_map = game_slug_map()
             feat_keys = {_shindan_norm(x) for x in e.get("featured_games", [])}
             sanbun_keys = {_shindan_norm(x) for x in sanbun_titles(e)}
             gtags = ""
@@ -514,7 +514,7 @@ def build_episode_pages():
                 else:
                     cls, mark = "tag", ""
                 gtags += f'<a class="{cls}" href="{href}">{mark}{esc(g)}</a>'
-            games_html = f'<section class="section">{sec_title("登場ゲームタイトル・キーワード", "GAMES & KEYWORDS")}<div class="game-tags">{gtags}</div></section>'
+            games_html = f'<section class="section eps-games">{sec_title("登場ゲームタイトル・キーワード", "GAMES & KEYWORDS")}<div class="game-tags">{gtags}</div></section>'
 
         # チャプター: 音声がある回はボタン化し、タップでその話題から再生できる
         chapters_html = ""
@@ -532,12 +532,13 @@ def build_episode_pages():
                                  f'<span class="chap-label">{esc(c["label"])}</span>'
                                  f'<span class="chap-go">{SVG["play"]}<span class="eq"><i></i><i></i><i></i></span></span>'
                                  f'</button></li>')
-                chapters_html = (f'<section class="section">{sec_title("チャプター", "CHAPTERS")}'
+                chapters_html = (f'<aside class="section eps-side"><div class="side-sticky">{sec_title("チャプター", "CHAPTERS")}'
                                  f'<p class="chap-hint">🎧 チャプターを押すと、その話題の頭から再生されます。</p>'
-                                 f'<ol class="chapter-list tk-chapters">{rows}</ol></section>')
+                                 f'<ol class="chapter-list tk-chapters">{rows}</ol></div></aside>')
             else:
                 items = "".join(f'<li><span class="chapter-time">{esc(c["time"])}</span><span>{esc(c["label"])}</span></li>' for c in e["chapters"])
-                chapters_html = f'<section class="section">{sec_title("チャプター", "CHAPTERS")}<ul class="chapter-list">{items}</ul></section>'
+                chapters_html = (f'<aside class="section eps-side"><div class="side-sticky">{sec_title("チャプター", "CHAPTERS")}'
+                                 f'<ul class="chapter-list">{items}</ul></div></aside>')
 
         # 「この回について」: 概要文 + 名物企画への案内
         series_note = ""
@@ -547,7 +548,7 @@ def build_episode_pages():
         about_html = ""
         if e["description"] or series_note:
             body = f'<div class="card ep-desc">{esc(e["description"])}</div>' if e["description"] else ""
-            about_html = f'<section class="section">{sec_title("この回について", "ABOUT")}{body}{series_note}</section>'
+            about_html = f'<section class="section eps-about">{sec_title("この回について", "ABOUT")}{body}{series_note}</section>'
 
         pn = '<div class="prevnext">'
         pn += (f'<a class="card" href="{prev_e["number"]}.html"><span class="pn-label">← 前の回 #{prev_e["number"]}</span><div class="pn-title">{esc(prev_e["title"])}</div></a>' if prev_e else "<span></span>")
@@ -617,12 +618,22 @@ def build_episode_pages():
         art_html = (f'<img class="ep-hero-art" src="{root}{img}" alt="第{n}回のアートワーク">' if img
                     else f'<span class="ep-hero-art">#{n}</span>')
         dur_note = f" ・ {fmt_dur_min(e.get('duration'))}" if e.get("duration") else ""
+
+        # ⭐この回のメインゲーム: タイトル直下にDBリンク付きチップで最大5つ
+        feat_chips = ""
+        for name in e.get("featured_games", [])[:5]:
+            slug = slug_map.get(_shindan_norm(name))
+            href = f"../games/{slug}.html" if slug else f"index.html?q={esc(name)}"
+            feat_chips += f'<a class="tag t3" href="{href}">{LEVEL_MARK[3]}{esc(name)}</a>'
+        feat_html = f'<div class="ep-hero-games">{feat_chips}</div>' if feat_chips else ""
+
         hero_html = f"""<div class="ep-hero card">
 {art_html}
 <div class="ep-hero-body">
 <p class="detail-meta">#{n} ・ {jd(e['date'])} 配信{date_note}{dur_note}</p>
 <h1 class="page-title ep-hero-title">{esc(e['title'])}</h1>
 <div class="ep-hero-tags">{tags}</div>
+{feat_html}
 {player_html}
 </div>
 </div>"""
@@ -636,6 +647,14 @@ def build_episode_pages():
 <a class="service-btn x-post" href="{esc(x_post_url(share_text))}" target="_blank" rel="noopener">{SVG['x']}Xで感想をポスト</a>
 </div>"""
 
+        # 本文: DOM順(=スマホの表示順)は 概要→チャプター→ゲーム→その他。
+        # PC(900px以上)ではCSSグリッドがチャプターだけを右の追従カラムに配置する
+        rest_html = f'<div class="eps-rest">{actions_html}{related_html}{pn}</div>'
+        if chapters_html:
+            body_html = f'<div class="ep-cols">\n{about_html}\n{chapters_html}\n{games_html}\n{rest_html}\n</div>'
+        else:
+            body_html = f'{about_html}\n{games_html}\n{rest_html}'
+
         page += f"""
 <main class="container">
 <div class="page-head">
@@ -643,13 +662,7 @@ def build_episode_pages():
 {hero_html}
 {listen_html}
 </div>
-{chapters_html}
-{about_html}
-{actions_html}
-{games_html}
-{related_html}
-{pn}
-{actions_html}
+{body_html}
 </main>
 <script src="{root}assets/js/player.js?v={av('assets/js/player.js')}"></script>"""
         page += footer(root)
