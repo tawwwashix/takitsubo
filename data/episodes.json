@@ -1936,7 +1936,8 @@
    "description": "ゲーム内でカードゲームが遊べるものや、カードゲームそのものがメインとなっているゲームについてそこそこ語っています。",
    "games": [
     "七聖召喚（原神）",
-    "カルドセプトリボルト",
+    "カルドセプトシリーズ",
+    "カルドセプト リボルト",
     "いただきストリート",
     "カードヒーロー",
     "トリプルトライアド（FF8）",
@@ -2018,7 +2019,15 @@
    "guid": "c0e7c095-7d18-42aa-8024-39e14ced0f66",
    "image": "assets/img/ep/23.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1730291573261-dd0b9e2c9d5e6.jpg",
-   "featured_games": [],
+   "featured_games": [
+    "七聖召喚（原神）",
+    "カルドセプトシリーズ",
+    "トリプルトライアド（FF8）",
+    "クアッドミスト（FF9）",
+    "Slay the Spire",
+    "Balatro",
+    "バテン・カイトス"
+   ],
    "audio": "https://anchor.fm/s/f61a3794/podcast/play/93738391/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-9-30%2F2b2a0e33-c378-4345-b07f-a1bab71473eb.mp3",
    "duration": 5684
   },
@@ -3000,7 +3009,10 @@
    "guid": "3953a222-3e39-4285-ba4e-3bdcd3916553",
    "image": "assets/img/ep/33.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1736335627103-679acbd291f96.jpg",
-   "featured_games": [],
+   "featured_games": [
+    "スターオーシャン3 Till the End of Time",
+    "The Amazing Shrinking Giraffe"
+   ],
    "audio": "https://anchor.fm/s/f61a3794/podcast/play/96762218/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-0-8%2Fb5714a95-2b73-8035-819d-8061d8437ea2.mp3",
    "duration": 3615
   },
@@ -10420,6 +10432,76 @@
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1784120603139-158c70bd84e8d.jpg",
    "audio": "https://anchor.fm/s/f61a3794/podcast/play/122869651/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-15%2F92dabccb-a855-7cac-497e-6562aa3abb30.mp3",
    "duration": 4643
+  },
+  {
+   "number": 115,
+   "title": "イチィゴォーDirect 2026.7.22",
+   "tags": [],
+   "series": null,
+   "description": "何かしらの最新情報をイチィゴォーが直接お届けいたします！\n\n※イチィゴォーDirectは十数分程度、その後のコーナーが圧倒的に長いです",
+   "games": [
+    "メガネフィッティング",
+    "どんでん返しハンバーグ",
+    "土下座金融市場",
+    "Cats Organized Neatly",
+    "ミュージックガンガン！",
+    "アイドルマスター ミリオンライブ！",
+    "ソンソン",
+    "ソードアート・オンライン ―ロスト・ソング―",
+    "アイドルマスター シャイニーカラーズ Song for Prism",
+    "ドーナツ・ドド",
+    "はしれ！ラッパのマークのせいろがん",
+    "Grounded",
+    "キン肉マン マッスルタッグマッチ",
+    "キン肉マン マッスルグランプリ2 特盛",
+    "ファイナルファイト",
+    "モンスターハンター ポータブル 2nd",
+    "モンスターハンター ポータブル 2ndG",
+    "カルドセプト ビギンズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:49",
+     "label": "イチィゴォーDirect（メガネフィッティング）"
+    },
+    {
+     "time": "13:38",
+     "label": "滝壺3分ゲーム紹介（Cats Organized Neatly）"
+    },
+    {
+     "time": "20:21",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "54:31",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:05:46",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/115-Direct-2026-7-22-e3mdcj6",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC115%E5%9B%9E-%E3%82%A4%E3%83%81%E3%82%A3%E3%82%B4%E3%82%A9%E3%83%BCdirect-2026-7-22/id1749310211?i=1000777886893&uo=4",
+    "listen": "https://listen.style/p/gamenotktb/ynyaypud",
+    "youtube": "https://www.youtube.com/watch?v=RF7AY6SjCFE",
+    "spotify_open": "https://open.spotify.com/episode/48mfpc7cZz2BKcGwANBNvS"
+   },
+   "guid": "67e3a27c-3388-4f63-a8c5-b1349414ee36",
+   "date": "2026-07-22",
+   "date_estimated": false,
+   "featured_games": [
+    "メガネフィッティング"
+   ],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/123170854/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-22%2F753ddc39-09da-1ccb-8773-62136b5a131b.mp3",
+   "duration": 4848,
+   "image": "assets/img/ep/115.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1784726925816-5ad2a9a7f5d16.jpg"
   }
  ]
 }
