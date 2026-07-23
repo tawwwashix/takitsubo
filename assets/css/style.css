@@ -130,6 +130,10 @@ img { max-width: 100%; display: block; }
 .nav a[aria-current="page"] { background: var(--primary); color: #fff; }
 .nav a.nav-ext { display: inline-flex; align-items: center; gap: 5px; }
 .nav a.nav-ext svg { width: 13px; height: 13px; }
+.nav a.nav-icon { gap: 0; padding-left: 9px; padding-right: 9px; }
+.nav a.nav-icon svg { width: 15px; height: 15px; }
+/* ハンバーガー専用ラベル(PCヘッダーでは非表示) */
+.nav .lbl-mb { display: none; }
 
 /* ハンバーガーボタン(スマホ幅のみ表示) */
 .nav-toggle {
@@ -163,6 +167,11 @@ img { max-width: 100%; display: block; }
   .nav.open { display: flex; }
   .nav a { font-size: 14px; padding: 11px 16px; border-radius: 12px; }
   .header-inner { position: relative; }
+  /* ハンバーガー内はPC用ラベルを隠しモバイル用ラベルを表示 */
+  .nav .lbl-pc { display: none; }
+  .nav .lbl-mb { display: inline; }
+  /* SNSはアイコンのみ→アイコン+テキストの左寄せに戻す */
+  .nav a.nav-icon { gap: 8px; padding: 11px 16px; justify-content: flex-start; }
 }
 
 /* ---------- ヒーロー ---------- */
@@ -389,6 +398,7 @@ img { max-width: 100%; display: block; }
 .svc-amazon  { color: #0DA8C7; }
 .svc-listen  { color: #F4801F; }
 .svc-youtube { color: #E62117; }
+.svc-instagram { color: #E1306C; }
 
 /* ---------- サイト内プレイヤー(RSSの音声を直接再生) ---------- */
 /* エピソードページのヒーローカード: アートワーク+タイトル+プレイヤー */

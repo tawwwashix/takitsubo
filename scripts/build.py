@@ -67,6 +67,7 @@ SVG = {
     "spotify": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24Zm5.5 17.3a.75.75 0 0 1-1.03.25c-2.83-1.73-6.39-2.12-10.59-1.16a.75.75 0 1 1-.33-1.46c4.56-1.04 8.49-.59 11.64 1.34.36.22.47.68.31 1.03Zm1.47-3.27a.94.94 0 0 1-1.29.31c-3.24-1.99-8.18-2.57-12-1.4a.94.94 0 1 1-.55-1.79c4.38-1.34 9.8-.69 13.53 1.6.44.27.58.85.31 1.28Zm.13-3.4C15.24 8.32 8.85 8.11 5.15 9.24a1.12 1.12 0 1 1-.65-2.16c4.25-1.29 11.32-1.04 15.78 1.6a1.12 1.12 0 0 1-1.18 1.95Z"/></svg>',
     "podcast": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="11" r="2.5"/><path d="M8.5 20.5 9.7 15a3.9 3.9 0 0 1 4.6 0l1.2 5.5M6.2 14.4a7 7 0 1 1 11.6 0M3.4 16.6a11 11 0 1 1 17.2 0"/></svg>',
     "youtube": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.12-2.13C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.52A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.12 2.13c1.88.52 9.38.52 9.38.52s7.5 0 9.38-.52a3 3 0 0 0 2.12-2.13A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg>',
+    "instagram": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.12 1.38C1.36 2.67.94 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.8.72 1.47 1.38 2.13.66.66 1.33 1.08 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.8-.3 1.47-.72 2.13-1.38.66-.66 1.08-1.33 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.8-.72-1.47-1.38-2.12-.66-.66-1.33-1.08-2.13-1.38-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4Zm6.41-10.4a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44Z"/></svg>',
 }
 SERVICE_ICON = {"spotify": "spotify", "apple": "podcast", "amazon": "podcast", "listen": "podcast", "youtube": "youtube"}
 
@@ -130,15 +131,22 @@ def header(root, current=""):
         ("guide.html", "聴き方", "guide"),
         ("otayori.html", "おたより", "otayori"),
     ]
+    # ハンバーガーメニュー内でのみ差し替えるラベル(PCヘッダーは短い表記のまま)
+    mobile_label = {"shindan": "ふさわしいゲーム診断", "games": "滝壺データベース"}
     links = ""
     for href, label, key in items:
         current_attr = ' aria-current="page"' if key == current else ""
-        links += f'<a href="{root}{href}"{current_attr}>{label}</a>'
-    # 外部リンク: 公式X・ブログ
+        if key in mobile_label:
+            inner = f'<span class="lbl-pc">{label}</span><span class="lbl-mb">{mobile_label[key]}</span>'
+        else:
+            inner = label
+        links += f'<a href="{root}{href}"{current_attr}>{inner}</a>'
+    # 外部リンク: 公式X・Instagram(PCはアイコンのみ / ハンバーガーではアイコン+テキスト)・ブログ
     blog = SITE["members"][0].get("blog", {})
     blog_url = blog.get("url", "#")
     if blog_url.startswith("TODO"): blog_url = "#"
-    links += f'<a class="nav-ext" href="{SITE["x_url"]}" target="_blank" rel="noopener">{SVG["x"]}公式X</a>'
+    links += f'<a class="nav-ext nav-icon" href="{SITE["x_url"]}" target="_blank" rel="noopener" aria-label="公式X" title="公式X">{SVG["x"]}<span class="lbl-mb">公式X</span></a>'
+    links += f'<a class="nav-ext nav-icon" href="{esc(SITE["instagram_url"])}" target="_blank" rel="noopener" aria-label="公式Instagram" title="公式Instagram">{SVG["instagram"]}<span class="lbl-mb">公式Instagram</span></a>'
     links += f'<a class="nav-ext" href="{esc(blog_url)}" target="_blank" rel="noopener">ブログ</a>'
     return f"""<header class="site-header"><div class="header-inner">
 <a class="brand" href="{root}index.html"><img class="brand-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}"></a>
@@ -159,6 +167,7 @@ def footer(root):
         f'<a href="{root}news/">お知らせ</a>'
         f'<a href="{root}guide.html">ポッドキャストの聴き方</a><a href="{root}otayori.html">おたより</a>'
         f'<a href="{SITE["x_url"]}" target="_blank" rel="noopener">公式X</a>'
+        f'<a href="{esc(SITE["instagram_url"])}" target="_blank" rel="noopener">公式Instagram</a>'
         f'<a href="{esc(blog_url)}" target="_blank" rel="noopener">ブログ「{esc(blog.get("label", "ブログ"))}」</a>'
     )
     return f"""<footer class="site-footer"><div class="footer-inner">
@@ -405,13 +414,14 @@ YouTubeでは<a href="{SITE['services']['youtube']['url']}" target="_blank" rel=
 </section>
 
 <section class="section band band-blue">
-{sec_title("公式X", "OFFICIAL X")}
+{sec_title("SNS", "FOLLOW US")}
 <div class="card" style="text-align:center;padding:26px 20px;">
-<p style="font-size:14px;color:var(--sub);margin-bottom:18px;">最新情報・配信告知・こぼれ話は公式Xで。<br>
-感想は <strong style="color:var(--ink);">{esc(SITE['hashtag'])}</strong> でポストしていただければ、すべて読んでいます！</p>
+<p style="font-size:14px;color:var(--sub);margin-bottom:18px;">最新情報・配信告知・こぼれ話はSNSで。<br>
+感想は <strong style="color:var(--ink);">{esc(SITE['hashtag'])}</strong> を付けてポストしていただければ、すべて読んでいます！</p>
 <div class="x-actions">
 <a class="service-btn x-post" href="{esc(x_post_url(SITE['hashtag'] + ' '))}" target="_blank" rel="noopener">{SVG['x']}{esc(SITE['hashtag'])} でポストする</a>
 <a class="service-btn" href="{SITE['x_url']}" target="_blank" rel="noopener">{SVG['x']}{esc(SITE['x_handle'])} をフォロー</a>
+<a class="service-btn svc-instagram" href="{esc(SITE['instagram_url'])}" target="_blank" rel="noopener">{SVG['instagram']}{esc(SITE['instagram_handle'])} をフォロー</a>
 </div>
 </div>
 </section>
