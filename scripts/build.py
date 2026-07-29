@@ -86,7 +86,7 @@ def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="websit
     else:
         full = f'{esc(SITE["title"])} | {esc(suffix)}' if suffix else esc(SITE["title"])
     url = SITE["base_url"].rstrip("/") + "/" + path
-    og_img = SITE["base_url"].rstrip("/") + "/" + (og_image or "assets/img/ogp.png")
+    og_img = SITE["base_url"].rstrip("/") + "/" + (og_image or "assets/img/ogp.jpg")
     ld = f'\n<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
     pub = f'\n<meta property="article:published_time" content="{published}">' if published else ""
     # Googleアナリティクス(site.jsonのga_idを入れると全ページに読み込まれる。空なら何も出さない)
@@ -101,6 +101,7 @@ def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="websit
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{full}</title>
 <meta name="description" content="{esc(desc)}">
+<link rel="canonical" href="{esc(url)}">
 <meta property="og:title" content="{full}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:type" content="{og_type}">
@@ -314,7 +315,7 @@ def build_index():
         "name": SITE["title"],
         "description": SITE["tagline"],
         "url": base + "/",
-        "image": base + "/assets/img/ogp.png",
+        "image": base + "/assets/img/ogp.jpg",
         "inLanguage": "ja",
         "webFeed": SITE["rss"],
     }
@@ -575,7 +576,7 @@ def build_episode_pages():
             "datePublished": e["date"],
             "url": f"{base}/episodes/{n}.html",
             "description": (e["description"][:200] if e["description"] else f"ゲームの滝壺 第{n}回"),
-            "image": base + "/" + (ep_image(e) or "assets/img/ogp.png"),
+            "image": base + "/" + (ep_image(e) or "assets/img/ogp.jpg"),
             "partOfSeries": {"@type": "PodcastSeries", "name": SITE["title"], "url": base + "/"},
             "inLanguage": "ja",
         }
@@ -725,7 +726,7 @@ def build_series():
 <a class="back-link" href="index.html">{SVG['arrow_l']}名物企画一覧へ</a>
 <div class="card series-hero" style="margin-bottom:20px;">
 <div style="font-size:11px;color:var(--faint);font-family:var(--font-num);">名物企画</div>
-<div class="s-name" style="font-size:22px;">{esc(s['name'])}</div>
+<h1 class="s-name" style="font-size:22px;">{esc(s['name'])}</h1>
 <p class="s-desc" style="font-size:13px;">{esc(s['description'])}</p>
 <div class="s-count">全{len(eps)}回</div>
 </div></div>
