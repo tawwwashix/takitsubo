@@ -10502,6 +10502,111 @@
    "duration": 4848,
    "image": "assets/img/ep/115.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1784726925816-5ad2a9a7f5d16.jpg"
+  },
+  {
+   "number": 116,
+   "title": "わるい確率 ～わるい村 ep06～ 単独上映",
+   "tags": [
+    "わるい村"
+   ],
+   "series": "waruimura",
+   "description": "わるい確率には\nご用心",
+   "games": [
+    "パワフルプロ野球シリーズ",
+    "ポケットモンスターシリーズ",
+    "ファイアーエムブレムシリーズ",
+    "桃太郎電鉄シリーズ",
+    "スーパーロボット大戦シリーズ",
+    "ウマ娘 プリティーダービー",
+    "グランブルーファンタジー",
+    "モンスターファーム2",
+    "ファイナルファンタジータクティクス",
+    "カルドセプト サーガ",
+    "モンスターハンターシリーズ",
+    "風来のシレンシリーズ",
+    "Grounded",
+    "ファイナルファイト",
+    "パロディウス",
+    "ダイナブラザーズ",
+    "アイドルマスター ツアーズ",
+    "Staffer Retro: 超能力推理クエスト",
+    "カルドセプト ビギンズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:08",
+     "label": "ポケモンの確率"
+    },
+    {
+     "time": "10:01",
+     "label": "ファイアーエムブレムの確率"
+    },
+    {
+     "time": "16:09",
+     "label": "ガチャの確率"
+    },
+    {
+     "time": "22:01",
+     "label": "アンチラ事件"
+    },
+    {
+     "time": "31:13",
+     "label": "モンスターファーム2の確率"
+    },
+    {
+     "time": "33:06",
+     "label": "MMORPGの確率"
+    },
+    {
+     "time": "35:27",
+     "label": "源氏の盾の確率"
+    },
+    {
+     "time": "38:39",
+     "label": "カルドセプト サーガの悲劇"
+    },
+    {
+     "time": "41:03",
+     "label": "物欲センサー"
+    },
+    {
+     "time": "48:19",
+     "label": "空振りの確率・まとめ"
+    },
+    {
+     "time": "51:00",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:04:11",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:13:48",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/116---ep06-e3mmsvn",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC116%E5%9B%9E-%E3%82%8F%E3%82%8B%E3%81%84%E7%A2%BA%E7%8E%87-%E3%82%8F%E3%82%8B%E3%81%84%E6%9D%91-ep06-%E5%8D%98%E7%8B%AC%E4%B8%8A%E6%98%A0/id1749310211?i=1000778910088&uo=4",
+    "listen": "https://listen.style/p/gamenotktb/anwdozwh",
+    "youtube": "https://www.youtube.com/watch?v=LtqjgL9gm1I",
+    "spotify_open": "https://open.spotify.com/episode/1ywNC6VNtmgBuQgGTrZHw6"
+   },
+   "guid": "eb38e430-6117-4458-a2b1-dc4b9768c40c",
+   "date": "2026-07-29",
+   "date_estimated": false,
+   "featured_games": [
+    "ポケットモンスターシリーズ"
+   ],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/123482551/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-6-29%2Fad7a04cb-1a36-d3b8-747d-bf4bfe8a1a98.mp3",
+   "duration": 5016,
+   "image": "assets/img/ep/116.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1785331765703-f99a94c9b71e5.jpg"
   }
  ]
 }
