@@ -831,15 +831,10 @@ span.ep-card-num {
 /* ---------- ふさわしいゲーム診断 ---------- */
 .shindan-banner {
   display: flex; align-items: center; gap: 18px;
-  /* 背景は「不透明な下地色 + グラデ」の2段。背景色を透明にしないこと:
-     透明だと背面の.ambient-bubbles(fixed/z-index:-1/will-change)がFirefoxの
-     レイヤー合成の都合で手前に抜け、泡が二重に見えることがある */
-  background-color: var(--accent);
-  background-image: linear-gradient(135deg, var(--accent), #FF8A54 60%, #FFB56B);
+  background: linear-gradient(135deg, var(--accent), #FF8A54 60%, #FFB56B);
   border-radius: 22px; padding: 22px 26px; color: #fff;
   box-shadow: 0 12px 30px -8px rgba(238, 90, 58, .55);
-  /* z-index:0で独立した重ね順を作り、背面の泡より確実に前面に置く */
-  position: relative; z-index: 0; overflow: hidden;
+  position: relative; overflow: hidden;
   transition: transform .15s, box-shadow .15s;
 }
 .shindan-banner:hover {
@@ -848,25 +843,11 @@ span.ep-card-num {
 }
 /* 滝壺データベースのバナー: 診断より一段控えめな滝の青 */
 .shindan-banner.db {
-  background-color: var(--primary);
-  background-image: linear-gradient(135deg, var(--primary-deep), var(--primary) 60%, var(--cyan));
+  background: linear-gradient(135deg, var(--primary-deep), var(--primary) 60%, var(--cyan));
   box-shadow: 0 12px 30px -8px rgba(14, 90, 168, .5);
 }
 .shindan-banner.db:hover { box-shadow: 0 16px 36px -8px rgba(14, 90, 168, .55); }
 .shindan-banner.db .sb-cta { color: var(--primary-deep); }
-.shindan-banner::before { /* キラキラ泡 */
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  /* no-repeat必須: 既定のrepeatだとタイルの継ぎ目がサブピクセルでずれ、
-     Firefoxで泡が二重に描かれることがある(要素の高さが小数になるため) */
-  background-repeat: no-repeat;
-  /* === 泡の位置・大きさはこの3行で微調整 ===
-     circle N px = 泡の半径 / at 左% 上% = バナー内での位置 / 末尾の数値 = 不透明度
-     文字とボタンを避けた安全地帯: 上端(〜25%)・下端(85%〜)・右端(90%〜) */
-  background-image:
-    radial-gradient(circle 5px at 90% 13%, rgba(255,255,255,.5) 97%, transparent),
-    radial-gradient(circle 7px at 96% 90%, rgba(255,255,255,.3) 97%, transparent),
-    radial-gradient(circle 4px at 33% 91%, rgba(255,255,255,.4) 97%, transparent);
-}
 .sb-chara {
   width: 74px; height: 74px; flex-shrink: 0;
   image-rendering: pixelated;
