@@ -831,10 +831,15 @@ span.ep-card-num {
 /* ---------- ふさわしいゲーム診断 ---------- */
 .shindan-banner {
   display: flex; align-items: center; gap: 18px;
-  background: linear-gradient(135deg, var(--accent), #FF8A54 60%, #FFB56B);
+  /* 背景は「不透明な下地色 + グラデ」の2段。背景色を透明にしないこと:
+     透明だと背面の.ambient-bubbles(fixed/z-index:-1/will-change)がFirefoxの
+     レイヤー合成の都合で手前に抜け、泡が二重に見えることがある */
+  background-color: var(--accent);
+  background-image: linear-gradient(135deg, var(--accent), #FF8A54 60%, #FFB56B);
   border-radius: 22px; padding: 22px 26px; color: #fff;
   box-shadow: 0 12px 30px -8px rgba(238, 90, 58, .55);
-  position: relative; overflow: hidden;
+  /* z-index:0で独立した重ね順を作り、背面の泡より確実に前面に置く */
+  position: relative; z-index: 0; overflow: hidden;
   transition: transform .15s, box-shadow .15s;
 }
 .shindan-banner:hover {
@@ -843,7 +848,8 @@ span.ep-card-num {
 }
 /* 滝壺データベースのバナー: 診断より一段控えめな滝の青 */
 .shindan-banner.db {
-  background: linear-gradient(135deg, var(--primary-deep), var(--primary) 60%, var(--cyan));
+  background-color: var(--primary);
+  background-image: linear-gradient(135deg, var(--primary-deep), var(--primary) 60%, var(--cyan));
   box-shadow: 0 12px 30px -8px rgba(14, 90, 168, .5);
 }
 .shindan-banner.db:hover { box-shadow: 0 16px 36px -8px rgba(14, 90, 168, .55); }
