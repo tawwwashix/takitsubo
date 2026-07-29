@@ -379,7 +379,7 @@ def build_index():
 <span class="sb-body">
 <span class="sb-en">TAKITSUBO DATABASE</span>
 <span class="sb-title">語られた全{shindan_count}タイトル、ぜんぶ引ける。</span>
-<span class="sb-desc">メインで語った回・3分ゲーム紹介・ちょい出しまで、あなたの好きなあのゲームをどの回で話したかがわかる索引です。</span>
+<span class="sb-desc">メインで語った回・3分ゲーム紹介・ちょい出しまで、あのゲームをどの回で話したかがわかる索引です。</span>
 </span>
 <span class="sb-cta">索引を見る →</span>
 </a>
