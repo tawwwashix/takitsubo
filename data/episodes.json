@@ -10554,6 +10554,71 @@
    "duration": 5016,
    "image": "assets/img/ep/116.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1785331765703-f99a94c9b71e5.jpg"
+  },
+  {
+   "number": 117,
+   "title": "世にも奇妙なゲームジャンル",
+   "tags": [],
+   "series": null,
+   "description": "奥が深すぎる、不可解なゲームジャンルの世界にようこそ。\n\n※まったくホラー要素はありません",
+   "games": [
+    "風来のシレンシリーズ",
+    "ディアブロ",
+    "Stilt Fella"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "02:23",
+     "label": "映画や小説のジャンルとの違い"
+    },
+    {
+     "time": "12:27",
+     "label": "RPG"
+    },
+    {
+     "time": "16:40",
+     "label": "ローグライク"
+    },
+    {
+     "time": "22:46",
+     "label": "ローグライト"
+    },
+    {
+     "time": "26:39",
+     "label": "ローグライク警察"
+    },
+    {
+     "time": "28:46",
+     "label": "論文とタグ"
+    },
+    {
+     "time": "35:14",
+     "label": "まとめ"
+    },
+    {
+     "time": "40:03",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/117-e3n0qto",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC117%E5%9B%9E-%E4%B8%96%E3%81%AB%E3%82%82%E5%A5%87%E5%A6%99%E3%81%AA%E3%82%B2%E3%83%BC%E3%83%A0%E3%82%B8%E3%83%A3%E3%83%B3%E3%83%AB/id1749310211?i=1000780066195&uo=4",
+    "listen": "https://listen.style/p/gamenotktb/bt4lbtg5",
+    "youtube": "https://www.youtube.com/watch?v=rvx_4YDSVNQ",
+    "spotify_open": "https://open.spotify.com/episode/6cvihlhiA3r6vX66CjU6J0"
+   },
+   "guid": "7ed1e49b-cefa-43d3-9842-09ab5d0ef2f9",
+   "date": "2026-08-05",
+   "date_estimated": false,
+   "featured_games": [],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/123808120/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-5%2F32602e41-5bf4-f6b7-efe8-f315d4dd8537.mp3",
+   "duration": 2489,
+   "image": "assets/img/ep/117.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1785937241228-77684e78a332.jpg"
   }
  ]
 }
