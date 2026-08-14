@@ -122,6 +122,27 @@ def _find_tokens(obj, out):
             _find_tokens(v, out)
 
 
+def _episode_number_from_youtube_title(title):
+    """YouTubeタイトルからゲームの滝壺の回番号を取り出す。
+
+    旧形式(「【Podcast】第N回 ...」)と新形式(「...｜ゲームの滝壺 #N【Podcast】」)
+    の両方を受け付ける。サイト側でタイトル形式を変更しても、既存動画と
+    新着動画のプレイリスト照合が壊れないようにする。
+    """
+    title = title or ""
+    patterns = (
+        r"[｜|]\s*ゲームの滝壺\s*#(\d+)\s*【Podcast】",  # 新形式
+        r"【Podcast】\s*第(\d+)回",                       # 旧形式
+        r"第(\d+)回",                                    # 旧形式の保険
+        r"\bEp(?:isode|\.)?\s*(\d+)",                 # 自動翻訳時の保険
+    )
+    for pattern in patterns:
+        m = re.search(pattern, title, re.I)
+        if m:
+            return int(m.group(1))
+    return None
+
+
 def _youtube_playlist_links(site):
     """回番号 → YouTube動画URL。Podcastプレイリストから全件取得(継続読み込み対応)"""
     url = site.get("youtube_playlist")
@@ -164,10 +185,9 @@ def _youtube_playlist_links(site):
 
     out = {}
     for vid, title in videos.items():
-        # 「第N回」のほか、自動翻訳された英語タイトル(Episode N / Ep. N)にも保険で対応
-        m2 = re.search(r"第(\d+)回", title) or re.search(r"\bEp(?:isode|\.)?\s*(\d+)", title, re.I)
-        if m2:
-            out[int(m2.group(1))] = f"https://www.youtube.com/watch?v={vid}"
+        number = _episode_number_from_youtube_title(title)
+        if number is not None:
+            out[number] = f"https://www.youtube.com/watch?v={vid}"
     return out
 
 
@@ -178,10 +198,10 @@ def _youtube_feed_links():
     out = {}
     for entry in tree.findall("a:entry", ns):
         title = entry.findtext("a:title", "", ns)
-        m = re.search(r"第(\d+)回", title)
+        number = _episode_number_from_youtube_title(title)
         link_el = entry.find("a:link[@rel='alternate']", ns)
-        if m and link_el is not None:
-            out[int(m.group(1))] = link_el.get("href")
+        if number is not None and link_el is not None:
+            out[number] = link_el.get("href")
     return out
 
 
