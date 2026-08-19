@@ -4943,7 +4943,9 @@
    "guid": "6dca1d35-5ac2-49c9-9c8f-77cd7277e0d3",
    "image": "assets/img/ep/54.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1749042981771-0a26b4681daa9.jpg",
-   "featured_games": [],
+   "featured_games": [
+    "ASTRO BOY 鉄腕アトム アトムハートの秘密"
+   ],
    "audio": "https://anchor.fm/s/f61a3794/podcast/play/103652191/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-5-4%2F029ff9af-9932-b8d2-6879-f38a9979896a.mp3",
    "duration": 5332
   },
@@ -10694,6 +10696,78 @@
    "duration": 5295,
    "image": "assets/img/ep/118.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1786540288822-68fd8b24dc4f4.jpg"
+  },
+  {
+   "number": 119,
+   "title": "「わたしの臀部の筋肉は530000です」マンガ・アニメ原作ゲームの話",
+   "tags": [],
+   "series": null,
+   "description": "キン肉マン、はじめの一歩、らんま1/2などなど、マンガ・アニメ原作ゲームの話はもちろん、あの尻にまつわるゲームの話も飛び出します！\n\nポッドキャストスターアワードへの投票、ご協力をお願いします！\n投票ページ：https://podcastar.jp/psa2026/psa-vote",
+   "games": [
+    "キン肉マン DIRTY CHALLENGER",
+    "遊☆戯☆王デュエルモンスターズ",
+    "遊☆戯☆王デュエルモンスターズII 闇界決闘記",
+    "はじめの一歩2 VICTORIOUS ROAD",
+    "らんま1/2 超技乱舞篇",
+    "魔法陣グルグル",
+    "まじかる☆タルるートくん MAGIC ADVENTURE",
+    "ASTRO BOY 鉄腕アトム アトムハートの秘密",
+    "ファイナルファンタジーIV",
+    "ドラゴンクエストVI 幻の大地",
+    "ケツバトラー",
+    "グランブルーファンタジー",
+    "クロノ・トリガー",
+    "ファンタシースターII 還らざる時の終わりに",
+    "ザンキゼロ",
+    "カルドセプト ビギンズ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:19",
+     "label": "イチィゴォー（キン肉マン DIRTY CHALLENGER）"
+    },
+    {
+     "time": "06:52",
+     "label": "ひゅうま（はじめの一歩2 VICTORIOUS ROAD）"
+    },
+    {
+     "time": "20:43",
+     "label": "夜中たわし"
+    },
+    {
+     "time": "26:55",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "41:32",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "47:03",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/119-530000-e3njs4k",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC119%E5%9B%9E-%E3%82%8F%E3%81%9F%E3%81%97%E3%81%AE%E8%87%80%E9%83%A8%E3%81%AE%E7%AD%8B%E8%82%89%E3%81%AF530000%E3%81%A7%E3%81%99-%E3%83%9E%E3%83%B3%E3%82%AC-%E3%82%A2%E3%83%8B%E3%83%A1%E5%8E%9F%E4%BD%9C%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AE%E8%A9%B1/id1749310211?i=1000784357665&uo=4",
+    "youtube": "https://www.youtube.com/watch?v=ylsPqDD0BBE",
+    "spotify_open": "https://open.spotify.com/episode/0eCzlu5GTZXyUNl1vTbWRx"
+   },
+   "guid": "8b56e10d-20d8-4ac3-909f-ab1c34711452",
+   "date": "2026-08-19",
+   "date_estimated": false,
+   "featured_games": [
+    "キン肉マン DIRTY CHALLENGER",
+    "はじめの一歩2 VICTORIOUS ROAD"
+   ],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/124431956/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-19%2F2e8a42f3-32f8-c94c-2df6-6820019f0980.mp3",
+   "duration": 3470,
+   "image": "assets/img/ep/119.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1787138491642-26870ed1704d2.jpg"
   }
  ]
 }
