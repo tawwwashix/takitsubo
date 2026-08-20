@@ -25,6 +25,12 @@
       "description": "初代PlayStationの売上ランキングTOP50について全部語る全3回。あの灰色の箱に詰まっていた青春を総ざらい。"
     },
     {
+      "slug": "umigame",
+      "name": "ウミガメのスープ",
+      "icon": "🐢",
+      "description": "ゲーム関係限定のウミガメのスープ。"
+    },
+    {
       "slug": "ii-shouhin",
       "name": "とてもいい商品",
       "icon": "📦",

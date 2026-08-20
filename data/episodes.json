@@ -613,7 +613,7 @@
    "tags": [
     "ウミガメのスープ"
    ],
-   "series": null,
+   "series": "umigame",
    "description": "今回は水平思考ゲーム「ウミガメのスープ」で遊びます。ただしゲームの知識がないと解けないものばかり！\nエンディングでは夜中たわしが初めて行ったBitSummit Driftのレポもあります。",
    "games": [
     "Celeste"
@@ -5439,7 +5439,7 @@
    "tags": [
     "ウミガメのスープ"
    ],
-   "series": null,
+   "series": "umigame",
    "description": "【新解釈】ある男はウミガメのスープを食べた後に自殺した。一体、なぜ？？（答えはゲーム関係）",
    "games": [
     "ドンキーコング バナンザ",
@@ -10625,8 +10625,10 @@
   {
    "number": 118,
    "title": "ゲーム好きでないと解けないウミガメのスープ 3杯目",
-   "tags": [],
-   "series": null,
+   "tags": [
+    "ウミガメのスープ"
+   ],
+   "series": "umigame",
    "description": "お久しぶりです。ゲーム関係専門のウミガメのスープを遊びます。\n\n今回動画版では、問題文や質問・解答が表示されます！ 非常に一緒に解きやすくなっているので、よろしければそちらをご覧ください！\n※当初YouTubeでのみ動画を出していましたが、Spotify版もビデオポッドキャストに差し替えました。\n\nYouTube版：\nhttps://www.youtube.com/watch?v=TG9XMwz1oVw\nYouTube版（ウミガメのみ）：\nhttps://www.youtube.com/watch?v=_cvd6NCXSKg\n\nポッドキャストスターアワードへの投票、ご協力をお願いします！\n投票",
    "games": [
     "スーパーマリオシリーズ",
