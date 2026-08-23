@@ -861,10 +861,8 @@ def awq_season_section(season, quizzes, root="../"):
     number = season["season"]
     ranking = season.get("ranking", [])
     active = bool(season.get("active"))
-    through = season.get("through_round")
     state = "集計中" if active else "最終結果"
     state_class = "live" if active else "final"
-    through_text = f"第{through}回まで集計" if through is not None else "集計回不明"
 
     champion = ""
     if not active and ranking:
@@ -895,7 +893,7 @@ def awq_season_section(season, quizzes, root="../"):
 <h2><span>SEASON {number}</span>{esc(season.get('label', f'シーズン{number}'))}</h2>
 <span class="awq-state {state_class}">{state}</span>
 </div>
-<p class="awq-season-meta">{through_text} · 参加者{len(ranking)}名</p>
+<p class="awq-season-meta">参加者{len(ranking)}名</p>
 {champion}
 {awq_podium(ranking)}
 {awq_ranking_rows(ranking)}
@@ -909,36 +907,28 @@ def build_awq():
     seasons = RANKING.get("seasons", [])
     quizzes = sorted(RANKING.get("quizzes", []), key=lambda q: q.get("round", -1))
     latest_quiz = quizzes[-1] if quizzes else None
-    current = next((s for s in seasons if s.get("active")), seasons[0] if seasons else None)
     latest_round = latest_quiz.get("round") if latest_quiz else None
-    through = current.get("through_round") if current else None
 
-    starts = {}
-    for season in seasons:
-        rounds = [e.get("round") for e in season.get("entries", []) if e.get("round") is not None]
-        if rounds:
-            starts[season["season"]] = min(rounds)
-    sorted_numbers = sorted(starts)
+    seasons_ascending = sorted(seasons, key=lambda season: season["season"])
     quiz_by_season = {}
-    for season_number in sorted_numbers:
-        start = starts[season_number]
-        higher_starts = [starts[n] for n in sorted_numbers if n > season_number]
-        end = min(higher_starts) - 1 if higher_starts else (latest_round or start)
-        quiz_by_season[season_number] = [q for q in quizzes if start <= q["round"] <= end]
-    first_ranked_round = min(starts.values()) if starts else None
-    pre_season = [q for q in quizzes if first_ranked_round is not None and q["round"] < first_ranked_round]
+    season_start = quizzes[0]["round"] if quizzes else None
+    for index, season in enumerate(seasons_ascending):
+        season_number = season["season"]
+        is_latest_season = index == len(seasons_ascending) - 1
+        # 確定済みシーズンの最終集計回を境界にする。最初のシーズンは
+        # ポイント制開始前も含め、保存されている最古のクイズから扱う。
+        season_end = latest_round if is_latest_season else season.get("through_round")
+        if season_start is None or season_end is None:
+            quiz_by_season[season_number] = []
+            continue
+        quiz_by_season[season_number] = [
+            quiz for quiz in quizzes if season_start <= quiz["round"] <= season_end
+        ]
+        season_start = season_end + 1
 
     anchor_links = "".join(
         f'<a href="#season-{s["season"]}">{esc(s.get("label", ""))}</a>' for s in seasons
     )
-    anchor_links += '<a href="#before-ranking">ランキング開始前</a>' if pre_season else ""
-
-    stats = []
-    if through is not None:
-        stats.append(f'<span><strong>#{through}</strong>まで集計</span>')
-    if latest_round is not None:
-        stats.append(f'<span><strong>#{latest_round}</strong>まで出題</span>')
-    stats.append(f'<span><strong>{len(quizzes)}</strong>問アーカイブ</span>')
 
     season_html = "".join(
         awq_season_section(season, quiz_by_season.get(season["season"], []), root)
@@ -946,15 +936,6 @@ def build_awq():
     )
     if not season_html:
         season_html = '<div class="info-box">ランキングデータを同期中です。</div>'
-
-    before_html = ""
-    if pre_season:
-        before_html = f"""<section class="section awq-season is-past" id="before-ranking">
-<div class="awq-season-head"><h2><span>BEFORE RANKING</span>ランキング開始前のクイズ</h2></div>
-<p class="awq-season-meta">ポイント制が始まる前に出題した、第{pre_season[0]['round']}〜{pre_season[-1]['round']}回の記録です。</p>
-<details class="awq-gallery-more"><summary>出題画像を見る（{len(pre_season)}問）</summary>
-{awq_quiz_grid(list(reversed(pre_season)), root)}</details>
-</section>"""
 
     base = SITE["base_url"].rstrip("/")
     crumbs_ld = {
@@ -977,15 +958,13 @@ def build_awq():
     page += header(root, "awq")
     page += f"""<main class="container awq-page">
 <div class="page-head awq-page-head">
-<span class="awq-kicker">TAKITSUBO ARTWORK QUIZ</span>
-<h1 class="page-title"><span class="en">OFFICIAL RANKING</span>アートワーククイズランキング</h1>
+<h1 class="page-title"><span class="en">TAKITSUBO ARTWORK QUIZ RANKING</span>アートワーククイズランキング</h1>
 <p>Xで次回エピソードのアートワークを一部隠して出題。何の回なのかを当てるはずが、いつしか面白い回答を狙う大喜利へ——。番組で贈られたポイントを集計する公式順位表です。</p>
 <a class="awq-hashtag" href="https://x.com/hashtag/%E6%BB%9D%E5%A3%BA%E3%82%A2%E3%83%BC%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%AF%E3%82%A4%E3%82%BA" target="_blank" rel="noopener">{SVG['x']}#滝壺アートワーククイズ</a>
-<div class="awq-stats">{"".join(stats)}</div>
 </div>
 <nav class="awq-season-nav" aria-label="シーズンへ移動">{anchor_links}</nav>
+<p class="awq-name-note">※ランキング内のリスナー名は敬称略です。</p>
 {season_html}
-{before_html}
 <p class="awq-data-note">順位は番組で発表されたポイントを集計しています。最新回の採点前など、出題済みの回と集計済みの回が異なる場合があります。</p>
 </main>"""
     page += footer(root)
