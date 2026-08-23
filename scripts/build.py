@@ -863,6 +863,20 @@ def awq_season_section(season, quizzes, root="../"):
     active = bool(season.get("active"))
     state = "集計中" if active else "最終結果"
     state_class = "live" if active else "final"
+    quiz_rounds = [quiz["round"] for quiz in quizzes]
+    start_round = season.get("start_round")
+    if start_round is None and quiz_rounds:
+        start_round = min(quiz_rounds)
+    end_round = max(quiz_rounds) if quiz_rounds else season.get("through_round")
+    if start_round is None:
+        period = ""
+    elif active:
+        period = f"第{start_round}回～"
+    elif end_round is not None:
+        period = f"第{start_round}回～第{end_round}回"
+    else:
+        period = f"第{start_round}回～"
+    season_meta = " ／ ".join(item for item in (period, f"参加者{len(ranking)}名") if item)
 
     champion = ""
     if not active and ranking:
@@ -893,7 +907,7 @@ def awq_season_section(season, quizzes, root="../"):
 <h2><span>SEASON {number}</span>{esc(season.get('label', f'シーズン{number}'))}</h2>
 <span class="awq-state {state_class}">{state}</span>
 </div>
-<p class="awq-season-meta">参加者{len(ranking)}名</p>
+<p class="awq-season-meta">{season_meta}</p>
 {champion}
 {awq_podium(ranking)}
 {awq_ranking_rows(ranking)}
@@ -911,20 +925,31 @@ def build_awq():
 
     seasons_ascending = sorted(seasons, key=lambda season: season["season"])
     quiz_by_season = {}
-    season_start = quizzes[0]["round"] if quizzes else None
+    season_starts = []
+    for index, season in enumerate(seasons_ascending):
+        season_start = season.get("start_round")
+        if season_start is None and index == 0 and quizzes:
+            # 古いranking.jsonとの互換。シーズン1は保存済みの最古のクイズから扱う。
+            season_start = quizzes[0]["round"]
+        elif season_start is None and index > 0:
+            previous_through = seasons_ascending[index - 1].get("through_round")
+            if previous_through is not None:
+                season_start = previous_through + 1
+        season_starts.append(season_start)
+
     for index, season in enumerate(seasons_ascending):
         season_number = season["season"]
-        is_latest_season = index == len(seasons_ascending) - 1
-        # 確定済みシーズンの最終集計回を境界にする。最初のシーズンは
-        # ポイント制開始前も含め、保存されている最古のクイズから扱う。
-        season_end = latest_round if is_latest_season else season.get("through_round")
+        season_start = season_starts[index]
+        next_start = season_starts[index + 1] if index + 1 < len(season_starts) else None
+        season_end = next_start - 1 if next_start is not None else latest_round
+        if season_end is None and index + 1 < len(seasons_ascending):
+            season_end = season.get("through_round")
         if season_start is None or season_end is None:
             quiz_by_season[season_number] = []
             continue
         quiz_by_season[season_number] = [
             quiz for quiz in quizzes if season_start <= quiz["round"] <= season_end
         ]
-        season_start = season_end + 1
 
     anchor_links = "".join(
         f'<a href="#season-{s["season"]}">{esc(s.get("label", ""))}</a>' for s in seasons

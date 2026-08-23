@@ -132,6 +132,7 @@
       "season": 3,
       "label": "シーズン3",
       "active": true,
+      "start_round": 101,
       "through_round": 118,
       "entries": [
         {
@@ -931,6 +932,7 @@
       "season": 2,
       "label": "シーズン2",
       "active": false,
+      "start_round": 59,
       "through_round": 100,
       "entries": [
         {
@@ -1937,6 +1939,7 @@
       "season": 1,
       "label": "シーズン1",
       "active": false,
+      "start_round": 16,
       "through_round": 58,
       "entries": [
         {

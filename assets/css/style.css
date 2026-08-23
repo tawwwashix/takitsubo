@@ -848,13 +848,13 @@ span.ep-card-num {
 }
 .shindan-banner.db:hover { box-shadow: 0 16px 36px -8px rgba(14, 90, 168, .55); }
 .shindan-banner.db .sb-cta { color: var(--primary-deep); }
-/* AWQランキングのバナー: 深い水色にクイズ画像を添える */
+/* AWQランキングのバナー: 他の導線と区別できる深い緑 */
 .shindan-banner.awq {
-  background: linear-gradient(135deg, #143F70, #315FA7 55%, var(--cyan));
-  box-shadow: 0 12px 30px -8px rgba(20, 63, 112, .58);
+  background: linear-gradient(135deg, #0D5F43, #137B50 58%, #21A167);
+  box-shadow: 0 12px 30px -8px rgba(13, 95, 67, .55);
 }
-.shindan-banner.awq:hover { box-shadow: 0 16px 36px -8px rgba(20, 63, 112, .62); }
-.shindan-banner.awq .sb-cta { color: var(--primary-deep); }
+.shindan-banner.awq:hover { box-shadow: 0 16px 36px -8px rgba(13, 95, 67, .62); }
+.shindan-banner.awq .sb-cta { color: #0D6B48; }
 .shindan-banner.awq .awq-thumb {
   border-radius: 16px; object-fit: cover; image-rendering: auto;
   animation: none; border: 2px solid rgba(255, 255, 255, .55);
@@ -1464,7 +1464,7 @@ a.awq-listener:hover svg { opacity: .9; }
 .awq-row-name { display: flex; align-items: flex-start; flex-direction: column; min-width: 0; font-weight: 700; }
 .awq-row-name .awq-listener { justify-content: flex-start; }
 .awq-row-name > small { color: var(--faint); font-weight: 400; font-size: 9px; }
-.awq-row-points { font-family: var(--font-num); font-size: clamp(16px, 3vw, 21px); color: var(--primary-deep); white-space: nowrap; text-align: left; }
+.awq-row-points { font-family: var(--font-num); font-size: clamp(16px, 3vw, 21px); color: var(--primary-deep); white-space: nowrap; text-align: right; }
 .awq-gallery-head { margin-top: 36px; padding-top: 24px; border-top: 1px dashed var(--sky-2); }
 .awq-gallery-head h3 { font-family: var(--font-display); font-weight: 900; font-size: 18px; }
 .awq-gallery-head p { margin: 4px 0 15px; color: var(--sub); font-size: 11px; }
