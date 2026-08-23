@@ -1,4 +1,4 @@
-name: RSSから自動更新
+name: RSS・AWQから自動更新
 
 on:
   schedule:
@@ -25,6 +25,9 @@ jobs:
       - name: 依存ライブラリ(画像縮小用)
         run: pip install Pillow
 
+      - name: AWQランキングと出題画像を同期
+        run: python3 scripts/sync_awq.py
+
       - name: RSS取得とページ再生成
         run: python3 scripts/update_from_rss.py
 
@@ -33,5 +36,5 @@ jobs:
           git config user.name "takitsubo-bot"
           git config user.email "actions@users.noreply.github.com"
           git add -A
-          git diff --cached --quiet || git commit -m "auto: RSSからエピソード更新"
+          git diff --cached --quiet || git commit -m "auto: RSS・AWQデータを更新"
           git push

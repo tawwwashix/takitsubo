@@ -24,6 +24,10 @@ SITE = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 EPS = json.loads((ROOT / "data/episodes.json").read_text(encoding="utf-8"))["episodes"]
 SERIES = json.loads((ROOT / "data/series.json").read_text(encoding="utf-8"))["series"]
 NEWS = json.loads((ROOT / "data/news.json").read_text(encoding="utf-8"))["news"]
+try:
+    RANKING = json.loads((ROOT / "data/ranking.json").read_text(encoding="utf-8"))
+except (FileNotFoundError, json.JSONDecodeError):
+    RANKING = {"seasons": [], "quizzes": []}
 
 EPS_BY_NUM = {e["number"]: e for e in EPS}
 # 配信回数: 第0回(番組紹介)は「全N回」の数え上げに含めない
@@ -126,6 +130,7 @@ def header(root, current=""):
         ("index.html", "ホーム", "home"),
         ("episodes/", "エピソード", "episodes"),
         ("series/", "名物企画", "series"),
+        ("awq/", "AWQ", "awq"),
         ("shindan.html", "ゲーム診断", "shindan"),
         ("games/", "滝壺DB", "games"),
         ("news/", "お知らせ", "news"),
@@ -133,7 +138,11 @@ def header(root, current=""):
         ("otayori.html", "おたより", "otayori"),
     ]
     # ハンバーガーメニュー内でのみ差し替えるラベル(PCヘッダーは短い表記のまま)
-    mobile_label = {"shindan": "ふさわしいゲーム診断", "games": "滝壺データベース"}
+    mobile_label = {
+        "awq": "AWQランキング",
+        "shindan": "ふさわしいゲーム診断",
+        "games": "滝壺データベース",
+    }
     links = ""
     for href, label, key in items:
         current_attr = ' aria-current="page"' if key == current else ""
@@ -163,7 +172,8 @@ def footer(root):
     if blog_url.startswith("TODO"): blog_url = "#"
     nav = (
         f'<a href="{root}index.html">ホーム</a><a href="{root}episodes/">エピソード</a>'
-        f'<a href="{root}series/">名物企画</a><a href="{root}shindan.html">ふさわしいゲーム診断</a>'
+        f'<a href="{root}series/">名物企画</a><a href="{root}awq/">AWQランキング</a>'
+        f'<a href="{root}shindan.html">ふさわしいゲーム診断</a>'
         f'<a href="{root}games/">滝壺データベース</a>'
         f'<a href="{root}news/">お知らせ</a>'
         f'<a href="{root}guide.html">ポッドキャストの聴き方</a><a href="{root}otayori.html">おたより</a>'
@@ -229,6 +239,17 @@ def sec_title(jp, en="", more_html=""):
     return f'<h2 class="section-title"><span class="st-text">{en_html}<span>{esc(jp)}</span></span>{more_html}</h2>'
 
 
+def fmt_points(value):
+    """AWQポイントを桁区切りし、小数点以下の不要な0は表示しない。"""
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return str(value)
+    if number.is_integer():
+        return f"{int(number):,}"
+    return f"{number:,.10f}".rstrip("0").rstrip(".")
+
+
 def series_card(s, root, desc_len=None):
     """名物企画カード。最新回のアートワークを「ぼかし背景+全体表示」で見せ、
     企画名は画像上に白文字で重ねる(下部に暗グラデを敷いて可読性を確保)。"""
@@ -277,6 +298,14 @@ def build_index():
     recent = list(reversed(EPS[-7:-1]))  # 最新を除く直近6件(3列×2段)
     ep_count = EP_COUNT
     shindan_count = len(shindan_pool()[0])
+    awq_current = next((s for s in RANKING.get("seasons", []) if s.get("active")), None)
+    awq_leader = (awq_current.get("ranking") or [None])[0] if awq_current else None
+    awq_quiz = next((q for q in reversed(RANKING.get("quizzes", [])) if q.get("image")), None)
+    awq_thumb = awq_quiz["image"] if awq_quiz else "assets/img/rock_hyuuma.png"
+    awq_lead = (
+        f'現在のトップは{esc(awq_leader["listener"])}、{fmt_points(awq_leader["points"])}pt。'
+        if awq_leader else ""
+    )
     rock = {"tawashi": "rock_tawashi.png", "hyuuma": "rock_hyuuma.png", "ichigoo": "rock_ichigo.png"}
     members = "".join(
         f"""<div class="card member-card">
@@ -383,6 +412,15 @@ def build_index():
 <span class="sb-desc">メインで語った回・3分ゲーム紹介・ちょい出しまで、あのゲームをどの回で話したかがわかる索引です。</span>
 </span>
 <span class="sb-cta">索引を見る →</span>
+</a>
+<a class="shindan-banner awq" href="awq/" style="margin-top:14px;">
+<img class="sb-chara awq-thumb" src="{awq_thumb}" alt="" aria-hidden="true">
+<span class="sb-body">
+<span class="sb-en">ARTWORK QUIZ RANKING</span>
+<span class="sb-title">この絵、いったい何のエピソード？</span>
+<span class="sb-desc">大喜利と化したアートワーククイズの公式順位表。{awq_lead}歴代の出題画像と答えもまとめて見られます。</span>
+</span>
+<span class="sb-cta">順位を見る →</span>
 </a>
 </section>
 
@@ -734,6 +772,226 @@ def build_series():
 </main>"""
         page += footer(root)
         (ROOT / f"series/{s['slug']}.html").write_text(page, encoding="utf-8")
+
+
+# ============================================================ awq/
+def awq_listener(person):
+    """ランキングで使うリスナー名。X URLがある場合だけリンクにする。"""
+    name = esc(person.get("listener", ""))
+    x_url = person.get("x_url")
+    if not x_url:
+        return f'<span class="awq-listener">{name}</span>'
+    return (
+        f'<a class="awq-listener" href="{esc(x_url)}" target="_blank" rel="noopener">'
+        f'<span>{name}</span>{SVG["x"]}<span class="visually-hidden">のXアカウント</span></a>'
+    )
+
+
+def awq_podium(ranking):
+    cards = []
+    medals = {1: "🏆", 2: "🥈", 3: "🥉"}
+    for position, person in enumerate(ranking[:3], 1):
+        rank = person.get("rank", position)
+        medal = medals.get(rank, f"{rank}位")
+        cards.append(f"""<div class="awq-podium-card awq-podium-pos-{position} awq-rank-{min(rank, 4)}">
+<span class="awq-medal" aria-label="{rank}位">{medal}</span>
+<span class="awq-podium-rank">{rank}<small>位</small></span>
+{awq_listener(person)}
+<strong class="awq-points">{fmt_points(person.get('points', 0))}<small>pt</small></strong>
+<span class="awq-awards">ポイント獲得 {person.get('awards', 0)}回</span>
+</div>""")
+    return f'<div class="awq-podium">{"".join(cards)}</div>' if cards else ""
+
+
+def awq_ranking_rows(ranking):
+    rows = []
+    for person in ranking[3:]:
+        rows.append(f"""<div class="awq-ranking-row">
+<span class="awq-row-rank">{person.get('rank', '')}<small>位</small></span>
+<span class="awq-row-name">{awq_listener(person)}<small>獲得 {person.get('awards', 0)}回</small></span>
+<strong class="awq-row-points">{fmt_points(person.get('points', 0))}<small>pt</small></strong>
+</div>""")
+    if not rows:
+        return ""
+    return f'<div class="awq-ranking-list" aria-label="4位以下のランキング">{"".join(rows)}</div>'
+
+
+def awq_quiz_card(quiz, root="../"):
+    number = quiz["round"]
+    episode = EPS_BY_NUM.get(number)
+    problem = quiz.get("image")
+    if problem:
+        problem_html = (
+            f'<img src="{root}{esc(problem)}" '
+            f'alt="第{number}回アートワーククイズの問題画像" loading="lazy">'
+        )
+    else:
+        problem_html = f'<span class="awq-quiz-placeholder">#{number}</span>'
+
+    answer_html = '<p class="awq-answer-missing">答えのエピソード情報は準備中です。</p>'
+    if episode:
+        answer_image = ep_image(episode)
+        answer_art = (
+            f'<img src="{root}{esc(answer_image)}" alt="" loading="lazy">'
+            if answer_image else f'<span class="awq-answer-num">#{number}</span>'
+        )
+        answer_html = f"""<a class="awq-answer-link" href="{root}episodes/{number}.html">
+{answer_art}
+<span><small>ANSWER — EPISODE #{number}</small><strong>{esc(episode['title'])}</strong><em>エピソードを見る →</em></span>
+</a>"""
+
+    note = f'<p class="awq-quiz-note">{esc(quiz["note"])}</p>' if quiz.get("note") else ""
+    return f"""<article class="awq-quiz-card" id="quiz-{number}">
+<a class="awq-problem" href="{esc(quiz['x_url'])}" target="_blank" rel="noopener">
+{problem_html}<span class="awq-quiz-no">QUIZ #{number}</span>
+</a>
+<div class="awq-quiz-body">
+<a class="awq-post-link" href="{esc(quiz['x_url'])}" target="_blank" rel="noopener">{SVG['x']}出題ポストを見る</a>
+{note}
+<details class="awq-answer"><summary>答えを見る</summary>{answer_html}</details>
+</div>
+</article>"""
+
+
+def awq_quiz_grid(quizzes, root="../"):
+    return f'<div class="awq-quiz-grid">{"".join(awq_quiz_card(q, root) for q in quizzes)}</div>'
+
+
+def awq_season_section(season, quizzes, root="../"):
+    number = season["season"]
+    ranking = season.get("ranking", [])
+    active = bool(season.get("active"))
+    through = season.get("through_round")
+    state = "集計中" if active else "最終結果"
+    state_class = "live" if active else "final"
+    through_text = f"第{through}回まで集計" if through is not None else "集計回不明"
+
+    champion = ""
+    if not active and ranking:
+        winner = ranking[0]
+        champion = f"""<div class="awq-champion">
+<span class="awq-crown" aria-hidden="true">♛</span>
+<span><small>SEASON {number} CHAMPION</small><strong>{awq_listener(winner)}</strong></span>
+<b>{fmt_points(winner.get('points', 0))}<small>pt</small></b>
+</div>"""
+
+    if active:
+        newest = list(reversed(quizzes))
+        shown, older = newest[:6], newest[6:]
+        gallery = awq_quiz_grid(shown, root) if shown else '<p class="awq-empty">出題画像を同期中です。</p>'
+        if older:
+            gallery += f"""<details class="awq-gallery-more">
+<summary>シーズン{number}の過去の出題をすべて見る（{len(older)}問）</summary>
+{awq_quiz_grid(older, root)}
+</details>"""
+    else:
+        gallery = f"""<details class="awq-gallery-more">
+<summary>シーズン{number}の出題画像を見る（{len(quizzes)}問）</summary>
+{awq_quiz_grid(list(reversed(quizzes)), root)}
+</details>""" if quizzes else ""
+
+    return f"""<section class="section awq-season {'is-current' if active else 'is-past'}" id="season-{number}">
+<div class="awq-season-head">
+<h2><span>SEASON {number}</span>{esc(season.get('label', f'シーズン{number}'))}</h2>
+<span class="awq-state {state_class}">{state}</span>
+</div>
+<p class="awq-season-meta">{through_text} · 参加者{len(ranking)}名</p>
+{champion}
+{awq_podium(ranking)}
+{awq_ranking_rows(ranking)}
+<div class="awq-gallery-head"><h3>出題アートワーク</h3><p>問題画像を見てから「答えを見る」を開くと、本来のエピソードへつながります。</p></div>
+{gallery}
+</section>"""
+
+
+def build_awq():
+    root = "../"
+    seasons = RANKING.get("seasons", [])
+    quizzes = sorted(RANKING.get("quizzes", []), key=lambda q: q.get("round", -1))
+    latest_quiz = quizzes[-1] if quizzes else None
+    current = next((s for s in seasons if s.get("active")), seasons[0] if seasons else None)
+    latest_round = latest_quiz.get("round") if latest_quiz else None
+    through = current.get("through_round") if current else None
+
+    starts = {}
+    for season in seasons:
+        rounds = [e.get("round") for e in season.get("entries", []) if e.get("round") is not None]
+        if rounds:
+            starts[season["season"]] = min(rounds)
+    sorted_numbers = sorted(starts)
+    quiz_by_season = {}
+    for season_number in sorted_numbers:
+        start = starts[season_number]
+        higher_starts = [starts[n] for n in sorted_numbers if n > season_number]
+        end = min(higher_starts) - 1 if higher_starts else (latest_round or start)
+        quiz_by_season[season_number] = [q for q in quizzes if start <= q["round"] <= end]
+    first_ranked_round = min(starts.values()) if starts else None
+    pre_season = [q for q in quizzes if first_ranked_round is not None and q["round"] < first_ranked_round]
+
+    anchor_links = "".join(
+        f'<a href="#season-{s["season"]}">{esc(s.get("label", ""))}</a>' for s in seasons
+    )
+    anchor_links += '<a href="#before-ranking">ランキング開始前</a>' if pre_season else ""
+
+    stats = []
+    if through is not None:
+        stats.append(f'<span><strong>#{through}</strong>まで集計</span>')
+    if latest_round is not None:
+        stats.append(f'<span><strong>#{latest_round}</strong>まで出題</span>')
+    stats.append(f'<span><strong>{len(quizzes)}</strong>問アーカイブ</span>')
+
+    season_html = "".join(
+        awq_season_section(season, quiz_by_season.get(season["season"], []), root)
+        for season in seasons
+    )
+    if not season_html:
+        season_html = '<div class="info-box">ランキングデータを同期中です。</div>'
+
+    before_html = ""
+    if pre_season:
+        before_html = f"""<section class="section awq-season is-past" id="before-ranking">
+<div class="awq-season-head"><h2><span>BEFORE RANKING</span>ランキング開始前のクイズ</h2></div>
+<p class="awq-season-meta">ポイント制が始まる前に出題した、第{pre_season[0]['round']}〜{pre_season[-1]['round']}回の記録です。</p>
+<details class="awq-gallery-more"><summary>出題画像を見る（{len(pre_season)}問）</summary>
+{awq_quiz_grid(list(reversed(pre_season)), root)}</details>
+</section>"""
+
+    base = SITE["base_url"].rstrip("/")
+    crumbs_ld = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "ホーム", "item": base + "/"},
+            {"@type": "ListItem", "position": 2, "name": "AWQランキング"},
+        ],
+    }
+    og_image = latest_quiz.get("image") if latest_quiz else None
+    page = head(
+        "アートワーククイズランキング",
+        "滝壺アートワーククイズ（AWQ）の公式ランキング。最新順位、歴代優勝者、出題画像と答えをまとめて掲載しています。",
+        root,
+        "awq/",
+        og_image=og_image,
+        jsonld=crumbs_ld,
+    )
+    page += header(root, "awq")
+    page += f"""<main class="container awq-page">
+<div class="page-head awq-page-head">
+<span class="awq-kicker">TAKITSUBO ARTWORK QUIZ</span>
+<h1 class="page-title"><span class="en">OFFICIAL RANKING</span>アートワーククイズランキング</h1>
+<p>Xで次回エピソードのアートワークを一部隠して出題。何の回なのかを当てるはずが、いつしか面白い回答を狙う大喜利へ——。番組で贈られたポイントを集計する公式順位表です。</p>
+<a class="awq-hashtag" href="https://x.com/hashtag/%E6%BB%9D%E5%A3%BA%E3%82%A2%E3%83%BC%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%AF%E3%82%A4%E3%82%BA" target="_blank" rel="noopener">{SVG['x']}#滝壺アートワーククイズ</a>
+<div class="awq-stats">{"".join(stats)}</div>
+</div>
+<nav class="awq-season-nav" aria-label="シーズンへ移動">{anchor_links}</nav>
+{season_html}
+{before_html}
+<p class="awq-data-note">順位は番組で発表されたポイントを集計しています。最新回の採点前など、出題済みの回と集計済みの回が異なる場合があります。</p>
+</main>"""
+    page += footer(root)
+    out_dir = ROOT / "awq"
+    out_dir.mkdir(exist_ok=True)
+    (out_dir / "index.html").write_text(page, encoding="utf-8")
 
 
 # ============================================================ news/
@@ -1554,7 +1812,7 @@ def build_sitemap():
     today = datetime.date.today().isoformat()
     latest = EPS[-1]["date"] if EPS else today
     # (URL, 最終更新日): エピソード=配信日 / お知らせ=掲載日 / 一覧系=最新回の配信日
-    urls = [("", latest), ("episodes/", latest), ("series/", latest),
+    urls = [("", latest), ("episodes/", latest), ("series/", latest), ("awq/", latest),
             ("news/", NEWS[-1]["date"] if NEWS else today),
             ("shindan.html", latest), ("games/", latest),
             ("guide.html", today), ("otayori.html", today), ("privacy.html", today)]
@@ -1579,9 +1837,10 @@ if __name__ == "__main__":
     build_episode_list()
     build_episode_pages()
     build_series()
+    build_awq()
     build_news()
     build_guide()
     build_otayori()
     build_privacy()
     build_sitemap()
-    print(f"ビルド完了: エピソード{len(EPS)}ページ + シリーズ{len(SERIES)}ページ + データベース{n_games}ページ + その他")
+    print(f"ビルド完了: エピソード{len(EPS)}ページ + シリーズ{len(SERIES)}ページ + AWQランキング + データベース{n_games}ページ + その他")

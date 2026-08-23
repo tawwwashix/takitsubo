@@ -848,6 +848,18 @@ span.ep-card-num {
 }
 .shindan-banner.db:hover { box-shadow: 0 16px 36px -8px rgba(14, 90, 168, .55); }
 .shindan-banner.db .sb-cta { color: var(--primary-deep); }
+/* AWQランキングのバナー: 深い水色にクイズ画像を添える */
+.shindan-banner.awq {
+  background: linear-gradient(135deg, #143F70, #315FA7 55%, var(--cyan));
+  box-shadow: 0 12px 30px -8px rgba(20, 63, 112, .58);
+}
+.shindan-banner.awq:hover { box-shadow: 0 16px 36px -8px rgba(20, 63, 112, .62); }
+.shindan-banner.awq .sb-cta { color: var(--primary-deep); }
+.shindan-banner.awq .awq-thumb {
+  border-radius: 16px; object-fit: cover; image-rendering: auto;
+  animation: none; border: 2px solid rgba(255, 255, 255, .55);
+  box-shadow: 0 5px 16px rgba(8, 30, 54, .28);
+}
 .sb-chara {
   width: 74px; height: 74px; flex-shrink: 0;
   image-rendering: pixelated;
@@ -1331,6 +1343,198 @@ a.series-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hove
 .s-count { font-family: var(--font-num); font-size: 12px; color: var(--faint); margin-top: 4px; display: block; }
 .s-desc { font-size: 12px; color: var(--sub); line-height: 1.7; margin-top: 8px; display: block; }
 
+/* ---------- アートワーククイズランキング ---------- */
+.awq-page { max-width: 1000px; }
+.page-head.awq-page-head {
+  position: relative; isolation: isolate; overflow: hidden;
+  margin-top: 28px; padding: clamp(27px, 5vw, 46px);
+  border-radius: 28px; color: #fff;
+  background: linear-gradient(145deg, #0C477D 0%, #1E7ED6 58%, #29B9D6 120%);
+  box-shadow: 0 16px 40px rgba(14, 90, 168, .25);
+}
+.awq-page-head::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5;
+  background:
+    radial-gradient(circle 9px at 88% 20%, rgba(255,255,255,.35) 96%, transparent),
+    radial-gradient(circle 4px at 81% 37%, rgba(255,255,255,.28) 96%, transparent),
+    radial-gradient(circle 16px at 94% 58%, rgba(255,255,255,.14) 96%, transparent),
+    radial-gradient(circle 6px at 7% 86%, rgba(255,255,255,.22) 96%, transparent);
+}
+.awq-page-head .page-title { color: #fff; max-width: 700px; font-size: clamp(24px, 4vw, 34px); }
+.awq-page-head .page-title .en { color: #BFEAFF; }
+.awq-page-head > p { max-width: 720px; margin-top: 15px; font-size: 14px; line-height: 2; color: #EAF6FE; }
+.awq-kicker {
+  display: inline-flex; margin-bottom: 10px; padding: 4px 12px;
+  border: 1px solid rgba(255,255,255,.38); border-radius: 999px;
+  font-family: var(--font-num); font-weight: 700; font-size: 10px; letter-spacing: .2em;
+}
+.awq-hashtag {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
+  color: #fff; font-size: 12px; font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,.5);
+}
+.awq-hashtag:hover { color: #fff; text-decoration: none; border-color: #fff; }
+.awq-hashtag svg { width: 13px; height: 13px; }
+.awq-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.awq-stats span {
+  display: inline-flex; align-items: baseline; gap: 4px; padding: 7px 13px;
+  background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.22);
+  border-radius: 999px; font-size: 11px;
+}
+.awq-stats strong { font-family: var(--font-num); font-size: 16px; }
+.awq-season-nav {
+  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+  margin: 18px 0 0; padding: 4px 2px 8px;
+}
+.awq-season-nav::-webkit-scrollbar { display: none; }
+.awq-season-nav a {
+  flex-shrink: 0; padding: 7px 15px; border-radius: 999px;
+  background: rgba(255,255,255,.88); border: 1px solid var(--line);
+  color: var(--primary-deep); font-size: 12px; font-weight: 700;
+  box-shadow: var(--shadow);
+}
+.awq-season-nav a:hover { background: var(--primary); color: #fff; text-decoration: none; }
+.awq-season {
+  margin-top: 30px; padding: clamp(22px, 4vw, 34px);
+  border-radius: 26px; border: 1px solid rgba(213, 232, 245, .9);
+  background: rgba(255,255,255,.94); box-shadow: var(--shadow);
+}
+.awq-season.is-current {
+  border-top: 5px solid var(--cyan);
+  background: linear-gradient(180deg, #FFFFFF, #F4FAFF);
+  box-shadow: 0 12px 34px rgba(30, 126, 214, .17);
+}
+.awq-season-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.awq-season-head h2 {
+  font-family: var(--font-display); font-weight: 900; font-size: clamp(22px, 4vw, 29px);
+  line-height: 1.35;
+}
+.awq-season-head h2 > span {
+  display: block; font-family: var(--font-num); font-size: 10px;
+  line-height: 1; letter-spacing: .22em; color: var(--accent); margin-bottom: 7px;
+}
+.awq-state {
+  flex-shrink: 0; padding: 5px 13px; border-radius: 999px;
+  font-size: 11px; font-weight: 700;
+}
+.awq-state.live { color: #087362; background: #DDF8F1; }
+.awq-state.live::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: #19B997; }
+.awq-state.final { color: #795817; background: #FFF2C8; }
+.awq-season-meta { margin-top: 8px; color: var(--faint); font-family: var(--font-num); font-size: 12px; }
+.awq-champion {
+  display: flex; align-items: center; gap: 15px; margin-top: 21px; padding: 17px 20px;
+  border: 1px solid #F0D47C; border-radius: 18px;
+  background: linear-gradient(135deg, #FFF9E6, #FFE9A9 78%, #FFD875);
+  box-shadow: 0 8px 22px rgba(168, 115, 13, .12);
+}
+.awq-crown { color: #B87900; font-size: 34px; line-height: 1; transform: translateY(-2px); }
+.awq-champion > span:nth-child(2) { display: flex; flex-direction: column; min-width: 0; }
+.awq-champion small { font-family: var(--font-num); font-size: 9px; letter-spacing: .18em; color: #916B1C; }
+.awq-champion .awq-listener { margin-top: 2px; color: #66480B; font-family: var(--font-display); font-weight: 900; font-size: 18px; }
+.awq-champion > b {
+  margin-left: auto; color: #6D4B08; font-family: var(--font-num);
+  font-size: clamp(20px, 4vw, 28px); white-space: nowrap;
+}
+.awq-champion > b small { margin-left: 3px; font-size: 11px; }
+.awq-listener { display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: var(--ink); min-width: 0; }
+a.awq-listener:hover { color: var(--primary-deep); text-decoration: none; }
+.awq-listener svg { width: 11px; height: 11px; flex: none; }
+.awq-podium {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-areas: "second first third"; align-items: end; gap: 13px;
+  margin-top: 27px; padding-top: 20px;
+}
+.awq-podium-card {
+  position: relative; display: flex; flex-direction: column; align-items: center;
+  min-width: 0; padding: 24px 13px 17px; border-radius: 19px;
+  background: #fff; border: 1.5px solid var(--line); box-shadow: var(--shadow);
+  text-align: center;
+}
+.awq-podium-pos-1 { grid-area: first; padding-top: 38px; border-color: #EAC65A; background: linear-gradient(180deg, #FFF8D8, #fff); }
+.awq-podium-pos-2 { grid-area: second; }
+.awq-podium-pos-3 { grid-area: third; }
+.awq-medal { position: absolute; top: -20px; font-size: 34px; filter: drop-shadow(0 3px 4px rgba(16,57,92,.12)); }
+.awq-podium-pos-1 .awq-medal { top: -27px; font-size: 46px; }
+.awq-podium-rank { font-family: var(--font-num); font-weight: 700; font-size: 25px; color: var(--primary-deep); line-height: 1; }
+.awq-podium-rank small { margin-left: 2px; font-family: var(--font-body); font-size: 10px; }
+.awq-podium-card .awq-listener {
+  margin-top: 11px; max-width: 100%; font-family: var(--font-display);
+  font-weight: 900; font-size: clamp(13px, 2.5vw, 17px); line-height: 1.45;
+}
+.awq-points { margin-top: 7px; font-family: var(--font-num); font-size: clamp(17px, 3vw, 24px); color: var(--primary-deep); line-height: 1.25; }
+.awq-points small, .awq-row-points small { margin-left: 3px; font-size: 10px; }
+.awq-awards { margin-top: 5px; color: var(--faint); font-size: 10px; }
+.awq-ranking-list {
+  margin-top: 18px; overflow: hidden; border: 1px solid var(--line);
+  border-radius: 17px; background: #fff;
+}
+.awq-ranking-row {
+  display: grid; grid-template-columns: 58px minmax(0, 1fr) auto;
+  align-items: center; gap: 12px; padding: 11px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.awq-ranking-row:last-child { border-bottom: 0; }
+.awq-ranking-row:nth-child(even) { background: #F7FBFE; }
+.awq-row-rank { font-family: var(--font-num); font-weight: 700; font-size: 18px; color: var(--faint); text-align: center; }
+.awq-row-rank small { margin-left: 2px; font-family: var(--font-body); font-size: 9px; }
+.awq-row-name { display: flex; align-items: flex-start; flex-direction: column; min-width: 0; font-weight: 700; }
+.awq-row-name .awq-listener { justify-content: flex-start; }
+.awq-row-name > small { color: var(--faint); font-weight: 400; font-size: 9px; }
+.awq-row-points { font-family: var(--font-num); font-size: clamp(16px, 3vw, 21px); color: var(--primary-deep); white-space: nowrap; }
+.awq-gallery-head { margin-top: 36px; padding-top: 24px; border-top: 1px dashed var(--sky-2); }
+.awq-gallery-head h3 { font-family: var(--font-display); font-weight: 900; font-size: 18px; }
+.awq-gallery-head p { margin: 4px 0 15px; color: var(--sub); font-size: 11px; }
+.awq-quiz-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.awq-quiz-card {
+  min-width: 0; overflow: hidden; border: 1px solid var(--line);
+  border-radius: 18px; background: #fff; box-shadow: var(--shadow);
+}
+.awq-problem { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; background: var(--band-blue); }
+.awq-problem img { width: 100%; height: 100%; object-fit: cover; transition: transform .25s; }
+.awq-problem:hover img { transform: scale(1.025); }
+.awq-quiz-placeholder {
+  width: 100%; height: 100%; display: grid; place-items: center;
+  font-family: var(--font-num); font-weight: 700; font-size: 36px; color: var(--primary-deep);
+}
+.awq-quiz-no {
+  position: absolute; left: 9px; bottom: 9px; padding: 3px 9px;
+  border-radius: 999px; background: rgba(8, 30, 54, .82); color: #fff;
+  font-family: var(--font-num); font-weight: 700; font-size: 9px; letter-spacing: .08em;
+}
+.awq-quiz-body { padding: 11px; }
+.awq-post-link { display: inline-flex; align-items: center; gap: 5px; color: var(--sub); font-size: 10px; font-weight: 700; }
+.awq-post-link svg { width: 10px; height: 10px; }
+.awq-quiz-note { margin-top: 6px; color: var(--faint); font-size: 10px; }
+.awq-answer { margin-top: 9px; }
+.awq-answer > summary {
+  list-style: none; cursor: pointer; padding: 8px 10px; border-radius: 10px;
+  background: var(--band-soft); color: var(--primary-deep); font-size: 11px; font-weight: 700;
+  text-align: center;
+}
+.awq-answer > summary::-webkit-details-marker { display: none; }
+.awq-answer > summary::after { content: " ＋"; }
+.awq-answer[open] > summary::after { content: " −"; }
+.awq-answer-link {
+  display: grid; grid-template-columns: 72px minmax(0, 1fr); align-items: center;
+  gap: 10px; margin-top: 9px; color: inherit;
+}
+.awq-answer-link:hover { text-decoration: none; }
+.awq-answer-link > img, .awq-answer-num { width: 72px; height: 72px; border-radius: 10px; object-fit: cover; background: var(--line); }
+.awq-answer-num { display: grid; place-items: center; font-family: var(--font-num); font-weight: 700; color: var(--primary-deep); }
+.awq-answer-link > span { display: flex; flex-direction: column; min-width: 0; line-height: 1.45; }
+.awq-answer-link small { font-family: var(--font-num); font-size: 7px; letter-spacing: .08em; color: var(--faint); }
+.awq-answer-link strong { margin-top: 3px; font-size: 10px; }
+.awq-answer-link em { margin-top: 5px; color: var(--accent-deep); font-style: normal; font-size: 9px; font-weight: 700; }
+.awq-answer-missing { margin-top: 8px; color: var(--faint); font-size: 10px; }
+.awq-gallery-more { margin-top: 15px; }
+.awq-gallery-more > summary {
+  cursor: pointer; padding: 12px 16px; border: 1.5px solid var(--line); border-radius: 14px;
+  background: #fff; color: var(--primary-deep); font-size: 12px; font-weight: 700; text-align: center;
+}
+.awq-gallery-more[open] > summary { margin-bottom: 15px; background: var(--band-blue); border-color: var(--sky-2); }
+.awq-data-note { margin: 24px 5px 0; color: #EAF6FE; font-size: 10px; text-align: center; }
+.awq-empty { color: var(--faint); font-size: 12px; }
+
 /* ---------- ニュース ---------- */
 .news-list { border-top: 1px solid var(--line); }
 .news-item {
@@ -1487,4 +1691,46 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   .ep-card-body { padding: 10px 12px 12px; }
   .ep-title { font-size: 13px; }
   .page-title { font-size: 21px; }
+}
+
+@media (max-width: 900px) {
+  .awq-quiz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .shindan-banner.awq .awq-thumb { border-radius: 12px; }
+  .awq-page-head { margin-top: 18px; border-radius: 22px; }
+  .awq-page-head > p { font-size: 13px; line-height: 1.85; }
+  .awq-season { padding: 21px 15px; border-radius: 21px; }
+  .awq-season-head { align-items: flex-start; }
+  .awq-state { margin-top: 2px; }
+  .awq-champion { padding: 14px; gap: 10px; }
+  .awq-crown { font-size: 28px; }
+  .awq-champion .awq-listener { font-size: 15px; }
+  .awq-podium {
+    grid-template-columns: 1fr; grid-template-areas: "first" "second" "third";
+    align-items: stretch; gap: 11px; padding-top: 11px;
+  }
+  .awq-podium-card, .awq-podium-pos-1 {
+    display: grid; grid-template-columns: 38px minmax(0, 1fr) auto;
+    grid-template-rows: auto auto; align-items: center; text-align: left;
+    padding: 13px 14px;
+  }
+  .awq-medal, .awq-podium-pos-1 .awq-medal {
+    position: static; grid-row: 1 / 3; grid-column: 1; font-size: 26px;
+  }
+  .awq-podium-rank { display: none; }
+  .awq-podium-card .awq-listener { grid-column: 2; margin: 0; justify-content: flex-start; font-size: 14px; }
+  .awq-points { grid-column: 3; grid-row: 1 / 3; margin: 0; font-size: 18px; }
+  .awq-awards { grid-column: 2; margin: 2px 0 0; }
+  .awq-ranking-row { grid-template-columns: 42px minmax(0, 1fr) auto; gap: 8px; padding: 10px; }
+  .awq-row-points { font-size: 16px; }
+  .awq-quiz-grid { grid-template-columns: 1fr; }
+  .awq-quiz-card { max-width: 430px; width: 100%; margin-left: auto; margin-right: auto; }
+  .awq-answer-link { grid-template-columns: 88px minmax(0, 1fr); }
+  .awq-answer-link > img, .awq-answer-num { width: 88px; height: 88px; }
+}
+@media (max-width: 420px) {
+  .awq-champion > b { font-size: 17px; }
+  .awq-champion > b small { font-size: 9px; }
+  .awq-row-rank { font-size: 15px; }
 }

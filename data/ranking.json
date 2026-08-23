@@ -1,25 +1,2933 @@
 {
-  "_使い方": "アートワーククイズのポイントを記録するデータ。毎週 entries に {episode, listener, points} を追記するだけ。ページは後日実装予定だが、データはこの形式で貯めておけばそのまま使える。",
+  "_使い方": "Googleスプレッドシートから scripts/sync_awq.py が自動生成します。このファイルを直接編集せず、得点と出題リンクはスプレッドシートで更新してください。",
+  "source": {
+    "spreadsheet_id": "1MeALGhgFlJluJpskujNx9pQJ0ivtwx7mJrc10UREMI0",
+    "score_sheets": [
+      "シーズン3",
+      "シーズン2",
+      "シーズン1"
+    ],
+    "quiz_sheet": "出題リンク"
+  },
+  "listeners": [
+    {
+      "name": "Emesuke",
+      "x_url": "https://x.com/DGG_podcast"
+    },
+    {
+      "name": "YOSHIHARU",
+      "x_url": "https://x.com/hmaruSE"
+    },
+    {
+      "name": "YUSUKE",
+      "x_url": "https://x.com/G_OVER_N_GAME"
+    },
+    {
+      "name": "emuda",
+      "x_url": "https://x.com/emuda01"
+    },
+    {
+      "name": "ume",
+      "x_url": "https://x.com/ume_999"
+    },
+    {
+      "name": "こっしー",
+      "x_url": "https://x.com/nu__man"
+    },
+    {
+      "name": "さっさー",
+      "x_url": "https://x.com/nuj3PYDGQ436818"
+    },
+    {
+      "name": "たかちゃん",
+      "x_url": "https://x.com/hagitaka_chan"
+    },
+    {
+      "name": "たけお",
+      "x_url": "https://x.com/shigatwi"
+    },
+    {
+      "name": "とんこつ",
+      "x_url": "https://x.com/IjE4Jku1QHhEW8L"
+    },
+    {
+      "name": "なつめぐ",
+      "x_url": "https://x.com/nutmeg_aquifer"
+    },
+    {
+      "name": "につすい",
+      "x_url": "https://x.com/nishiro24"
+    },
+    {
+      "name": "ねこあげ",
+      "x_url": "https://x.com/necoage"
+    },
+    {
+      "name": "ゆいじろう",
+      "x_url": "https://x.com/yuijiro_u"
+    },
+    {
+      "name": "ゆうたろー",
+      "x_url": "https://x.com/otakunogorakuyu"
+    },
+    {
+      "name": "ゆぐみ",
+      "x_url": "https://x.com/gozayugu"
+    },
+    {
+      "name": "キミヒコ",
+      "x_url": "https://x.com/lvss4x"
+    },
+    {
+      "name": "コマツナ",
+      "x_url": "https://x.com/komatunapodcast"
+    },
+    {
+      "name": "コロ",
+      "x_url": "https://x.com/sentaku_koro"
+    },
+    {
+      "name": "サチコ",
+      "x_url": "https://x.com/sachiko1984"
+    },
+    {
+      "name": "サンマンボ",
+      "x_url": "https://x.com/sanmambo"
+    },
+    {
+      "name": "テイタン",
+      "x_url": "https://x.com/teitan7"
+    },
+    {
+      "name": "トラジャ",
+      "x_url": "https://x.com/torajaboost"
+    },
+    {
+      "name": "ミスターパーフェクト",
+      "x_url": "https://x.com/4s2OPSnTR99wtWJ"
+    },
+    {
+      "name": "天ぷらパーカー",
+      "x_url": "https://x.com/tempu_radio"
+    },
+    {
+      "name": "寅狸",
+      "x_url": "https://x.com/toratanukitsune"
+    },
+    {
+      "name": "牧場おじさん",
+      "x_url": "https://x.com/bears1282"
+    },
+    {
+      "name": "王夜",
+      "x_url": "https://x.com/Ouya08"
+    },
+    {
+      "name": "軟軟骨",
+      "x_url": "https://x.com/nannankoitu001"
+    }
+  ],
   "seasons": [
     {
       "season": 3,
       "label": "シーズン3",
       "active": true,
+      "through_round": 118,
       "entries": [
-        { "episode": 112, "listener": "(例)リスナー名", "points": 3 }
+        {
+          "round": 101,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 101,
+          "listener": "天ぷらパーカー",
+          "points": 1
+        },
+        {
+          "round": 101,
+          "listener": "サチコ",
+          "points": 16
+        },
+        {
+          "round": 101,
+          "listener": "キミヒコ",
+          "points": 1
+        },
+        {
+          "round": 101,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 101,
+          "listener": "ねこあげ",
+          "points": 1
+        },
+        {
+          "round": 102,
+          "listener": "天ぷらパーカー",
+          "points": 1
+        },
+        {
+          "round": 102,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 102,
+          "listener": "王夜",
+          "points": 102
+        },
+        {
+          "round": 102,
+          "listener": "キミヒコ",
+          "points": 1
+        },
+        {
+          "round": 102,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 102,
+          "listener": "YOSHIHARU",
+          "points": 1
+        },
+        {
+          "round": 103,
+          "listener": "天ぷらパーカー",
+          "points": 1
+        },
+        {
+          "round": 103,
+          "listener": "トラジャ",
+          "points": 1
+        },
+        {
+          "round": 103,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 103,
+          "listener": "王夜",
+          "points": 28
+        },
+        {
+          "round": 103,
+          "listener": "ねこあげ",
+          "points": 1
+        },
+        {
+          "round": 103,
+          "listener": "キミヒコ",
+          "points": 1
+        },
+        {
+          "round": 103,
+          "listener": "とんこつ",
+          "points": 1
+        },
+        {
+          "round": 103,
+          "listener": "YOSHIHARU",
+          "points": 1
+        },
+        {
+          "round": 103,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 104,
+          "listener": "YOSHIHARU",
+          "points": 1
+        },
+        {
+          "round": 104,
+          "listener": "とんこつ",
+          "points": 50
+        },
+        {
+          "round": 104,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 104,
+          "listener": "につすい",
+          "points": 1
+        },
+        {
+          "round": 104,
+          "listener": "キミヒコ",
+          "points": 1
+        },
+        {
+          "round": 104,
+          "listener": "王夜",
+          "points": 1
+        },
+        {
+          "round": 104,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 105,
+          "listener": "王夜",
+          "points": 1
+        },
+        {
+          "round": 105,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 105,
+          "listener": "サチコ",
+          "points": 1
+        },
+        {
+          "round": 105,
+          "listener": "とんこつ",
+          "points": 1
+        },
+        {
+          "round": 105,
+          "listener": "ねこあげ",
+          "points": 1
+        },
+        {
+          "round": 105,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 105,
+          "listener": "キミヒコ",
+          "points": 4
+        },
+        {
+          "round": 106,
+          "listener": "emuda",
+          "points": 51
+        },
+        {
+          "round": 106,
+          "listener": "YOSHIHARU",
+          "points": 1
+        },
+        {
+          "round": 106,
+          "listener": "とんこつ",
+          "points": 1
+        },
+        {
+          "round": 106,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 106,
+          "listener": "キミヒコ",
+          "points": 1
+        },
+        {
+          "round": 106,
+          "listener": "王夜",
+          "points": 1
+        },
+        {
+          "round": 107,
+          "listener": "ゆいじろう",
+          "points": 1
+        },
+        {
+          "round": 107,
+          "listener": "たかちゃん",
+          "points": 1
+        },
+        {
+          "round": 107,
+          "listener": "YOSHIHARU",
+          "points": 1
+        },
+        {
+          "round": 107,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 107,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 107,
+          "listener": "王夜",
+          "points": 1
+        },
+        {
+          "round": 107,
+          "listener": "とんこつ",
+          "points": 1
+        },
+        {
+          "round": 107,
+          "listener": "コマツナ",
+          "points": 527
+        },
+        {
+          "round": 107,
+          "listener": "キミヒコ",
+          "points": 1
+        },
+        {
+          "round": 108,
+          "listener": "ゆぐみ",
+          "points": 500
+        },
+        {
+          "round": 108,
+          "listener": "ume",
+          "points": 10
+        },
+        {
+          "round": 108,
+          "listener": "emuda",
+          "points": 10
+        },
+        {
+          "round": 108,
+          "listener": "キミヒコ",
+          "points": 10
+        },
+        {
+          "round": 108,
+          "listener": "天ぷらパーカー",
+          "points": 10
+        },
+        {
+          "round": 108,
+          "listener": "とんこつ",
+          "points": 1
+        },
+        {
+          "round": 108,
+          "listener": "YOSHIHARU",
+          "points": 1
+        },
+        {
+          "round": 108,
+          "listener": "王夜",
+          "points": 1
+        },
+        {
+          "round": 108,
+          "listener": "トラジャ",
+          "points": 1
+        },
+        {
+          "round": 108,
+          "listener": "ゆいじろう",
+          "points": 1
+        },
+        {
+          "round": 109,
+          "listener": "ゆうたろー",
+          "points": 175
+        },
+        {
+          "round": 109,
+          "listener": "とんこつ",
+          "points": 10
+        },
+        {
+          "round": 109,
+          "listener": "YOSHIHARU",
+          "points": 10
+        },
+        {
+          "round": 109,
+          "listener": "王夜",
+          "points": 10
+        },
+        {
+          "round": 109,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 109,
+          "listener": "天ぷらパーカー",
+          "points": 1
+        },
+        {
+          "round": 109,
+          "listener": "キミヒコ",
+          "points": 1
+        },
+        {
+          "round": 109,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 110,
+          "listener": "ゆうたろー",
+          "points": 10
+        },
+        {
+          "round": 110,
+          "listener": "キミヒコ",
+          "points": 10
+        },
+        {
+          "round": 110,
+          "listener": "ume",
+          "points": 10
+        },
+        {
+          "round": 110,
+          "listener": "ねこあげ",
+          "points": 10
+        },
+        {
+          "round": 110,
+          "listener": "YOSHIHARU",
+          "points": 66
+        },
+        {
+          "round": 110,
+          "listener": "ゆぐみ",
+          "points": 1
+        },
+        {
+          "round": 110,
+          "listener": "ゆいじろう",
+          "points": 1
+        },
+        {
+          "round": 110,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 110,
+          "listener": "コロ",
+          "points": 1
+        },
+        {
+          "round": 110,
+          "listener": "王夜",
+          "points": 1
+        },
+        {
+          "round": 111,
+          "listener": "天ぷらパーカー",
+          "points": 1
+        },
+        {
+          "round": 111,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 111,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 111,
+          "listener": "ゆぐみ",
+          "points": 10
+        },
+        {
+          "round": 111,
+          "listener": "ゆうたろー",
+          "points": 10
+        },
+        {
+          "round": 111,
+          "listener": "キミヒコ",
+          "points": 410
+        },
+        {
+          "round": 112,
+          "listener": "天ぷらパーカー",
+          "points": 10,
+          "note": "FF6特別ポイント"
+        },
+        {
+          "round": 112,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 112,
+          "listener": "ゆいじろう",
+          "points": 1
+        },
+        {
+          "round": 112,
+          "listener": "ゆぐみ",
+          "points": 1
+        },
+        {
+          "round": 112,
+          "listener": "王夜",
+          "points": 1
+        },
+        {
+          "round": 112,
+          "listener": "天ぷらパーカー",
+          "points": 1
+        },
+        {
+          "round": 112,
+          "listener": "YOSHIHARU",
+          "points": 1
+        },
+        {
+          "round": 112,
+          "listener": "コマツナ",
+          "points": 10
+        },
+        {
+          "round": 112,
+          "listener": "たけお",
+          "points": 10
+        },
+        {
+          "round": 112,
+          "listener": "につすい",
+          "points": 10
+        },
+        {
+          "round": 112,
+          "listener": "キミヒコ",
+          "points": 10
+        },
+        {
+          "round": 112,
+          "listener": "サチコ",
+          "points": 10
+        },
+        {
+          "round": 112,
+          "listener": "テイタン",
+          "points": 10
+        },
+        {
+          "round": 112,
+          "listener": "ume",
+          "points": 924
+        },
+        {
+          "round": 113,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 113,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 113,
+          "listener": "ゆぐみ",
+          "points": 1
+        },
+        {
+          "round": 113,
+          "listener": "YOSHIHARU",
+          "points": 10
+        },
+        {
+          "round": 113,
+          "listener": "天ぷらパーカー",
+          "points": 10
+        },
+        {
+          "round": 113,
+          "listener": "キミヒコ",
+          "points": 70
+        },
+        {
+          "round": 114,
+          "listener": "ゆぐみ",
+          "points": 96
+        },
+        {
+          "round": 114,
+          "listener": "emuda",
+          "points": 10
+        },
+        {
+          "round": 114,
+          "listener": "キミヒコ",
+          "points": 10
+        },
+        {
+          "round": 114,
+          "listener": "ume",
+          "points": 10
+        },
+        {
+          "round": 114,
+          "listener": "YOSHIHARU",
+          "points": 1
+        },
+        {
+          "round": 114,
+          "listener": "天ぷらパーカー",
+          "points": 1
+        },
+        {
+          "round": 115,
+          "listener": "天ぷらパーカー",
+          "points": 115
+        },
+        {
+          "round": 115,
+          "listener": "ume",
+          "points": 115
+        },
+        {
+          "round": 115,
+          "listener": "emuda",
+          "points": 115
+        },
+        {
+          "round": 115,
+          "listener": "とんこつ",
+          "points": 115
+        },
+        {
+          "round": 115,
+          "listener": "キミヒコ",
+          "points": 115
+        },
+        {
+          "round": 116,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 116,
+          "listener": "キミヒコ",
+          "points": 1
+        },
+        {
+          "round": 116,
+          "listener": "天ぷらパーカー",
+          "points": 100
+        },
+        {
+          "round": 116,
+          "listener": "emuda",
+          "points": 10
+        },
+        {
+          "round": 116,
+          "listener": "ゆぐみ",
+          "points": 10
+        },
+        {
+          "round": 117,
+          "listener": "天ぷらパーカー",
+          "points": 1
+        },
+        {
+          "round": 117,
+          "listener": "ゆぐみ",
+          "points": 1
+        },
+        {
+          "round": 117,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 117,
+          "listener": "コマツナ",
+          "points": 10
+        },
+        {
+          "round": 117,
+          "listener": "キミヒコ",
+          "points": 10
+        },
+        {
+          "round": 117,
+          "listener": "ume",
+          "points": 100
+        },
+        {
+          "round": 118,
+          "listener": "ume",
+          "points": 10
+        },
+        {
+          "round": 118,
+          "listener": "キミヒコ",
+          "points": 10
+        },
+        {
+          "round": 118,
+          "listener": "emuda",
+          "points": 100
+        },
+        {
+          "round": 118,
+          "listener": "ゆぐみ",
+          "points": 1
+        },
+        {
+          "round": 118,
+          "listener": "YOSHIHARU",
+          "points": 1
+        }
+      ],
+      "ranking": [
+        {
+          "listener": "ume",
+          "points": 1190,
+          "awards": 18,
+          "x_url": "https://x.com/ume_999",
+          "rank": 1
+        },
+        {
+          "listener": "キミヒコ",
+          "points": 667,
+          "awards": 18,
+          "x_url": "https://x.com/lvss4x",
+          "rank": 2
+        },
+        {
+          "listener": "ゆぐみ",
+          "points": 621,
+          "awards": 9,
+          "x_url": "https://x.com/gozayugu",
+          "rank": 3
+        },
+        {
+          "listener": "コマツナ",
+          "points": 547,
+          "awards": 3,
+          "x_url": "https://x.com/komatunapodcast",
+          "rank": 4
+        },
+        {
+          "listener": "emuda",
+          "points": 308,
+          "awards": 18,
+          "x_url": "https://x.com/emuda01",
+          "rank": 5
+        },
+        {
+          "listener": "天ぷらパーカー",
+          "points": 253,
+          "awards": 13,
+          "x_url": "https://x.com/tempu_radio",
+          "rank": 6
+        },
+        {
+          "listener": "ゆうたろー",
+          "points": 195,
+          "awards": 3,
+          "x_url": "https://x.com/otakunogorakuyu",
+          "rank": 7
+        },
+        {
+          "listener": "とんこつ",
+          "points": 180,
+          "awards": 8,
+          "x_url": "https://x.com/IjE4Jku1QHhEW8L",
+          "rank": 8
+        },
+        {
+          "listener": "王夜",
+          "points": 147,
+          "awards": 10,
+          "x_url": "https://x.com/Ouya08",
+          "rank": 9
+        },
+        {
+          "listener": "YOSHIHARU",
+          "points": 95,
+          "awards": 12,
+          "x_url": "https://x.com/hmaruSE",
+          "rank": 10
+        },
+        {
+          "listener": "サチコ",
+          "points": 27,
+          "awards": 3,
+          "x_url": "https://x.com/sachiko1984",
+          "rank": 11
+        },
+        {
+          "listener": "ねこあげ",
+          "points": 13,
+          "awards": 4,
+          "x_url": "https://x.com/necoage",
+          "rank": 12
+        },
+        {
+          "listener": "につすい",
+          "points": 11,
+          "awards": 2,
+          "x_url": "https://x.com/nishiro24",
+          "rank": 13
+        },
+        {
+          "listener": "たけお",
+          "points": 10,
+          "awards": 1,
+          "x_url": "https://x.com/shigatwi",
+          "rank": 14
+        },
+        {
+          "listener": "テイタン",
+          "points": 10,
+          "awards": 1,
+          "x_url": "https://x.com/teitan7",
+          "rank": 14
+        },
+        {
+          "listener": "ゆいじろう",
+          "points": 4,
+          "awards": 4,
+          "x_url": "https://x.com/yuijiro_u",
+          "rank": 16
+        },
+        {
+          "listener": "トラジャ",
+          "points": 2,
+          "awards": 2,
+          "x_url": "https://x.com/torajaboost",
+          "rank": 17
+        },
+        {
+          "listener": "たかちゃん",
+          "points": 1,
+          "awards": 1,
+          "x_url": "https://x.com/hagitaka_chan",
+          "rank": 18
+        },
+        {
+          "listener": "コロ",
+          "points": 1,
+          "awards": 1,
+          "x_url": "https://x.com/sentaku_koro",
+          "rank": 18
+        }
       ]
     },
     {
       "season": 2,
       "label": "シーズン2",
       "active": false,
-      "entries": []
+      "through_round": 100,
+      "entries": [
+        {
+          "round": 61,
+          "listener": "ume",
+          "points": 320
+        },
+        {
+          "round": 61,
+          "listener": "YOSHIHARU",
+          "points": 2424
+        },
+        {
+          "round": 62,
+          "listener": "ume",
+          "points": 2
+        },
+        {
+          "round": 63,
+          "listener": "ume",
+          "points": 24
+        },
+        {
+          "round": 63,
+          "listener": "とんこつ",
+          "points": 87
+        },
+        {
+          "round": 64,
+          "listener": "サチコ",
+          "points": 87
+        },
+        {
+          "round": 64,
+          "listener": "ume",
+          "points": 64
+        },
+        {
+          "round": 65,
+          "listener": "ume",
+          "points": 1000
+        },
+        {
+          "round": 66,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 66,
+          "listener": "コマツナ",
+          "points": 1
+        },
+        {
+          "round": 66,
+          "listener": "YOSHIHARU",
+          "points": 33
+        },
+        {
+          "round": 68,
+          "listener": "ume",
+          "points": 120
+        },
+        {
+          "round": 69,
+          "listener": "トラジャ",
+          "points": 1000000
+        },
+        {
+          "round": 69,
+          "listener": "寅狸",
+          "points": 1000000
+        },
+        {
+          "round": 69,
+          "listener": "YOSHIHARU",
+          "points": 1000000
+        },
+        {
+          "round": 69,
+          "listener": "サチコ",
+          "points": 1000000
+        },
+        {
+          "round": 69,
+          "listener": "ゆいじろう",
+          "points": 1000000
+        },
+        {
+          "round": 69,
+          "listener": "牧場おじさん",
+          "points": 1000000
+        },
+        {
+          "round": 69,
+          "listener": "YUSUKE",
+          "points": 1000000
+        },
+        {
+          "round": 69,
+          "listener": "ねこあげ",
+          "points": 1000000
+        },
+        {
+          "round": 69,
+          "listener": "とんこつ",
+          "points": 1000000
+        },
+        {
+          "round": 69,
+          "listener": "ume",
+          "points": 1000000
+        },
+        {
+          "round": 70,
+          "listener": "ゆいじろう",
+          "points": 400000
+        },
+        {
+          "round": 70,
+          "listener": "ume",
+          "points": 400000
+        },
+        {
+          "round": 70,
+          "listener": "YOSHIHARU",
+          "points": 400000
+        },
+        {
+          "round": 70,
+          "listener": "トラジャ",
+          "points": 400000
+        },
+        {
+          "round": 70,
+          "listener": "YUSUKE",
+          "points": 400000
+        },
+        {
+          "round": 70,
+          "listener": "キミヒコ",
+          "points": 400000
+        },
+        {
+          "round": 70,
+          "listener": "とんこつ",
+          "points": 400000
+        },
+        {
+          "round": 70,
+          "listener": "軟軟骨",
+          "points": 400000
+        },
+        {
+          "round": 71,
+          "listener": "ねこあげ",
+          "points": 4
+        },
+        {
+          "round": 71,
+          "listener": "YOSHIHARU",
+          "points": 4
+        },
+        {
+          "round": 71,
+          "listener": "キミヒコ",
+          "points": 4
+        },
+        {
+          "round": 71,
+          "listener": "トラジャ",
+          "points": 4
+        },
+        {
+          "round": 71,
+          "listener": "ume",
+          "points": 4
+        },
+        {
+          "round": 71,
+          "listener": "とんこつ",
+          "points": 4
+        },
+        {
+          "round": 72,
+          "listener": "トラジャ",
+          "points": 12
+        },
+        {
+          "round": 72,
+          "listener": "とんこつ",
+          "points": 12
+        },
+        {
+          "round": 72,
+          "listener": "ume",
+          "points": 120
+        },
+        {
+          "round": 72,
+          "listener": "ゆいじろう",
+          "points": 120
+        },
+        {
+          "round": 72,
+          "listener": "YOSHIHARU",
+          "points": 12
+        },
+        {
+          "round": 73,
+          "listener": "キミヒコ",
+          "points": 2018
+        },
+        {
+          "round": 73,
+          "listener": "サチコ",
+          "points": 2018
+        },
+        {
+          "round": 73,
+          "listener": "こっしー",
+          "points": 2018
+        },
+        {
+          "round": 73,
+          "listener": "トラジャ",
+          "points": 2018
+        },
+        {
+          "round": 73,
+          "listener": "ume",
+          "points": 20180
+        },
+        {
+          "round": 73,
+          "listener": "YOSHIHARU",
+          "points": 20180
+        },
+        {
+          "round": 74,
+          "listener": "YOSHIHARU",
+          "points": 2982
+        },
+        {
+          "round": 74,
+          "listener": "ume",
+          "points": 2982
+        },
+        {
+          "round": 74,
+          "listener": "トラジャ",
+          "points": 29820
+        },
+        {
+          "round": 75,
+          "listener": "ume",
+          "points": 101
+        },
+        {
+          "round": 75,
+          "listener": "YOSHIHARU",
+          "points": 101
+        },
+        {
+          "round": 75,
+          "listener": "コロ",
+          "points": 10100
+        },
+        {
+          "round": 76,
+          "listener": "キミヒコ",
+          "points": 530000
+        },
+        {
+          "round": 76,
+          "listener": "ゆいじろう",
+          "points": 530000
+        },
+        {
+          "round": 76,
+          "listener": "トラジャ",
+          "points": 530000
+        },
+        {
+          "round": 76,
+          "listener": "につすい",
+          "points": 530000
+        },
+        {
+          "round": 76,
+          "listener": "ume",
+          "points": 530000
+        },
+        {
+          "round": 77,
+          "listener": "ume",
+          "points": 10000
+        },
+        {
+          "round": 77,
+          "listener": "トラジャ",
+          "points": 10000
+        },
+        {
+          "round": 77,
+          "listener": "ゆいじろう",
+          "points": 10000
+        },
+        {
+          "round": 77,
+          "listener": "キミヒコ",
+          "points": 100000
+        },
+        {
+          "round": 78,
+          "listener": "ume",
+          "points": 780
+        },
+        {
+          "round": 78,
+          "listener": "キミヒコ",
+          "points": 78
+        },
+        {
+          "round": 78,
+          "listener": "トラジャ",
+          "points": 78
+        },
+        {
+          "round": 78,
+          "listener": "YUSUKE",
+          "points": 78
+        },
+        {
+          "round": 79,
+          "listener": "YOSHIHARU",
+          "points": 100000000
+        },
+        {
+          "round": 79,
+          "listener": "天ぷらパーカー",
+          "points": 100000000
+        },
+        {
+          "round": 79,
+          "listener": "ume",
+          "points": 100000000
+        },
+        {
+          "round": 79,
+          "listener": "キミヒコ",
+          "points": 100000000
+        },
+        {
+          "round": 79,
+          "listener": "トラジャ",
+          "points": 100000000
+        },
+        {
+          "round": 79,
+          "listener": "とんこつ",
+          "points": 100000100
+        },
+        {
+          "round": 80,
+          "listener": "キミヒコ",
+          "points": 31
+        },
+        {
+          "round": 80,
+          "listener": "ume",
+          "points": 31
+        },
+        {
+          "round": 80,
+          "listener": "トラジャ",
+          "points": 31
+        },
+        {
+          "round": 80,
+          "listener": "とんこつ",
+          "points": 31
+        },
+        {
+          "round": 80,
+          "listener": "天ぷらパーカー",
+          "points": 31
+        },
+        {
+          "round": 80,
+          "listener": "YOSHIHARU",
+          "points": 310
+        },
+        {
+          "round": 81,
+          "listener": "ume",
+          "points": 8000000
+        },
+        {
+          "round": 81,
+          "listener": "YOSHIHARU",
+          "points": 8000000
+        },
+        {
+          "round": 81,
+          "listener": "ゆいじろう",
+          "points": 8000000
+        },
+        {
+          "round": 81,
+          "listener": "天ぷらパーカー",
+          "points": 8000000
+        },
+        {
+          "round": 81,
+          "listener": "さっさー",
+          "points": 80000000
+        },
+        {
+          "round": 82,
+          "listener": "YOSHIHARU",
+          "points": 2025
+        },
+        {
+          "round": 82,
+          "listener": "トラジャ",
+          "points": 2025
+        },
+        {
+          "round": 82,
+          "listener": "キミヒコ",
+          "points": 2025
+        },
+        {
+          "round": 82,
+          "listener": "ume",
+          "points": 20250
+        },
+        {
+          "round": 83,
+          "listener": "YOSHIHARU",
+          "points": 46
+        },
+        {
+          "round": 83,
+          "listener": "キミヒコ",
+          "points": 46
+        },
+        {
+          "round": 83,
+          "listener": "トラジャ",
+          "points": 46
+        },
+        {
+          "round": 83,
+          "listener": "ume",
+          "points": 46
+        },
+        {
+          "round": 83,
+          "listener": "さっさー",
+          "points": 46
+        },
+        {
+          "round": 83,
+          "listener": "Emesuke",
+          "points": 460000
+        },
+        {
+          "round": 84,
+          "listener": "キミヒコ",
+          "points": 2026
+        },
+        {
+          "round": 84,
+          "listener": "トラジャ",
+          "points": 2026
+        },
+        {
+          "round": 84,
+          "listener": "ume",
+          "points": 2026
+        },
+        {
+          "round": 84,
+          "listener": "サンマンボ",
+          "points": 20260
+        },
+        {
+          "round": 85,
+          "listener": "トラジャ",
+          "points": 2026
+        },
+        {
+          "round": 85,
+          "listener": "YOSHIHARU",
+          "points": 2026
+        },
+        {
+          "round": 85,
+          "listener": "サチコ",
+          "points": 2026
+        },
+        {
+          "round": 85,
+          "listener": "ume",
+          "points": 20260
+        },
+        {
+          "round": 86,
+          "listener": "ume",
+          "points": 670
+        },
+        {
+          "round": 86,
+          "listener": "ゆいじろう",
+          "points": 67
+        },
+        {
+          "round": 86,
+          "listener": "トラジャ",
+          "points": 67
+        },
+        {
+          "round": 86,
+          "listener": "サチコ",
+          "points": 67
+        },
+        {
+          "round": 87,
+          "listener": "ume",
+          "points": 7
+        },
+        {
+          "round": 87,
+          "listener": "トラジャ",
+          "points": 7
+        },
+        {
+          "round": 87,
+          "listener": "キミヒコ",
+          "points": 7
+        },
+        {
+          "round": 87,
+          "listener": "天ぷらパーカー",
+          "points": 7
+        },
+        {
+          "round": 87,
+          "listener": "サチコ",
+          "points": 70
+        },
+        {
+          "round": 88,
+          "listener": "ume",
+          "points": 600000
+        },
+        {
+          "round": 88,
+          "listener": "キミヒコ",
+          "points": 600000
+        },
+        {
+          "round": 89,
+          "listener": "ume",
+          "points": 465
+        },
+        {
+          "round": 89,
+          "listener": "キミヒコ",
+          "points": 465
+        },
+        {
+          "round": 89,
+          "listener": "YOSHIHARU",
+          "points": 465
+        },
+        {
+          "round": 89,
+          "listener": "トラジャ",
+          "points": 465
+        },
+        {
+          "round": 89,
+          "listener": "ねこあげ",
+          "points": 4650
+        },
+        {
+          "round": 90,
+          "listener": "キミヒコ",
+          "points": 39800
+        },
+        {
+          "round": 90,
+          "listener": "ume",
+          "points": 39800
+        },
+        {
+          "round": 90,
+          "listener": "トラジャ",
+          "points": 39800
+        },
+        {
+          "round": 90,
+          "listener": "YOSHIHARU",
+          "points": 398000
+        },
+        {
+          "round": 91,
+          "listener": "キミヒコ",
+          "points": 1
+        },
+        {
+          "round": 91,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 91,
+          "listener": "トラジャ",
+          "points": 10
+        },
+        {
+          "round": 91,
+          "listener": "YOSHIHARU",
+          "points": 1
+        },
+        {
+          "round": 92,
+          "listener": "ume",
+          "points": 40
+        },
+        {
+          "round": 92,
+          "listener": "キミヒコ",
+          "points": 40
+        },
+        {
+          "round": 92,
+          "listener": "ねこあげ",
+          "points": 400
+        },
+        {
+          "round": 93,
+          "listener": "キミヒコ",
+          "points": 93
+        },
+        {
+          "round": 93,
+          "listener": "ゆいじろう",
+          "points": 93
+        },
+        {
+          "round": 93,
+          "listener": "ume",
+          "points": 93
+        },
+        {
+          "round": 93,
+          "listener": "コマツナ",
+          "points": 930
+        },
+        {
+          "round": 93,
+          "listener": "YOSHIHARU",
+          "points": 93
+        },
+        {
+          "round": 93,
+          "listener": "ねこあげ",
+          "points": 93
+        },
+        {
+          "round": 94,
+          "listener": "ume",
+          "points": 100000
+        },
+        {
+          "round": 94,
+          "listener": "キミヒコ",
+          "points": 100000
+        },
+        {
+          "round": 95,
+          "listener": "ねこあげ",
+          "points": 100000
+        },
+        {
+          "round": 95,
+          "listener": "ume",
+          "points": 100000
+        },
+        {
+          "round": 95,
+          "listener": "YOSHIHARU",
+          "points": 100000
+        },
+        {
+          "round": 95,
+          "listener": "たかちゃん",
+          "points": 1000000
+        },
+        {
+          "round": 96,
+          "listener": "ume",
+          "points": 1999
+        },
+        {
+          "round": 96,
+          "listener": "YOSHIHARU",
+          "points": 19990
+        },
+        {
+          "round": 96,
+          "listener": "キミヒコ",
+          "points": 1999
+        },
+        {
+          "round": 97,
+          "listener": "ねこあげ",
+          "points": 600000
+        },
+        {
+          "round": 97,
+          "listener": "キミヒコ",
+          "points": 600000
+        },
+        {
+          "round": 97,
+          "listener": "天ぷらパーカー",
+          "points": 600000
+        },
+        {
+          "round": 97,
+          "listener": "ume",
+          "points": 6000000
+        },
+        {
+          "round": 98,
+          "listener": "キミヒコ",
+          "points": 120000000
+        },
+        {
+          "round": 98,
+          "listener": "ume",
+          "points": 120000000
+        },
+        {
+          "round": 98,
+          "listener": "天ぷらパーカー",
+          "points": 120000000
+        },
+        {
+          "round": 98,
+          "listener": "YOSHIHARU",
+          "points": 120000000
+        },
+        {
+          "round": 98,
+          "listener": "たかちゃん",
+          "points": 120000000
+        },
+        {
+          "round": 98,
+          "listener": "ねこあげ",
+          "points": 120000000
+        },
+        {
+          "round": 98,
+          "listener": "emuda",
+          "points": 200000000
+        },
+        {
+          "round": 99,
+          "listener": "YOSHIHARU",
+          "points": 990000
+        },
+        {
+          "round": 99,
+          "listener": "emuda",
+          "points": 990000
+        },
+        {
+          "round": 99,
+          "listener": "ume",
+          "points": 9900000
+        },
+        {
+          "round": 100,
+          "listener": "天ぷらパーカー",
+          "points": 1000000
+        },
+        {
+          "round": 100,
+          "listener": "ねこあげ",
+          "points": 1000000
+        },
+        {
+          "round": 100,
+          "listener": "ume",
+          "points": 1000000
+        },
+        {
+          "round": 100,
+          "listener": "とんこつ",
+          "points": 1000000
+        },
+        {
+          "round": 100,
+          "listener": "サチコ",
+          "points": 1000000
+        },
+        {
+          "round": 100,
+          "listener": "コマツナ",
+          "points": 1000000
+        },
+        {
+          "round": 100,
+          "listener": "YOSHIHARU",
+          "points": 1000000
+        },
+        {
+          "round": 100,
+          "listener": "キミヒコ",
+          "points": 1000000
+        },
+        {
+          "round": 100,
+          "listener": "emuda",
+          "points": 1000000
+        },
+        {
+          "round": 100,
+          "listener": "なつめぐ",
+          "points": 100000000
+        }
+      ],
+      "ranking": [
+        {
+          "listener": "ume",
+          "points": 247751386,
+          "awards": 39,
+          "x_url": "https://x.com/ume_999",
+          "rank": 1
+        },
+        {
+          "listener": "YOSHIHARU",
+          "points": 231938692,
+          "awards": 24,
+          "x_url": "https://x.com/hmaruSE",
+          "rank": 2
+        },
+        {
+          "listener": "天ぷらパーカー",
+          "points": 229600038,
+          "awards": 7,
+          "x_url": "https://x.com/tempu_radio",
+          "rank": 3
+        },
+        {
+          "listener": "キミヒコ",
+          "points": 223378633,
+          "awards": 23,
+          "x_url": "https://x.com/lvss4x",
+          "rank": 4
+        },
+        {
+          "listener": "emuda",
+          "points": 201990000,
+          "awards": 3,
+          "x_url": "https://x.com/emuda01",
+          "rank": 5
+        },
+        {
+          "listener": "ねこあげ",
+          "points": 122705147,
+          "awards": 9,
+          "x_url": "https://x.com/necoage",
+          "rank": 6
+        },
+        {
+          "listener": "たかちゃん",
+          "points": 121000000,
+          "awards": 2,
+          "x_url": "https://x.com/hagitaka_chan",
+          "rank": 7
+        },
+        {
+          "listener": "とんこつ",
+          "points": 102400234,
+          "awards": 8,
+          "x_url": "https://x.com/IjE4Jku1QHhEW8L",
+          "rank": 8
+        },
+        {
+          "listener": "トラジャ",
+          "points": 102018435,
+          "awards": 20,
+          "x_url": "https://x.com/torajaboost",
+          "rank": 9
+        },
+        {
+          "listener": "なつめぐ",
+          "points": 100000000,
+          "awards": 1,
+          "x_url": "https://x.com/nutmeg_aquifer",
+          "rank": 10
+        },
+        {
+          "listener": "さっさー",
+          "points": 80000046,
+          "awards": 2,
+          "x_url": "https://x.com/nuj3PYDGQ436818",
+          "rank": 11
+        },
+        {
+          "listener": "ゆいじろう",
+          "points": 9940280,
+          "awards": 8,
+          "x_url": "https://x.com/yuijiro_u",
+          "rank": 12
+        },
+        {
+          "listener": "サチコ",
+          "points": 2004268,
+          "awards": 7,
+          "x_url": "https://x.com/sachiko1984",
+          "rank": 13
+        },
+        {
+          "listener": "YUSUKE",
+          "points": 1400078,
+          "awards": 3,
+          "x_url": "https://x.com/G_OVER_N_GAME",
+          "rank": 14
+        },
+        {
+          "listener": "コマツナ",
+          "points": 1000931,
+          "awards": 3,
+          "x_url": "https://x.com/komatunapodcast",
+          "rank": 15
+        },
+        {
+          "listener": "寅狸",
+          "points": 1000000,
+          "awards": 1,
+          "x_url": "https://x.com/toratanukitsune",
+          "rank": 16
+        },
+        {
+          "listener": "牧場おじさん",
+          "points": 1000000,
+          "awards": 1,
+          "x_url": "https://x.com/bears1282",
+          "rank": 16
+        },
+        {
+          "listener": "につすい",
+          "points": 530000,
+          "awards": 1,
+          "x_url": "https://x.com/nishiro24",
+          "rank": 18
+        },
+        {
+          "listener": "Emesuke",
+          "points": 460000,
+          "awards": 1,
+          "x_url": "https://x.com/DGG_podcast",
+          "rank": 19
+        },
+        {
+          "listener": "軟軟骨",
+          "points": 400000,
+          "awards": 1,
+          "x_url": "https://x.com/nannankoitu001",
+          "rank": 20
+        },
+        {
+          "listener": "サンマンボ",
+          "points": 20260,
+          "awards": 1,
+          "x_url": "https://x.com/sanmambo",
+          "rank": 21
+        },
+        {
+          "listener": "コロ",
+          "points": 10100,
+          "awards": 1,
+          "x_url": "https://x.com/sentaku_koro",
+          "rank": 22
+        },
+        {
+          "listener": "こっしー",
+          "points": 2018,
+          "awards": 1,
+          "x_url": "https://x.com/nu__man",
+          "rank": 23
+        }
+      ]
     },
     {
       "season": 1,
       "label": "シーズン1",
       "active": false,
-      "entries": []
+      "through_round": 58,
+      "entries": [
+        {
+          "round": null,
+          "listener": "とんこつ",
+          "points": 4
+        },
+        {
+          "round": 38,
+          "listener": "ねこあげ",
+          "points": 0.5
+        },
+        {
+          "round": 38,
+          "listener": "YUSUKE",
+          "points": 1
+        },
+        {
+          "round": 38,
+          "listener": "ume",
+          "points": 2
+        },
+        {
+          "round": 41,
+          "listener": "ume",
+          "points": 5
+        },
+        {
+          "round": 43,
+          "listener": "とんこつ",
+          "points": 2
+        },
+        {
+          "round": 45,
+          "listener": "コマツナ",
+          "points": 3
+        },
+        {
+          "round": 45,
+          "listener": "ume",
+          "points": 3
+        },
+        {
+          "round": 45,
+          "listener": "とんこつ",
+          "points": 1
+        },
+        {
+          "round": 45,
+          "listener": "ミスターパーフェクト",
+          "points": 1
+        },
+        {
+          "round": 46,
+          "listener": "とんこつ",
+          "points": 1
+        },
+        {
+          "round": 47,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 48,
+          "listener": "ume",
+          "points": 2
+        },
+        {
+          "round": 49,
+          "listener": "ねこあげ",
+          "points": 1
+        },
+        {
+          "round": 50,
+          "listener": "ume",
+          "points": 2
+        },
+        {
+          "round": 51,
+          "listener": "ume",
+          "points": 2
+        },
+        {
+          "round": 53,
+          "listener": "とんこつ",
+          "points": 1
+        },
+        {
+          "round": 53,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 54,
+          "listener": "ume",
+          "points": 3
+        },
+        {
+          "round": 55,
+          "listener": "ねこあげ",
+          "points": 3
+        },
+        {
+          "round": 57,
+          "listener": "ume",
+          "points": 3
+        },
+        {
+          "round": 58,
+          "listener": "ねこあげ",
+          "points": 2
+        }
+      ],
+      "ranking": [
+        {
+          "listener": "ume",
+          "points": 24,
+          "awards": 10,
+          "x_url": "https://x.com/ume_999",
+          "rank": 1
+        },
+        {
+          "listener": "とんこつ",
+          "points": 9,
+          "awards": 5,
+          "x_url": "https://x.com/IjE4Jku1QHhEW8L",
+          "rank": 2
+        },
+        {
+          "listener": "ねこあげ",
+          "points": 6.5,
+          "awards": 4,
+          "x_url": "https://x.com/necoage",
+          "rank": 3
+        },
+        {
+          "listener": "コマツナ",
+          "points": 3,
+          "awards": 1,
+          "x_url": "https://x.com/komatunapodcast",
+          "rank": 4
+        },
+        {
+          "listener": "YUSUKE",
+          "points": 1,
+          "awards": 1,
+          "x_url": "https://x.com/G_OVER_N_GAME",
+          "rank": 5
+        },
+        {
+          "listener": "ミスターパーフェクト",
+          "points": 1,
+          "awards": 1,
+          "x_url": "https://x.com/4s2OPSnTR99wtWJ",
+          "rank": 5
+        }
+      ]
+    }
+  ],
+  "quizzes": [
+    {
+      "round": 16,
+      "x_url": "https://x.com/game_tktb/status/1833819268053618753",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1833819268053618753",
+      "image_source_index": 1,
+      "image": "assets/img/awq/16.webp"
+    },
+    {
+      "round": 17,
+      "x_url": "https://x.com/game_tktb/status/1835877587177910398",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1835877587177910398",
+      "image_source_index": 1,
+      "image": "assets/img/awq/17.webp"
+    },
+    {
+      "round": 18,
+      "x_url": "https://x.com/game_tktb/status/1838185504610910343",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1838185504610910343",
+      "image_source_index": 1,
+      "image": "assets/img/awq/18.webp"
+    },
+    {
+      "round": 19,
+      "x_url": "https://x.com/game_tktb/status/1840676709332619367",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1840676709332619367",
+      "image_source_index": 1,
+      "image": "assets/img/awq/19.webp"
+    },
+    {
+      "round": 20,
+      "x_url": "https://x.com/game_tktb/status/1843227858531238357",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1843227858531238357",
+      "image_source_index": 1,
+      "image": "assets/img/awq/20.webp"
+    },
+    {
+      "round": 21,
+      "x_url": "https://x.com/game_tktb/status/1845753587613483113",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1845753587613483113",
+      "image_source_index": 1,
+      "image": "assets/img/awq/21.webp"
+    },
+    {
+      "round": 22,
+      "x_url": "https://x.com/game_tktb/status/1848353270009593962",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1848353270009593962",
+      "image_source_index": 1,
+      "image": "assets/img/awq/22.webp"
+    },
+    {
+      "round": 23,
+      "x_url": "https://x.com/game_tktb/status/1850839936771272905",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1850839936771272905",
+      "image_source_index": 1,
+      "image": "assets/img/awq/23.webp"
+    },
+    {
+      "round": 24,
+      "x_url": "https://x.com/game_tktb/status/1853376646469812586",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1853376646469812586",
+      "image_source_index": 1,
+      "image": "assets/img/awq/24.webp"
+    },
+    {
+      "round": 25,
+      "x_url": "https://x.com/game_tktb/status/1855913358404506068",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1855913358404506068",
+      "image_source_index": 1,
+      "image": "assets/img/awq/25.webp"
+    },
+    {
+      "round": 26,
+      "x_url": "https://x.com/game_tktb/status/1858450074503966857",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1858450074503966857",
+      "image_source_index": 1,
+      "image": "assets/img/awq/26.webp"
+    },
+    {
+      "round": 27,
+      "x_url": "https://x.com/game_tktb/status/1860986797209080225",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1860986797209080225",
+      "image_source_index": 1,
+      "image": "assets/img/awq/27.webp"
+    },
+    {
+      "round": 28,
+      "x_url": "https://x.com/game_tktb/status/1863523506568528295",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1863523506568528295",
+      "image_source_index": 1,
+      "image": "assets/img/awq/28.webp"
+    },
+    {
+      "round": 29,
+      "x_url": "https://x.com/game_tktb/status/1866060218171523357",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1866060218171523357",
+      "image_source_index": 1,
+      "image": "assets/img/awq/29.webp"
+    },
+    {
+      "round": 30,
+      "x_url": "https://x.com/game_tktb/status/1868596936963686707",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1868596936963686707",
+      "image_source_index": 1,
+      "image": "assets/img/awq/30.webp"
+    },
+    {
+      "round": 31,
+      "x_url": "https://x.com/game_tktb/status/1871133658565984329",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1871133658565984329",
+      "image_source_index": 1,
+      "image": "assets/img/awq/31.webp"
+    },
+    {
+      "round": 32,
+      "x_url": "https://x.com/game_tktb/status/1873670364003209312",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1873670364003209312",
+      "image_source_index": 1,
+      "image": "assets/img/awq/32.webp"
+    },
+    {
+      "round": 33,
+      "x_url": "https://x.com/game_tktb/status/1876207085366718469",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1876207085366718469",
+      "image_source_index": 1,
+      "image": "assets/img/awq/33.webp"
+    },
+    {
+      "round": 34,
+      "x_url": "https://x.com/game_tktb/status/1878743798148202815",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1878743798148202815",
+      "image_source_index": 1,
+      "image": "assets/img/awq/34.webp"
+    },
+    {
+      "round": 35,
+      "x_url": "https://x.com/game_tktb/status/1881280511529910703",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1881280511529910703",
+      "image_source_index": 1,
+      "image": "assets/img/awq/35.webp"
+    },
+    {
+      "round": 36,
+      "x_url": "https://x.com/game_tktb/status/1883817231072866594",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1883817231072866594",
+      "image_source_index": 1,
+      "image": "assets/img/awq/36.webp"
+    },
+    {
+      "round": 37,
+      "x_url": "https://x.com/game_tktb/status/1886353947633561651",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1886353947633561651",
+      "image_source_index": 1,
+      "image": "assets/img/awq/37.webp"
+    },
+    {
+      "round": 38,
+      "x_url": "https://x.com/game_tktb/status/1888890653314310411",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1888890653314310411",
+      "image_source_index": 1,
+      "image": "assets/img/awq/38.webp"
+    },
+    {
+      "round": 39,
+      "x_url": "https://x.com/game_tktb/status/1891427370290037170",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1891427370290037170",
+      "image_source_index": 1,
+      "image": "assets/img/awq/39.webp"
+    },
+    {
+      "round": 40,
+      "x_url": "https://x.com/game_tktb/status/1893964091468726736",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1893964091468726736",
+      "image_source_index": 1,
+      "image": "assets/img/awq/40.webp"
+    },
+    {
+      "round": 41,
+      "x_url": "https://x.com/game_tktb/status/1896500803600371727",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1896500803600371727",
+      "image_source_index": 1,
+      "image": "assets/img/awq/41.webp"
+    },
+    {
+      "round": 42,
+      "x_url": "https://x.com/game_tktb/status/1899037515606270237",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1899037515606270237",
+      "image_source_index": 1,
+      "image": "assets/img/awq/42.webp"
+    },
+    {
+      "round": 43,
+      "x_url": "https://x.com/game_tktb/status/1901574236780568962",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1901574236780568962",
+      "image_source_index": 1,
+      "image": "assets/img/awq/43.webp"
+    },
+    {
+      "round": 44,
+      "x_url": "https://x.com/game_tktb/status/1904110955602354668",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1904110955602354668",
+      "image_source_index": 1,
+      "image": "assets/img/awq/44.webp"
+    },
+    {
+      "round": 45,
+      "x_url": "https://x.com/game_tktb/status/1906285271387394249",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1906285271387394249",
+      "image_source_index": 1,
+      "image": "assets/img/awq/45.webp"
+    },
+    {
+      "round": 46,
+      "x_url": "https://x.com/game_tktb/status/1909184381836787866",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1909184381836787866",
+      "image_source_index": 1,
+      "image": "assets/img/awq/46.webp"
+    },
+    {
+      "round": 47,
+      "x_url": "https://x.com/game_tktb/status/1911721098082758897",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1911721098082758897",
+      "image_source_index": 1,
+      "image": "assets/img/awq/47.webp"
+    },
+    {
+      "round": 48,
+      "x_url": "https://x.com/game_tktb/status/1914257814647627998",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1914257814647627998",
+      "image_source_index": 1,
+      "image": "assets/img/awq/48.webp"
+    },
+    {
+      "round": 49,
+      "x_url": "https://x.com/game_tktb/status/1916794522618429447",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1916794522618429447",
+      "image_source_index": 1,
+      "image": "assets/img/awq/49.webp"
+    },
+    {
+      "round": 50,
+      "x_url": "https://x.com/game_tktb/status/1919331239028302306",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1919331239028302306",
+      "image_source_index": 1,
+      "image": "assets/img/awq/50.webp"
+    },
+    {
+      "round": 51,
+      "x_url": "https://x.com/game_tktb/status/1921867960395927560",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1921867960395927560",
+      "image_source_index": 1,
+      "image": "assets/img/awq/51.webp"
+    },
+    {
+      "round": 52,
+      "x_url": "https://x.com/game_tktb/status/1924404678202364252",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1924404678202364252",
+      "image_source_index": 1,
+      "image": "assets/img/awq/52.webp"
+    },
+    {
+      "round": 53,
+      "x_url": "https://x.com/game_tktb/status/1926941379650879534",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1926941379650879534",
+      "image_source_index": 1,
+      "image": "assets/img/awq/53.webp"
+    },
+    {
+      "round": 54,
+      "x_url": "https://x.com/game_tktb/status/1929478098644615612",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1929478098644615612",
+      "image_source_index": 1,
+      "image": "assets/img/awq/54.webp"
+    },
+    {
+      "round": 55,
+      "x_url": "https://x.com/game_tktb/status/1932014819474837814",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1932014819474837814",
+      "image_source_index": 1,
+      "image": "assets/img/awq/55.webp"
+    },
+    {
+      "round": 56,
+      "x_url": "https://x.com/game_tktb/status/1934551528901103722",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1934551528901103722",
+      "image_source_index": 1,
+      "image": "assets/img/awq/56.webp"
+    },
+    {
+      "round": 57,
+      "x_url": "https://x.com/game_tktb/status/1937088242421219391",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1937088242421219391",
+      "image_source_index": 1,
+      "image": "assets/img/awq/57.webp"
+    },
+    {
+      "round": 58,
+      "x_url": "https://x.com/game_tktb/status/1939624961452233149",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1939624961452233149",
+      "image_source_index": 1,
+      "image": "assets/img/awq/58.webp"
+    },
+    {
+      "round": 59,
+      "x_url": "https://x.com/game_tktb/status/1942161675886457036",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1942161675886457036",
+      "image_source_index": 1,
+      "image": "assets/img/awq/59.webp"
+    },
+    {
+      "round": 60,
+      "x_url": "https://x.com/game_tktb/status/1944698393130844663",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1944698393130844663",
+      "image_source_index": 1,
+      "image": "assets/img/awq/60.webp"
+    },
+    {
+      "round": 61,
+      "x_url": "https://x.com/game_tktb/status/1947235108651466881",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1947235108651466881",
+      "image_source_index": 1,
+      "image": "assets/img/awq/61.webp"
+    },
+    {
+      "round": 62,
+      "x_url": "https://x.com/game_tktb/status/1949771819424067637",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1949771819424067637",
+      "image_source_index": 1,
+      "image": "assets/img/awq/62.webp"
+    },
+    {
+      "round": 63,
+      "x_url": "https://x.com/game_tktb/status/1952308529987301423",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1952308529987301423",
+      "image_source_index": 1,
+      "image": "assets/img/awq/63.webp"
+    },
+    {
+      "round": 64,
+      "x_url": "https://x.com/game_tktb/status/1954845255146352896",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1954845255146352896",
+      "image_source_index": 1,
+      "image": "assets/img/awq/64.webp"
+    },
+    {
+      "round": 65,
+      "x_url": "https://x.com/game_tktb/status/1957381970817905020",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1957381970817905020",
+      "image_source_index": 1,
+      "image": "assets/img/awq/65.webp"
+    },
+    {
+      "round": 66,
+      "x_url": "https://x.com/game_tktb/status/1959918682068357589",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1959918682068357589",
+      "image_source_index": 1,
+      "image": "assets/img/awq/66.webp"
+    },
+    {
+      "round": 67,
+      "x_url": "https://x.com/game_tktb/status/1962455400105623928",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1962455400105623928",
+      "image_source_index": 1,
+      "image": "assets/img/awq/67.webp"
+    },
+    {
+      "round": 68,
+      "x_url": "https://x.com/game_tktb/status/1962455400105623928",
+      "image_index": 2,
+      "image_source_url": "https://x.com/game_tktb/status/1962455400105623928",
+      "image_source_index": 2,
+      "image": "assets/img/awq/68.webp"
+    },
+    {
+      "round": 69,
+      "x_url": "https://x.com/game_tktb/status/1964992106562220140",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1964992106562220140",
+      "image_source_index": 1,
+      "image": "assets/img/awq/69.webp"
+    },
+    {
+      "round": 70,
+      "x_url": "https://x.com/game_tktb/status/1967528834045292668",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1967528834045292668",
+      "image_source_index": 1,
+      "image": "assets/img/awq/70.webp"
+    },
+    {
+      "round": 71,
+      "x_url": "https://x.com/game_tktb/status/1970065541730545903",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1970065541730545903",
+      "image_source_index": 1,
+      "image": "assets/img/awq/71.webp"
+    },
+    {
+      "round": 72,
+      "x_url": "https://x.com/game_tktb/status/1972602258161553495",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1972602258161553495",
+      "image_source_index": 1,
+      "image": "assets/img/awq/72.webp"
+    },
+    {
+      "round": 73,
+      "x_url": "https://x.com/game_tktb/status/1975138974726590666",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1975138974726590666",
+      "image_source_index": 1,
+      "image": "assets/img/awq/73.webp"
+    },
+    {
+      "round": 74,
+      "x_url": "https://x.com/game_tktb/status/1977675691241124152",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1977675691241124152",
+      "image_source_index": 1,
+      "image": "assets/img/awq/74.webp"
+    },
+    {
+      "round": 75,
+      "x_url": "https://x.com/game_tktb/status/1980212399757287495",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1980212399757287495",
+      "image_source_index": 1,
+      "image": "assets/img/awq/75.webp"
+    },
+    {
+      "round": 76,
+      "x_url": "https://x.com/game_tktb/status/1982749116506525745",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1982749116506525745",
+      "image_source_index": 1,
+      "image": "assets/img/awq/76.webp"
+    },
+    {
+      "round": 77,
+      "x_url": "https://x.com/game_tktb/status/1985285834317189451",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1985285834317189451",
+      "image_source_index": 1,
+      "image": "assets/img/awq/77.webp"
+    },
+    {
+      "round": 78,
+      "x_url": "https://x.com/game_tktb/status/1987822542170771476",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1987822542170771476",
+      "image_source_index": 1,
+      "image": "assets/img/awq/78.webp"
+    },
+    {
+      "round": 79,
+      "x_url": "https://x.com/game_tktb/status/1990359262216716705",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1990359262216716705",
+      "image_source_index": 1,
+      "image": "assets/img/awq/79.webp"
+    },
+    {
+      "round": 80,
+      "x_url": "https://x.com/game_tktb/status/1992895971513250026",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1992895971513250026",
+      "image_source_index": 1,
+      "image": "assets/img/awq/80.webp"
+    },
+    {
+      "round": 81,
+      "x_url": "https://x.com/game_tktb/status/1995432685863592237",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1995432685863592237",
+      "image_source_index": 1,
+      "image": "assets/img/awq/81.webp"
+    },
+    {
+      "round": 82,
+      "x_url": "https://x.com/game_tktb/status/1997969411035054084",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/1997969411035054084",
+      "image_source_index": 1,
+      "image": "assets/img/awq/82.webp"
+    },
+    {
+      "round": 83,
+      "x_url": "https://x.com/game_tktb/status/2000506119270367333",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2000506119270367333",
+      "image_source_index": 1,
+      "image": "assets/img/awq/83.webp"
+    },
+    {
+      "round": 84,
+      "x_url": "https://x.com/game_tktb/status/2003042841464021237",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2003042841464021237",
+      "image_source_index": 1,
+      "image": "assets/img/awq/84.webp"
+    },
+    {
+      "round": 85,
+      "x_url": "https://x.com/game_tktb/status/2005615029622874239",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2005615029622874239",
+      "image_source_index": 1,
+      "image": "assets/img/awq/85.webp"
+    },
+    {
+      "round": 86,
+      "x_url": "https://x.com/game_tktb/status/2008116273645801973",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2008116273645801973",
+      "image_source_index": 1,
+      "image": "assets/img/awq/86.webp"
+    },
+    {
+      "round": 87,
+      "x_url": "https://x.com/game_tktb/status/2010471791320326264",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2010471791320326264",
+      "image_source_index": 1,
+      "image": "assets/img/awq/87.webp"
+    },
+    {
+      "round": 88,
+      "x_url": "https://x.com/game_tktb/status/2010909677899694131",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2010909677899694131",
+      "image_source_index": 1,
+      "image": "assets/img/awq/88.webp"
+    },
+    {
+      "round": 89,
+      "x_url": "https://x.com/game_tktb/status/2013189699129536612",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2013189699129536612",
+      "image_source_index": 1,
+      "image": "assets/img/awq/89.webp"
+    },
+    {
+      "round": 90,
+      "x_url": "https://x.com/game_tktb/status/2015726413115269173",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2015726413115269173",
+      "image_source_index": 1,
+      "image": "assets/img/awq/90.webp"
+    },
+    {
+      "round": 91,
+      "x_url": "https://x.com/game_tktb/status/2018263131793838141",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2018263131793838141",
+      "image_source_index": 1,
+      "image": "assets/img/awq/91.webp"
+    },
+    {
+      "round": 92,
+      "x_url": "https://x.com/game_tktb/status/2020799840746344640",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2020799840746344640",
+      "image_source_index": 1,
+      "image": "assets/img/awq/92.webp"
+    },
+    {
+      "round": 93,
+      "x_url": "https://x.com/game_tktb/status/2023336555214258377",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2023336555214258377",
+      "image_source_index": 1,
+      "image": "assets/img/awq/93.webp"
+    },
+    {
+      "round": 94,
+      "x_url": "https://x.com/game_tktb/status/2025873278783689147",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2025873278783689147",
+      "image_source_index": 1,
+      "image": "assets/img/awq/94.webp"
+    },
+    {
+      "round": 95,
+      "x_url": "https://x.com/game_tktb/status/2028409992009707802",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2028409992009707802",
+      "image_source_index": 1,
+      "image": "assets/img/awq/95.webp"
+    },
+    {
+      "round": 96,
+      "x_url": "https://x.com/game_tktb/status/2030946702580998186",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2030946702580998186",
+      "image_source_index": 1,
+      "image": "assets/img/awq/96.webp"
+    },
+    {
+      "round": 97,
+      "x_url": "https://x.com/game_tktb/status/2033483422413521185",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2033483422413521185",
+      "image_source_index": 1,
+      "image": "assets/img/awq/97.webp"
+    },
+    {
+      "round": 98,
+      "x_url": "https://x.com/game_tktb/status/2036020133450121326",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2036020133450121326",
+      "image_source_index": 1,
+      "image": "assets/img/awq/98.webp"
+    },
+    {
+      "round": 99,
+      "x_url": "https://x.com/game_tktb/status/2038556851327934845",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2038556851327934845",
+      "image_source_index": 1,
+      "image": "assets/img/awq/99.webp"
+    },
+    {
+      "round": 100,
+      "x_url": "https://x.com/game_tktb/status/2041093569033744847",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2041093569033744847",
+      "image_source_index": 1,
+      "image": "assets/img/awq/100.webp"
+    },
+    {
+      "round": 101,
+      "x_url": "https://x.com/game_tktb/status/2043630273753940353",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2043630273753940353",
+      "image_source_index": 1,
+      "image": "assets/img/awq/101.webp"
+    },
+    {
+      "round": 102,
+      "x_url": "https://x.com/game_tktb/status/2046166988888711588",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2046166988888711588",
+      "image_source_index": 1,
+      "image": "assets/img/awq/102.webp"
+    },
+    {
+      "round": 103,
+      "x_url": "https://x.com/game_tktb/status/2048703703444783449",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2048703703444783449",
+      "image_source_index": 1,
+      "image": "assets/img/awq/103.webp"
+    },
+    {
+      "round": 104,
+      "x_url": "https://x.com/game_tktb/status/2051240426795905311",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2051240426795905311",
+      "image_source_index": 1,
+      "image": "assets/img/awq/104.webp"
+    },
+    {
+      "round": 105,
+      "x_url": "https://x.com/game_tktb/status/2053777133345063262",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2053777133345063262",
+      "image_source_index": 1,
+      "image": "assets/img/awq/105.webp"
+    },
+    {
+      "round": 106,
+      "x_url": "https://x.com/game_tktb/status/2056313847917773295",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2056313847917773295",
+      "image_source_index": 1,
+      "image": "assets/img/awq/106.webp"
+    },
+    {
+      "round": 107,
+      "x_url": "https://x.com/game_tktb/status/2058850572623663458",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2058850572623663458",
+      "image_source_index": 1,
+      "image": "assets/img/awq/107.webp"
+    },
+    {
+      "round": 108,
+      "x_url": "https://x.com/game_tktb/status/2061387278040420387",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2061387278040420387",
+      "image_source_index": 1,
+      "image": "assets/img/awq/108.webp"
+    },
+    {
+      "round": 109,
+      "x_url": "https://x.com/game_tktb/status/2063923996924510460",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2063923996924510460",
+      "image_source_index": 1,
+      "image": "assets/img/awq/109.webp"
+    },
+    {
+      "round": 110,
+      "x_url": "https://x.com/game_tktb/status/2066460711098745124",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2066460711098745124",
+      "image_source_index": 1,
+      "image": "assets/img/awq/110.webp"
+    },
+    {
+      "round": 111,
+      "x_url": "https://x.com/game_tktb/status/2068997427030524380",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2068997427030524380",
+      "image_source_index": 1,
+      "image": "assets/img/awq/111.webp"
+    },
+    {
+      "round": 112,
+      "x_url": "https://x.com/game_tktb/status/2071534142337225189",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2071534142337225189",
+      "image_source_index": 1,
+      "image": "assets/img/awq/112.webp"
+    },
+    {
+      "round": 113,
+      "x_url": "https://x.com/game_tktb/status/2074070852812120203",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2074070852812120203",
+      "image_source_index": 1,
+      "image": "assets/img/awq/113.webp"
+    },
+    {
+      "round": 114,
+      "x_url": "https://x.com/game_tktb/status/2076607578306756706",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2076607578306756706",
+      "image_source_index": 1,
+      "image": "assets/img/awq/114.webp"
+    },
+    {
+      "round": 115,
+      "x_url": "https://x.com/game_tktb/status/2079144287154168098",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2079144287154168098",
+      "image_source_index": 1,
+      "image": "assets/img/awq/115.webp"
+    },
+    {
+      "round": 116,
+      "x_url": "https://x.com/game_tktb/status/2081681007770841410",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2081681007770841410",
+      "image_source_index": 1,
+      "image": "assets/img/awq/116.webp"
+    },
+    {
+      "round": 117,
+      "x_url": "https://x.com/game_tktb/status/2084217724692025703",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2084217724692025703",
+      "image_source_index": 1,
+      "image": "assets/img/awq/117.webp"
+    },
+    {
+      "round": 118,
+      "x_url": "https://x.com/game_tktb/status/2086754439348785362",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2086754439348785362",
+      "image_source_index": 1,
+      "image": "assets/img/awq/118.webp"
+    },
+    {
+      "round": 119,
+      "x_url": "https://x.com/game_tktb/status/2089291154177069189",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2089291154177069189",
+      "image_source_index": 1,
+      "image": "assets/img/awq/119.webp"
     }
   ]
 }

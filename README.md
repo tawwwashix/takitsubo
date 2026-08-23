@@ -20,10 +20,11 @@ takitsubo/
 │   ├── series.json       名物企画の定義
 │   ├── news.json         お知らせ
 │   ├── aliases.json      ゲームタイトル表記ゆれ辞書
-│   └── ranking.json      アートワーククイズ集計(ページは後日実装)
+│   └── ranking.json      アートワーククイズ集計(Google Sheetsから自動生成)
 ├── scripts/
 │   ├── build.py          データ→全HTML生成
 │   ├── update_from_rss.py RSSから新着取得→自動更新(画像・配信リンクも取得)
+│   ├── sync_awq.py       AWQ得点・出題リンク・X画像をGoogle Sheetsから同期
 │   ├── fetch_links.py    エピソード別の配信リンク自動取得(Apple/LISTEN/YouTube)
 │   ├── fetch_images.py   既存回のエピソード画像を一括取り込み(初回用)
 │   └── title_audit.py    タイトル表記ゆれの検出(統廃合の仕上げ用)
@@ -105,8 +106,24 @@ HTML5 audioで直接再生する方式で、Spotifyの埋め込みプレイヤ�
 タイトルに「わるい村」「ふさわしいゲーム」等が含まれていれば自動でタグ付けされます。
 外れた場合は `data/episodes.json` の該当回の `"series"` と `"tags"` を手で直すだけ。
 
-### アートワーククイズランキング(後日実装)
-`data/ranking.json` に毎週の結果を追記しておけば、ページ実装時にそのまま集計できます。
+### アートワーククイズランキング → シートだけ更新
+AWQランキングは公開中のGoogleスプレッドシートを原本にしています。毎週の作業は次の2点だけです。
+
+1. `シーズン3`のA〜C列へ「回・名前・ポイント」を追加する
+2. `出題リンク`へ「回・X投稿URL」を追加する(複数画像の投稿だけ画像番号も指定)
+
+水曜夜のGitHub Actionsが `scripts/sync_awq.py` を実行し、`data/ranking.json`、
+未取得の出題画像、`awq/index.html`を自動更新します。一度取り込んだX画像は
+`assets/img/awq/`へ保存されるため、通常は再取得しません。
+
+すぐ反映したい場合はActionsを手動実行するか、ローカルで次を実行します。
+
+```bash
+python scripts/sync_awq.py --build
+```
+
+Xの画像を訂正した場合は、シートの投稿URLまたは画像番号を変更すれば次回同期で差し替わります。
+同じURL・画像番号のまま強制的に取り直す場合だけ `--force-images` を付けます。
 
 ---
 
