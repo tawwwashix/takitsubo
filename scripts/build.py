@@ -400,7 +400,7 @@ def build_index():
 <span class="sb-body">
 <span class="sb-en">FUSAWASHII GAME SHINDAN</span>
 <span class="sb-title">あなたに"ふさわしいゲーム"を診断！</span>
-<span class="sb-desc">全{ep_count}回のトークデータ・{shindan_count}タイトルの中から、運命の一本が見つかる。結果はシェアして自慢しよう。</span>
+<span class="sb-desc">なまえを入力するだけ。全{ep_count}回のトークデータ・{shindan_count}タイトルの中から、運命の一本が見つかる。</span>
 </span>
 <span class="sb-cta">診断する →</span>
 </a>
@@ -1217,7 +1217,7 @@ def shindan_pool():
 
 def build_shindan_json():
     games, used_eps = shindan_pool()
-    data = {"maxEp": EPS[-1]["number"], "games": games, "eps": used_eps}
+    data = {"games": games, "eps": used_eps}
     (ROOT / "data/shindan.json").write_text(
         json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     return len(games)
@@ -1228,14 +1228,14 @@ def build_shindan():
     games, _ = shindan_pool()
     n_games = len(games)
     base = SITE["base_url"].rstrip("/")
-    page = head("ふさわしいゲーム診断", f"8つの質問で、あなたに\"ふさわしいゲーム\"を診断。ゲームの滝壺が全{EP_COUNT}回で語ってきた{n_games}タイトルの中から、運命の一本を選びます。",
+    page = head("ふさわしいゲーム診断", f"なまえを入力するだけで、あなたに\"ふさわしいゲーム\"を診断。ゲームの滝壺が全{EP_COUNT}回で語ってきた{n_games}タイトルの中から、運命の一本を選びます。",
                 root, "shindan.html")
     page += header(root, "shindan")
     page += f"""
 <main class="container">
 <div class="page-head" style="text-align:center;">
 <h1 class="page-title"><span class="en">FUSAWASHII GAME SHINDAN</span>ふさわしいゲーム診断</h1>
-<p style="font-size:13px;color:var(--sub);margin-top:8px;">滝壺の3人がこれまでに語ってきた <br><strong style="color:var(--primary-deep);">全{n_games}タイトル</strong> の中から<br>いまのあなたに"ふさわしい一本"を診断します。</p>
+<p style="font-size:13px;color:var(--sub);margin-top:8px;">なまえを入力するだけ。<br>滝壺の3人がこれまでに語ってきた <strong style="color:var(--primary-deep);">全{n_games}タイトル</strong> から<br>あなたに"ふさわしい一本"を診断します。</p>
 </div>
 <div class="shindan-stage" id="shindanPanel" data-site="{esc(base)}" data-hashtag="{esc(SITE['hashtag'])}">
 <p style="text-align:center;color:var(--faint);padding:40px 0;">読み込み中…</p>

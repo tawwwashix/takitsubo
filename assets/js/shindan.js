@@ -1,9 +1,7 @@
 /* ふさわしいゲーム診断
    - 診断プール(data/shindan.json)はビルド時に全エピソードから自動生成
-   - 回答で5軸(歯ごたえ/物語/わいわい/クセ/時代)を採点しタイプを判定
    - ゲームは「番組でよく話題に出たタイトルほど出やすい」重み付き抽選。
-     ただしクセ軸が強い人ほどマイナータイトルが出やすくなる
-   - 名前+回答が同じなら同じ結果(診断としての再現性) */
+   - 名前をシードにするため、同じ診断プールでは同じ名前から同じ結果になる */
 (function () {
   "use strict";
 
@@ -11,84 +9,9 @@
   if (!panel) return;
   var SITE_URL = (panel.dataset.site || "").replace(/\/$/, "") + "/shindan.html";
   var HASHTAG = panel.dataset.hashtag || "#ゲームの滝壺";
-  var AX = 5; // [歯ごたえC, 物語S, わいわいP, クセK, 時代T(+新作/-レトロ)]
   var NAME_MAX = 10; // なまえは全角10文字まで
 
-  var QUESTIONS = [
-    { q: "ゲームを始めるとき、いちばん胸が高鳴るのは？",
-      c: [
-        { t: "手強い相手や難関に挑むとき", d: [3, 0, 0, 0, 0] },
-        { t: "物語や世界にのめり込むとき", d: [0, 3, 0, 0, 0] },
-        { t: "誰かと一緒に盛り上がるとき", d: [0, 0, 3, 0, 0] },
-        { t: "見たこともない変な遊びに出会うとき", d: [0, 0, 0, 3, 0] }
-      ] },
-    { q: "積みゲーを崩すなら、どんな夜？",
-      c: [
-        { t: "とことん歯を食いしばりたい夜", d: [3, 0, -1, 0, 0] },
-        { t: "しみじみ物語に浸りたい夜", d: [-1, 3, 0, 0, 0] },
-        { t: "だらだら癒されたい夜", d: [-3, 0, 0, 0, 0] },
-        { t: "友達と通話しながら遊びたい夜", d: [0, 0, 3, 0, 0] }
-      ] },
-    { q: "あなたにとって「いいゲーム」の条件は？",
-      c: [
-        { t: "骨太な手応えがあること", d: [3, 0, 0, 0, 0] },
-        { t: "忘れられない物語があること", d: [0, 3, 0, 0, 0] },
-        { t: "何度でも遊べるシステムがあること", d: [1, -3, 0, 1, 0] },
-        { t: "みんなの話題になっていること", d: [0, 0, 2, -1, 2] }
-      ] },
-    { q: "滝壺の3人でいうと、いちばん気になるのは？",
-      c: [
-        { t: "歯ごたえと歯ざわりにうるさい人", d: [3, 0, 0, 0, 0] },
-        { t: "レトロの名作を掘り続ける人", d: [0, 1, 0, 0, -3] },
-        { t: "変なゲームを見つけてくる人", d: [0, 0, 0, 3, 0] },
-        { t: "眼鏡っ娘に一途な人", d: [0, 2, 0, 2, 0] }
-      ] },
-    { q: "次に遊ぶなら、どんな一本？",
-      c: [
-        { t: "誰も知らない尖った一本", d: [0, 0, -1, 3, 1] },
-        { t: "みんなが知る王道の名作", d: [0, 1, 0, -3, 0] },
-        { t: "いま話題の最新作", d: [0, 0, 1, 0, 3] },
-        { t: "何年も語り継がれるレトロ", d: [0, 0, 0, 0, -3] }
-      ] },
-    { q: "ゲームオーバー画面を見たとき、あなたは？",
-      c: [
-        { t: "燃える。もう一回。", d: [3, 0, 0, 0, 0] },
-        { t: "続きが気になって攻略を見ちゃう", d: [-1, 3, 0, 0, 0] },
-        { t: "そっと電源を切って寝る", d: [-3, 0, 0, 0, 0] },
-        { t: "「今のはわるい死に方だったな」と笑う", d: [0, 0, 1, 2, -1] }
-      ] },
-    { q: "理想の遊び方は？",
-      c: [
-        { t: "深夜にひとりでじっくり潜る", d: [1, 0, -3, 0, 0] },
-        { t: "友達とわいわい騒ぎながら", d: [0, 0, 3, 0, 0] },
-        { t: "実況や配信をおともに", d: [0, 1, 1, 0, 1] },
-        { t: "ポッドキャストを聴きながら別ゲー", d: [0, 0, 0, 2, -1] }
-      ] },
-    { q: "ゲームに求める“余韻”は？",
-      c: [
-        { t: "心に刺さる読後感", d: [0, 3, 0, 0, 0] },
-        { t: "手が勝手に伸びる中毒性", d: [2, -2, 0, 1, 0] },
-        { t: "ほっとひと息の癒し", d: [-3, 0, 0, 0, 0] },
-        { t: "誰かに話したくなる衝撃", d: [0, 0, 2, 2, 0] }
-      ] }
-  ];
-
-  // タイプ: 主軸(絶対値最大)の正負で決定
-  var TYPES = {
-    "C+": ["歯ごたえ求道タイプ", "困難でこそ燃える人。理不尽すら「味」に変える胃袋の持ち主です。"],
-    "C-": ["のんびり湯治タイプ", "ゲームは癒し。勝ち負けより湯加減、それがあなたの流儀です。"],
-    "S+": ["物語どっぷりタイプ", "エンドロールの余韻で3日は生きられる、生粋のロマン派です。"],
-    "S-": ["理論派ビルダータイプ", "物語よりシステム。効率と構築の美しさに痺れる設計者気質です。"],
-    "P+": ["宴会番長タイプ", "ゲームはみんなでやるともっと旨い。場を沸かせる天性の幹事です。"],
-    "P-": ["単独潜水タイプ", "深夜、ひとりで潜る時間こそ至福。孤高のダイバーです。"],
-    "K+": ["珍味ハンタータイプ", "人が知らない変なゲームほど輝いて見える、選ばれし探求者です。"],
-    "K-": ["王道まっしぐらタイプ", "名作と呼ばれるものには理由がある。真っ直ぐな審美眼の持ち主です。"],
-    "T+": ["新作サーファータイプ", "時代の波は先頭で乗るのが気持ちいい。アンテナの感度は番組随一です。"],
-    "T-": ["レトロ考古学タイプ", "思い出は美化ではなく熟成。過去の名作を掘り続ける学者肌です。"]
-  };
-  var AXIS_KEY = ["C", "S", "P", "K", "T"];
-
-  var state = { name: "", idx: 0, answers: [], axes: [0, 0, 0, 0, 0] };
+  var state = { name: "" };
   var DATA = null; // shindan.json
 
   // Xロゴ(サイト共通のヘッダー/エピソードページと同じもの)
@@ -125,87 +48,53 @@
 
   /* ---------- 画面: イントロ ---------- */
   function renderIntro() {
-    state.idx = 0; state.answers = []; state.axes = [0, 0, 0, 0, 0];
     var introShare = "ゲームの滝壺「ふさわしいゲーム診断」\nあなたに“ふさわしい一本”を全" + DATA.games.length + "タイトルから診断！\n" +
       HASHTAG + " #ふさわしいゲーム診断\n" + SITE_URL;
     panel.innerHTML =
       '<div class="sh-screen">' +
-      '<p class="sh-lede">8つの質問に直感で答えるだけ。<br>診断結果は <strong>' + DATA.games.length + 'タイトル</strong>。あなたは何を引き当てる？</p>' +
-      '<p class="sh-lede-sub">なまえや答えが変わると、結果も変わります。<br>新しい回が配信されるたびに結果の種類も増えるので、何度でも遊べます。</p>' +
-      '<label class="sh-name-label" for="shName">なまえ（結果の画像に入ります・全角' + NAME_MAX + '文字まで）</label>' +
-      '<input class="sh-name" id="shName" type="text" maxlength="' + NAME_MAX + '" placeholder="例: たわし" autocomplete="off" value="' + esc(state.name || "") + '">' +
-      '<button class="sh-primary" id="shStart">診断をはじめる</button>' +
+      '<p class="sh-lede">なまえを入力するだけ。<br>滝壺で語られた <strong>' + DATA.games.length + 'タイトル</strong> から、<br>あなたにふさわしい一本を決定します。</p>' +
+      '<p class="sh-lede-sub">なまえが変わると、結果も変わります。<br>新しい回が配信されるたびに候補も増えていきます。</p>' +
+      '<form class="sh-name-form" id="shForm" novalidate>' +
+      '<label class="sh-name-label" for="shName">なまえ（結果と画像に入ります・' + NAME_MAX + '文字まで）</label>' +
+      '<input class="sh-name" id="shName" type="text" maxlength="' + NAME_MAX + '" placeholder="例: たわし" autocomplete="off" required aria-describedby="shNameError" value="' + esc(state.name || "") + '">' +
+      '<p class="sh-name-error" id="shNameError" aria-live="polite"></p>' +
+      '<button class="sh-primary" type="submit">ふさわしいゲームを決める</button>' +
+      '</form>' +
       '<p class="sh-note">結果は画像でシェアできます。' + esc(HASHTAG) + ' を付けてポストしてくれたら、番組が喜びます。</p>' +
       '<p class="sh-intro-share"><a href="https://x.com/intent/post?text=' + encodeURIComponent(introShare) + '" target="_blank" rel="noopener">' + X_SVG + 'この診断を友達にシェア</a></p>' +
       '<p class="sh-fusa-link">※「ふさわしいゲーム」は番組の<a href="series/fusawashii.html">名物企画</a>から生まれた診断です</p>' +
       '</div>';
     var nameInput = document.getElementById("shName");
-    var start = function () {
+    var nameError = document.getElementById("shNameError");
+    nameInput.addEventListener("input", function () {
+      if (nameInput.value.trim()) {
+        nameInput.removeAttribute("aria-invalid");
+        nameError.textContent = "";
+      }
+    });
+    document.getElementById("shForm").addEventListener("submit", function (ev) {
+      ev.preventDefault();
       state.name = nameInput.value.trim().slice(0, NAME_MAX);
+      if (!state.name) {
+        nameInput.setAttribute("aria-invalid", "true");
+        nameError.textContent = "なまえを入力してください。";
+        nameInput.focus();
+        return;
+      }
       track("shindan_start");
-      renderQuestion();
-    };
-    document.getElementById("shStart").addEventListener("click", start);
-    nameInput.addEventListener("keydown", function (ev) { if (ev.key === "Enter") start(); });
-  }
-
-  /* ---------- 画面: 質問 ---------- */
-  function renderQuestion() {
-    var Q = QUESTIONS[state.idx];
-    var pct = Math.round(state.idx / QUESTIONS.length * 100);
-    var html =
-      '<div class="sh-screen">' +
-      '<div class="sh-meter"><span class="sh-count">Q' + (state.idx + 1) + ' / ' + QUESTIONS.length + '</span>' +
-      '<span class="sh-track"><span class="sh-fill" id="shFill"></span></span></div>' +
-      '<h2 class="sh-qtext">' + esc(Q.q) + '</h2><div class="sh-choices">';
-    for (var i = 0; i < Q.c.length; i++) {
-      html += '<button class="sh-choice" data-i="' + i + '"><span class="sh-bullet">' +
-        String.fromCharCode(65 + i) + '</span><span>' + esc(Q.c[i].t) + '</span></button>';
-    }
-    html += "</div></div>";
-    panel.innerHTML = html;
-    requestAnimationFrame(function () {
-      document.getElementById("shFill").style.width = pct + "%";
+      renderResult();
     });
-    panel.querySelectorAll(".sh-choice").forEach(function (b) {
-      b.addEventListener("click", function () {
-        var ci = parseInt(b.getAttribute("data-i"), 10);
-        var d = QUESTIONS[state.idx].c[ci].d;
-        for (var k = 0; k < AX; k++) state.axes[k] += d[k];
-        state.answers.push(ci);
-        state.idx++;
-        if (state.idx >= QUESTIONS.length) renderResult();
-        else renderQuestion();
-      });
-    });
-  }
-
-  /* ---------- タイプ判定 ---------- */
-  function judgeType() {
-    var bi = 0, bv = -1;
-    for (var k = 0; k < AX; k++) {
-      var a = Math.abs(state.axes[k]);
-      if (a > bv) { bv = a; bi = k; }
-    }
-    var key = AXIS_KEY[bi] + (state.axes[bi] >= 0 ? "+" : "-");
-    return TYPES[key];
   }
 
   /* ---------- ゲーム抽選 ---------- */
   function pickGame() {
-    var rng = mulberry32(hashStr(state.name + "|" + state.answers.join("")));
-    var clamp = function (v) { return Math.max(-10, Math.min(10, v)); };
-    var kuse = clamp(state.axes[3]) / 10;   // クセ軸: 高いほどマイナー優先
-    var era = clamp(state.axes[4]) / 10;    // 時代軸: +新作(新しい回) / -レトロ(古い回)
-    var expo = 2.0 - 1.6 * Math.max(0, kuse); // 基本はメジャー優先、クセMAXでほぼ均等
-    var maxEp = DATA.maxEp || 1;
+    var seedName = state.name.normalize ? state.name.normalize("NFKC").toLowerCase() : state.name.toLowerCase();
+    var rng = mulberry32(hashStr(seedName));
 
     var total = 0;
     var weights = DATA.games.map(function (g) {
-      var w = Math.pow(g[1], expo);
-      var rel = (g[2] / maxEp) * 2 - 1;   // -1(初期の回) .. +1(最新回)
-      w *= 1 + 0.7 * era * rel;           // 時代の好みに合う回のゲームを優先
-      if (w < 0.05) w = 0.05;
+      // 人気作への偏りと、一度だけ登場したタイトルを引く楽しさのバランスを取る
+      var w = Math.pow(g[1], 1.5);
       total += w;
       return w;
     });
@@ -223,7 +112,6 @@
 
   /* ---------- 画面: 結果 ---------- */
   function renderResult() {
-    var type = judgeType();
     var picked = pickGame();
     var g = picked.g;                      // [title, count, epNum, mainFlag]
     var rare = picked.rare;
@@ -238,17 +126,16 @@
       ? '<img class="sh-ep-img" src="' + esc(ep[1]) + '" alt="" loading="lazy">'
       : '<span class="sh-ep-img sh-ep-num">#' + g[2] + "</span>";
 
-    var shareText = dispName + "の“ふさわしいゲーム”は【" + g[0] + "】でした！\n（" + type[0] + "・ふさわしさ" + pct + "%）\n" +
+    var shareText = dispName + "の“ふさわしいゲーム”は【" + g[0] + "】でした！\n（ふさわしさ" + pct + "%）\n" +
       (rare === 2 ? "★一度しか話題に出ていない幻の一本を引き当てた！\n" : "") +
       HASHTAG + " #ふさわしいゲーム診断\n" + SITE_URL;
 
     panel.innerHTML =
       '<div class="sh-screen sh-result">' +
       '<div class="sh-r-eyebrow">RESULT</div>' +
-      '<p class="sh-r-type">' + esc(dispName) + ' さんは…<strong>' + esc(type[0]) + '</strong></p>' +
-      '<p class="sh-r-typedesc">' + esc(type[1]) + '</p>' +
+      '<p class="sh-r-name"><strong>' + esc(dispName) + ' さん</strong>に<br>ふさわしいゲームは…</p>' +
       '<div class="sh-r-card' + (rare === 2 ? " r2" : rare === 1 ? " r1" : "") + '">' +
-      '<div class="sh-r-label">そんなあなたに、滝壺データベースが選んだ一本は</div>' +
+      '<div class="sh-r-label">滝壺データベースが選んだ一本</div>' +
       '<div class="sh-r-title">' + esc(g[0]) + '</div>' +
       rareBadge +
       '<div class="sh-r-count">ふさわしさ <strong>' + pct + '%</strong> ・ 滝壺での登場 <strong>' + g[1] + '回</strong></div>' +
@@ -264,15 +151,14 @@
       '<a class="sh-btn share" id="shX" href="https://x.com/intent/post?text=' + encodeURIComponent(shareText) + '" target="_blank" rel="noopener">' + X_SVG + 'Xでシェアする</a>' +
       '</div>' +
       '<p class="sh-note">画像を保存/コピーしてから、Xのポストに添付すると盛り上がります！</p>' +
-      '<button class="sh-btn retry" id="shRetry">🔄 もう一度診断する</button>' +
+      '<button class="sh-btn retry" id="shRetry">🔄 なまえを変えてもう一度</button>' +
       '<p class="sh-fusa-link">※「ふさわしいゲーム」は番組の<a href="series/fusawashii.html">名物企画</a>から生まれた診断です</p>' +
       '</div>';
 
-    drawShareImage(dispName, type[0], g, ep, rare, pct);
+    drawShareImage(dispName, g, ep, rare, pct);
 
     track("shindan_complete", {
       result_title: g[0],
-      result_type: type[0],
       result_rare: rare,
       result_pct: pct
     });
@@ -358,7 +244,7 @@
     return { lines: lines, size: size };
   }
 
-  function drawShareImage(name, typeName, g, ep, rare, pct) {
+  function drawShareImage(name, g, ep, rare, pct) {
     var canvas = document.getElementById("shCanvas");
     var ctx = canvas.getContext("2d");
     var W = 1080, H = 1350;                 // スマホ向け縦長(X表示に最適な4:5)
@@ -514,9 +400,12 @@
       ctx.fillStyle = "#0E5AA8";
       ctx.fillText("※画像は“この話をしてそうな回”のジャケットです", CX, ay + as + 42);
 
-      // ===== ゲームタイトル(大きく) =====
-      var titleTop = 858;
-      var fit = fitTitle(ctx, g[0], W - 110, 160, FAMILY, 72);
+      // ===== ゲームタイトル(タイプ表示をなくし、一本の名前を主役に) =====
+      ctx.fillStyle = "#EE5A3A";
+      ctx.font = "900 25px " + FAMILY;
+      ctx.fillText("FUSAWASHII GAME", CX, 862);
+      var titleTop = 882;
+      var fit = fitTitle(ctx, g[0], W - 110, 210, FAMILY, 76);
       ctx.fillStyle = "#10395C";
       var ty = titleTop + fit.size;
       fit.lines.forEach(function (ln) {
@@ -524,12 +413,7 @@
         ctx.fillText(ln, CX, ty);
         ty += fit.size * 1.22;
       });
-      ty += 18;
-
-      // タイプのピル
-      pill(typeName, ty, "700 34px", 30, 60,
-        function () { ctx.fillStyle = "#EE5A3A"; ctx.fill(); }, "#fff");
-      ty += 60 + 18;
+      ty += 26;
 
       // ふさわしさ% / 登場回数(半透明の濃紺ピルに白文字。どの背景でも読める)
       // レアはアートワーク角のスタンプに出しているので、ここは常にこの1行だけ
@@ -541,10 +425,10 @@
       ctx.shadowColor = "rgba(6, 34, 70, .55)"; ctx.shadowBlur = 12; ctx.shadowOffsetY = 3;
       ctx.fillStyle = "rgba(255,255,255,.92)";
       ctx.font = "700 26px " + FAMILY;
-      ctx.fillText(HASHTAG + "　#ふさわしいゲーム診断", CX, 1298);
+      ctx.fillText(HASHTAG + "　#ふさわしいゲーム診断", CX, 1288);
       ctx.fillStyle = "#fff";
       ctx.font = "900 36px " + FAMILY;
-      ctx.fillText("あなたもゲームの滝壺で診断しよう！", CX, 1340);
+      ctx.fillText("あなたもゲームの滝壺で診断しよう！", CX, 1330);
       ctx.restore();
     };
 
