@@ -394,34 +394,43 @@ def build_index():
 <a href="guide.html">くわしい聴き方はこちら →</a></div>
 </section>
 
-<section class="section">
-<a class="shindan-banner" href="shindan.html">
-<img class="sb-chara" src="assets/img/rock_ichigo.png" alt="" aria-hidden="true">
-<span class="sb-body">
-<span class="sb-en">FUSAWASHII GAME SHINDAN</span>
-<span class="sb-title">あなたに"ふさわしいゲーム"を診断！</span>
-<span class="sb-desc">なまえを入力するだけ！ 全{ep_count}回のトークデータ・{shindan_count}タイトルの中から、運命の一本が見つかる。</span>
+<section class="section route-section">
+<div class="route-bubbles" aria-label="ゲームの滝壺をもっと楽しむ">
+<a class="route-bubble" href="games/">
+<span class="route-bubble-inner">
+<img class="route-bubble-image" src="assets/img/rock_tawashi.png" alt="" aria-hidden="true">
+<span class="route-bubble-en">TAKITSUBO DATABASE</span>
+<span class="route-bubble-title">語られた全{shindan_count}タイトルの<br>データベース</span>
+<span class="route-bubble-desc">メインで語った回・3分ゲーム紹介・ちょい出しまで、あのゲームをどの回で話したかがわかる索引です。</span>
+<span class="route-bubble-cta">索引を見る →</span>
 </span>
-<span class="sb-cta">診断する →</span>
 </a>
-<a class="shindan-banner db" href="games/" style="margin-top:14px;">
-<img class="sb-chara" src="assets/img/rock_tawashi.png" alt="" aria-hidden="true">
-<span class="sb-body">
-<span class="sb-en">TAKITSUBO DATABASE</span>
-<span class="sb-title">語られた全{shindan_count}タイトルのデータベース</span>
-<span class="sb-desc">メインで語った回・3分ゲーム紹介・ちょい出しまで、あのゲームをどの回で話したかがわかる索引です。</span>
+<a class="route-bubble" href="shindan.html">
+<span class="route-bubble-inner">
+<img class="route-bubble-image" src="assets/img/rock_ichigo.png" alt="" aria-hidden="true">
+<span class="route-bubble-en">FUSAWASHII GAME SHINDAN</span>
+<span class="route-bubble-title">あなたに“ふさわしい<br>ゲーム”を診断！</span>
+<span class="route-bubble-desc">なまえを入力するだけ！ 全{ep_count}回のトークデータ・{shindan_count}タイトルの中から、運命の一本が見つかる。</span>
+<span class="route-bubble-cta">診断する →</span>
 </span>
-<span class="sb-cta">索引を見る →</span>
 </a>
-<a class="shindan-banner awq" href="awq/" style="margin-top:14px;">
-<img class="sb-chara awq-thumb" src="{awq_thumb}" alt="" aria-hidden="true">
-<span class="sb-body">
-<span class="sb-en">ARTWORK QUIZ RANKING</span>
-<span class="sb-title">この絵、いったい何のエピソード？</span>
-<span class="sb-desc">アートワーククイズの公式順位表です。歴代の出題画像と答えもまとめて見られます！</span>
+<a class="route-bubble" href="awq/">
+<span class="route-bubble-inner">
+<img class="route-bubble-image route-bubble-image-photo" src="{awq_thumb}" alt="" aria-hidden="true">
+<span class="route-bubble-en">ARTWORK QUIZ RANKING</span>
+<span class="route-bubble-title">この絵、いったい何の<br>エピソード？</span>
+<span class="route-bubble-desc">アートワーククイズの公式順位表です。歴代の出題画像と答えもまとめて見られます！</span>
+<span class="route-bubble-cta">順位を見る →</span>
 </span>
-<span class="sb-cta">順位を見る →</span>
 </a>
+<i class="route-mini-bubble" aria-hidden="true"></i>
+<i class="route-mini-bubble" aria-hidden="true"></i>
+<i class="route-mini-bubble" aria-hidden="true"></i>
+<i class="route-mini-bubble" aria-hidden="true"></i>
+<i class="route-mini-bubble" aria-hidden="true"></i>
+<i class="route-mini-bubble" aria-hidden="true"></i>
+<i class="route-mini-bubble" aria-hidden="true"></i>
+</div>
 </section>
 
 <section class="section band band-soft">
