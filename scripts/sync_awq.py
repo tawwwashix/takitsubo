@@ -32,6 +32,8 @@ from PIL import Image, ImageOps
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA_PATH = ROOT / "data/ranking.json"
 IMAGE_DIR = ROOT / "assets/img/awq"
+IMAGE_SIZE = 640
+IMAGE_QUALITY = 82
 
 DEFAULT_SOURCE = {
     "spreadsheet_id": "1MeALGhgFlJluJpskujNx9pQJ0ivtwx7mJrc10UREMI0",
@@ -438,10 +440,10 @@ def save_media_image(media_id: str, destination: pathlib.Path) -> None:
     raw = fetch_bytes(image_url, accept="image/avif,image/webp,image/apng,image/*,*/*")
     with Image.open(io.BytesIO(raw)) as source:
         image = ImageOps.exif_transpose(source).convert("RGB")
-        image.thumbnail((1000, 1000), Image.Resampling.LANCZOS)
+        image.thumbnail((IMAGE_SIZE, IMAGE_SIZE), Image.Resampling.LANCZOS)
         destination.parent.mkdir(parents=True, exist_ok=True)
         temporary = destination.with_suffix(".tmp.webp")
-        image.save(temporary, "WEBP", quality=82, method=6)
+        image.save(temporary, "WEBP", quality=IMAGE_QUALITY, method=6)
         temporary.replace(destination)
 
 
