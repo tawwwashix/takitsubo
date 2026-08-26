@@ -784,6 +784,94 @@ def build_series():
 
 
 # ============================================================ awq/
+def awq_ranking_with_latest_changes(season):
+    """最新シーズンの順位に、直近採点回の順位変動と獲得ptを付ける。"""
+    ranking = [dict(person) for person in season.get("ranking", [])]
+    latest_round = season.get("through_round")
+    if not season.get("active") or latest_round is None:
+        return ranking
+
+    previous_totals = {}
+    previous_counts = {}
+    latest_points = {}
+    latest_listeners = set()
+    for entry in season.get("entries", []):
+        name = entry.get("listener", "")
+        if not name:
+            continue
+        points = float(entry.get("points", 0))
+        if entry.get("round") == latest_round:
+            latest_points[name] = latest_points.get(name, 0) + points
+            latest_listeners.add(name)
+        else:
+            previous_totals[name] = previous_totals.get(name, 0) + points
+            previous_counts[name] = previous_counts.get(name, 0) + 1
+
+    previous = [
+        {
+            "listener": name,
+            "points": points,
+            "awards": previous_counts[name],
+        }
+        for name, points in previous_totals.items()
+    ]
+    previous.sort(key=lambda person: (-person["points"], -person["awards"], person["listener"]))
+
+    previous_ranks = {}
+    previous_points = None
+    previous_rank = 0
+    for position, person in enumerate(previous, 1):
+        if person["points"] != previous_points:
+            previous_rank = position
+            previous_points = person["points"]
+        previous_ranks[person["listener"]] = previous_rank
+
+    for person in ranking:
+        name = person.get("listener", "")
+        if name in latest_listeners:
+            person["latest_points"] = latest_points[name]
+        if name not in previous_ranks:
+            if name in latest_listeners:
+                person["rank_change"] = "new"
+            continue
+        change = previous_ranks[name] - person.get("rank", previous_ranks[name])
+        if change:
+            person["rank_change"] = change
+    return ranking
+
+
+def awq_rank_change(person):
+    """順位変動を、色だけに依存しない表示と読み上げ文で返す。"""
+    change = person.get("rank_change")
+    if change == "new":
+        return (
+            '<span class="awq-rank-change is-new" aria-label="最新回で初登場">'
+            '<span aria-hidden="true">NEW</span></span>'
+        )
+    if not isinstance(change, int) or change == 0:
+        return ""
+    direction = "up" if change > 0 else "down"
+    arrow = "↑" if change > 0 else "↓"
+    amount = abs(change)
+    label = f"前回から{amount}ランク{'上昇' if change > 0 else '下降'}"
+    return (
+        f'<span class="awq-rank-change is-{direction}" aria-label="{label}">'
+        f'<span aria-hidden="true">{arrow}{amount}</span></span>'
+    )
+
+
+def awq_latest_points(person):
+    """最新採点回で得たポイント。採点対象者だけに表示する。"""
+    if "latest_points" not in person:
+        return ""
+    points = person["latest_points"]
+    sign = "+" if float(points) >= 0 else ""
+    return (
+        '<span class="awq-latest-points">最新回 '
+        f'<b>{sign}{fmt_points(points)}pt</b></span>'
+    )
+
+
 def awq_listener(person):
     """ランキングで使うリスナー名。X URLがある場合だけリンクにする。"""
     name = esc(person.get("listener", ""))
@@ -804,10 +892,10 @@ def awq_podium(ranking):
         medal = medals.get(rank, f"{rank}位")
         cards.append(f"""<div class="awq-podium-card awq-podium-pos-{position} awq-rank-{min(rank, 4)}">
 <span class="awq-medal" aria-label="{rank}位">{medal}</span>
-<span class="awq-podium-rank">{rank}<small>位</small></span>
+<span class="awq-podium-rank"><span>{rank}<small>位</small></span>{awq_rank_change(person)}</span>
 {awq_listener(person)}
 <strong class="awq-points">{fmt_points(person.get('points', 0))}<small>pt</small></strong>
-<span class="awq-awards">ポイント獲得 {person.get('awards', 0)}回</span>
+<span class="awq-awards"><span>ポイント獲得 {person.get('awards', 0)}回</span>{awq_latest_points(person)}</span>
 </div>""")
     return f'<div class="awq-podium">{"".join(cards)}</div>' if cards else ""
 
@@ -822,8 +910,8 @@ def awq_ranking_rows(ranking):
 
     def render_rows(people):
         return "".join(f"""<div class="awq-ranking-row">
-<span class="awq-row-rank">{person.get('rank', '')}<small>位</small></span>
-<span class="awq-row-name">{awq_listener(person)}<small>獲得 {person.get('awards', 0)}回</small></span>
+<span class="awq-row-rank"><span>{person.get('rank', '')}<small>位</small></span>{awq_rank_change(person)}</span>
+<span class="awq-row-name">{awq_listener(person)}<span class="awq-row-meta"><span>獲得 {person.get('awards', 0)}回</span>{awq_latest_points(person)}</span></span>
 <strong class="awq-row-points">{fmt_points(person.get('points', 0))}<small>pt</small></strong>
 </div>""" for person in people)
 
@@ -886,7 +974,7 @@ def awq_quiz_grid(quizzes, root="../"):
 
 def awq_season_section(season, quizzes, root="../"):
     number = season["season"]
-    ranking = season.get("ranking", [])
+    ranking = awq_ranking_with_latest_changes(season)
     active = bool(season.get("active"))
     through_round = season.get("through_round")
     state = (
