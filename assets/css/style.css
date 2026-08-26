@@ -1433,6 +1433,15 @@ a.awq-listener:hover svg { opacity: .9; }
 }
 .awq-ranking-row:last-child { border-bottom: 0; }
 .awq-ranking-row:nth-child(even) { background: #F7FBFE; }
+.awq-ranking-more { margin-top: 12px; }
+.awq-ranking-more > summary {
+  cursor: pointer; padding: 10px 14px; border: 1.5px solid var(--line); border-radius: 12px;
+  background: #fff; color: var(--primary-deep); font-size: 11px; font-weight: 700; text-align: center;
+}
+.awq-ranking-more > summary::-webkit-details-marker { display: none; }
+.awq-ranking-more > summary::after { content: " ＋"; }
+.awq-ranking-more[open] > summary::after { content: " −"; }
+.awq-ranking-more[open] > summary { margin-bottom: 10px; background: var(--band-blue); border-color: var(--sky-2); }
 .awq-row-rank { font-family: var(--font-num); font-weight: 700; font-size: 18px; color: var(--faint); text-align: center; }
 .awq-row-rank small { margin-left: 2px; font-family: var(--font-body); font-size: 9px; }
 .awq-row-name { display: flex; align-items: flex-start; flex-direction: column; min-width: 0; font-weight: 700; }

@@ -804,16 +804,34 @@ def awq_podium(ranking):
 
 
 def awq_ranking_rows(ranking):
-    rows = []
-    for person in ranking[3:]:
-        rows.append(f"""<div class="awq-ranking-row">
+    remaining = ranking[3:]
+    shown = []
+    older = []
+    for index, person in enumerate(remaining, 4):
+        rank = person.get("rank", index)
+        (shown if rank <= 10 else older).append(person)
+
+    def render_rows(people):
+        return "".join(f"""<div class="awq-ranking-row">
 <span class="awq-row-rank">{person.get('rank', '')}<small>位</small></span>
 <span class="awq-row-name">{awq_listener(person)}<small>獲得 {person.get('awards', 0)}回</small></span>
 <strong class="awq-row-points">{fmt_points(person.get('points', 0))}<small>pt</small></strong>
-</div>""")
-    if not rows:
+</div>""" for person in people)
+
+    if not shown and not older:
         return ""
-    return f'<div class="awq-ranking-list" aria-label="4位以下のランキング">{"".join(rows)}</div>'
+
+    html = (
+        f'<div class="awq-ranking-list" aria-label="4位から10位までのランキング">'
+        f'{render_rows(shown)}</div>'
+        if shown else ""
+    )
+    if older:
+        html += f"""<details class="awq-ranking-more">
+<summary>11位以下を表示（{len(older)}名）</summary>
+<div class="awq-ranking-list" aria-label="11位以下のランキング">{render_rows(older)}</div>
+</details>"""
+    return html
 
 
 def awq_quiz_card(quiz, root="../"):
@@ -911,7 +929,7 @@ def awq_season_section(season, quizzes, root="../"):
 {champion}
 {awq_podium(ranking)}
 {awq_ranking_rows(ranking)}
-<div class="awq-gallery-head"><h3>出題アートワーク</h3><p>問題画像を見てから「答えを見る」を開くと、本来のエピソードへつながります。</p></div>
+<div class="awq-gallery-head"><h3>出題アートワーク</h3><p>「答えを見る」を開くと、本来のエピソードへつながります。</p></div>
 {gallery}
 </section>"""
 
