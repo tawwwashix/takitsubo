@@ -400,8 +400,8 @@ def build_index():
 <span class="route-bubble-inner">
 <img class="route-bubble-image" src="assets/img/rock_tawashi.png" alt="" aria-hidden="true">
 <span class="route-bubble-en">TAKITSUBO DATABASE</span>
-<span class="route-bubble-title">語られた全{shindan_count}タイトルの<br>データベース</span>
-<span class="route-bubble-desc">メインで語った回・3分ゲーム紹介・ちょい出しまで、あのゲームをどの回で話したかがわかる索引です。</span>
+<span class="route-bubble-title"><span class="route-bubble-title-line">語られたゲームを探せる</span><span class="route-bubble-title-line">滝壺データベース</span></span>
+<span class="route-bubble-desc">全{shindan_count}タイトルを収録。メイン特集から、ちょい出しまで探せる索引です。</span>
 <span class="route-bubble-cta">索引を見る →</span>
 </span>
 </a>
@@ -409,8 +409,8 @@ def build_index():
 <span class="route-bubble-inner">
 <img class="route-bubble-image" src="assets/img/rock_ichigo.png" alt="" aria-hidden="true">
 <span class="route-bubble-en">FUSAWASHII GAME SHINDAN</span>
-<span class="route-bubble-title">あなたに“ふさわしい<br>ゲーム”を診断！</span>
-<span class="route-bubble-desc">なまえを入力するだけ！ 全{ep_count}回のトークデータ・{shindan_count}タイトルの中から、運命の一本が見つかる。</span>
+<span class="route-bubble-title"><span class="route-bubble-title-line">あなたにふさわしい</span><span class="route-bubble-title-line">ゲームを診断！</span></span>
+<span class="route-bubble-desc">名前を入力するだけ。全{ep_count}回・{shindan_count}タイトルから、運命の一本を選びます。</span>
 <span class="route-bubble-cta">診断する →</span>
 </span>
 </a>
@@ -418,8 +418,8 @@ def build_index():
 <span class="route-bubble-inner">
 <img class="route-bubble-image route-bubble-image-photo" src="{awq_thumb}" alt="" aria-hidden="true">
 <span class="route-bubble-en">ARTWORK QUIZ RANKING</span>
-<span class="route-bubble-title">この絵、いったい何の<br>エピソード？</span>
-<span class="route-bubble-desc">アートワーククイズの公式順位表です。歴代の出題画像と答えもまとめて見られます！</span>
+<span class="route-bubble-title"><span class="route-bubble-title-line">この絵、いったい何の</span><span class="route-bubble-title-line">エピソード？</span></span>
+<span class="route-bubble-desc">公式ランキングと、歴代の出題画像・答えをまとめて見られます。</span>
 <span class="route-bubble-cta">順位を見る →</span>
 </span>
 </a>
