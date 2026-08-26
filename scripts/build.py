@@ -879,7 +879,14 @@ def awq_season_section(season, quizzes, root="../"):
     number = season["season"]
     ranking = season.get("ranking", [])
     active = bool(season.get("active"))
-    state = "集計中" if active else "最終結果"
+    through_round = season.get("through_round")
+    state = (
+        f"第{through_round}回まで反映"
+        if active and through_round is not None
+        else "更新準備中"
+        if active
+        else "最終結果"
+    )
     state_class = "live" if active else "final"
     quiz_rounds = [quiz["round"] for quiz in quizzes]
     start_round = season.get("start_round")
