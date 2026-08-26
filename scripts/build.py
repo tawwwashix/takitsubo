@@ -400,7 +400,7 @@ def build_index():
 <span class="sb-body">
 <span class="sb-en">FUSAWASHII GAME SHINDAN</span>
 <span class="sb-title">あなたに"ふさわしいゲーム"を診断！</span>
-<span class="sb-desc">なまえを入力するだけ。全{ep_count}回のトークデータ・{shindan_count}タイトルの中から、運命の一本が見つかる。</span>
+<span class="sb-desc">なまえを入力するだけ！ 全{ep_count}回のトークデータ・{shindan_count}タイトルの中から、運命の一本が見つかる。</span>
 </span>
 <span class="sb-cta">診断する →</span>
 </a>
@@ -408,7 +408,7 @@ def build_index():
 <img class="sb-chara" src="assets/img/rock_tawashi.png" alt="" aria-hidden="true">
 <span class="sb-body">
 <span class="sb-en">TAKITSUBO DATABASE</span>
-<span class="sb-title">語られた全{shindan_count}タイトル、ぜんぶ引ける。</span>
+<span class="sb-title">語られた全{shindan_count}タイトルのデータベース</span>
 <span class="sb-desc">メインで語った回・3分ゲーム紹介・ちょい出しまで、あのゲームをどの回で話したかがわかる索引です。</span>
 </span>
 <span class="sb-cta">索引を見る →</span>
@@ -418,7 +418,7 @@ def build_index():
 <span class="sb-body">
 <span class="sb-en">ARTWORK QUIZ RANKING</span>
 <span class="sb-title">この絵、いったい何のエピソード？</span>
-<span class="sb-desc">大喜利と化したアートワーククイズの公式順位表。{awq_lead}歴代の出題画像と答えもまとめて見られます。</span>
+<span class="sb-desc">アートワーククイズの公式順位表です。歴代の出題画像と答えもまとめて見られます！</span>
 </span>
 <span class="sb-cta">順位を見る →</span>
 </a>
@@ -984,7 +984,7 @@ def build_awq():
     page += f"""<main class="container awq-page">
 <div class="page-head awq-page-head">
 <h1 class="page-title"><span class="en">TAKITSUBO ARTWORK QUIZ RANKING</span>アートワーククイズランキング</h1>
-<p>Xで次回エピソードのアートワークを一部隠して出題。何の回なのかを当てるはずが、いつしか面白い回答を狙う大喜利へ——。番組で贈られたポイントを集計する公式順位表です。</p>
+<p>X・Instagramで次回エピソードのアートワークを一部隠して出題！ 番組で贈られたポイントを集計する公式順位表です。</p>
 <a class="awq-hashtag" href="https://x.com/hashtag/%E6%BB%9D%E5%A3%BA%E3%82%A2%E3%83%BC%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%AF%E3%82%A4%E3%82%BA" target="_blank" rel="noopener">{SVG['x']}#滝壺アートワーククイズ</a>
 </div>
 <nav class="awq-season-nav" aria-label="シーズンへ移動">{anchor_links}</nav>
