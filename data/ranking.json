@@ -133,7 +133,7 @@
       "label": "シーズン3",
       "active": true,
       "start_round": 101,
-      "through_round": 118,
+      "through_round": 119,
       "entries": [
         {
           "round": 101,
@@ -790,13 +790,43 @@
           "round": 118,
           "listener": "YOSHIHARU",
           "points": 1
+        },
+        {
+          "round": 119,
+          "listener": "ゆぐみ",
+          "points": 10
+        },
+        {
+          "round": 119,
+          "listener": "コマツナ",
+          "points": 1
+        },
+        {
+          "round": 119,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 119,
+          "listener": "ume",
+          "points": 10
+        },
+        {
+          "round": 119,
+          "listener": "天ぷらパーカー",
+          "points": 10
+        },
+        {
+          "round": 119,
+          "listener": "YOSHIHARU",
+          "points": 119
         }
       ],
       "ranking": [
         {
           "listener": "ume",
-          "points": 1190,
-          "awards": 18,
+          "points": 1200,
+          "awards": 19,
           "x_url": "https://x.com/ume_999",
           "rank": 1
         },
@@ -809,58 +839,58 @@
         },
         {
           "listener": "ゆぐみ",
-          "points": 621,
-          "awards": 9,
+          "points": 631,
+          "awards": 10,
           "x_url": "https://x.com/gozayugu",
           "rank": 3
         },
         {
           "listener": "コマツナ",
-          "points": 547,
-          "awards": 3,
+          "points": 548,
+          "awards": 4,
           "x_url": "https://x.com/komatunapodcast",
           "rank": 4
         },
         {
           "listener": "emuda",
-          "points": 308,
-          "awards": 18,
+          "points": 309,
+          "awards": 19,
           "x_url": "https://x.com/emuda01",
           "rank": 5
         },
         {
           "listener": "天ぷらパーカー",
-          "points": 253,
-          "awards": 13,
+          "points": 263,
+          "awards": 14,
           "x_url": "https://x.com/tempu_radio",
           "rank": 6
+        },
+        {
+          "listener": "YOSHIHARU",
+          "points": 214,
+          "awards": 13,
+          "x_url": "https://x.com/hmaruSE",
+          "rank": 7
         },
         {
           "listener": "ゆうたろー",
           "points": 195,
           "awards": 3,
           "x_url": "https://x.com/otakunogorakuyu",
-          "rank": 7
+          "rank": 8
         },
         {
           "listener": "とんこつ",
           "points": 180,
           "awards": 8,
           "x_url": "https://x.com/IjE4Jku1QHhEW8L",
-          "rank": 8
+          "rank": 9
         },
         {
           "listener": "王夜",
           "points": 147,
           "awards": 10,
           "x_url": "https://x.com/Ouya08",
-          "rank": 9
-        },
-        {
-          "listener": "YOSHIHARU",
-          "points": 95,
-          "awards": 12,
-          "x_url": "https://x.com/hmaruSE",
           "rank": 10
         },
         {

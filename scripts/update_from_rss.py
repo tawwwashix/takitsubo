@@ -246,10 +246,10 @@ def main():
     DATA_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
 
     print(f"更新: {updated}件 / 新規: {created}件 / 画像取得: {images}件 / ロック保護: {locked}件")
-    if unknown_games:
-        print("--- 表記ゆれ辞書に未登録のゲーム名(必要ならaliases.jsonへ追加) ---")
-        for g in sorted(unknown_games):
-            print("  ", g)
+#    if unknown_games:
+#        print("--- 表記ゆれ辞書に未登録のゲーム名(必要ならaliases.jsonへ追加) ---")
+#        for g in sorted(unknown_games):
+#            print("  ", g)
 
     subprocess.run([sys.executable, str(ROOT / "scripts/build.py")], check=True)
 

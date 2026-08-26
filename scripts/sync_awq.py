@@ -592,6 +592,8 @@ def main() -> None:
     sync(no_images=args.no_images, force_images=args.force_images)
     if args.build:
         subprocess.run([sys.executable, str(ROOT / "scripts/build.py")], check=True)
+    else:
+        print("HTMLは未生成です。サイト表示も更新する場合は --build を付けて実行してください。")
 
 
 if __name__ == "__main__":
