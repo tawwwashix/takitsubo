@@ -398,7 +398,7 @@ def build_index():
 <div class="route-bubbles" aria-label="ゲームの滝壺をもっと楽しむ">
 <a class="route-bubble" href="games/">
 <span class="route-bubble-inner">
-<img class="route-bubble-image" src="assets/img/rock_tawashi.png" alt="" aria-hidden="true">
+<img class="route-bubble-image route-bubble-image-scissors" src="assets/img/scissors.png" alt="" aria-hidden="true">
 <span class="route-bubble-en">TAKITSUBO DATABASE</span>
 <span class="route-bubble-title"><span class="route-bubble-title-line">語られたゲームを探せる</span><span class="route-bubble-title-line">滝壺データベース</span></span>
 <span class="route-bubble-desc">全{shindan_count}タイトルを収録。メイン特集から、ちょい出しまで探せる索引です。</span>
