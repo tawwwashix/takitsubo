@@ -824,7 +824,12 @@
         {
           "round": 119,
           "listener": "キミヒコ",
-          "points": 10
+          "points": 1
+        },
+        {
+          "round": 119,
+          "listener": "ゆうたろー",
+          "points": 1
         }
       ],
       "ranking": [
@@ -837,7 +842,7 @@
         },
         {
           "listener": "キミヒコ",
-          "points": 677,
+          "points": 668,
           "awards": 19,
           "x_url": "https://x.com/lvss4x",
           "rank": 2
@@ -879,8 +884,8 @@
         },
         {
           "listener": "ゆうたろー",
-          "points": 195,
-          "awards": 3,
+          "points": 196,
+          "awards": 4,
           "x_url": "https://x.com/otakunogorakuyu",
           "rank": 8
         },
