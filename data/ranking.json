@@ -820,6 +820,11 @@
           "round": 119,
           "listener": "YOSHIHARU",
           "points": 119
+        },
+        {
+          "round": 119,
+          "listener": "キミヒコ",
+          "points": 10
         }
       ],
       "ranking": [
@@ -832,8 +837,8 @@
         },
         {
           "listener": "キミヒコ",
-          "points": 667,
-          "awards": 18,
+          "points": 677,
+          "awards": 19,
           "x_url": "https://x.com/lvss4x",
           "rank": 2
         },
