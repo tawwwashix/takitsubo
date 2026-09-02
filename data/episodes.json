@@ -64,7 +64,7 @@
    "featured_games": [
     "風来のシレンシリーズ"
    ],
-   "audio": "https://anchor.fm/s/f61a3794/podcast/play/87402722/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-4-30%2F241e22ce-e75e-37b1-dc7f-5ba593b44777.m4a",
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/87402722/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-7-30%2Fc46f616e-41d4-4220-e5a6-c6158854f8c8.mp3",
    "duration": 3379
   },
   {
@@ -10978,6 +10978,128 @@
    "duration": 5225,
    "image": "assets/img/ep/120.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1787751484225-8df8e231343a5.jpg"
+  },
+  {
+   "number": 121,
+   "title": "メンヘラリウム、クワイエット急行909号室、Dev_Null’s Tower…OIGS2026注目作！【ゲーム系Podcast配信リレー】",
+   "tags": [],
+   "series": null,
+   "description": "オーサカインディーゲームサミット2026に出展される作品が何にふさわしいかを考えました！",
+   "games": [
+    "時速1000kmの牛",
+    "Dev_Null's Tower",
+    "メンヘラリウム",
+    "ワカレタナビ",
+    "ヨミトリ",
+    "クワイエット急行909号室",
+    "散るプラネット(Chill Planet)",
+    "Re:Connect",
+    "WIRED TOKYO 2007",
+    "NEXUS CODE",
+    "行列のできる武器鍛冶屋",
+    "IZEA:10puzzle Rogue-Lite RPG!",
+    "GLIDE",
+    "Pour Master",
+    "Bulgasari",
+    "REUNION",
+    "魔神英雄伝ワタル外伝",
+    "マチョリウム -Muscle Aquarium Simulator-",
+    "リングフィットアドベンチャー",
+    "カルドセプト ビギンズ",
+    "ファンタシースターシリーズ",
+    "メタルマックスシリーズ",
+    "らんま1/2 超技乱舞篇",
+    "ワイルドアームズシリーズ",
+    "アメリカ横断ウルトラクイズ",
+    "ケツバトラー",
+    "PW7A"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:40",
+     "label": "時速1000kmの牛"
+    },
+    {
+     "time": "06:22",
+     "label": "Dev_Null's Tower"
+    },
+    {
+     "time": "14:39",
+     "label": "メンヘラリウム"
+    },
+    {
+     "time": "18:04",
+     "label": "ワカレタナビ"
+    },
+    {
+     "time": "22:13",
+     "label": "ヨミトリ"
+    },
+    {
+     "time": "25:54",
+     "label": "クワイエット急行909号室"
+    },
+    {
+     "time": "29:07",
+     "label": "散るプラネット(Chill Planet)"
+    },
+    {
+     "time": "32:21",
+     "label": "Re:Connect"
+    },
+    {
+     "time": "34:24",
+     "label": "WIRED TOKYO 2007"
+    },
+    {
+     "time": "36:06",
+     "label": "その他紹介したいゲーム"
+    },
+    {
+     "time": "44:38",
+     "label": "コラボイベント案内"
+    },
+    {
+     "time": "52:59",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:05:45",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:14:13",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/121-909Dev_Nulls-TowerOIGS2026Podcast-e3o71fi",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC121%E5%9B%9E-%E3%83%A1%E3%83%B3%E3%83%98%E3%83%A9%E3%83%AA%E3%82%A6%E3%83%A0-%E3%82%AF%E3%83%AF%E3%82%A4%E3%82%A8%E3%83%83%E3%83%88%E6%80%A5%E8%A1%8C909%E5%8F%B7%E5%AE%A4-dev-nulls-tower-oigs2026%E6%B3%A8%E7%9B%AE%E4%BD%9C/id1749310211?i=1000787258669&uo=4",
+    "youtube": "https://www.youtube.com/watch?v=SGREdx03hcg",
+    "spotify_open": "https://open.spotify.com/episode/3iaZ4T0guD37vIGIsuXqGY"
+   },
+   "guid": "c0584136-ba0d-48f8-b495-6fe943fb7390",
+   "date": "2026-09-02",
+   "date_estimated": false,
+   "featured_games": [
+    "時速1000kmの牛",
+    "Dev_Null's Tower",
+    "メンヘラリウム",
+    "ワカレタナビ",
+    "ヨミトリ",
+    "クワイエット急行909号室",
+    "散るプラネット(Chill Planet)",
+    "Re:Connect",
+    "WIRED TOKYO 2007"
+   ],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/125060018/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-1%2F63cb73c8-a019-575e-4e6f-43c7cf50dd35.mp3",
+   "duration": 4955,
+   "image": "assets/img/ep/121.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1788297661997-6f01ae73bdfc.jpg"
   }
  ]
 }
