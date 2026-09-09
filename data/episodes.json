@@ -156,7 +156,7 @@
    "image": "assets/img/ep/2.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1717593112008-7147042bbc41d.jpg",
    "featured_games": [],
-   "audio": "https://anchor.fm/s/f61a3794/podcast/play/87649010/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-5-5%2Fbb9a0663-460a-a1ba-fda9-df397af44271.m4a",
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/87649010/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-9%2F6a63362f-f72c-c6ca-abb1-e12d5ef9869e.m4a",
    "duration": 3664
   },
   {
@@ -211,7 +211,7 @@
     "学園アイドルマスター",
     "Slay the Spire"
    ],
-   "audio": "https://anchor.fm/s/f61a3794/podcast/play/87928522/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-5-12%2Fee3cb8b8-cd30-bcd7-7037-8099c1d1a04f.m4a",
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/87928522/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-9%2F490cd878-006f-e2f4-45b4-1fe30b838d25.m4a",
    "duration": 4349
   },
   {
@@ -271,7 +271,7 @@
    "image": "assets/img/ep/4.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1718800611778-2285f1c90de33.jpg",
    "featured_games": [],
-   "audio": "https://anchor.fm/s/f61a3794/podcast/play/88214212/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-5-19%2Fd1dbe0f3-31e7-4321-0892-d2e25d0d1e6d.mp3",
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/88214212/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-9%2Fe17d36e0-f967-2e89-5812-c9b7b44e9e5c.mp3",
    "duration": 3018
   },
   {
@@ -11101,6 +11101,105 @@
    "duration": 4955,
    "image": "assets/img/ep/121.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1788297661997-6f01ae73bdfc.jpg"
+  },
+  {
+   "number": 122,
+   "title": "ゲームにまつわる（よく考えたら）怖い話！ え？ サカナや虫をじかにポケットに…？",
+   "tags": [],
+   "series": null,
+   "description": "連れ去り、「手前」、じかポケ…\nあなたが何気なく遊んでるそのゲーム、実は「怖い」かもしれません…！",
+   "games": [
+    "スーパーマリオシリーズ",
+    "ペルソナシリーズ",
+    "スプラトゥーンシリーズ",
+    "ドラゴンクエストシリーズ",
+    "ポケットモンスターシリーズ",
+    "どうぶつの森シリーズ",
+    "星のカービィシリーズ",
+    "ファイナルファンタジーシリーズ",
+    "テトリス",
+    "WIRED TOKYO 2007",
+    "超兄貴 究極無敵銀河最強男",
+    "PW7A",
+    "ワカレタナビ",
+    "ヨミトリ",
+    "バウンドリ",
+    "スプリット・フィクション",
+    "モンスターハンターワイルズ：アセンダンス"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:58",
+     "label": "怖いマリオ"
+    },
+    {
+     "time": "11:14",
+     "label": "怖い持ち物・怖い命"
+    },
+    {
+     "time": "20:01",
+     "label": "怖いRPG"
+    },
+    {
+     "time": "25:01",
+     "label": "怖い好感度"
+    },
+    {
+     "time": "27:12",
+     "label": "怖い格闘ゲーム・怖いガチャ"
+    },
+    {
+     "time": "31:18",
+     "label": "怖いポケモン"
+    },
+    {
+     "time": "49:48",
+     "label": "怖いどうぶつの森"
+    },
+    {
+     "time": "52:08",
+     "label": "怖いカービィ"
+    },
+    {
+     "time": "53:41",
+     "label": "怖いFF"
+    },
+    {
+     "time": "55:27",
+     "label": "怖いテトリス"
+    },
+    {
+     "time": "57:38",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:05:47",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:11:30",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/122-e3oj6v7",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC122%E5%9B%9E-%E3%82%B2%E3%83%BC%E3%83%A0%E3%81%AB%E3%81%BE%E3%81%A4%E3%82%8F%E3%82%8B-%E3%82%88%E3%81%8F%E8%80%83%E3%81%88%E3%81%9F%E3%82%89-%E6%80%96%E3%81%84%E8%A9%B1-%E3%81%88-%E3%82%B5%E3%82%AB%E3%83%8A%E3%82%84%E8%99%AB%E3%82%92%E3%81%98%E3%81%8B%E3%81%AB%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88%E3%81%AB/id1749310211?i=1000788690867&uo=4",
+    "listen": "https://listen.style/p/gamenotktb/5qcimjg2",
+    "youtube": "https://www.youtube.com/watch?v=2CeHx9HFdpI",
+    "spotify_open": "https://open.spotify.com/episode/2iJMdsIU7rm0sGV3uACs01"
+   },
+   "guid": "59d2148b-4e33-4d7c-8911-070e51ad4e8b",
+   "date": "2026-09-09",
+   "date_estimated": false,
+   "featured_games": [],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/125458855/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-9%2F7ff16ebd-d688-1418-705b-917667cd23cd.mp3",
+   "duration": 4965,
+   "image": "assets/img/ep/122.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1788960506259-3baff4c41bb14.jpg"
   }
  ]
 }

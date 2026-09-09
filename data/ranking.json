@@ -133,7 +133,7 @@
       "label": "シーズン3",
       "active": true,
       "start_round": 101,
-      "through_round": 120,
+      "through_round": 121,
       "entries": [
         {
           "round": 101,
@@ -860,20 +860,55 @@
           "round": 120,
           "listener": "ume",
           "points": 103
+        },
+        {
+          "round": 121,
+          "listener": "YOSHIHARU",
+          "points": 103
+        },
+        {
+          "round": 121,
+          "listener": "ume",
+          "points": 103
+        },
+        {
+          "round": 121,
+          "listener": "ねこあげ",
+          "points": 103
+        },
+        {
+          "round": 121,
+          "listener": "emuda",
+          "points": 103
+        },
+        {
+          "round": 121,
+          "listener": "王夜",
+          "points": 103
+        },
+        {
+          "round": 121,
+          "listener": "キミヒコ",
+          "points": 103
+        },
+        {
+          "round": 121,
+          "listener": "たかちゃん",
+          "points": 103
         }
       ],
       "ranking": [
         {
           "listener": "ume",
-          "points": 1303,
-          "awards": 20,
+          "points": 1406,
+          "awards": 21,
           "x_url": "https://x.com/ume_999",
           "rank": 1
         },
         {
           "listener": "キミヒコ",
-          "points": 678,
-          "awards": 20,
+          "points": 781,
+          "awards": 21,
           "x_url": "https://x.com/lvss4x",
           "rank": 2
         },
@@ -893,65 +928,65 @@
         },
         {
           "listener": "emuda",
-          "points": 310,
-          "awards": 20,
+          "points": 413,
+          "awards": 21,
           "x_url": "https://x.com/emuda01",
           "rank": 5
+        },
+        {
+          "listener": "YOSHIHARU",
+          "points": 317,
+          "awards": 14,
+          "x_url": "https://x.com/hmaruSE",
+          "rank": 6
         },
         {
           "listener": "天ぷらパーカー",
           "points": 273,
           "awards": 15,
           "x_url": "https://x.com/tempu_radio",
-          "rank": 6
+          "rank": 7
         },
         {
-          "listener": "YOSHIHARU",
-          "points": 214,
-          "awards": 13,
-          "x_url": "https://x.com/hmaruSE",
-          "rank": 7
+          "listener": "王夜",
+          "points": 250,
+          "awards": 11,
+          "x_url": "https://x.com/Ouya08",
+          "rank": 8
         },
         {
           "listener": "ゆうたろー",
           "points": 196,
           "awards": 4,
           "x_url": "https://x.com/otakunogorakuyu",
-          "rank": 8
+          "rank": 9
         },
         {
           "listener": "とんこつ",
           "points": 180,
           "awards": 8,
           "x_url": "https://x.com/IjE4Jku1QHhEW8L",
-          "rank": 9
+          "rank": 10
         },
         {
-          "listener": "王夜",
-          "points": 147,
-          "awards": 10,
-          "x_url": "https://x.com/Ouya08",
-          "rank": 10
+          "listener": "ねこあげ",
+          "points": 116,
+          "awards": 5,
+          "x_url": "https://x.com/necoage",
+          "rank": 11
+        },
+        {
+          "listener": "たかちゃん",
+          "points": 114,
+          "awards": 3,
+          "x_url": "https://x.com/hagitaka_chan",
+          "rank": 12
         },
         {
           "listener": "サチコ",
           "points": 27,
           "awards": 3,
           "x_url": "https://x.com/sachiko1984",
-          "rank": 11
-        },
-        {
-          "listener": "ねこあげ",
-          "points": 13,
-          "awards": 4,
-          "x_url": "https://x.com/necoage",
-          "rank": 12
-        },
-        {
-          "listener": "たかちゃん",
-          "points": 11,
-          "awards": 2,
-          "x_url": "https://x.com/hagitaka_chan",
           "rank": 13
         },
         {
@@ -959,7 +994,7 @@
           "points": 11,
           "awards": 2,
           "x_url": "https://x.com/nishiro24",
-          "rank": 13
+          "rank": 14
         },
         {
           "listener": "たけお",
