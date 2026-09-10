@@ -63,13 +63,17 @@ def episode_description_html(text):
     full = (text or "").strip()
     if not full:
         return ""
-    lead = full.split("■", 1)[0].strip()
-    if not lead or lead == full:
+    marker = full.find("■")
+    if marker < 0:
         return f'<div class="card ep-desc">{linkify_text(full)}</div>'
+    lead = full[:marker].strip()
+    if not lead:
+        return f'<div class="card ep-desc">{linkify_text(full)}</div>'
+    rest = full[marker:].lstrip()
     return f'''<div class="card ep-desc">{linkify_text(lead)}</div>
 <details class="ep-desc-more">
 <summary>概要欄をすべて表示</summary>
-<div class="card ep-desc ep-desc-full">{linkify_text(full)}</div>
+<div class="card ep-desc ep-desc-full">{linkify_text(rest)}</div>
 </details>'''
 
 
