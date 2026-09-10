@@ -1,5 +1,6 @@
+window.Takitsubo.register(function (page) {
 /* エピソード一覧: 検索 + タグ絞り込み + 並び替え */
-(function () {
+return (function () {
   var state = { q: "", tag: "all", sort: "relevance" };
   var listEl = document.getElementById("list");
   var countEl = document.getElementById("count");
@@ -8,6 +9,7 @@
   var clearBtn = document.getElementById("qClear");
   var sortEl = document.getElementById("sort");
   var episodes = [];
+  if (!listEl || !input) return;
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -44,7 +46,7 @@
     if (state.tag !== "all") p.set("tag", state.tag);
     if (state.sort !== "relevance") p.set("sort", state.sort);
     var qs = p.toString();
-    history.replaceState(null, "", location.pathname + (qs ? "?" + qs : ""));
+    history.replaceState(history.state, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
   }
 
   function render() {
@@ -110,7 +112,7 @@
   });
 
   // 「/」キーで検索欄にフォーカス(入力中は除く)
-  document.addEventListener("keydown", function (ev) {
+  page.listen(document, "keydown", function (ev) {
     if (ev.key === "/" && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) {
       ev.preventDefault();
       input.focus();
@@ -134,13 +136,17 @@
     }
   }
 
-  fetch("../data/search.json" + (window.__searchVer ? "?v=" + window.__searchVer : ""))
+  return fetch("../data/search.json?v=" + listEl.dataset.version, { signal: page.signal })
     .then(function (r) { return r.json(); })
     .then(function (d) {
+      if (page.signal.aborted) return;
       episodes = d.episodes.slice().reverse(); // 新しい順
       render();
     })
     .catch(function () {
+      if (page.signal.aborted) return;
       listEl.innerHTML = '<p style="color:var(--faint);text-align:center;">エピソードの読み込みに失敗しました。ページを再読み込みしてください。</p>';
     });
 })();
+
+});

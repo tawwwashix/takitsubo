@@ -1,3 +1,4 @@
+window.Takitsubo.register(function (page) {
 /* 滝壺データベース: 索引ページのクライアントサイド絞り込み
    - タイトル・読みがな・略称(aliases.json由来)を対象にインクリメンタル検索
    - ひらがな入力はカタカナに変換して照合(「しれん」→シレン)
@@ -54,7 +55,7 @@
     var parts = [];
     if (input.value.trim()) parts.push("q=" + encodeURIComponent(input.value.trim()));
     if (flv !== "all") parts.push("f=" + flv);
-    history.replaceState(null, "", location.pathname + (parts.length ? "?" + parts.join("&") : ""));
+    history.replaceState(history.state, "", location.pathname + (parts.length ? "?" + parts.join("&") : "") + location.hash);
   }
 
   input.addEventListener("input", function () { apply(input.value); });
@@ -89,3 +90,5 @@
     input.scrollIntoView({ block: "center" });
   }
 })();
+
+});

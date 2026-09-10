@@ -1,3 +1,4 @@
+window.Takitsubo.register(function (page) {
 /* 全ページ共通: スマホ幅ではハンバーガーメニューで開閉 */
 (function () {
   var btn = document.querySelector(".nav-toggle");
@@ -18,10 +19,10 @@
   nav.addEventListener("click", function (ev) {
     if (ev.target.closest("a")) setOpen(false);
   });
-  document.addEventListener("click", function (ev) {
+  page.listen(document, "click", function (ev) {
     if (nav.classList.contains("open") && !ev.target.closest(".header-inner")) setOpen(false);
   });
-  document.addEventListener("keydown", function (ev) {
+  page.listen(document, "keydown", function (ev) {
     if (ev.key === "Escape") setOpen(false);
   });
 })();
@@ -36,6 +37,7 @@
   var hero = stage.closest(".hero") || stage;
   var layers = stage.querySelectorAll(".stage-layer");
   var tx = 0, ty = 0, raf = null;
+  page.onDispose(function () { if (raf) cancelAnimationFrame(raf); });
 
   function apply() {
     raf = null;
@@ -64,6 +66,7 @@
   if (!triggers.length) return;
 
   var box = null, lastTrigger = null;
+  page.onDispose(function () { if (box) box.remove(); document.body.classList.remove("art-lightbox-open"); });
 
   function build() {
     box = document.createElement("div");
@@ -102,7 +105,7 @@
       open(t.dataset.full, t.dataset.caption);
     });
   });
-  document.addEventListener("keydown", function (ev) {
+  page.listen(document, "keydown", function (ev) {
     if (ev.key === "Escape" && box && box.classList.contains("show")) close();
   });
 })();
@@ -118,11 +121,14 @@
     btn.classList.toggle("show", nearBottom && window.scrollY > 200);
   }
 
-  window.addEventListener("scroll", check, { passive: true });
-  window.addEventListener("resize", check);
+  page.listen(window, "scroll", check, { passive: true });
+  page.listen(window, "resize", check);
+  page.listen(document, "takitsubo:navigated", check);
   check();
 
   btn.addEventListener("click", function () {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 })();
+
+});

@@ -1,341 +1,202 @@
-/* サイト内プレイヤー
-   - RSSのenclosure(MP3)をHTML5 Audioで直接再生(Spotify埋め込みの置き換え)
-   - チャプターのタップで頭出し / 再生中のチャプターをハイライト
-   - 倍速・±スキップ・「前回のつづきから」(localStorage)・?t=秒 の頭出しリンク対応
-   - プレイヤーが画面外に出たらミニプレイヤーを表示 */
+/* One audio element per document; page controls are disposable views of it. */
 (function () {
   "use strict";
-
-  var box = document.getElementById("tkPlayer");
-  if (!box) return;
-
-  var EP = box.dataset.ep || "";
-  var TITLE = box.dataset.title || document.title;
-  var SHOW = box.dataset.show || "";
-  var IMAGE = box.dataset.image || "";
-  var POS_KEY = "tkpos:" + EP;
-  var RATE_KEY = "tkrate";
-  var RATES = [1, 1.2, 1.5, 1.7, 2, 0.8];
-
-  var playBtn = box.querySelector(".tkp-play");
-  var seek = box.querySelector(".tkp-seek");
-  var curEl = box.querySelector(".tkp-cur");
-  var durEl = box.querySelector(".tkp-dur");
-  var rateBtn = box.querySelector(".tkp-rate");
-  var backBtn = box.querySelector(".tkp-back");
-  var fwdBtn = box.querySelector(".tkp-fwd");
-  var copyBtn = box.querySelector(".tkp-copy");
-  var noteEl = box.querySelector(".tkp-note");
-  var COPY_LABEL = copyBtn ? copyBtn.innerHTML : "";
-
-  var chapRows = [].slice.call(document.querySelectorAll(".chap-row[data-t]"));
-  var chapTimes = chapRows.map(function (b) { return parseFloat(b.dataset.t) || 0; });
-
-  var audio = new Audio();
+  var audio = document.createElement("audio");
+  audio.id = "tkAudio";
   audio.preload = "none";
-  audio.src = box.dataset.audio;
-
-  var duration = parseFloat(box.dataset.duration) || 0;
-  var started = false;      // 一度でも再生したか
-  var dragging = false;     // シークバーをドラッグ中か
-  var pendingSeek = null;   // メタデータ読み込み前に頼まれた頭出し位置
-
-  function track(name, params) {
-    if (typeof window.gtag === "function") window.gtag("event", name, params || {});
-  }
-
+  audio.hidden = true;
+  document.body.appendChild(audio);
+  var active = null, view = null, started = false, pendingSeek = null, lastSave = 0;
+  var RATES = [1, 1.2, 1.5, 1.7, 2, 0.8];
+  var rate = parseFloat(read("tkrate"));
+  if (RATES.indexOf(rate) < 0) rate = 1;
+  audio.playbackRate = rate;
+  function read(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
+  function track(name, params) { if (typeof window.gtag === "function") window.gtag("event", name, params || {}); }
   function fmt(s) {
-    s = Math.max(0, Math.round(s));
-    var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60;
-    if (h) return h + ":" + String(m).padStart(2, "0") + ":" + String(ss).padStart(2, "0");
-    return m + ":" + String(ss).padStart(2, "0");
+    s = Math.max(0, Math.round(s || 0));
+    var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = String(s % 60).padStart(2, "0");
+    return h ? h + ":" + String(m).padStart(2, "0") + ":" + ss : m + ":" + ss;
   }
-
-  function curDuration() {
-    return (audio.duration && isFinite(audio.duration)) ? audio.duration : duration;
-  }
-  function currentTime() {
-    return pendingSeek != null ? pendingSeek : audio.currentTime;
-  }
-
-  /* ---------- 再生位置の保存(続きから再生) ---------- */
-  function save(t) {
+  function duration() { return Number.isFinite(audio.duration) ? audio.duration : (active ? active.duration : 0); }
+  function time() { return pendingSeek != null ? pendingSeek : audio.currentTime; }
+  function matching() { return active && view && active.ep === view.ep; }
+  function save() {
+    if (!active || !started) return;
+    var t = time(), d = duration();
     try {
-      var d = curDuration();
-      if (t < 20 || (d && t > d - 45)) localStorage.removeItem(POS_KEY);
-      else localStorage.setItem(POS_KEY, JSON.stringify({ t: Math.floor(t), ts: Date.now() }));
+      if (t < 20 || (d && t > d - 45)) localStorage.removeItem("tkpos:" + active.ep);
+      else localStorage.setItem("tkpos:" + active.ep, JSON.stringify({ t: Math.floor(t), ts: Date.now() }));
     } catch (e) {}
   }
-  function loadSaved() {
-    try {
-      var v = JSON.parse(localStorage.getItem(POS_KEY) || "null");
-      if (v && v.t > 20 && (!duration || v.t < duration - 45)) return v.t;
-    } catch (e) {}
-    return null;
+  function resume(ep, d) {
+    try { var v = JSON.parse(read("tkpos:" + ep)); return v && v.t > 20 && (!d || v.t < d - 45) ? v.t : 0; } catch (e) { return 0; }
   }
-
-  /* ---------- シーク ---------- */
-  function applySeek(t) {
-    var d = curDuration();
-    t = Math.max(0, d ? Math.min(t, Math.max(0, d - 0.5)) : t);
-    if (audio.readyState >= 1) {
-      audio.currentTime = t;
-    } else {
-      pendingSeek = t;
-      renderTime(t);
-      try { audio.load(); } catch (e) {}
-    }
+  function timeParam() {
+    var m = (location.search + " " + location.hash).match(/[?&#]t=(\d+(?::\d+){0,2})(?:$|[&\s])/);
+    return m ? m[1].split(":").reduce(function (n, p) { return n * 60 + Number(p); }, 0) : null;
   }
-  audio.addEventListener("loadedmetadata", function () {
-    if (audio.duration && isFinite(audio.duration)) duration = audio.duration;
-    durEl.textContent = fmt(duration);
-    seek.max = Math.floor(duration);
-    if (pendingSeek != null) {
-      audio.currentTime = pendingSeek;
-      pendingSeek = null;
-    }
-  });
-
+  function seekTo(t) {
+    var d = duration(); t = Math.max(0, d ? Math.min(t, Math.max(0, d - 0.5)) : t);
+    if (audio.readyState >= 1) { pendingSeek = null; audio.currentTime = t; }
+    else { pendingSeek = t; audio.load(); }
+    render();
+  }
   function play() {
     var p = audio.play();
-    if (p && p.catch) p.catch(function () { /* 自動再生がブロックされた場合は待機のまま */ });
+    if (p) p.catch(function (error) { if (error.name !== "AbortError" && error.name !== "NotAllowedError") showError(); });
   }
   function toggle() { if (audio.paused) play(); else audio.pause(); }
-
-  function jumpTo(t, autoplay) {
-    applySeek(t);
-    if (autoplay) play();
+  function cycleRate() {
+    rate = RATES[(RATES.indexOf(rate) + 1) % RATES.length]; audio.playbackRate = rate;
+    try { localStorage.setItem("tkrate", String(rate)); } catch (e) {}
+    render();
   }
-
-  /* ---------- 表示更新 ---------- */
-  function paintSeek() {
-    var max = parseFloat(seek.max) || 1;
-    var pct = Math.min(100, (parseFloat(seek.value) / max) * 100);
-    seek.style.background = "linear-gradient(90deg, var(--primary) " + pct + "%, var(--line) " + pct + "%)";
-  }
-
-  function highlight(t) {
-    if (!chapRows.length) return;
-    var idx = -1;
-    for (var i = 0; i < chapTimes.length; i++) {
-      if (t >= chapTimes[i] - 0.5) idx = i; else break;
+  function select(v) {
+    if (active && active.ep === v.ep) return;
+    save(); audio.pause();
+    active = { ep: v.ep, title: v.title, url: v.url, duration: v.duration };
+    started = false; pendingSeek = v.start || null;
+    audio.src = v.src; audio.playbackRate = rate;
+    miniLink.href = active.url;
+    miniLink.title = active.title + " の再生ページへ";
+    if ("mediaSession" in navigator) {
+      try { navigator.mediaSession.metadata = new MediaMetadata({ title: v.title, artist: v.show,
+        artwork: v.image ? [{ src: v.image, sizes: "800x800", type: "image/jpeg" }] : [] }); } catch (e) {}
     }
-    for (var j = 0; j < chapRows.length; j++) {
-      chapRows[j].parentElement.classList.toggle("now", j === idx && (started || t > 0));
+    render();
+  }
+  function note(v, message, restart) {
+    var el = v.box.querySelector(".tkp-note"); el.textContent = message; el.hidden = false;
+    if (restart) {
+      var button = document.createElement("button");
+      button.type = "button"; button.className = "tkp-restart"; button.textContent = "最初から聴く";
+      button.addEventListener("click", function () {
+        select(v); seekTo(0); v.start = 0; el.hidden = true;
+        try { localStorage.removeItem("tkpos:" + v.ep); } catch (e) {}
+      });
+      el.appendChild(button);
     }
   }
-
-  function renderTime(t) {
-    curEl.textContent = fmt(t);
-    if (!dragging) {
-      seek.value = Math.floor(t);
-      paintSeek();
+  function showError() {
+    miniMessage.textContent = "音声を読み込めませんでした。再生ボタンで再試行できます。";
+    if (matching()) note(view, "⚠ 音声を読み込めませんでした。通信状況をご確認いただくか、各配信サービスからお聴きください。");
+  }
+  function paint(input, t, d) {
+    input.max = Math.floor(d || 1); input.value = Math.floor(t);
+    var pct = Math.min(100, t / (d || 1) * 100);
+    input.style.background = "linear-gradient(90deg, var(--primary) " + pct + "%, var(--line) " + pct + "%)";
+  }
+  function render() {
+    var t = time(), d = duration(), same = matching();
+    if (view) {
+      var vt = same ? t : view.start, vd = same ? d : view.duration;
+      view.box.classList.toggle("playing", !!same && !audio.paused);
+      view.play.setAttribute("aria-label", same && !audio.paused ? "一時停止" : "この回を再生");
+      view.box.querySelector(".tkp-rate").textContent = rate.toFixed(1) + "x";
+      view.box.querySelector(".tkp-dur").textContent = vd ? fmt(vd) : "--:--";
+      if (!view.dragging) { view.box.querySelector(".tkp-cur").textContent = fmt(vt); paint(view.seek, vt, vd); }
+      var index = -1;
+      if (same && (started || t > 0)) view.chapters.forEach(function (row, i) { if (t >= Number(row.dataset.t) - 0.5) index = i; });
+      view.chapters.forEach(function (row, i) { row.parentElement.classList.toggle("now", i === index); });
     }
-    highlight(t);
-    updateMini();
+    var visible = !!active && started && (!same || !view.visible);
+    mini.classList.toggle("show", visible);
+    document.body.classList.toggle("has-mini-player", visible);
+    mini.classList.toggle("playing", !!active && !audio.paused);
+    miniPlay.setAttribute("aria-label", audio.paused ? "再生" : "一時停止");
+    miniLink.textContent = active ? active.title : "";
+    miniTime.textContent = fmt(t) + " / " + (d ? fmt(d) : "--:--");
+    miniRate.textContent = rate.toFixed(1) + "x";
+    if (!miniDragging) paint(miniSeek, t, d);
   }
-
-  var lastSave = 0;
-  audio.addEventListener("timeupdate", function () {
-    renderTime(audio.currentTime);
-    var now = Date.now();
-    if (!audio.paused && now - lastSave > 5000) {
-      lastSave = now;
-      save(audio.currentTime);
-    }
-  });
-
-  audio.addEventListener("play", function () {
-    if (!started) {
-      started = true;
-      track("player_play", { ep: EP });
-    }
-    box.classList.add("playing");
-    mini.classList.add("playing");
-    syncMini();
-  });
-  audio.addEventListener("pause", function () {
-    box.classList.remove("playing");
-    mini.classList.remove("playing");
-    if (started) save(audio.currentTime);
-    syncMini();
-  });
-  audio.addEventListener("ended", function () {
-    try { localStorage.removeItem(POS_KEY); } catch (e) {}
-    track("player_complete", { ep: EP });
-  });
-  audio.addEventListener("error", function () {
-    if (!audio.src) return;
-    note("⚠ 音声を読み込めませんでした。通信状況をご確認いただくか、下の各サービスからお聴きください。");
-  });
-
-  /* ---------- 操作 ---------- */
-  playBtn.addEventListener("click", toggle);
-
-  seek.addEventListener("input", function () {
-    dragging = true;
-    curEl.textContent = fmt(parseFloat(seek.value));
-    paintSeek();
-  });
-  seek.addEventListener("change", function () {
-    dragging = false;
-    applySeek(parseFloat(seek.value));
-  });
-
-  backBtn.addEventListener("click", function () { applySeek(currentTime() - 10); });
-  fwdBtn.addEventListener("click", function () { applySeek(currentTime() + 30); });
-
-  function setRate(r) {
-    audio.playbackRate = r;
-    rateBtn.textContent = r.toFixed(1) + "x";
-    try { localStorage.setItem(RATE_KEY, String(r)); } catch (e) {}
-  }
-  rateBtn.addEventListener("click", function () {
-    var i = RATES.indexOf(audio.playbackRate);
-    setRate(RATES[(i + 1) % RATES.length]);
-  });
-
-  if (copyBtn) {
-    copyBtn.addEventListener("click", function () {
-      var t = Math.floor(currentTime());
-      var url = location.origin + location.pathname + (t > 0 ? "?t=" + t : "");
-      var done = function () {
-        copyBtn.textContent = "✅ コピーしました！";
-        setTimeout(function () { copyBtn.innerHTML = COPY_LABEL; }, 1800);
-      };
-      var fallback = function () {
-        var ta = document.createElement("textarea");
-        ta.value = url;
-        ta.style.position = "fixed";
-        ta.style.opacity = "0";
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand("copy"); } catch (e) {}
-        document.body.removeChild(ta);
-        done();
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(done, fallback);
-      } else fallback();
-      track("player_copy_link", { ep: EP, t: t });
-    });
-  }
-
-  chapRows.forEach(function (b) {
-    b.addEventListener("click", function () {
-      var t = parseFloat(b.dataset.t) || 0;
-      jumpTo(t, true);
-      track("player_chapter", { ep: EP, t: Math.floor(t) });
-    });
-  });
-
-  /* ---------- おしらせ行(続きから/頭出し/エラー) ---------- */
-  function note(html, withRestart) {
-    noteEl.innerHTML = html + (withRestart
-      ? ' <button type="button" class="tkp-restart">最初から聴く</button>' : "");
-    noteEl.hidden = false;
-    var r = noteEl.querySelector(".tkp-restart");
-    if (r) r.addEventListener("click", function () {
-      applySeek(0);
-      try { localStorage.removeItem(POS_KEY); } catch (e) {}
-      noteEl.hidden = true;
-    });
-  }
-
-  /* ---------- ミニプレイヤー(スクロールで本体が隠れたら出る) ---------- */
-  var mini = document.createElement("div");
-  mini.className = "tk-mini";
-  mini.innerHTML =
-    '<button class="tk-mini-play" type="button" aria-label="再生 / 一時停止">' +
+  var mini = document.createElement("section");
+  mini.className = "tk-mini"; mini.setAttribute("aria-label", "再生中のエピソード");
+  mini.innerHTML = '<button class="tk-mini-play" type="button" aria-label="再生">' +
     '<svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72L19 12 8 5.14z"/></svg>' +
-    '<svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.6v14H7V5zm6.4 0H17v14h-3.6V5z"/></svg>' +
-    '</button>' +
-    '<span class="tk-mini-body"><span class="tk-mini-title"></span><span class="tk-mini-bar"><i></i></span></span>' +
-    '<span class="tk-mini-time">0:00</span>';
+    '<svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.6v14H7V5zm6.4 0H17v14h-3.6V5z"/></svg></button>' +
+    '<div class="tk-mini-body"><a class="tk-mini-title"></a><input class="tkp-seek tk-mini-seek" type="range" min="0" max="1" value="0" aria-label="再生位置">' +
+    '<span class="tk-mini-time"></span><span class="tk-mini-message" role="status"></span></div>' +
+    '<button class="tkp-btn tk-mini-back" type="button" aria-label="10秒戻る">−10秒</button>' +
+    '<button class="tkp-btn tk-mini-fwd" type="button" aria-label="30秒進む">+30秒</button>' +
+    '<button class="tkp-btn tk-mini-rate" type="button" aria-label="再生速度を変える">1.0x</button>';
   document.body.appendChild(mini);
-  var miniTitle = mini.querySelector(".tk-mini-title");
-  var miniFill = mini.querySelector(".tk-mini-bar i");
-  var miniTime = mini.querySelector(".tk-mini-time");
-  miniTitle.textContent = TITLE;
-
-  mini.querySelector(".tk-mini-play").addEventListener("click", function (ev) {
-    ev.stopPropagation();
-    toggle();
+  var miniPlay = mini.querySelector(".tk-mini-play"), miniLink = mini.querySelector("a");
+  var miniTime = mini.querySelector(".tk-mini-time"), miniSeek = mini.querySelector("input"), miniRate = mini.querySelector(".tk-mini-rate");
+  var miniMessage = mini.querySelector(".tk-mini-message"), miniDragging = false;
+  miniPlay.addEventListener("click", toggle); miniRate.addEventListener("click", cycleRate);
+  mini.querySelector(".tk-mini-back").addEventListener("click", function () { seekTo(time() - 10); });
+  mini.querySelector(".tk-mini-fwd").addEventListener("click", function () { seekTo(time() + 30); });
+  miniSeek.addEventListener("input", function () { miniDragging = true; miniTime.textContent = fmt(Number(miniSeek.value)); });
+  miniSeek.addEventListener("change", function () { miniDragging = false; seekTo(Number(miniSeek.value)); });
+  audio.addEventListener("loadedmetadata", function () {
+    if (pendingSeek != null) { audio.currentTime = Math.min(pendingSeek, Math.max(0, duration() - 0.5)); pendingSeek = null; }
+    render();
   });
-  mini.addEventListener("click", function () {
-    box.scrollIntoView({ behavior: "smooth", block: "center" });
+  audio.addEventListener("timeupdate", function () {
+    render(); if (!audio.paused && Date.now() - lastSave > 5000) { lastSave = Date.now(); save(); }
   });
-
-  function updateMini() {
-    if (!mini.classList.contains("show")) return;
-    var d = curDuration() || 1;
-    miniFill.style.width = Math.min(100, (audio.currentTime / d) * 100) + "%";
-    miniTime.textContent = fmt(audio.currentTime);
-    var nowLabel = document.querySelector(".tk-chapters li.now .chap-label");
-    miniTitle.textContent = nowLabel ? nowLabel.textContent : TITLE;
-  }
-
-  var heroVisible = true;
-  function syncMini() {
-    var show = started && !heroVisible;
-    mini.classList.toggle("show", show);
-    updateMini();
-  }
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (entries) {
-      heroVisible = entries[0].isIntersecting;
-      syncMini();
-    }, { rootMargin: "-56px 0px 0px 0px" }).observe(box);
-  }
-
-  /* ---------- OS連携(ロック画面・イヤホンのボタン) ---------- */
+  audio.addEventListener("play", function () {
+    if (!started) { started = true; track("player_play", { ep: active.ep }); }
+    miniMessage.textContent = ""; render();
+  });
+  audio.addEventListener("pause", function () { save(); render(); });
+  audio.addEventListener("ended", function () {
+    try { localStorage.removeItem("tkpos:" + active.ep); } catch (e) {}
+    track("player_complete", { ep: active.ep }); render();
+  });
+  audio.addEventListener("error", showError);
+  window.addEventListener("pagehide", save);
   if ("mediaSession" in navigator) {
-    try {
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: TITLE,
-        artist: SHOW,
-        artwork: IMAGE ? [{ src: IMAGE, sizes: "800x800", type: "image/jpeg" }] : []
-      });
-      navigator.mediaSession.setActionHandler("play", play);
-      navigator.mediaSession.setActionHandler("pause", function () { audio.pause(); });
-      navigator.mediaSession.setActionHandler("seekbackward", function () { applySeek(audio.currentTime - 10); });
-      navigator.mediaSession.setActionHandler("seekforward", function () { applySeek(audio.currentTime + 30); });
-      navigator.mediaSession.setActionHandler("seekto", function (d) {
-        if (d && d.seekTime != null) applySeek(d.seekTime);
-      });
-    } catch (e) {}
+    var handlers = { play: play, pause: function () { audio.pause(); }, seekbackward: function () { seekTo(time() - 10); },
+      seekforward: function () { seekTo(time() + 30); }, seekto: function (event) { if (event.seekTime != null) seekTo(event.seekTime); } };
+    Object.keys(handlers).forEach(function (name) { try { navigator.mediaSession.setActionHandler(name, handlers[name]); } catch (e) {} });
   }
-
-  window.addEventListener("pagehide", function () {
-    if (started) save(audio.currentTime);
+  var firstPage = true;
+  window.Takitsubo.register(function (page) {
+    var box = document.getElementById("tkPlayer"), initial = firstPage; firstPage = false; view = null;
+    if (!box) { render(); return; }
+    var v = view = { box: box, ep: box.dataset.ep, title: box.dataset.title, show: box.dataset.show,
+      duration: Number(box.dataset.duration) || 0, src: new URL(box.dataset.audio, location.href).href,
+      image: box.dataset.image ? new URL(box.dataset.image, location.href).href : "", url: location.origin + location.pathname,
+      play: box.querySelector(".tkp-play"), seek: box.querySelector(".tkp-seek"),
+      chapters: Array.from(document.querySelectorAll(".chap-row[data-t]")), visible: true, dragging: false };
+    var param = timeParam(); v.start = param != null ? param : resume(v.ep, v.duration);
+    if (!matching() && v.start) note(v, (param != null ? "🎯 " : "⏯ 前回のつづき ") + fmt(v.start) + " から再生できます", param == null);
+    v.play.addEventListener("click", function () { select(v); toggle(); });
+    v.seek.addEventListener("input", function () { v.dragging = true; box.querySelector(".tkp-cur").textContent = fmt(Number(v.seek.value)); });
+    v.seek.addEventListener("change", function () { var t = Number(v.seek.value); v.dragging = false; select(v); seekTo(t); });
+    box.querySelector(".tkp-back").addEventListener("click", function () { select(v); seekTo(time() - 10); });
+    box.querySelector(".tkp-fwd").addEventListener("click", function () { select(v); seekTo(time() + 30); });
+    box.querySelector(".tkp-rate").addEventListener("click", cycleRate);
+    v.chapters.forEach(function (row) { row.addEventListener("click", function () {
+      select(v); seekTo(Number(row.dataset.t)); play(); track("player_chapter", { ep: v.ep, t: Number(row.dataset.t) });
+    }); });
+    var copy = box.querySelector(".tkp-copy");
+    if (copy) copy.addEventListener("click", function () {
+      var t = Math.floor(matching() ? time() : v.start), url = v.url + (t > 0 ? "?t=" + t : ""), label = copy.innerHTML;
+      function done() {
+        if (page.signal.aborted) return;
+        copy.textContent = "✅ コピーしました！";
+        var timer = setTimeout(function () { copy.innerHTML = label; }, 1800);
+        page.onDispose(function () { clearTimeout(timer); });
+      }
+      function fallback() {
+        if (page.signal.aborted) return;
+        var ta = document.createElement("textarea"); ta.value = url; document.body.appendChild(ta); ta.select();
+        var success = false; try { success = document.execCommand("copy"); } catch (e) {}
+        ta.remove(); if (success) done();
+      }
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, fallback); else fallback();
+      track("player_copy_link", { ep: v.ep, t: t });
+    });
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) { v.visible = entries[0].isIntersecting; render(); }, { rootMargin: "-56px 0px 0px 0px" });
+      observer.observe(box); page.onDispose(function () { observer.disconnect(); });
+    } else v.visible = false;
+    page.onDispose(function () { view = null; });
+    // Only a direct timestamp URL auto-selects; internal navigation never changes the audio.
+    if (initial && param != null) { select(v); play(); }
+    render();
   });
-
-  /* ---------- 初期化 ---------- */
-  durEl.textContent = duration ? fmt(duration) : "--:--";
-  if (duration) seek.max = Math.floor(duration);
-  paintSeek();
-
-  var savedRate = parseFloat(function () {
-    try { return localStorage.getItem(RATE_KEY); } catch (e) { return ""; }
-  }());
-  setRate(RATES.indexOf(savedRate) >= 0 ? savedRate : 1);
-
-  // 頭出し: URLの ?t=/#t= が最優先、なければ「前回のつづき」
-  function parseTimeParam() {
-    var m = (location.search + " " + location.hash).match(/[?&#]t=(\d+(?::\d+){0,2})(?:$|[&\s])/);
-    if (!m) return null;
-    var sec = 0;
-    m[1].split(":").forEach(function (p) { sec = sec * 60 + (parseInt(p, 10) || 0); });
-    return sec > 0 ? sec : null;
-  }
-  var tParam = parseTimeParam();
-  var resumeT = loadSaved();
-  if (tParam != null) {
-    applySeek(tParam);
-    note("🎯 <strong>" + fmt(tParam) + "</strong> の話題から再生します（始まらないときは再生ボタンを押してください）");
-    play();
-  } else if (resumeT != null) {
-    applySeek(resumeT);
-    note("⏯ 前回のつづき <strong>" + fmt(resumeT) + "</strong> から再生できます", true);
-  }
 })();

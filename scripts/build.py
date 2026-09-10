@@ -81,6 +81,13 @@ WAVE = (
 )
 
 
+ASSETS = ["navigation", "site", "search", "games", "shindan", "player"]
+
+
+def navigation_version():
+    return av("assets/css/style.css") + "".join(av(f"assets/js/{name}.js") for name in ASSETS)
+
+
 def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="website", published=None):
     # ブラウザのタブ/OGPタイトル。トップは「番組名 | 接尾辞」、下層は「ページ名 | 番組名」。
     # 番組名(SITE["title"])はフッターのコピーライトやロゴのalt等にそのまま使うので短いままにする。
@@ -122,7 +129,8 @@ def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="websit
 <noscript><link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700;900&family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="{root}assets/css/style.css?v={av('assets/css/style.css')}">{ld}{ga}
 </head>
-<body>"""
+<body>
+<div id="sitePage" data-version="{navigation_version()}">"""
 
 
 def header(root, current=""):
@@ -181,6 +189,7 @@ def footer(root):
         f'<a href="{esc(SITE["instagram_url"])}" target="_blank" rel="noopener">公式Instagram</a>'
         f'<a href="{esc(blog_url)}" target="_blank" rel="noopener">ブログ「{esc(blog.get("label", "ブログ"))}」</a>'
     )
+    scripts = "\n".join(f'<script src="{root}assets/js/{name}.js?v={av(f"assets/js/{name}.js")}"></script>' for name in ASSETS)
     return f"""<footer class="site-footer"><div class="footer-inner">
 <div class="footer-brand"><img class="footer-logo" src="{root}assets/img/logo_wide.png" alt="{SITE['title']}"></div>
 <div class="footer-en">GAME NO TAKITSUBO — WEEKLY GAME TALK PODCAST</div>
@@ -194,7 +203,8 @@ def footer(root):
 <div class="ambient-bubbles" aria-hidden="true"></div>
 <button class="datyou-top" aria-label="ページの先頭へ戻る" title="てっぺんへ戻る">
 <img src="{root}assets/img/datyou.png" alt=""></button>
-<script src="{root}assets/js/site.js?v={av('assets/js/site.js')}"></script>
+</div>
+{scripts}
 </body></html>"""
 
 
@@ -525,7 +535,7 @@ def build_episode_list():
 </select></label>
 </div>
 
-<div class="ep-grid" id="list" aria-live="polite"></div>
+<div class="ep-grid" id="list" data-version="{av('data/search.json')}" aria-live="polite"></div>
 <div id="empty" style="display:none;" class="empty-box">
 <p class="empty-title">🔍 該当するエピソードが見つかりませんでした</p>
 <ul class="empty-hint">
@@ -534,9 +544,7 @@ def build_episode_list():
 <li>上の「絞り込み」タグから企画・テーマで探すこともできます</li>
 </ul>
 </div>
-</main>
-<script>window.__searchVer="{av('data/search.json')}";</script>
-<script src="{root}assets/js/search.js?v={av('assets/js/search.js')}"></script>"""
+</main>"""
     page += footer(root)
     (ROOT / "episodes/index.html").write_text(page, encoding="utf-8")
 
@@ -730,8 +738,7 @@ def build_episode_pages():
 {listen_html}
 </div>
 {body_html}
-</main>
-<script src="{root}assets/js/player.js?v={av('assets/js/player.js')}"></script>"""
+</main>"""
         page += footer(root)
         (ROOT / f"episodes/{n}.html").write_text(page, encoding="utf-8")
 
@@ -1360,13 +1367,11 @@ def build_shindan():
 <h1 class="page-title"><span class="en">FUSAWASHII GAME SHINDAN</span>ふさわしいゲーム診断</h1>
 <p style="font-size:13px;color:var(--sub);margin-top:8px;">なまえを入力するだけ。<br>滝壺の3人がこれまでに語ってきた <strong style="color:var(--primary-deep);">全{n_games}タイトル</strong> から<br>あなたに"ふさわしい一本"を診断します。</p>
 </div>
-<div class="shindan-stage" id="shindanPanel" data-site="{esc(base)}" data-hashtag="{esc(SITE['hashtag'])}">
+<div class="shindan-stage" id="shindanPanel" data-version="{av('data/shindan.json')}" data-site="{esc(base)}" data-hashtag="{esc(SITE['hashtag'])}">
 <p style="text-align:center;color:var(--faint);padding:40px 0;">読み込み中…</p>
 </div>
 <p class="search-note" style="text-align:center;margin-top:14px;">診断プールは番組の全エピソードから自動生成。<br>新しい回が配信されるたびに、結果の種類も増えていきます。<br>※ごく稀にゲームでないものが出てしまう場合があります。</p>
-</main>
-<script>window.__shindanVer="{av('data/shindan.json')}";</script>
-<script src="{root}assets/js/shindan.js?v={av('assets/js/shindan.js')}"></script>"""
+</main>"""
     page += footer(root)
     (ROOT / "shindan.html").write_text(page, encoding="utf-8")
 
@@ -1764,8 +1769,7 @@ def build_games():
 {body_sections}
 
 <div class="gm-note">{LEVEL_MARK[3]}=メインで語られた回あり ／ {LEVEL_MARK[2]}=滝壺3分ゲーム紹介で紹介 ／ {LEVEL_MARK[1]}=チャプターに登場 ／ 無印=トークの中で話題に出たタイトル<br>一度だけ話題に出たタイトルは、その回のページへ直接リンクします。<br>索引は毎週の配信にあわせて自動で増えていきます。</div>
-</main>
-<script src="{root}assets/js/games.js?v={av('assets/js/games.js')}"></script>"""
+</main>"""
     page += footer(root)
     (ROOT / "games/index.html").write_text(page, encoding="utf-8")
 

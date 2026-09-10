@@ -1,9 +1,16 @@
+window.Takitsubo.register(function (page) {
 /* ふさわしいゲーム診断
    - 診断プール(data/shindan.json)はビルド時に全エピソードから自動生成
    - ゲームは「番組でよく話題に出たタイトルほど出やすい」重み付き抽選。
    - 名前+最新回番号をシードにするため、同じ最新回では同じ名前から同じ結果になる */
-(function () {
+return (function () {
   "use strict";
+
+  function later(fn, delay) {
+    if (page.signal.aborted) return;
+    var timer = setTimeout(fn, delay);
+    page.onDispose(function () { clearTimeout(timer); });
+  }
 
   var panel = document.getElementById("shindanPanel");
   if (!panel) return;
@@ -185,13 +192,14 @@
       var btn = this;
       var canvas = document.getElementById("shCanvas");
       canvas.toBlob(function (blob) {
+        if (page.signal.aborted) return;
         if (blob && navigator.clipboard && window.ClipboardItem) {
           navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]).then(
-            function () { btn.textContent = "✅ コピーしました！"; setTimeout(function () { btn.textContent = "📋 画像をコピー"; }, 1800); },
-            function () { btn.textContent = "保存ボタンをお使いください"; setTimeout(function () { btn.textContent = "📋 画像をコピー"; }, 2200); });
+            function () { btn.textContent = "✅ コピーしました！"; later(function () { btn.textContent = "📋 画像をコピー"; }, 1800); },
+            function () { btn.textContent = "保存ボタンをお使いください"; later(function () { btn.textContent = "📋 画像をコピー"; }, 2200); });
         } else {
           btn.textContent = "このブラウザでは保存をお使いください";
-          setTimeout(function () { btn.textContent = "📋 画像をコピー"; }, 2200);
+          later(function () { btn.textContent = "📋 画像をコピー"; }, 2200);
         }
       }, "image/png");
     });
@@ -435,13 +443,15 @@
 
     // ロゴ画像とエピソード画像を両方読み込んでから描画
     function load(src, cb) {
+      if (page.signal.aborted) return;
       if (!src) { cb(null); return; }
       var im = new Image();
-      im.onload = function () { cb(im); };
-      im.onerror = function () { cb(null); };
+      im.onload = function () { if (!page.signal.aborted) cb(im); };
+      im.onerror = function () { if (!page.signal.aborted) cb(null); };
       im.src = src;
     }
     var start = function () {
+      if (page.signal.aborted) return;
       load("assets/img/mainlogo.webp", function (logo) {
         load(ep[1], function (art) { draw(art, logo); });
       });
@@ -451,10 +461,13 @@
   }
 
   /* ---------- 起動 ---------- */
-  fetch("data/shindan.json" + (window.__shindanVer ? "?v=" + window.__shindanVer : ""))
+  return fetch("data/shindan.json?v=" + panel.dataset.version, { signal: page.signal })
     .then(function (r) { return r.json(); })
-    .then(function (d) { DATA = d; renderIntro(); })
+    .then(function (d) { if (!page.signal.aborted) { DATA = d; renderIntro(); } })
     .catch(function () {
+      if (page.signal.aborted) return;
       panel.innerHTML = '<p style="text-align:center;color:var(--faint);padding:40px 0;">診断データの読み込みに失敗しました。ページを再読み込みしてください。</p>';
     });
 })();
+
+});
