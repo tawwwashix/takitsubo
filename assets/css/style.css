@@ -1760,7 +1760,7 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   width: 100%; height: auto; display: block;
   filter: drop-shadow(0 3px 8px rgba(14, 90, 168, .35));
 }
-.datyou-top.show { bottom: -6px; }
+.datyou-top.show { bottom: 0; }
 .datyou-top.show:hover { bottom: 2px; }
 
 @media (max-width: 900px) {
