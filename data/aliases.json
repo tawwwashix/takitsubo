@@ -5,6 +5,7 @@
     { "canonical": "ドラゴンクエスト", "aliases": ["ドラクエ", "DQ"] },
     { "canonical": "モンスターハンター", "aliases": ["モンハン"] },
     { "canonical": "ポケットモンスター", "aliases": ["ポケモン"] },
+    { "canonical": "Pokémon", "aliases": ["ポケモン"] },
     { "canonical": "大乱闘スマッシュブラザーズ", "aliases": ["スマブラ"] },
     { "canonical": "ロマンシング サガ", "aliases": ["ロマサガ"] },
     { "canonical": "マリオカート", "aliases": ["マリカー", "マリカ"] },
