@@ -87,6 +87,15 @@
     var pct = Math.min(100, t / (d || 1) * 100);
     input.style.background = "linear-gradient(90deg, var(--primary) " + pct + "%, var(--line) " + pct + "%)";
   }
+  var miniCollapsed = false;
+  function setMiniCollapsed(collapsed) {
+    miniCollapsed = !!collapsed;
+    mini.classList.toggle("collapsed", miniCollapsed);
+    miniToggle.textContent = miniCollapsed ? "⌃" : "⌄";
+    miniToggle.setAttribute("aria-label", miniCollapsed ? "プレイヤーを展開" : "プレイヤーを最小化");
+    miniToggle.setAttribute("aria-expanded", miniCollapsed ? "false" : "true");
+    render();
+  }
   function render() {
     var t = time(), d = duration(), same = matching();
     if (view) {
@@ -103,6 +112,7 @@
     var visible = !!active && started && (!same || !view.visible);
     mini.classList.toggle("show", visible);
     document.body.classList.toggle("has-mini-player", visible);
+    document.body.classList.toggle("has-mini-player-collapsed", visible && miniCollapsed);
     mini.classList.toggle("playing", !!active && !audio.paused);
     miniPlay.setAttribute("aria-label", audio.paused ? "再生" : "一時停止");
     miniLink.textContent = active ? active.title : "";
@@ -119,12 +129,14 @@
     '<span class="tk-mini-time"></span><span class="tk-mini-message" role="status"></span></div>' +
     '<button class="tkp-btn tk-mini-back" type="button" aria-label="10秒戻る">−10秒</button>' +
     '<button class="tkp-btn tk-mini-fwd" type="button" aria-label="30秒進む">+30秒</button>' +
-    '<button class="tkp-btn tk-mini-rate" type="button" aria-label="再生速度を変える">1.0x</button>';
+    '<button class="tkp-btn tk-mini-rate" type="button" aria-label="再生速度を変える">1.0x</button>' +
+    '<button class="tk-mini-toggle" type="button" aria-label="プレイヤーを最小化" aria-expanded="true">⌄</button>';
   document.body.appendChild(mini);
   var miniPlay = mini.querySelector(".tk-mini-play"), miniLink = mini.querySelector("a");
   var miniTime = mini.querySelector(".tk-mini-time"), miniSeek = mini.querySelector("input"), miniRate = mini.querySelector(".tk-mini-rate");
-  var miniMessage = mini.querySelector(".tk-mini-message"), miniDragging = false;
+  var miniMessage = mini.querySelector(".tk-mini-message"), miniToggle = mini.querySelector(".tk-mini-toggle"), miniDragging = false;
   miniPlay.addEventListener("click", toggle); miniRate.addEventListener("click", cycleRate);
+  miniToggle.addEventListener("click", function () { setMiniCollapsed(!miniCollapsed); });
   mini.querySelector(".tk-mini-back").addEventListener("click", function () { seekTo(time() - 10); });
   mini.querySelector(".tk-mini-fwd").addEventListener("click", function () { seekTo(time() + 30); });
   miniSeek.addEventListener("input", function () { miniDragging = true; miniTime.textContent = fmt(Number(miniSeek.value)); });

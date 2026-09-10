@@ -633,14 +633,32 @@ body.art-lightbox-open { overflow: hidden; }
 .tk-mini { border-radius: 22px; cursor: default; padding: 10px; bottom: max(12px, env(safe-area-inset-bottom)); }
 .tk-mini-seek { display: block; margin: 5px 0; }
 .tk-mini-message { display: block; font-size: 11px; }
+.tk-mini-toggle {
+  width: 34px; height: 34px; flex: 0 0 34px; border: 1px solid var(--line); border-radius: 50%;
+  background: var(--surface); color: var(--primary-deep); cursor: pointer; font-size: 22px; line-height: 1;
+  display: grid; place-items: center; padding: 0 0 4px; font-family: var(--font-body); font-weight: 700;
+}
+.tk-mini-toggle:hover, .tk-mini-toggle:focus-visible { border-color: var(--primary); color: var(--primary); }
+.tk-mini.collapsed { height: 48px; min-height: 48px; padding: 6px 10px; gap: 8px; }
+.tk-mini.collapsed .tk-mini-play { width: 34px; height: 34px; }
+.tk-mini.collapsed .tk-mini-body { display: flex; align-items: center; min-width: 0; }
+.tk-mini.collapsed .tk-mini-title { font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tk-mini.collapsed .tk-mini-seek, .tk-mini.collapsed .tk-mini-message,
+.tk-mini.collapsed .tk-mini-back, .tk-mini.collapsed .tk-mini-fwd, .tk-mini.collapsed .tk-mini-rate { display: none; }
+.tk-mini.collapsed .tk-mini-time { margin-left: 8px; white-space: nowrap; }
+.tk-mini.collapsed .tk-mini-toggle { width: 34px; height: 34px; font-size: 21px; }
 .has-mini-player { padding-bottom: 110px; }
+.has-mini-player-collapsed { padding-bottom: 70px; }
 .navigating { cursor: progress; }
 .navigating::after { content: ""; position: fixed; inset: 0 0 auto; height: 3px; background: var(--primary); z-index: 200; }
 @media (max-width: 480px) {
   .tk-mini { gap: 7px; flex-wrap: wrap; }
   .tk-mini-body { flex-basis: calc(100% - 60px); }
   .tk-mini-back { margin-left: 51px; }
+  .tk-mini.collapsed { flex-wrap: nowrap; }
+  .tk-mini.collapsed .tk-mini-body { flex: 1 1 auto; flex-basis: auto; }
   .has-mini-player { padding-bottom: 155px; }
+  .has-mini-player-collapsed { padding-bottom: 76px; }
 }
 
 /* X投稿ボタン(Xブランドの黒) / おたよりボタン(暖色) */
