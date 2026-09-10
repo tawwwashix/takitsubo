@@ -33,6 +33,44 @@ EPS_BY_NUM = {e["number"]: e for e in EPS}
 # 配信回数: 第0回(番組紹介)は「全N回」の数え上げに含めない
 EP_COUNT = sum(1 for e in EPS if e["number"] > 0)
 esc = html.escape
+URL_RE = re.compile(r"(?:https?://|www\.)[^\s<>\u3000\"']+")
+URL_TRAILING = ".,!?;:)]}。、，！？；：）〕］」』〉》】…"
+
+
+def linkify_text(text):
+    """概要欄のURLだけを安全な外部リンクにし、他の文字はHTMLエスケープする。"""
+    text = text or ""
+    out, end = [], 0
+    for match in URL_RE.finditer(text):
+        out.append(esc(text[end:match.start()]))
+        url = match.group(0)
+        trailing = ""
+        while url and url[-1] in URL_TRAILING:
+            trailing = url[-1] + trailing
+            url = url[:-1]
+        if not url:
+            out.append(esc(match.group(0)))
+        else:
+            href = url if url.startswith(("http://", "https://")) else "https://" + url
+            out.append(f'<a href="{esc(href)}" target="_blank" rel="noopener">{esc(url)}</a>{esc(trailing)}')
+        end = match.end()
+    out.append(esc(text[end:]))
+    return "".join(out)
+
+
+def episode_description_html(text):
+    """最初の■までを常時表示し、残りをdetailsで全文表示する。"""
+    full = (text or "").strip()
+    if not full:
+        return ""
+    lead = full.split("■", 1)[0].strip()
+    if not lead or lead == full:
+        return f'<div class="card ep-desc">{linkify_text(full)}</div>'
+    return f'''<div class="card ep-desc">{linkify_text(lead)}</div>
+<details class="ep-desc-more">
+<summary>概要欄をすべて表示</summary>
+<div class="card ep-desc ep-desc-full">{linkify_text(full)}</div>
+</details>'''
 
 
 def jd(iso):  # 2026-07-01 -> 2026.07.01
@@ -614,7 +652,7 @@ def build_episode_pages():
             series_note = f'<p style="margin-top:14px;font-size:13px;">この回は名物企画「<a href="../series/{s["slug"]}.html">{esc(s["name"])}</a>」のひとつです。</p>'
         about_html = ""
         if e["description"] or series_note:
-            body = f'<div class="card ep-desc">{esc(e["description"])}</div>' if e["description"] else ""
+            body = episode_description_html(e["description"])
             about_html = f'<section class="section eps-about">{sec_title("この回について", "ABOUT")}{body}{series_note}</section>'
 
         pn = '<div class="prevnext">'

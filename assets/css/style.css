@@ -1662,6 +1662,18 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   font-size: 14px; color: var(--sub); margin: 16px 0;
   white-space: pre-line;
 }
+.ep-desc a { overflow-wrap: anywhere; }
+.ep-desc-more { margin: -4px 0 16px; }
+.ep-desc-more > summary {
+  cursor: pointer; padding: 9px 13px; border: 1.5px solid var(--line); border-radius: 12px;
+  background: var(--surface); color: var(--primary-deep); font-size: 12px; font-weight: 700;
+  text-align: center; list-style: none;
+}
+.ep-desc-more > summary::-webkit-details-marker { display: none; }
+.ep-desc-more > summary::after { content: " ＋"; }
+.ep-desc-more[open] > summary::after { content: " −"; }
+.ep-desc-more[open] > summary { background: var(--band-blue); border-color: var(--sky-2); }
+.ep-desc-more .ep-desc-full { margin-top: 10px; }
 .game-tags { display: flex; flex-wrap: wrap; gap: 7px; }
 .game-tags .tag { font-size: 12px; padding: 5px 14px; }
 /* 水深で背景が暗くなっても読めるよう、チャプターはカードに載せる */

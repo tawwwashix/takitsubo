@@ -174,8 +174,8 @@ def main():
         for c in chapters:
             c["label"] = undash(c["label"])
 
-        # 概要文: ■より前の本文をリード文として使う
-        lead = desc.split("■")[0].strip()[:300]
+        # 概要文は全文を保存する。表示側で最初の■までを常時表示し、残りを展開できるようにする
+        description = desc.strip()
 
         ep = by_num.get(num)
         if ep is None:
@@ -208,8 +208,8 @@ def main():
             # pubDateはUTC表記なのでJSTに直してから日付にする(深夜配信のズレ防止)
             ep["date"] = parsedate_to_datetime(pub).astimezone(JST).date().isoformat()
             ep["date_estimated"] = False
-        if lead:
-            ep["description"] = lead
+        if description:
+            ep["description"] = description
         if games:
             ep["games"] = sorted(set(games), key=games.index)
         if star_format:
