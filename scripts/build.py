@@ -1339,7 +1339,8 @@ def shindan_pool():
 
 def build_shindan_json():
     games, used_eps = shindan_pool()
-    data = {"games": games, "eps": used_eps}
+    latest_episode = max((e["number"] for e in EPS), default=0)
+    data = {"latest_episode": latest_episode, "games": games, "eps": used_eps}
     (ROOT / "data/shindan.json").write_text(
         json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     return len(games)

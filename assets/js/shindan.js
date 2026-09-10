@@ -1,7 +1,7 @@
 /* ふさわしいゲーム診断
    - 診断プール(data/shindan.json)はビルド時に全エピソードから自動生成
    - ゲームは「番組でよく話題に出たタイトルほど出やすい」重み付き抽選。
-   - 名前をシードにするため、同じ診断プールでは同じ名前から同じ結果になる */
+   - 名前+最新回番号をシードにするため、同じ最新回では同じ名前から同じ結果になる */
 (function () {
   "use strict";
 
@@ -28,7 +28,7 @@
     });
   }
 
-  /* ---------- シード付き乱数(名前+回答で結果が決まる) ---------- */
+  /* ---------- シード付き乱数(名前+最新回番号で結果が決まる) ---------- */
   function hashStr(s) {
     var h = 2166136261;
     for (var i = 0; i < s.length; i++) {
@@ -89,7 +89,8 @@
   /* ---------- ゲーム抽選 ---------- */
   function pickGame() {
     var seedName = state.name.normalize ? state.name.normalize("NFKC").toLowerCase() : state.name.toLowerCase();
-    var rng = mulberry32(hashStr(seedName));
+    var seedKey = seedName + "|" + String(DATA.latest_episode || 0);
+    var rng = mulberry32(hashStr(seedKey));
 
     var total = 0;
     var weights = DATA.games.map(function (g) {
