@@ -634,7 +634,6 @@ body.art-lightbox-open { overflow: hidden; }
 .tk-mini-seek { display: block; margin: 5px 0; }
 .tk-mini-message { display: block; font-size: 11px; }
 .has-mini-player { padding-bottom: 110px; }
-.has-mini-player .datyou-top.show { bottom: 120px; }
 .navigating { cursor: progress; }
 .navigating::after { content: ""; position: fixed; inset: 0 0 auto; height: 3px; background: var(--primary); z-index: 200; }
 @media (max-width: 480px) {
@@ -642,7 +641,6 @@ body.art-lightbox-open { overflow: hidden; }
   .tk-mini-body { flex-basis: calc(100% - 60px); }
   .tk-mini-back { margin-left: 51px; }
   .has-mini-player { padding-bottom: 155px; }
-  .has-mini-player .datyou-top.show { bottom: 160px; }
 }
 
 /* X投稿ボタン(Xブランドの黒) / おたよりボタン(暖色) */
