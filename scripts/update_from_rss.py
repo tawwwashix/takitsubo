@@ -34,6 +34,7 @@ from fetch_images import download_image, IMG_DIR
 SERIES_KEYWORDS = {
     "waruimura": ("わるい村", ["わるい村"]),
     "fusawashii": ("ふさわしいゲーム", ["ふさわしいゲーム"]),
+    "kowai-hanashi": ("怖い話", ["怖い話"]),
     "sfc-ranking": ("SFC売上ランキング", ["SFCの売上ランキング", "SFC売上ランキング"]),
     "ps-ranking": ("初代プレステ売上ランキング", ["プレステの売上ランキング", "初代プレステの売上ランキング"]),
     "ii-shouhin": ("とてもいい商品", ["とてもいい商品"]),
