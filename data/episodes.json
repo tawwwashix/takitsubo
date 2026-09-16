@@ -11202,6 +11202,63 @@
    "duration": 4965,
    "image": "assets/img/ep/122.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1788960506259-3baff4c41bb14.jpg"
+  },
+  {
+   "number": 123,
+   "title": "Podhack//感染拡大 vol.1（ゲスト：二階堂ポエムさん）",
+   "tags": [],
+   "series": null,
+   "description": "ひゅうまの友人、二階堂ポエムさんが緊急参戦！\n.hackシリーズ、主に.hack//G.U.シリーズについてと、新作.hack//Z.E.R.O.への期待を語ります！\n\n■チャプター\n(00:00)オープニング\n(04:32).hackシリーズ\n(47:35)ケモミミキャラ\n(54:54)まとめ\n(1:00:50)エンディング\n\n■主な登場ゲームタイトル（★=メインで語ったタイトル）\n【本編】\n★.hackシリーズ\n★.hack//G.U. Last Recode\nhttps://store.steampowered.com/app/525480/hackGU_Last_Recode/\n.hack//Z.E.R.O.\n\n【エンディング】\n魔界戦記ディスガイアシリーズ\n鳥類弁護士の事件簿\nロマンシング サガ 3 デスティニーユナイテッド\nトルネコの大冒険 不思議のダンジョン ちょっとステキなリマスター\nドラゴンクエストモンスターズ4 枯れ木の国のビアンカ・フローラ\n\n■出演\n夜中たわし：https://x.com/tawwwashix\nひゅうま：https://x.com/hyuuma_tktb\nイチィゴォー：https://x.com/ichigo_tktb\n\n■使用BGM・SE\n夢物語 / 騒音のない世界：https://www.youtube.com/watch?v=6AOOtngbVF8\n優日のすたるじっく：https://www.youtube.com/@nostalgic_BGM\nきらきら魔法ガール / ゆめひつじ：https://www.youtube.com/watch?v=dgl43v4swfI\n効果音ラボ：https://soundeffect-lab.info/\nOtoLogic：https://otologic.jp\n\n■ゲームの滝壺公式サイト\nhttps://game-takitsubo.com/\n\n■おたよりはこちら\nおたよりフォーム\nhttps://forms.gle/jot3ETXF19whQUEP9\nメールアドレス\ngame.tktb@gmail.com\n\n■SNS等\n公式X（旧Twitter）\nhttps://x.com/game_tktb\n\nインスタグラム\nhttps://www.instagram.com/game_tktb/\n\nYouTubeチャンネル\nhttps://www.youtube.com/@game-tktb\n\n感想等、ハッシュタグ #ゲームの滝壺 で投稿いただければ大変励みになります！",
+   "games": [
+    ".hackシリーズ",
+    ".hack//G.U. Last Recode",
+    ".hack//Z.E.R.O.",
+    "魔界戦記ディスガイアシリーズ",
+    "鳥類弁護士の事件簿",
+    "ロマンシング サガ 3 デスティニーユナイテッド",
+    "トルネコの大冒険 不思議のダンジョン ちょっとステキなリマスター",
+    "ドラゴンクエストモンスターズ4 枯れ木の国のビアンカ・フローラ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "04:32",
+     "label": ".hackシリーズ"
+    },
+    {
+     "time": "47:35",
+     "label": "ケモミミキャラ"
+    },
+    {
+     "time": "54:54",
+     "label": "まとめ"
+    },
+    {
+     "time": "1:00:50",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/123-Podhack-vol-1-e3osjag",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC123%E5%9B%9E-podhack-%E6%84%9F%E6%9F%93%E6%8B%A1%E5%A4%A7-vol-1-%E3%82%B2%E3%82%B9%E3%83%88-%E4%BA%8C%E9%9A%8E%E5%A0%82%E3%83%9D%E3%82%A8%E3%83%A0%E3%81%95%E3%82%93/id1749310211?i=1000790038546&uo=4",
+    "listen": "https://listen.style/p/gamenotktb/5rp5xz59",
+    "youtube": "https://www.youtube.com/watch?v=SiFwiqG7uis",
+    "spotify_open": "https://open.spotify.com/episode/30dcXNQNFTETCUWdqcygei"
+   },
+   "guid": "10db31c3-1810-4142-a325-d758b333cf79",
+   "date": "2026-09-16",
+   "date_estimated": false,
+   "featured_games": [
+    ".hackシリーズ",
+    ".hack//G.U. Last Recode"
+   ],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/125766416/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-15%2F2be45757-a0a8-7763-0d08-7929a545b37b.mp3",
+   "duration": 5015,
+   "image": "assets/img/ep/123.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1789475343426-29239fc2bf406.jpg"
   }
  ]
 }
