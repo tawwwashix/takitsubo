@@ -7,7 +7,7 @@ GitHub Actions から定期実行される想定(手動実行も可)。
   2. タイトルの「第N回」からエピソード番号を特定
   3. 概要欄の「■主な登場ゲームタイトル」「■チャプター」を自動抽出
   4. aliases.json の表記ゆれ辞書でゲーム名を正式名に名寄せ
-  5. タイトルにシリーズのキーワードが含まれていたらタグ候補を自動付与
+  5. タイトルにシリーズやタグのキーワードが含まれていたら自動付与
   6. 音声ファイルURL(enclosure)と再生時間を取り込む(サイト内プレイヤーが使用)
   7. episodes.json を更新し、build.py を呼んでページを再生成
 
@@ -41,6 +41,19 @@ SERIES_KEYWORDS = {
     "furikaeri": ("一年の振り返り", ["決算説明会"]),
     "umigame": ("ウミガメのスープ", ["ウミガメのスープ"]),
 }
+
+# シリーズには紐づかない、タイトル由来のタグ。
+# ここに追加したタグは、RSS更新時に既存回も含めて不足分だけ補完する。
+TITLE_TAG_KEYWORDS = {
+    "ゲスト回": ["ゲスト"],
+}
+
+
+def apply_title_tags(ep, title):
+    """タイトルに応じた通常タグを重複なく追加する。"""
+    for label, keywords in TITLE_TAG_KEYWORDS.items():
+        if any(keyword in title for keyword in keywords) and label not in ep["tags"]:
+            ep["tags"].append(label)
 
 
 def load_aliases():
@@ -205,6 +218,7 @@ def main():
             updated += 1
 
         ep["title"] = clean_title
+        apply_title_tags(ep, clean_title)
         if pub:
             # pubDateはUTC表記なのでJSTに直してから日付にする(深夜配信のズレ防止)
             ep["date"] = parsedate_to_datetime(pub).astimezone(JST).date().isoformat()
