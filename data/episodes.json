@@ -11261,6 +11261,99 @@
    "duration": 5015,
    "image": "assets/img/ep/123.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1789475343426-29239fc2bf406.jpg"
+  },
+  {
+   "number": 124,
+   "title": "AIでゲーム開発してるのに、やることが‥やることが多い‥！！",
+   "tags": [],
+   "series": null,
+   "description": "最近のAIを使ったゲーム開発の話（初級レベル）から、\nゲーム業界の未来、AIにポッドキャストで負けない方法、AI利用がソシャゲに似すぎている件などなどを話します！\n\n■わるいじゅんばん（仮）に関する投稿\nhttps://x.com/tawwwashix/status/2098729384287068310\n\n■チャプター\n(00:00)オープニング\n(04:32)ひゅうまとAI\n(05:52)イチィゴォーとAI\n(07:15)今のAIにできること\n(14:04)AI利用のゲーム開発\n(24:25)たわしのゲーム開発事情\n(27:45)AIのトークンがソシャゲのスタミナみたい\n(33:02)ひゅうまのゲーム開発事情\n(39:40)トルネコの大冒険\n(41:11)AIにポッドキャストで負けない方法\n\n(46:45)おたより紹介\n(1:07:47)アートワーククイズ\n(1:18:00)エンディング\n\n■主な登場ゲームタイトル（★=メインで語ったタイトル）\n【本編】\nわるいじゅんばん\nメガネフィッティング\nトルネコの大冒険 不思議のダンジョン ちょっとステキなリマスター\n\n【おたより紹介】\nポケットモンスターシリーズ\nドラゴンクエストシリーズ\nドラゴンクエストVII エデンの戦士たち\nPW7A\n.hackシリーズ\nロマンシング サガ 3 デスティニーユナイテッド\nダイナウォーズ 恐竜王国への大冒険\n\n【アートワーククイズ】\nあつまれ どうぶつの森\nファイナルファンタジーVI\n\n【エンディング】\nPICO PARK 2\n鳥類弁護士の事件簿\nモンスターハンターワイルズ：アセンダンス\n\n■その他登場した話題\n狩猟笛に腹パンしているアセンダンス紹介動画\nhttps://www.youtube.com/watch?v=6u7OWgj08x8\n\n■今週のゲーム実況\nトルネコの大冒険 不思議のダンジョン ちょっとステキなリマスター\nhttps://www.youtube.com/live/T13N8C1pgOc\n\n■話題に出た番組\n「ゆるっと、なんやかんや。」アキの助さん\nhttps://open.spotify.com/show/033tuxCKHgW3RmsanoQ596\n\n■ゲームの滝壺公式サイト\nhttps://game-takitsubo.com/\n\n■出演\n夜中たわし：https://x.com/tawwwashix\nひゅうま：https://x.com/hyuuma_tktb\nイチィゴォー：https://x.com/ichigo_tktb\n\n■使用BGM・SE\n夢物語 / 騒音のない世界：https://www.youtube.com/watch?v=6AOOtngbVF8\n優日のすたるじっく：https://www.youtube.com/@nostalgic_BGM\nきらきら魔法ガール / ゆめひつじ：https://www.youtube.com/watch?v=dgl43v4swfI\n効果音ラボ：https://soundeffect-lab.info/\nOtoLogic：https://otologic.jp\n\n■おたよりはこちら\nおたよりフォーム\nhttps://forms.gle/jot3ETXF19whQUEP9\nメールアドレス\ngame.tktb@gmail.com\n\n■SNS等\n公式X（旧Twitter）\nhttps://x.com/game_tktb\n\nインスタグラム\nhttps://www.instagram.com/game_tktb/\n\nYouTubeチャンネル\nhttps://www.youtube.com/@game-tktb\n\n感想等、ハッシュタグ #ゲームの滝壺 で投稿いただければ大変励みになります！",
+   "games": [
+    "わるいじゅんばん",
+    "メガネフィッティング",
+    "トルネコの大冒険 不思議のダンジョン ちょっとステキなリマスター",
+    "ポケットモンスターシリーズ",
+    "ドラゴンクエストシリーズ",
+    "ドラゴンクエストVII エデンの戦士たち",
+    "PW7A",
+    ".hackシリーズ",
+    "ロマンシング サガ 3 デスティニーユナイテッド",
+    "ダイナウォーズ 恐竜王国への大冒険",
+    "あつまれ どうぶつの森",
+    "ファイナルファンタジーVI",
+    "PICO PARK 2",
+    "鳥類弁護士の事件簿",
+    "モンスターハンターワイルズ：アセンダンス"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "04:32",
+     "label": "ひゅうまとAI"
+    },
+    {
+     "time": "05:52",
+     "label": "イチィゴォーとAI"
+    },
+    {
+     "time": "07:15",
+     "label": "今のAIにできること"
+    },
+    {
+     "time": "14:04",
+     "label": "AI利用のゲーム開発"
+    },
+    {
+     "time": "24:25",
+     "label": "たわしのゲーム開発事情"
+    },
+    {
+     "time": "27:45",
+     "label": "AIのトークンがソシャゲのスタミナみたい"
+    },
+    {
+     "time": "33:02",
+     "label": "ひゅうまのゲーム開発事情"
+    },
+    {
+     "time": "39:40",
+     "label": "トルネコの大冒険"
+    },
+    {
+     "time": "41:11",
+     "label": "AIにポッドキャストで負けない方法"
+    },
+    {
+     "time": "46:45",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "1:07:47",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:18:00",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/124-AI-e3p9c5r",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC124%E5%9B%9E-ai%E3%81%A7%E3%82%B2%E3%83%BC%E3%83%A0%E9%96%8B%E7%99%BA%E3%81%97%E3%81%A6%E3%82%8B%E3%81%AE%E3%81%AB-%E3%82%84%E3%82%8B%E3%81%93%E3%81%A8%E3%81%8C-%E3%82%84%E3%82%8B%E3%81%93%E3%81%A8%E3%81%8C%E5%A4%9A%E3%81%84/id1749310211?i=1000791296107&uo=4",
+    "listen": "https://listen.style/p/gamenotktb/fxbv79ja",
+    "youtube": "https://www.youtube.com/watch?v=S0CMm7xsCLA",
+    "spotify_open": "https://open.spotify.com/episode/2qH4cdXCGYPexIYrCkLqG8"
+   },
+   "guid": "95731e20-a2e1-481f-8fbd-9ac826c13c55",
+   "date": "2026-09-23",
+   "date_estimated": false,
+   "featured_games": [],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/126185083/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-8-23%2Ffce49968-af88-1f9a-0362-27040161ae1a.mp3",
+   "duration": 5655,
+   "image": "assets/img/ep/124.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1790160849044-a6f9f204a8d3b.jpg"
   }
  ]
 }
