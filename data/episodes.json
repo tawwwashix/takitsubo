@@ -11451,6 +11451,125 @@
    "duration": 5964,
    "image": "assets/img/ep/125.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1790767856572-6dd2b09d67afe.jpg"
+  },
+  {
+   "number": 126,
+   "title": "シュ～ペロ、うどんプッシャー、Pour Master…OIGS2026感想戦！",
+   "tags": [],
+   "series": null,
+   "description": "オーサカインディーゲームサミット2026で試遊した10本以上のゲームについて話します！\nその後開催されたゲーム系Podcast大集合オフ会の話も！\n\n■チャプター\n(00:00)オープニング\n(01:25)バウンドリ\n(07:58)散るプラネット(Chill Planet)\n(12:23)シュ～ペロ\n(18:09)Pour Master\n(22:17)ワカレタナビ\n(26:21)よふかしあそび\n(29:21)エモンズバウト\n(33:56)行列のできる武器鍛冶屋\n(37:54)時速1000kmの牛\n(39:33)ドアライダー\n(40:44)うどんプッシャー\n(47:07)IZEA:10puzzle Rogue-Lite RPG!\n(52:18)トークイベント\n(53:32)オフ会・二次会・三次会\n(1:08:08)ゲーム開発情報\n(1:17:14)エンディング\n\n■主な登場ゲームタイトル（★=メインで語ったタイトル）\n【本編】\n★バウンドリ\nhttps://maropiyo.com/boundbird/\n★散るプラネット(Chill Planet)\nhttps://chill-planet.com/\n★シュ～ペロ\nhttps://store.steampowered.com/app/5001030/_/\n★Pour Master\nhttps://store.steampowered.com/app/4732980/Pour_Master/\n★ワカレタナビ\nhttps://store.steampowered.com/app/5071640/_/\n★よふかしあそび\nhttps://bitsummit-gamejam.itch.io/stayinguplay\n★エモンズバウト\nhttps://store.steampowered.com/app/4116480/_/\n★行列のできる武器鍛冶屋\nhttps://store.steampowered.com/app/4133630/_/\n時速1000kmの牛\nhttps://booth.pm/ja/items/6450044\nドアライダー\nhttps://sites.google.com/view/haso-lab/%E4%BD%9C%E5%93%81%E4%B8%80%E8%A6%A7/%E3%83%89%E3%82%A2%E3%83%A9%E3%82%A4%E3%83%80%E3%83%BC\n★うどんプッシャー\nhttps://www.ritsumei.ac.jp/~air15059/Bitsummit/2026/make_ctrl_japan.html\n★IZEA:10puzzle Rogue-Lite RPG!\nhttps://store.steampowered.com/app/3599440/IZEA10puzzle_RogueLite_RPG/\nシュレディンガーズ・コール\nhttps://shueisha-games.com/games/schrodingers-call/\n\n【ゲーム開発情報】\nPW7A\nhttps://store.steampowered.com/app/5292590/PW7A/\n\n■今週のゲーム実況\nトルネコの大冒険 不思議のダンジョン ちょっとステキなリマスター\nhttps://www.youtube.com/playlist?list=PLB8sb2LIGGG4\n\n■ゲームの滝壺公式サイト\nトルネコの大冒険 不思議のダンジョン ちょっとステキなリマスター\nhttps://www.youtube.com/playlist?list=PLB8sb2LIGGG4\n\n■出演\n夜中たわし：https://x.com/tawwwashix\nひゅうま：https://x.com/hyuuma_tktb\nイチィゴォー：https://x.com/ichigo_tktb\n\n■使用BGM・SE\n夢物語 / 騒音のない世界：https://www.youtube.com/watch?v=6AOOtngbVF8\n優日のすたるじっく：https://www.youtube.com/@nostalgic_BGM\nきらきら魔法ガール / ゆめひつじ：https://www.youtube.com/watch?v=dgl43v4swfI\n効果音ラボ：https://soundeffect-lab.info/\nOtoLogic：https://otologic.jp\n\n■おたよりはこちら\nおたよりフォーム\nhttps://forms.gle/jot3ETXF19whQUEP9\nメールアドレス\ngame.tktb@gmail.com\n\n■SNS等\n公式X（旧Twitter）\nhttps://x.com/game_tktb\n\nインスタグラム\nhttps://www.instagram.com/game_tktb/\n\nYouTubeチャンネル\nhttps://www.youtube.com/@game-tktb\n\n感想等、ハッシュタグ #ゲームの滝壺 で投稿いただければ大変励みになります！",
+   "games": [
+    "バウンドリ",
+    "散るプラネット(Chill Planet)",
+    "シュ～ペロ",
+    "Pour Master",
+    "ワカレタナビ",
+    "よふかしあそび",
+    "エモンズバウト",
+    "行列のできる武器鍛冶屋",
+    "時速1000kmの牛",
+    "ドアライダー",
+    "うどんプッシャー",
+    "IZEA:10puzzle Rogue-Lite RPG!",
+    "シュレディンガーズ・コール",
+    "PW7A"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:25",
+     "label": "バウンドリ"
+    },
+    {
+     "time": "07:58",
+     "label": "散るプラネット(Chill Planet)"
+    },
+    {
+     "time": "12:23",
+     "label": "シュ～ペロ"
+    },
+    {
+     "time": "18:09",
+     "label": "Pour Master"
+    },
+    {
+     "time": "22:17",
+     "label": "ワカレタナビ"
+    },
+    {
+     "time": "26:21",
+     "label": "よふかしあそび"
+    },
+    {
+     "time": "29:21",
+     "label": "エモンズバウト"
+    },
+    {
+     "time": "33:56",
+     "label": "行列のできる武器鍛冶屋"
+    },
+    {
+     "time": "37:54",
+     "label": "時速1000kmの牛"
+    },
+    {
+     "time": "39:33",
+     "label": "ドアライダー"
+    },
+    {
+     "time": "40:44",
+     "label": "うどんプッシャー"
+    },
+    {
+     "time": "47:07",
+     "label": "IZEA:10puzzle Rogue-Lite RPG!"
+    },
+    {
+     "time": "52:18",
+     "label": "トークイベント"
+    },
+    {
+     "time": "53:32",
+     "label": "オフ会・二次会・三次会"
+    },
+    {
+     "time": "1:08:08",
+     "label": "ゲーム開発情報"
+    },
+    {
+     "time": "1:17:14",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/126-Pour-MasterOIGS2026-e3q35b5",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC126%E5%9B%9E-%E3%82%B7%E3%83%A5-%E3%83%9A%E3%83%AD-%E3%81%86%E3%81%A9%E3%82%93%E3%83%97%E3%83%83%E3%82%B7%E3%83%A3%E3%83%BC-pour-master-oigs2026%E6%84%9F%E6%83%B3%E6%88%A6/id1749310211?i=1000793669247&uo=4",
+    "listen": "https://listen.style/p/gamenotktb/yuj6n4j7",
+    "youtube": "https://www.youtube.com/watch?v=rRvBA3zRAQQ",
+    "spotify_open": "https://open.spotify.com/episode/0UQOlgdaiNGJM4DCEgSm2q"
+   },
+   "guid": "63e2b512-4c6f-4f89-bd71-110b3ad5b87b",
+   "date": "2026-10-07",
+   "date_estimated": false,
+   "featured_games": [
+    "バウンドリ",
+    "散るプラネット(Chill Planet)",
+    "シュ～ペロ",
+    "Pour Master",
+    "ワカレタナビ",
+    "よふかしあそび",
+    "エモンズバウト",
+    "行列のできる武器鍛冶屋",
+    "うどんプッシャー",
+    "IZEA:10puzzle Rogue-Lite RPG!"
+   ],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/127030053/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-7%2Fd5d19f1e-a63c-f436-a404-6c7c1d004878.mp3",
+   "duration": 5006,
+   "image": "assets/img/ep/126.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1791380452991-2076f8035d398.jpg"
   }
  ]
 }
