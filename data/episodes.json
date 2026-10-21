@@ -11644,6 +11644,58 @@
    "duration": 6132,
    "image": "assets/img/ep/127.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1791980321668-e3d2b1c268d33.jpg"
+  },
+  {
+   "number": 128,
+   "title": "メイク10×計算パズル×RPG×ローグライト『IZEA:10puzzle Rogue-Lite RPG!』（ゲスト：本質のおもちゃ箱さん）",
+   "tags": [
+    "ゲスト回"
+   ],
+   "series": null,
+   "description": "開発者である本質のおもちゃ箱さんを迎えて話しました！\n制作のこだわりや開発秘話、生活の知恵（？）まで色々飛び出します！\n\n■IZEA:10puzzle Rogue-Lite RPG!\nSteamストアページ（ウィッシュリストに追加しよう！！）\nhttps://store.steampowered.com/app/3599440/IZEA10puzzle_RogueLite_RPG/\n公式サイト\nhttps://paradox-toybox.jp/IZEA/\n\n■チャプター\n(00:00)オープニング\n(06:26)IZEAとは\n(10:15)IZEAを遊びながら\n(58:43)IZEAにまつわるなんでもコーナー\n(1:42:40)エンディング\n\n■主な登場ゲームタイトル（★=メインで語ったタイトル）\n【本編】\n★IZEA:10puzzle Rogue-Lite RPG!\n魔界戦記ディスガイア3\n\n■ゲームの滝壺公式サイト\nhttps://game-takitsubo.com/\n\n■出演\n本質のおもちゃ箱さん：https://x.com/Paradox_Toybox\n夜中たわし：https://x.com/tawwwashix\nひゅうま：https://x.com/hyuuma_tktb\nイチィゴォー：https://x.com/ichigo_tktb\n\n■使用BGM・SE\n夢物語 / 騒音のない世界：https://www.youtube.com/watch?v=6AOOtngbVF8\nフリッパーズ / 騒音のない世界：https://www.youtube.com/watch?v=uOf_4eI1-eU\n優日のすたるじっく：https://www.youtube.com/@nostalgic_BGM\nきらきら魔法ガール / ゆめひつじ：https://www.youtube.com/watch?v=dgl43v4swfI\n効果音ラボ：https://soundeffect-lab.info/\nOtoLogic：https://otologic.jp\n\n■おたよりはこちら\nおたよりフォーム\nhttps://forms.gle/jot3ETXF19whQUEP9\nメールアドレス\ngame.tktb@gmail.com\n\n■SNS等\n公式X（旧Twitter）\nhttps://x.com/game_tktb\n\nインスタグラム\nhttps://www.instagram.com/game_tktb/\n\nYouTubeチャンネル\nhttps://www.youtube.com/@game-tktb\n\n感想等、ハッシュタグ #ゲームの滝壺 で投稿いただければ大変励みになります！",
+   "games": [
+    "IZEA:10puzzle Rogue-Lite RPG!",
+    "魔界戦記ディスガイア3"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "06:26",
+     "label": "IZEAとは"
+    },
+    {
+     "time": "10:15",
+     "label": "IZEAを遊びながら"
+    },
+    {
+     "time": "58:43",
+     "label": "IZEAにまつわるなんでもコーナー"
+    },
+    {
+     "time": "1:42:40",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/128-10RPGIZEA10puzzle-Rogue-Lite-RPG-e3qrm32",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC128%E5%9B%9E-%E3%83%A1%E3%82%A4%E3%82%AF10-%E8%A8%88%E7%AE%97%E3%83%91%E3%82%BA%E3%83%AB-rpg-%E3%83%AD%E3%83%BC%E3%82%B0%E3%83%A9%E3%82%A4%E3%83%88-izea-10puzzle-rogue-lite/id1749310211?i=1000797447651&uo=4",
+    "listen": "https://listen.style/p/gamenotktb/pbxw91bi",
+    "youtube": "https://www.youtube.com/watch?v=PvflTKmzvO8",
+    "spotify_open": "https://open.spotify.com/episode/44s7ZLsxnkOb7BT40VIzXW"
+   },
+   "guid": "d2f5315c-1ff4-4534-9d56-4ede312bb352",
+   "date": "2026-10-21",
+   "date_estimated": false,
+   "featured_games": [
+    "IZEA:10puzzle Rogue-Lite RPG!"
+   ],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/127833634/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-9-21%2F06e90c01-6791-a942-e1c0-c51fff7963fb.mp3",
+   "duration": 6410,
+   "image": "assets/img/ep/128.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1792587473798-8aa1b992eb831.jpg"
   }
  ]
 }
