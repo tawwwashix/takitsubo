@@ -1797,6 +1797,10 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   .nb-item { white-space: normal; }
 }
 @media (max-width: 640px) {
+  .recommended-grid { grid-template-columns: minmax(0, 1fr); }
+  .recommended-grid .ep-card { flex-direction: row; align-items: flex-start; }
+  .recommended-grid .ep-card-img { width: 28%; flex-shrink: 0; }
+  .recommended-grid .ep-card-body { min-width: 0; }
   .ep-card.featured { flex-direction: column; }
   .ep-card.featured .ep-card-img { width: 100%; }
   /* エピソードヒーロー: 縦積みにしてアートワークを中央寄せ。

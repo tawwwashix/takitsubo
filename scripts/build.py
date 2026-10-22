@@ -344,10 +344,23 @@ def ep_card(e, root, meta_prefix="", featured=False):
 
 
 # ============================================================ index.html
+def recommended_episodes():
+    """設定順に3件を選ぶ。入力ミスはページ生成前に検出する。"""
+    numbers = SITE.get("recommended_episodes", [])
+    if not isinstance(numbers, list) or len(numbers) != 3:
+        raise ValueError("site.json: recommended_episodes はエピソード番号を3件指定してください")
+    if any(type(n) is not int or n not in EPS_BY_NUM for n in numbers):
+        raise ValueError("site.json: recommended_episodes には存在するエピソードの整数番号を指定してください")
+    if len(set(numbers)) != len(numbers):
+        raise ValueError("site.json: recommended_episodes に同じ番号を重複して指定できません")
+    return [EPS_BY_NUM[n] for n in numbers]
+
+
 def build_index():
     root = ""
     latest = EPS[-1]
     recent = list(reversed(EPS[-7:-1]))  # 最新を除く直近6件(3列×2段)
+    recommended = recommended_episodes()
     ep_count = EP_COUNT
     shindan_count = len(shindan_pool()[0])
     awq_current = next((s for s in RANKING.get("seasons", []) if s.get("active")), None)
@@ -444,6 +457,11 @@ def build_index():
 <div class="info-box"><strong>ポッドキャストってなに？</strong><br>
 無料で聴けるネットラジオのようなものです。アプリを入れなくても、上のボタンからブラウザですぐ再生できます。通勤・家事・寝る前のおともにどうぞ。
 <a href="guide.html">くわしい聴き方はこちら →</a></div>
+</section>
+
+<section class="section recommended-section">
+{sec_title("おすすめエピソード", "RECOMMENDED", '<a class="section-more" href="episodes/">すべて見る →</a>')}
+<div class="ep-grid recommended-grid">{''.join(ep_card(e, root) for e in recommended)}</div>
 </section>
 
 <section class="section route-section">
@@ -551,6 +569,9 @@ def build_episode_list():
         for t in e["tags"]:
             if t not in seen:
                 seen.add(t); tag_order.append(t)
+    if "開発者ゲスト" in tag_order and "ゲスト回" in tag_order:
+        tag_order.remove("開発者ゲスト")
+        tag_order.insert(tag_order.index("ゲスト回"), "開発者ゲスト")
     filter_btns = '<button class="filter-btn on" data-tag="all">すべて</button>' + "".join(
         f'<button class="filter-btn" data-tag="{esc(t)}">{esc(t)}</button>' for t in tag_order)
 
@@ -2002,6 +2023,7 @@ def build_sitemap():
 
 
 if __name__ == "__main__":
+    recommended_episodes()  # 設定不備がある場合は生成物を書き換える前に停止
     build_search_json()    # 先に生成(episode一覧ページが ?v= のハッシュを参照するため)
     build_shindan_json()   # 同上(診断ページが ?v= のハッシュを参照)
     build_shindan()
