@@ -225,7 +225,7 @@ python scripts/update_from_rss.py
 トップページの「名物企画」枠は**最大4件**で、`data/site.json` の `featured_series` で選びます:
 
 ```json
-"featured_series": ["waruimura", "fusawashii", "sfc-ranking", "ii-shouhin"],
+"featured_series": ["waruimura", "fusawashii", "developer-guests", "ii-shouhin"],
 ```
 
 - 配列の並び順 = トップページでの表示順。slugは `data/series.json` の `slug` と同じものを書く
