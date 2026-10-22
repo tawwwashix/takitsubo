@@ -1,6 +1,6 @@
 /* Only the small lifecycle adapter is shared with other pages. */
 window.Takitsubo.register(async function (page) {
-  var root = document.getElementById("excavation");
+  var root = document.getElementById("excavation") || document.getElementById("episodeLab");
   if (!root) return;
   var css = document.createElement("link");
   css.rel = "stylesheet";
@@ -17,7 +17,7 @@ window.Takitsubo.register(async function (page) {
     if (!page.signal.aborted) await result[0].mount(root, page);
   } catch (error) {
     if (page.signal.aborted) return;
-    root.textContent = "砂浜を読み込めませんでした。";
+    root.textContent = "ページを読み込めませんでした。";
     var retry = document.createElement("button");
     retry.textContent = "もう一度読み込む";
     retry.onclick = function () { location.reload(); };

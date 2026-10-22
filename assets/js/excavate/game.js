@@ -36,7 +36,7 @@ export async function mount(root, page) {
   root.innerHTML = `
     <div class="dig-wrap">
       <div class="dig-heading"><div><p class="dig-eyebrow">TAKITSUBO DISCOVERY <span>PROTOTYPE</span></p>
-        <h1>滝壺発掘<span>砂の下の、まだ知らない一回。</span></h1></div>
+        <h1>滝壺発掘<span>砂の下の、まだ知らない一回。</span></h1><a href="lab.html" style="font-size:12px">新しい試作：博士のエピソード研究所へ →</a></div>
         <button class="dig-collection-toggle" type="button" aria-expanded="false" aria-controls="digCollection"><span>発掘図鑑</span><strong id="digCount"></strong></button>
       </div>
       <div class="dig-layout">
