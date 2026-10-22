@@ -44,7 +44,7 @@ function check(name) { report.checks.push(name); console.log('PASS ' + name); }
     data.label = label; report.continuity.push(data);
     assert(data.same, label + ': audio identity'); assert(!data.paused, label + ': playing');
     assert(data.time > report.continuity.at(-2)?.time || report.continuity.length === 1, label + ': time advances');
-    assert.equal(data.events.length, 0, label + ': no interruption events'); assert.equal(data.resources, 6);
+    assert.equal(data.events.length, 0, label + ': no interruption events'); assert.equal(data.resources, 7);
     console.log('AUDIO ' + label + ' ' + data.time.toFixed(2));
   }
   try {

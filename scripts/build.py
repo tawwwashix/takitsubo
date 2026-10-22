@@ -123,11 +123,12 @@ WAVE = (
 )
 
 
-ASSETS = ["navigation", "site", "search", "games", "shindan", "player"]
+ASSETS = ["navigation", "site", "search", "games", "shindan", "player", "excavate-loader"]
 
 
 def navigation_version():
-    return av("assets/css/style.css") + "".join(av(f"assets/js/{name}.js") for name in ASSETS)
+    return (av("assets/css/style.css") + "".join(av(f"assets/js/{name}.js") for name in ASSETS)
+            + av("assets/js/excavate/game.js") + av("assets/css/excavate.css"))
 
 
 def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="website", published=None):
@@ -224,6 +225,7 @@ def footer(root):
         f'<a href="{root}index.html">ホーム</a><a href="{root}episodes/">エピソード</a>'
         f'<a href="{root}series/">名物企画</a><a href="{root}awq/">AWQランキング</a>'
         f'<a href="{root}shindan.html">ふさわしいゲーム診断</a>'
+        f'<a href="{root}excavate.html">滝壺発掘</a>'
         f'<a href="{root}games/">滝壺データベース</a>'
         f'<a href="{root}news/">お知らせ</a>'
         f'<a href="{root}guide.html">ポッドキャストの聴き方</a><a href="{root}otayori.html">おたより</a>'
@@ -468,6 +470,15 @@ def build_index():
 
 <section class="section route-section">
 <div class="route-bubbles" aria-label="ゲームの滝壺をもっと楽しむ">
+<a class="route-bubble" href="excavate.html">
+<span class="route-bubble-inner">
+<img class="route-bubble-image" src="assets/img/artwork_320.jpg" alt="" aria-hidden="true">
+<span class="route-bubble-en">TAKITSUBO DISCOVERY</span>
+<span class="route-bubble-title">砂の下の、まだ知らない一回。<br>滝壺発掘</span>
+<span class="route-bubble-desc">砂を払ってアートワークを発見。過去のエピソードを集めよう。</span>
+<span class="route-bubble-cta">発掘する →</span>
+</span>
+</a>
 <a class="route-bubble" href="games/">
 <span class="route-bubble-inner">
 <img class="route-bubble-image route-bubble-image-scissors" src="assets/img/scissors.png" alt="" aria-hidden="true">
@@ -2005,6 +2016,17 @@ def build_search_json():
 
 
 # ============================================================ sitemap
+def build_excavate():
+    page = head("滝壺発掘", "砂を払って、まだ知らないエピソードを発見。アートワークを集める小さな発掘遊び。", "", "excavate.html")
+    page += header("")
+    page += f'''<main id="excavation" data-module="assets/js/excavate/game.js?v={av('assets/js/excavate/game.js')}" data-css="assets/css/excavate.css?v={av('assets/css/excavate.css')}" data-source="data/search.json?v={av('data/search.json')}">
+<p class="dig-loading" role="status">砂浜を準備しています…</p>
+<noscript><p>発掘にはJavaScriptが必要です。<a href="episodes/">エピソード一覧はこちら</a></p></noscript>
+</main>'''
+    page += footer("")
+    (ROOT / "excavate.html").write_text(page, encoding="utf-8")
+
+
 def build_sitemap():
     base = SITE["base_url"].rstrip("/")
     today = datetime.date.today().isoformat()
@@ -2012,7 +2034,7 @@ def build_sitemap():
     # (URL, 最終更新日): エピソード=配信日 / お知らせ=掲載日 / 一覧系=最新回の配信日
     urls = [("", latest), ("episodes/", latest), ("series/", latest), ("awq/", latest),
             ("news/", NEWS[-1]["date"] if NEWS else today),
-            ("shindan.html", latest), ("games/", latest),
+            ("shindan.html", latest), ("excavate.html", latest), ("games/", latest),
             ("guide.html", today), ("otayori.html", today), ("privacy.html", today)]
     urls += [(f"episodes/{e['number']}.html", e["date"]) for e in EPS]
     urls += [(f"games/{i['slug']}.html", EPS_BY_NUM[max(x["num"] for x in i["eps"])]["date"])
@@ -2031,6 +2053,7 @@ if __name__ == "__main__":
     build_search_json()    # 先に生成(episode一覧ページが ?v= のハッシュを参照するため)
     build_shindan_json()   # 同上(診断ページが ?v= のハッシュを参照)
     build_shindan()
+    build_excavate()
     n_games = build_games()
     build_index()
     build_episode_list()

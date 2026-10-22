@@ -12,3 +12,6 @@ __pycache__/
 
 # 概要欄整形ツールの出力(Spotifyへ貼るための一時ファイル)
 desc_export/
+
+# Local browser QA artifacts
+.local-preview/

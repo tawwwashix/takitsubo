@@ -1,0 +1,78 @@
+#excavation{--dig-ink:#244b4a;--dig-teal:#176b66;--dig-sand:#ecdbb8;color:var(--dig-ink);background:#f7f5ee;min-height:80vh;padding:44px 24px 64px}
+#excavation *{box-sizing:border-box}
+#excavation [hidden]{display:none!important}
+#excavation button,#excavation a{-webkit-tap-highlight-color:transparent}
+#excavation button{font:inherit;cursor:pointer}
+#excavation button:disabled{cursor:default;opacity:.5}
+#excavation :focus-visible{outline:3px solid #d88336;outline-offset:5px}
+#excavation .dig-wrap{max-width:1180px;margin:0 auto}
+#excavation .dig-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:28px}
+#excavation .dig-eyebrow{font-family:var(--font-num);font-size:11px;font-weight:700;letter-spacing:.18em;color:#638380;margin:0 0 10px}
+#excavation .dig-eyebrow span{font-size:9px;border:1px solid #c7d3c9;border-radius:4px;padding:3px 5px;margin-left:10px;letter-spacing:.07em}
+#excavation h1{font-family:var(--font-display);font-size:38px;line-height:1.25;letter-spacing:.05em;margin:0}
+#excavation h1 span{display:block;font-family:var(--font-body);font-size:13px;letter-spacing:.1em;font-weight:400;margin-top:13px;color:#677b73}
+#excavation .dig-collection-toggle{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fffdf7;border:1px solid #d8dccc;border-radius:16px;padding:12px 23px;color:var(--dig-ink);min-width:116px;box-shadow:0 4px 0 #e9eadd}
+#excavation .dig-collection-toggle span{font-size:12px}#excavation .dig-collection-toggle strong{font-family:var(--font-num);font-size:24px;line-height:1.3}
+#excavation .dig-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:24px;align-items:start}
+#excavation .dig-play{background:#fffdf7;border:1px solid #dfdfce;border-radius:22px;overflow:hidden;box-shadow:0 10px 32px #344e3c09}
+#excavation .dig-stage{aspect-ratio:1.48;position:relative;overflow:hidden;isolation:isolate;background:#e9cc99;user-select:none;-webkit-user-select:none}
+#excavation .dig-stage:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 60px #7a521b0b;pointer-events:none;z-index:7}
+#excavation .dig-plate{position:absolute;background:#fdf6e5;border:7px solid #fcf8ec;border-radius:5px;box-shadow:3px 9px 20px #5f422f50;overflow:hidden;transition:transform .4s,box-shadow .4s}
+#excavation .dig-plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fcf8ec}
+#excavation .dig-plate span{display:flex;align-items:center;justify-content:center;height:100%;font-size:35px;color:#938261}
+#excavation .is-lifted .dig-plate{transform:rotate(-4deg) translateY(-6px);box-shadow:8px 18px 25px #5f422f50}
+#excavation canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2}
+#excavation #digSand{touch-action:none;cursor:crosshair}
+#excavation #digParticles{pointer-events:none;z-index:5}
+#excavation .dig-water{position:absolute;z-index:3;right:-17%;top:-28%;width:75%;height:48%;border-radius:40% 30% 42% 50%;transform:rotate(15deg);background:repeating-radial-gradient(ellipse at 65% 0%,#87c7c2 0px,#acd9ce 33px,#a6d6cd 37px,#eaf0d6 42px,#b7ddd0 46px);box-shadow:0 8px 0 #f8f4df99,0 16px 0 #d9d9b466;pointer-events:none}
+#excavation .dig-location{position:absolute;left:25px;top:22px;z-index:4;font-size:10px;letter-spacing:.14em;color:#7f714f;font-weight:700}
+#excavation .dig-stage-note{position:absolute;left:0;right:0;bottom:23px;z-index:4;text-align:center;pointer-events:none;font-size:12px;color:#796445;letter-spacing:.07em}
+#excavation .dig-pebble{position:absolute;z-index:3;background:linear-gradient(130deg,#d9d1b3,#9caa99);border-radius:50% 44% 40% 48%;box-shadow:2px 4px 3px #8d744532;pointer-events:none}
+#excavation .p1{width:26px;height:18px;left:12%;bottom:20%;transform:rotate(25deg)}
+#excavation .p2{width:15px;height:10px;left:17%;bottom:17%}
+#excavation .dig-shell{position:absolute;right:11%;bottom:13%;z-index:3;color:#f4e9cc;font-size:36px;text-shadow:1px 2px 0 #bd9866;transform:rotate(20deg);pointer-events:none}
+#excavation .dig-controls{padding:22px 26px 18px}
+#excavation .dig-progress-copy{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin-bottom:9px}
+#excavation #digPercent{font-family:var(--font-num);color:#7d8c78}
+#excavation .dig-progress{height:5px;background:#e9eadf;border-radius:9px;overflow:hidden;margin-bottom:19px}
+#excavation .dig-progress i{display:block;height:100%;background:#5d9b85;border-radius:9px;transition:width .12s}
+#excavation .dig-actions{display:flex;gap:12px}
+#excavation .dig-primary,#excavation .dig-secondary{display:flex;align-items:center;justify-content:center;text-decoration:none;border-radius:10px;min-height:48px;padding:10px 18px;font-size:13px;font-weight:700;line-height:1.5;text-align:center;transition:background .15s,transform .15s}
+#excavation .dig-primary{background:var(--dig-teal);color:#fff;border:1px solid var(--dig-teal)}
+#excavation .dig-primary:hover:not(:disabled){background:#105650;transform:translateY(-1px)}
+#excavation .dig-secondary{background:#faf9f2;color:#46615a;border:1px solid #d9decf}
+#excavation .dig-secondary:hover:not(:disabled){background:#eeefe4}
+#excavation .dig-actions>*{flex:1}
+#excavation .dig-help{font-size:10px;color:#819080;margin:12px 0 0;text-align:center}
+#excavation .dig-find{background:#fffdf7;border:1px solid #dfdfce;border-radius:22px;padding:26px 23px;min-height:370px}
+#excavation .dig-find h2{font-family:var(--font-display);font-size:19px;line-height:1.65;margin:0 0 14px;overflow-wrap:anywhere}
+#excavation #digEmpty>p{font-size:12px;line-height:2;color:#7b8878}
+#excavation .dig-empty-icon{width:70px;height:70px;border:1px dashed #cbd3bd;border-radius:15px;display:grid;place-items:center;font-size:30px;color:#b4bea5;transform:rotate(-7deg);margin:30px auto}
+#excavation .dig-tip{border-top:1px solid #e8e8db;margin-top:28px;padding-top:18px}
+#excavation .dig-tip span{font-size:10px;letter-spacing:.08em;color:#85927b}
+#excavation .dig-tip p{font-size:11px;color:#788772;margin-top:6px;line-height:1.9}
+#excavation .dig-save-note{font-size:10px;color:#86917e;margin:25px 0 0;line-height:1.8}
+#excavation #digResultImage{width:100%;aspect-ratio:1;object-fit:contain;border-radius:7px;background:#eee9d9;margin:14px 0}
+#excavation .dig-new{display:inline-block;font-size:9px;color:#a2632e;background:#f7ebce;padding:4px 8px;border-radius:5px;letter-spacing:.02em}
+#excavation .dig-episode{font-size:10px;color:#84917c;margin-bottom:8px}
+#excavation #digResult h2{font-size:15px}
+#excavation #digResult .dig-secondary{margin-top:10px;width:100%}
+#excavation .dig-collection{margin-top:32px;padding:28px;border:1px solid #d9decd;background:#fffdf7;border-radius:20px;scroll-margin-top:85px}
+#excavation .dig-collection-heading{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;margin-bottom:20px}
+#excavation .dig-collection-heading h2{font-size:20px;margin:0}
+#excavation .dig-collection-heading p,#excavation .dig-footnote{font-size:11px;color:#819078}
+#excavation #digCollectionGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:20px}
+#excavation .dig-entry{color:var(--dig-ink);text-decoration:none}
+#excavation .dig-entry img{width:100%;aspect-ratio:1;object-fit:contain;border:5px solid #f0eddf;border-radius:5px}
+#excavation .dig-entry span{display:block;font-size:11px;line-height:1.7;margin-top:7px;overflow-wrap:anywhere}
+#excavation .dig-footnote{margin-top:24px}
+#excavation .dig-loading{text-align:center;padding:80px 10px}
+@media(max-width:760px){
+ #excavation{padding:26px 14px 40px}#excavation .dig-heading{margin-bottom:22px;gap:10px}#excavation h1{font-size:29px}#excavation h1 span{font-size:10px;margin-top:10px;letter-spacing:.02em}
+ #excavation .dig-eyebrow{font-size:9px;letter-spacing:.09em}#excavation .dig-eyebrow span{display:none}#excavation .dig-collection-toggle{padding:9px 12px;min-width:85px;border-radius:12px}#excavation .dig-collection-toggle strong{font-size:20px}#excavation .dig-collection-toggle span{font-size:10px}
+ #excavation .dig-layout{grid-template-columns:1fr;gap:18px}#excavation .dig-stage{aspect-ratio:1.13}#excavation .dig-controls{padding:18px 16px 15px}#excavation .dig-progress-copy{font-size:11px}
+ #excavation .dig-primary,#excavation .dig-secondary{padding:10px 8px;font-size:12px}#excavation .dig-help{font-size:9px}#excavation .dig-location{left:18px;top:18px;font-size:9px}#excavation .dig-stage-note{font-size:10px;bottom:15px}
+ #excavation .dig-find{padding:22px;min-height:0;scroll-margin:85px 0 160px}#excavation .dig-empty-icon{display:none}#excavation .dig-tip{display:none}#excavation #digEmpty>p{font-size:11px}#excavation .dig-save-note{margin-top:15px}
+ #excavation #digResultImage{display:block;max-width:240px;margin:15px auto}#excavation .dig-collection{padding:20px}#excavation #digCollectionGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+}
+@media(prefers-reduced-motion:reduce){#excavation *{transition:none!important}}
