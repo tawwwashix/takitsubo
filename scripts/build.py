@@ -621,7 +621,9 @@ def build_episode_pages():
         prev_e = EPS[i - 1] if i > 0 else None
         next_e = EPS[i + 1] if i < len(EPS) - 1 else None
 
-        tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in e["tags"])
+        tags = "".join(
+            f'<a class="tag" href="{root}episodes/?tag={urllib.parse.quote(t, safe="")}">{esc(t)}</a>'
+            for t in e["tags"])
         date_note = ' <span class="date-note">（推定）</span>' if e.get("date_estimated") else ""
         audio = e.get("audio")
         img = ep_image(e)

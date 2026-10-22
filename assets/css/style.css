@@ -468,6 +468,7 @@ body.art-lightbox-open { overflow: hidden; }
 }
 .ep-hero-title { font-size: 20px; margin-top: 4px; }
 .ep-hero-tags { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 6px; }
+.ep-hero-tags a.tag:hover { text-decoration: none; filter: brightness(.96); }
 /* ⭐この回のメインゲーム(DBへのリンクチップ) */
 .ep-hero-games { margin-top: 7px; display: flex; flex-wrap: wrap; gap: 6px; }
 .ep-hero-games .tag { font-size: 12px; padding: 4px 13px; }
@@ -1656,11 +1657,13 @@ a.awq-listener:hover svg { opacity: .9; }
 /* ---------- ニュース ---------- */
 .news-list { border-top: 1px solid var(--line); }
 .news-item {
-  display: flex; gap: 16px; padding: 13px 4px; border-bottom: 1px solid var(--line);
+  display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 16px;
+  padding: 13px 4px; border-bottom: 1px solid var(--line);
   color: inherit; align-items: baseline;
 }
 a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
 .news-date { font-family: var(--font-num); font-size: 12px; color: var(--faint); flex-shrink: 0; }
+.news-item .news-date { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .news-title { font-size: 14px; font-weight: 500; }
 
 /* ---------- 詳細ページ共通 ---------- */
@@ -1797,6 +1800,7 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   .nb-item { white-space: normal; }
 }
 @media (max-width: 640px) {
+  .news-item { column-gap: 12px; }
   .recommended-grid { grid-template-columns: minmax(0, 1fr); }
   .recommended-grid .ep-card { flex-direction: row; align-items: flex-start; }
   .recommended-grid .ep-card-img { width: 28%; flex-shrink: 0; }
