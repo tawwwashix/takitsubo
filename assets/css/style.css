@@ -767,12 +767,20 @@ a.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); tex
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
 }
 .ep-card {
+  position: relative; isolation: isolate;
   display: flex; flex-direction: column;
   background: var(--surface); border-radius: var(--radius);
   box-shadow: var(--shadow); overflow: hidden; color: inherit;
   transition: transform .15s, box-shadow .15s;
 }
-a.ep-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); text-decoration: none; }
+.ep-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+/* タイトルのリンクをカード全体に広げ、タグだけ独立したリンクとして手前に置く。 */
+.ep-card-link, .ep-card-link:hover { color: inherit; text-decoration: none; }
+.ep-card-link::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: var(--radius); }
+.ep-card-link:focus-visible { outline: none; }
+.ep-card-link:focus-visible::after { outline: 3px solid var(--cyan); outline-offset: -3px; }
+.ep-card .tag { position: relative; z-index: 2; }
+.ep-card a.tag:hover { text-decoration: none; filter: brightness(.96); }
 .ep-card-img {
   width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; display: block;
   background: var(--line);

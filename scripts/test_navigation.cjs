@@ -165,7 +165,8 @@ function check(name) { report.checks.push(name); console.log('PASS ' + name); }
     await page.locator('.gm-letter-nav a[href^="#"]').first().click();
     assert.equal(decodeURIComponent(new URL(page.url()).hash), decodeURIComponent(anchorID));
     const targetTop = await page.locator(anchorID).evaluate(el => el.getBoundingClientRect().top);
-    assert(targetTop >= 0 && targetTop < 200); check('Hash navigation');
+    // scrollIntoView can round a fractional layout coordinate just below zero.
+    assert(targetTop >= -1 && targetTop < 200, 'Hash target top: ' + targetTop); check('Hash navigation');
     await nav('エピソード'); await nav('ホーム'); await nav('エピソード');
     await page.locator('h1').focus(); await page.keyboard.press('/'); assert(await page.locator('#q').evaluate(el => el === document.activeElement));
     assert.equal(await page.locator('audio').count(), 1); assert.equal(await page.locator('.tk-mini').count(), 1); check('Repeated initialization and search keyboard shortcut');

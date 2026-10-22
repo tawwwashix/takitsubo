@@ -78,7 +78,9 @@ return (function () {
     countEl.textContent = "全" + episodes.length + "回中 " + out.length + "件";
     emptyEl.style.display = out.length ? "none" : "block";
     listEl.innerHTML = out.map(function (e) {
-      var tags = e.tags.slice(0, 2).map(function (t) { return '<span class="tag">' + esc(t) + "</span>"; }).join("");
+      var tags = e.tags.slice(0, 2).map(function (t) {
+        return '<a class="tag" href="./?tag=' + esc(encodeURIComponent(t)) + '">' + esc(t) + '</a>';
+      }).join("");
       var art = e.image
         ? '<img class="ep-card-img" src="../' + esc(e.image) + '" alt="" loading="lazy" width="800" height="800">'
         : '<span class="ep-card-img ep-card-num">#' + e.number + "</span>";
@@ -90,10 +92,10 @@ return (function () {
         }).join("");
         reason = '<span class="ep-match">🎮 この回で話題に: ' + gs + "</span>";
       }
-      return '<a class="ep-card" href="' + e.number + '.html">' + art +
-        '<span class="ep-card-body"><span class="ep-title">' + esc(e.title) + "</span>" +
+      return '<div class="ep-card">' + art +
+        '<div class="ep-card-body"><a class="ep-title ep-card-link" href="' + e.number + '.html">' + esc(e.title) + "</a>" +
         '<span class="ep-meta"><span class="ep-hash">#' + e.number + "</span>" + jd(e.date) + tags + "</span>" +
-        reason + "</span></a>";
+        reason + "</div></div>";
     }).join("");
   }
 

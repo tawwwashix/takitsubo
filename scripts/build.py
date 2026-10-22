@@ -325,7 +325,9 @@ def series_card(s, root, desc_len=None):
 
 def ep_card(e, root, meta_prefix="", featured=False):
     """エピソードカード(アートワーク大表示)。ep-gridの中に置く。"""
-    tags = "".join(f'<span class="tag">{esc(t)}</span>' for t in e["tags"][:2])
+    tags = "".join(
+        f'<a class="tag" href="{root}episodes/?tag={urllib.parse.quote(t, safe="")}">{esc(t)}</a>'
+        for t in e["tags"][:2])
     img = ep_image(e)
     if img:
         art = f'<img class="ep-card-img" src="{root}{img}" alt="" loading="lazy">'
@@ -336,11 +338,11 @@ def ep_card(e, root, meta_prefix="", featured=False):
     desc = ""
     if featured and e["description"]:
         desc = f'<span class="ep-card-desc">{esc(e["description"][:90])}…</span>'
-    return f"""<a class="{cls}" href="{root}episodes/{e['number']}.html">
+    return f"""<div class="{cls}">
 {art}
-<span class="ep-card-body">{label}<span class="ep-title">{esc(e['title'])}</span>
-<span class="ep-meta">{meta_prefix}<span class="ep-hash">#{e['number']}</span>{jd(e['date'])}{tags}</span>{desc}</span>
-</a>"""
+<div class="ep-card-body">{label}<a class="ep-title ep-card-link" href="{root}episodes/{e['number']}.html">{esc(e['title'])}</a>
+<span class="ep-meta">{meta_prefix}<span class="ep-hash">#{e['number']}</span>{jd(e['date'])}{tags}</span>{desc}</div>
+</div>"""
 
 
 # ============================================================ index.html
