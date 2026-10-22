@@ -16,9 +16,9 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   assert.equal(await p.locator('#labCount').textContent(),'0 / 128');
   await p.screenshot({path:path.join(out,'lab-desktop.png'),fullPage:true});
   await p.locator('.lab-choose').nth(1).click();
-  assert.equal(await p.evaluate(()=>localStorage.getItem('takitsubo:excavation:v1')),null);
+  assert.equal(await p.evaluate(()=>localStorage.getItem('takitsubo:episode-lab:collection:v1')),null);
   await p.locator('#labConfirm').click();
-  assert.deepEqual(await p.evaluate(()=>JSON.parse(localStorage.getItem('takitsubo:excavation:v1'))),[98]);
+  assert.deepEqual(await p.evaluate(()=>JSON.parse(localStorage.getItem('takitsubo:episode-lab:collection:v1'))),[98]);
   assert.equal(await p.locator('#labListen').getAttribute('href'),'episodes/98.html');
   assert.equal(await p.locator('.lab-choose:disabled').count(),3);
   check('Three ordered cartridges, inspect without saving, explicit confirmation, correct episode link and shared collection');
@@ -32,7 +32,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   assert.equal(await q.locator('.lab-choose:enabled').count(),3);
   await q.screenshot({path:path.join(out,'lab-mobile.png'),fullPage:true});
   await q.locator('.lab-choose').nth(2).tap();await q.locator('#labConfirm').tap();
-  assert.deepEqual(await q.evaluate(()=>JSON.parse(localStorage.getItem('takitsubo:excavation:v1'))),[16]);
+  assert.deepEqual(await q.evaluate(()=>JSON.parse(localStorage.getItem('takitsubo:episode-lab:collection:v1'))),[16]);
   assert.equal(new URL(q.url()).searchParams.get('pick'),'16');
   check('Recipient gets same trio and sender marker, with independent touch selection');
   await recipient.close();
@@ -57,12 +57,11 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   await p.goto(base+'/lab.html?eps=128,98,16&pick=999999');await ready(p);assert.deepEqual(await cards(p),[128,98,16]);assert.equal(await p.locator('.lab-sender').count(),0);
   check('Invalid duplicate/unknown IDs recover, invalid pick does not replace valid trio');
   await p.evaluate(()=>{window.originalAudio=document.querySelector('audio');window.labMarker=true;});
-  await p.locator('a[href="excavate.html"]').first().click();await p.locator('#digBrush').waitFor();
-  assert.equal(await p.locator('#digCount').textContent(),'1 / 128');assert.equal(await p.locator('link[href*="/lab.css"]').count(),0);
+  await p.locator('.lab-exit').click();await p.locator('.hero').waitFor();assert.equal(await p.locator('link[href*="/lab.css"]').count(),0);
   await p.goBack();await ready(p);assert(await p.evaluate(()=>window.labMarker&&window.originalAudio===document.querySelector('audio')));
   assert.equal(await p.locator('link[href*="/lab.css"]').count(),1);
   await p.locator('#labDexToggle').click();assert.equal(await p.locator('#labDexGrid a').count(),1);
-  check('Excavation/lab navigation shares collection, keeps audio element and cleans styles');
+  check('Home/lab navigation retains collection, keeps audio element and cleans styles');
   for(const width of [320,390,768]){await p.setViewportSize({width,height:900});assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));}
   check('No horizontal overflow at 320, 390 and 768 pixels');
   const fail=await browser.newContext();await fail.route(/google-analytics\.com|googletagmanager\.com/,r=>r.abort());

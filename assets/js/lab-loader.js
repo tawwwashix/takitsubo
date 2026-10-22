@@ -1,6 +1,6 @@
 /* Only the small lifecycle adapter is shared with other pages. */
 window.Takitsubo.register(async function (page) {
-  var root = document.getElementById("excavation") || document.getElementById("episodeLab");
+  var root = document.getElementById("episodeLab");
   if (!root) return;
   var css = document.createElement("link");
   css.rel = "stylesheet";

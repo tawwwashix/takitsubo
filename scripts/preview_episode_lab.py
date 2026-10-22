@@ -1,4 +1,4 @@
-"""Serve this checkout on a stable, local-only origin and open its excavation page."""
+"""Serve this checkout on a stable, local-only origin and open its episode lab."""
 import argparse
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -11,7 +11,7 @@ from urllib.request import build_opener, ProxyHandler
 import webbrowser
 
 ROOT = Path(__file__).resolve().parent.parent
-STATUS_PATH = "/__excavation_preview__/status"
+STATUS_PATH = "/__episode_lab_preview__/status"
 
 
 class PreviewServer(ThreadingHTTPServer):
@@ -32,7 +32,7 @@ class PreviewHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == STATUS_PATH:
-            body = json.dumps({"app": "takitsubo-excavation-preview", "root": str(ROOT)}).encode("utf-8")
+            body = json.dumps({"app": "takitsubo-episode-lab-preview", "root": str(ROOT)}).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
@@ -52,7 +52,7 @@ def is_same_preview(origin):
         opener = build_opener(ProxyHandler({}))
         with opener.open(origin + STATUS_PATH, timeout=2) as response:
             info = json.loads(response.read(8192))
-        return (info.get("app") == "takitsubo-excavation-preview"
+        return (info.get("app") == "takitsubo-episode-lab-preview"
                 and Path(info.get("root", "")).resolve() == ROOT)
     except (URLError, OSError, ValueError, AttributeError):
         return False
@@ -65,15 +65,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8766)
     parser.add_argument("--no-browser", action="store_true")
-    parser.add_argument("--page", choices=("excavate", "lab"), default="excavate")
     args = parser.parse_args()
     if not 1 <= args.port <= 65535:
         parser.error("port must be between 1 and 65535")
-    if not (ROOT / f"{args.page}.html").is_file():
+    if not (ROOT / "lab.html").is_file():
         print("ページが見つからない。このWorktreeでページを生成してから起動してね。", flush=True)
         return 1
     origin = f"http://127.0.0.1:{args.port}"
-    url = origin + f"/{args.page}.html"
+    url = origin + "/lab.html"
     if is_same_preview(origin):
         print(f"このWorktreeのプレビューは起動済み。\n{url}", flush=True)
         if not args.no_browser:
@@ -85,7 +84,7 @@ def main():
         print(f"ポート {args.port} を利用できない。ほかのサーバーを上書きせず停止した。\n"
               f"既に開いているプレビュー用のウィンドウを確認してね。\n{error}", flush=True)
         return 1
-    title = "エピソード研究所" if args.page == "lab" else "滝壺発掘"
+    title = "エピソード研究所"
     print(f"\n{title} — このWorktreeのプレビュー\n\n"
           f"フォルダー: {ROOT}\nURL: {url}\n\n"
           "このウィンドウを開いたまま遊べる。終了は Ctrl+C、またはウィンドウを閉じる。\n"
