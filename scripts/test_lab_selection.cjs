@@ -24,7 +24,7 @@ fs.mkdirSync(out,{recursive:true});
    }
    await p.screenshot({path:path.join(out,`lab-blue-${w}.png`),fullPage:true});
   }
-  await p.locator('#labCopy').click();const shared=await p.evaluate(()=>navigator.clipboard.readText());
+  const shared=new URL(await p.locator('#labX').getAttribute('href')).searchParams.get('url');assert.equal(new URL(shared).origin,'https://game-takitsubo.com');
   assert.equal(new URL(shared).searchParams.get('eps'),'50,54,47');assert.equal(new URL(shared).searchParams.get('pick'),'47');
   await p.locator('#labMake').click();await p.locator('#labSharePreview').waitFor();
   const download=p.waitForEvent('download');await p.locator('#labSave').click();await(await download).saveAs(path.join(out,'lab-blue-share.png'));

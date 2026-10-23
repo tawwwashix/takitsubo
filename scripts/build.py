@@ -2018,8 +2018,9 @@ def build_lab():
     page += f'''<main class="container">
 <div class="page-head" style="text-align:center;">
 <h1 class="page-title"><span class="en">EPISODE LAB</span>エピソード研究所</h1>
+<p style="font-size:13px;color:var(--sub);margin-top:8px;">次に聴く一回に迷ったら、ランダムに並ぶ3本から気になるエピソードを探してみよう。<br>手持ちを選んだり、図鑑を埋めたり。遊び方はご自由に！</p>
 </div>
-<section id="episodeLab" data-share-module="assets/js/share-tools.js?v={av('assets/js/share-tools.js')}" data-module="assets/js/lab/game.js?v={av('assets/js/lab/game.js')}" data-css="assets/css/lab.css?v={av('assets/css/lab.css')}" data-source="data/search.json?v={av('data/search.json')}">
+<section id="episodeLab" data-share-page="{esc(SITE['base_url'].rstrip('/') + '/lab.html')}" data-share-module="assets/js/share-tools.js?v={av('assets/js/share-tools.js')}" data-module="assets/js/lab/game.js?v={av('assets/js/lab/game.js')}" data-css="assets/css/lab.css?v={av('assets/css/lab.css')}" data-source="data/search.json?v={av('data/search.json')}">
 <p style="text-align:center;padding:60px">研究所を準備しています…</p>
 <noscript><p>3択にはJavaScriptが必要です。<a href="episodes/">エピソード一覧はこちら</a></p></noscript>
 </section>

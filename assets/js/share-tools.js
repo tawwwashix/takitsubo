@@ -24,7 +24,7 @@ export function wrapLines(ctx, text, width, limit = Infinity) {
 }
 
 // Shared interaction, wording and fallbacks for the diagnosis and episode lab.
-export function mountShareControls(host, {prefix, getBlob, getLink, getX, filename, signal, previewMode = 'always', makeLabel = 'この3択のシェア画像を作る', previewAlt}) {
+export function mountShareControls(host, {prefix, getBlob, getX, filename, signal, previewMode = 'always', makeLabel = 'この3択のシェア画像を作る', previewAlt}) {
   host.classList.add('episode-share');
   host.innerHTML = `<style>
     .episode-share{margin:20px 0;color:var(--ink,#284e60);text-align:center}
@@ -35,23 +35,19 @@ export function mountShareControls(host, {prefix, getBlob, getLink, getX, filena
     .episode-share .share-status:empty,.episode-share .share-entry:empty{display:none}
     .episode-share img{display:block;width:100%;max-width:540px;height:auto;margin:20px auto 0;border-radius:18px;box-shadow:var(--shadow-hover)}
     .episode-share[data-preview-mode="on-demand"] img{max-width:760px}
-    .episode-share input{width:100%;padding:10px}
     .episode-share [hidden]{display:none!important}
   </style><div class="sh-actions share-entry" id="${prefix}Entry">
     <button type="button" class="sh-btn" id="${prefix}Make" aria-expanded="false" aria-controls="${prefix}ImagePanel">${makeLabel}</button>
-    ${getLink ? `<button type="button" class="sh-btn" id="${prefix}Copy">同じ3択のリンクをコピー</button>` : ''}
   </div>
   <p class="share-status" id="${prefix}ShareStatus" role="status"></p>
-  <input id="${prefix}CopyFallback" aria-label="コピーするリンク" readonly hidden>
   <div id="${prefix}ImagePanel" hidden>
-    <img id="${prefix}SharePreview" alt="${previewAlt || (getLink ? '今回の3択と選んだ回のシェア画像' : 'ふさわしいゲーム診断の結果画像')}" hidden>
+    <img id="${prefix}SharePreview" alt="${previewAlt || 'ふさわしいゲーム診断の結果画像'}" hidden>
     <div id="${prefix}ImageActions" hidden>
       <div class="sh-actions">
         <button type="button" class="sh-btn save" id="${prefix}Save">📥 画像を保存</button>
         <button type="button" class="sh-btn copy" id="${prefix}CopyImage">📋 画像をコピー</button>
         <a class="sh-btn share" id="${prefix}X" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.4Z"/></svg>Xでシェアする</a>
-      </div><p class="sh-note">${getLink ? '画像を保存／コピーしてから、Xの投稿画面に添付してね。' : '画像を保存/コピーしてから、Xのポストに添付すると盛り上がります！'}</p>
-      <div class="sh-actions" id="${prefix}LinkRow" ${getLink ? '' : 'hidden'}></div>
+      </div><p class="sh-note">画像を保存/コピーしてから、Xのポストに添付すると盛り上がります！</p>
     </div>
   </div>`;
   host.dataset.previewMode = previewMode;
@@ -82,7 +78,6 @@ export function mountShareControls(host, {prefix, getBlob, getLink, getX, filena
       await image();
       const restoreFocus = document.activeElement === $('Make');
       $('ImageActions').hidden = false; $('Make').hidden = true;
-      if(getLink) $('LinkRow').append($('Copy'));
       $('Entry').hidden = true;
       if(restoreFocus) $('Save').focus({preventScroll:true});
       status('');
@@ -105,22 +100,16 @@ export function mountShareControls(host, {prefix, getBlob, getLink, getX, filena
       status('画像をコピーしたよ。');
     } catch(e) { if(e.name !== 'AbortError') status('画像のコピーを使えないため「画像を保存」を使ってね。'); }
   };
-  if(getLink) $('Copy').onclick = async () => {
-    const value = getLink(), version = revision;
-    try { await navigator.clipboard.writeText(value); if(version === revision) status('同じ3枚・同じ並びのリンクをコピーしたよ。'); }
-    catch (_) { if(!live() || version !== revision) return; $('CopyFallback').hidden = false; $('CopyFallback').value = value; $('CopyFallback').focus(); $('CopyFallback').select(); status('この欄のリンクをコピーしてね。'); }
-  };
   function invalidate({reset = false} = {}) {
     revision++; pending = null; if(url) URL.revokeObjectURL(url); url = null;
     if(reset && previewMode === 'on-demand') expanded = false;
     $('SharePreview').hidden = true; $('SharePreview').removeAttribute('src');
-    $('CopyFallback').hidden = true; status(''); $('X').href = getX();
+    status(''); $('X').href = getX();
     $('ImageActions').hidden = true; $('ImagePanel').hidden = !expanded;
     $('Entry').hidden = previewMode === 'always';
     $('Make').hidden = previewMode === 'always'; $('Make').disabled = false;
     $('Make').textContent = makeLabel;
     $('Make').setAttribute('aria-expanded',String(expanded));
-    if(getLink) $('Entry').append($('Copy'));
     if(expanded) reveal();
   }
   signal.addEventListener('abort', () => { revision++; if(url) URL.revokeObjectURL(url); }, {once:true});

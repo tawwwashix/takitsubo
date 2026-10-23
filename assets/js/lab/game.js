@@ -84,8 +84,8 @@ export async function mount(root, page) {
   let inspected = null, shareControls, partyShareControls, partySignature = null;
   let reorderMode=false, reorderSource=null, replacingFromRound=false;
   let party = [], ascending = false, showUnseen = true, itemNumber = null, replacing = null;
-  const isLocal = ["localhost", "127.0.0.1", "::1", "[::1]"].includes(location.hostname);
-  const shareBase = new URL("lab.html", location.href);
+  const shareBase = new URL(root.dataset.sharePage);
+  const shareHashtags = "#ゲームの滝壺 #滝壺エピソード研究所";
   const mergeCollection = () => {
     try {
       const saved = savedCollection(localStorage);
@@ -136,14 +136,13 @@ export async function mount(root, page) {
   <nav class="lab-toolbar" aria-label="研究所のメニュー"><button type="button" id="labShuffle" class="lab-secondary">↻ 別の3択</button><button type="button" id="labDexToggle" class="lab-secondary" aria-haspopup="dialog"><span>図鑑</span><strong id="labCount"></strong></button></nav>
   </div>
   <section id="labShare" aria-label="この3択をシェア"></section>
-  <p class="lab-footnote" ${isLocal ? "" : "hidden"}>試作中のリンクはこのPC内での確認用。画像は保存して共有できる。</p>
   <section class="lab-case" aria-labelledby="labPartyHeading">
     <div class="lab-case-heading"><h2 id="labPartyHeading">手持ちエピソード</h2><div class="lab-case-tools"><span id="labPartyCount"></span><button type="button" id="labReorder" class="lab-icon-button" aria-pressed="false">並び替え</button></div></div><p id="labReorderHint" class="lab-footnote" hidden>交換する2本を順に選んでね。</p>
     <div id="labPartyGrid"></div><p id="labPartyStatus" class="lab-footnote" role="status" hidden></p><span id="labPartyAnnounce" class="lab-sr-only" role="status"></span><section id="labPartyShare" aria-label="手持ちエピソードをシェア" hidden></section>
   </section>
 
 </div>
-<dialog id="labDex" aria-labelledby="labDexHeading"><div class="lab-modal-top"><h2 id="labDexHeading">エピソード図鑑</h2><button type="button" class="lab-close" data-close="labDex" aria-label="図鑑を閉じる">×</button></div><div class="lab-dex-controls"><label>並び順 <select id="labDexOrder"><option value="desc">新しい順</option><option value="asc">古い順</option></select></label><label><input type="checkbox" id="labDexUnseen"> 未発見も表示</label><span id="labDexCount"></span></div><div id="labDexGrid"></div><p class="lab-footnote" id="labStorageNote">このブラウザに保存。聴いたかどうかは記録しない。</p></dialog>
+<dialog id="labDex" aria-labelledby="labDexHeading"><div class="lab-modal-top"><h2 id="labDexHeading">エピソード図鑑</h2><button type="button" class="lab-close" data-close="labDex" aria-label="図鑑を閉じる">×</button></div><p class="lab-footnote" id="labStorageNote">※このブラウザに保存されます</p><div class="lab-dex-controls"><label>並び順 <select id="labDexOrder"><option value="desc">新しい順</option><option value="asc">古い順</option></select></label><label><input type="checkbox" id="labDexUnseen"> 未発見も表示</label><span id="labDexCount"></span></div><div id="labDexGrid"></div></dialog>
 `;
   root.insertAdjacentHTML("beforeend", `<dialog id="labItem" aria-labelledby="labItemTitle">
     <div class="lab-modal-top"><h2 id="labItemTitle"></h2><button type="button" class="lab-close" data-close="labItem" aria-label="カートリッジの詳細を閉じる">×</button></div>
@@ -248,6 +247,7 @@ export async function mount(root, page) {
     }
     saveParty(destination==="dex"?`#${number}を図鑑に登録したよ。`:`#${number}を手持ちに加えたよ。`);
     renderCards();highlightParty(number);
+    if(!fromRound && selected!==null) updateShare();
     if($("#labReplace").open) $("#labReplace").close();
   }
   function renderReplacements() {
@@ -279,7 +279,7 @@ export async function mount(root, page) {
     renderReplacements();$("#labReplace").showModal();syncMotion();
   }
   function roundUrl(includeSelection = true) {
-    const url = new URL(shareBase);
+    const url = new URL("lab.html", location.href);
     url.searchParams.set("eps", round.map(e => e.number).join(","));
     const pick = includeSelection ? selected ?? senderPick : null;
     if (pick !== null) url.searchParams.set("pick", pick);
@@ -290,10 +290,13 @@ export async function mount(root, page) {
     const url = roundUrl();
     history.replaceState(history.state, "", url);
     const chosen = selected ?? senderPick;
-    const text = chosen === null ? "博士からこの3択！ あなたならどれ？" : selected === null ? `この3択、紹介した人は#${chosen}を選んだ！ あなたならどれ？` : `この3択、私は#${chosen}を選んだ！ あなたならどれ？`;
+    const choice = chosen === null ? "" : selected === null ? `\n紹介した人は #${chosen} を選んだ！` : `\n私は #${chosen} を手持ちに！`;
+    // A full party can send the chosen episode straight to the catalogue.
+    const choiceText = selected !== null && !party.includes(selected) ? `\n私は #${selected} を選んだ！` : choice;
     const intent = new URL("https://twitter.com/intent/tweet");
-    intent.searchParams.set("text", `${text}\n${round.map(e => `#${e.number} ${Array.from(e.title).slice(0,28).join("")}${Array.from(e.title).length>28?"…":""}`).join("\n")}\n#ゲームの滝壺`);
-    if (!isLocal) intent.searchParams.set("url", url.href);
+    intent.searchParams.set("text", `ランダムに出てきたこの3本。あなたならどれを聴く？${choiceText}\n${shareHashtags}`);
+    const publicUrl = new URL(shareBase);publicUrl.search=url.search;
+    intent.searchParams.set("url", publicUrl.href);
     shareIntent = intent.href;
     shareControls?.invalidate({reset});
   }
@@ -380,6 +383,7 @@ export async function mount(root, page) {
   $("#labItemRemove").addEventListener("click",()=>{
     mergeCollection();readParty(); party=party.filter(n=>n!==itemNumber);
     saveParty(`#${itemNumber}を手持ちから外したよ。図鑑からいつでも戻せる。`);
+    if(selected===itemNumber) updateShare();
     $("#labItemAdd").focus();
   });
   function updateReorder() {
@@ -448,7 +452,7 @@ export async function mount(root, page) {
   });
   page.listen(window,"storage", e => {
     if(e.key === COLLECTION_KEY || e.key === PARTY_KEY) {
-      cancelReorder();reorderSource=null;mergeCollection(); readParty(); updateCollection(); updateParty(); renderCards();
+      cancelReorder();reorderSource=null;mergeCollection(); readParty(); updateCollection(); updateParty(); renderCards();updateShare();
       if($("#labItem").open) refreshItem();
       if($("#labReplace").open) renderReplacements();
     }
@@ -456,7 +460,7 @@ export async function mount(root, page) {
   shareControls = mountShareControls($("#labShare"), {
     prefix: "lab", signal: page.signal, previewMode: "on-demand",
     getBlob: () => createShareImage(round.slice(), selected ?? senderPick, page.signal, selected === null && senderPick !== null, wrapLines),
-    getLink: () => roundUrl().href, getX: () => shareIntent,
+    previewAlt:"今回の3択と選んだ回のシェア画像", getX: () => shareIntent,
     filename: () => `takitsubo-${round.map(e=>e.number).join("-")}${selected === null ? "" : `-pick-${selected}`}.png`
   });
   partyShareControls=mountShareControls($("#labPartyShare"), {
@@ -465,8 +469,8 @@ export async function mount(root, page) {
     getBlob:()=>createShareImage(party.map(n=>byNumber.get(n)),null,page.signal,false,wrapLines,"party"),
     getX:()=>{
       const url=new URL("https://twitter.com/intent/tweet");
-      url.searchParams.set("text",`私の手持ちエピソード\n${party.map(n=>`#${n}`).join(" / ")}\n#ゲームの滝壺`);
-      if(!isLocal) url.searchParams.set("url",shareBase.href);
+      url.searchParams.set("text",`ゲームの滝壺、私の手持ちはこの${party.length}本！\nあなたの推し回は？\n${shareHashtags}`);
+      url.searchParams.set("url",shareBase.href);
       return url.href;
     },
     filename:()=>`takitsubo-party-${party.join("-")}.png`
@@ -588,8 +592,9 @@ async function createShareImage(episodes, chosen, signal, fromSender, wrapLines,
   c.fillStyle = "#e7f4ff"; c.fillRect(0,0,1200,height);
   c.strokeStyle = "#cee5f5"; c.lineWidth=1;
   for(let y=0;y<height;y+=32) { c.beginPath(); c.moveTo(0,y); c.lineTo(1200,y); c.stroke(); }
-  c.fillStyle=ink;c.font='bold 40px "Noto Sans JP",sans-serif';c.fillText(isParty?"手持ちエピソード":"この3択、あなたならどれ？",44,76);
-  if(isParty) {c.font='bold 24px "Noto Sans JP",sans-serif';c.textAlign="right";c.fillText(`${episodes.length} / 6`,1156,76);c.textAlign="left";}
+  c.fillStyle=ink;c.font='bold 24px "Noto Sans JP",sans-serif';c.fillText("ゲームの滝壺｜エピソード研究所",44,40);
+  c.font='bold 40px "Noto Sans JP",sans-serif';c.fillText(isParty?"わたしの手持ちエピソード":"この3本、どれを聴く？",44,91);
+  if(isParty) {c.font='bold 24px "Noto Sans JP",sans-serif';c.textAlign="right";c.fillText(`${episodes.length} / 6`,1156,91);c.textAlign="left";}
   if(isParty) {
     c.save();c.strokeStyle="#aac8dc";c.lineWidth=2;c.setLineDash([9,7]);
     for(let i=episodes.length;i<6;i++) {
@@ -614,7 +619,7 @@ async function createShareImage(episodes, chosen, signal, fromSender, wrapLines,
       c.fillText(fromSender?"✓ 紹介した人の選択":"✓ 私はこれ",x+w/2,126);c.textAlign="left";
     }
   });
-  c.fillStyle=ink;c.fillRect(0,height-52,1200,52);c.fillStyle="#fff";c.font='bold 19px "Noto Sans JP",sans-serif';c.fillText("ゲームの滝壺 / エピソード研究所",44,height-18);
-  c.textAlign="right";c.fillText("#ゲームの滝壺",1156,height-18);
+  c.fillStyle=ink;c.fillRect(0,height-52,1200,52);c.fillStyle="#fff";c.font='bold 19px "Noto Sans JP",sans-serif';c.fillText("game-takitsubo.com/lab.html",44,height-18);
+  c.textAlign="right";c.fillText("#ゲームの滝壺 #滝壺エピソード研究所",1156,height-18);
   return new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("PNG encoding failed")),"image/png"));
 }
