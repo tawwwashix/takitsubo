@@ -182,6 +182,7 @@ def header(root, current=""):
         ("series/", "名物企画", "series"),
         ("awq/", "AWQ", "awq"),
         ("shindan.html", "ゲーム診断", "shindan"),
+        ("lab.html", "研究所", "lab"),
         ("games/", "滝壺DB", "games"),
         ("news/", "お知らせ", "news"),
         ("guide.html", "聴き方", "guide"),
@@ -191,6 +192,7 @@ def header(root, current=""):
     mobile_label = {
         "awq": "AWQランキング",
         "shindan": "ふさわしいゲーム診断",
+        "lab": "エピソード研究所",
         "games": "滝壺データベース",
     }
     links = ""
@@ -469,13 +471,13 @@ def build_index():
 
 <section class="section route-section">
 <div class="route-bubbles" aria-label="ゲームの滝壺をもっと楽しむ">
-<a class="route-bubble" href="lab.html"><span class="route-bubble-inner">
-<img class="route-bubble-image" src="assets/img/artwork_320.jpg" alt="" aria-hidden="true">
-<span class="route-bubble-en">EPISODE LABORATORY</span>
-<span class="route-bubble-title">博士の3択から<br>今日の相棒を選ぼう</span>
-<span class="route-bubble-desc">あなたなら、どれ？ ランダムな3つのエピソードから気になる一回を。</span>
+<a class="route-bubble route-bubble-lab" href="lab.html"><span class="route-bubble-inner">
+<img class="route-bubble-image route-bubble-image-hyuuma" src="assets/img/hyuuma.webp" alt="" aria-hidden="true">
+<span class="route-bubble-en">EPISODE LAB</span>
+<span class="route-bubble-title"><span class="route-bubble-title-line">次に聴くのはどの回？</span><span class="route-bubble-title-line">エピソード研究所</span></span>
+<span class="route-bubble-desc">ランダムな3本から、気になる一回を。手持ちや図鑑も自由に楽しもう。</span>
 <span class="route-bubble-cta">研究所へ →</span></span></a>
-<a class="route-bubble" href="games/">
+<a class="route-bubble route-bubble-db" href="games/">
 <span class="route-bubble-inner">
 <img class="route-bubble-image route-bubble-image-scissors" src="assets/img/scissors.png" alt="" aria-hidden="true">
 <span class="route-bubble-en">TAKITSUBO DATABASE</span>
@@ -484,7 +486,7 @@ def build_index():
 <span class="route-bubble-cta">索引を見る →</span>
 </span>
 </a>
-<a class="route-bubble" href="shindan.html">
+<a class="route-bubble route-bubble-shindan" href="shindan.html">
 <span class="route-bubble-inner">
 <img class="route-bubble-image" src="assets/img/rock_ichigo.png" alt="" aria-hidden="true">
 <span class="route-bubble-en">FUSAWASHII GAME SHINDAN</span>
@@ -493,7 +495,7 @@ def build_index():
 <span class="route-bubble-cta">診断する →</span>
 </span>
 </a>
-<a class="route-bubble" href="awq/">
+<a class="route-bubble route-bubble-awq" href="awq/">
 <span class="route-bubble-inner">
 <img class="route-bubble-image route-bubble-image-photo" src="{awq_thumb}" alt="" aria-hidden="true">
 <span class="route-bubble-en">ARTWORK QUIZ RANKING</span>
@@ -2014,7 +2016,7 @@ def build_search_json():
 # ============================================================ sitemap
 def build_lab():
     page = head("エピソード研究所", "そこに3つのエピソードがあるじゃろう！ ランダムな3択から気になる回を選んで、同じ3択をシェアしよう。", "", "lab.html")
-    page += header("")
+    page += header("", "lab")
     page += f'''<main class="container">
 <div class="page-head" style="text-align:center;">
 <h1 class="page-title"><span class="en">EPISODE LAB</span>エピソード研究所</h1>
