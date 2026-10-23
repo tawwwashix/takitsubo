@@ -120,8 +120,9 @@ export async function mount(root, page) {
   } catch (_) { saveAvailable = false; }
   root.innerHTML = `
 <div class="lab-wrap">
-  <header class="lab-heading"><a class="lab-exit" href="index.html" aria-label="研究所を出てホームへ">← EXIT</a><div><span class="lab-kicker">GAME NO TAKITSUBO</span><h1>エピソード研究所</h1></div><button type="button" id="labMotion" class="lab-icon-button" aria-pressed="false" aria-label="動きを止める">動き ON</button></header>
+
   <div class="lab-machine">
+  <div class="lab-machine-tools"><button type="button" id="labMotion" class="lab-icon-button" aria-pressed="false" aria-label="動きを止める">動き ON</button></div>
   <section class="lab-scene" aria-label="カートリッジが浮かぶ研究所">
     <svg class="lab-room" viewBox="0 0 1000 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true" shape-rendering="crispEdges">
       <defs><pattern id="labWallTiles" width="100" height="76" patternUnits="userSpaceOnUse"><path fill="#dfefff" d="M0 0h100v76H0z"/><path fill="none" stroke="#bed9ef" stroke-width="2" d="M0 76V0h100"/></pattern><pattern id="labFloorTiles" width="100" height="44" patternUnits="userSpaceOnUse"><path fill="#badcec" d="M0 0h100v44H0z"/><path fill="none" stroke="#e7f6ff" stroke-width="2" d="M0 44V0h100"/></pattern></defs>
@@ -141,13 +142,14 @@ export async function mount(root, page) {
   </section>
   <nav class="lab-toolbar" aria-label="研究所のメニュー"><button type="button" id="labShuffle" class="lab-secondary">↻ 別の3択</button><button type="button" id="labDexToggle" class="lab-secondary" aria-haspopup="dialog"><span>図鑑</span><strong id="labCount"></strong></button></nav>
   </div>
+  <section id="labShare" aria-label="この3択をシェア"></section>
+  <p class="lab-footnote" ${isLocal ? "" : "hidden"}>試作中のリンクはこのPC内での確認用。画像は保存して共有できる。</p>
   <section class="lab-case" aria-labelledby="labPartyHeading">
     <div class="lab-case-heading"><h2 id="labPartyHeading">カートリッジケース</h2><span id="labPartyCount"></span></div>
     <p class="lab-footnote">気に入った回を、6本まで。図鑑からも選べるよ。</p>
     <div id="labPartyGrid"></div><p id="labPartyStatus" class="lab-footnote" role="status"></p>
   </section>
-  <section id="labShare" aria-label="この3択をシェア"></section>
-  <p class="lab-footnote" ${isLocal ? "" : "hidden"}>試作中のリンクはこのPC内での確認用。画像は保存して共有できる。</p>
+
 </div>
 <dialog id="labDex" aria-labelledby="labDexHeading"><div class="lab-modal-top"><h2 id="labDexHeading">わたしのエピソード図鑑</h2><button type="button" class="lab-close" data-close="labDex" aria-label="図鑑を閉じる">×</button></div><div class="lab-dex-controls"><label>並び順 <select id="labDexOrder"><option value="desc">第○回が大きい順</option><option value="asc">第○回が小さい順</option></select></label><label><input type="checkbox" id="labDexUnseen"> 未発見も表示</label><span id="labDexCount"></span></div><div id="labDexGrid"></div><p class="lab-footnote" id="labStorageNote">このブラウザに保存。聴いたかどうかは記録しない。</p></dialog>
 `;
@@ -253,7 +255,7 @@ export async function mount(root, page) {
     return url;
   }
   let shareIntent = "";
-  function updateShare() {
+  function updateShare(reset = false) {
     const url = roundUrl();
     history.replaceState(history.state, "", url);
     const chosen = selected ?? senderPick;
@@ -262,7 +264,7 @@ export async function mount(root, page) {
     intent.searchParams.set("text", `${text}\n${round.map(e => `第${e.number}回 ${Array.from(e.title).slice(0,28).join("")}${Array.from(e.title).length>28?"…":""}`).join("\n")}\n#ゲームの滝壺`);
     if (!isLocal) intent.searchParams.set("url", url.href);
     shareIntent = intent.href;
-    shareControls?.invalidate();
+    shareControls?.invalidate({reset});
   }
   function renderCards() {
     const cards = $("#labCards"); cards.replaceChildren();
@@ -336,7 +338,7 @@ export async function mount(root, page) {
     $("#labInspection").hidden = true;
     $("#labSpeech").textContent = "そこに3つのエピソードがあるじゃろう！";
     $(".lab-sub").textContent = "気になる一回を、セットしてみるのじゃ。";
-    renderCards(); updateParty(); updateShare();
+    renderCards(); updateParty(); updateShare(true);
   }
   $("#labShuffle").addEventListener("click", () => {
     $("#labNotice").hidden = true; newRound();
@@ -404,7 +406,7 @@ export async function mount(root, page) {
     }
   });
   shareControls = mountShareControls($("#labShare"), {
-    prefix: "lab", signal: page.signal,
+    prefix: "lab", signal: page.signal, previewMode: "on-demand",
     getBlob: () => createShareImage(round.slice(), selected ?? senderPick, page.signal, selected === null && senderPick !== null, wrapLines),
     getLink: () => roundUrl().href, getX: () => shareIntent,
     filename: () => `takitsubo-${round.map(e=>e.number).join("-")}${selected === null ? "" : `-pick-${selected}`}.png`

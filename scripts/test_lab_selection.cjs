@@ -26,6 +26,7 @@ fs.mkdirSync(out,{recursive:true});
   }
   await p.locator('#labCopy').click();const shared=await p.evaluate(()=>navigator.clipboard.readText());
   assert.equal(new URL(shared).searchParams.get('eps'),'50,54,47');assert.equal(new URL(shared).searchParams.get('pick'),'47');
+  await p.locator('#labMake').click();await p.locator('#labSharePreview').waitFor();
   const download=p.waitForEvent('download');await p.locator('#labSave').click();await(await download).saveAs(path.join(out,'lab-blue-share.png'));
   const png=fs.readFileSync(path.join(out,'lab-blue-share.png'));assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),800);
   await p.locator('#labCopyImage').click();await p.waitForFunction(()=>document.querySelector('#labShareStatus').textContent.includes('コピーした'));
@@ -36,11 +37,11 @@ fs.mkdirSync(out,{recursive:true});
   });
   for(const x of lines){assert(x.lines.every(l=>! /^[、。！？）」』]/.test(l)));assert(x.widths.every(w=>w<=160));}
   await p.evaluate(()=>{window.marker=42;window.audio=document.querySelector('audio');});
-  await p.locator('.lab-exit').click();await p.locator('.hero').waitFor();await p.goBack();await p.locator('.lab-choose').first().waitFor();
+  await p.locator('.site-header .brand').click();await p.locator('.hero').waitFor();await p.goBack();await p.locator('.lab-choose').first().waitFor();
   assert(await p.evaluate(()=>window.marker===42&&window.audio===document.querySelector('audio')));
   await p.goto(base+'/shindan.html');await p.locator('input').first().fill('たわし');await p.locator('#shForm button').click();
   await p.locator('#shSave').waitFor();const d=p.waitForEvent('download');await p.locator('#shSave').click();await(await d).saveAs(path.join(out,'diagnosis-share.png'));
-  await p.locator('#shShare summary').click();await p.locator('#shSharePreview').waitFor();
+  await p.locator('#shSharePreview').waitFor();
   await p.screenshot({path:path.join(out,'diagnosis-share-ui.png'),fullPage:true});
   assert.deepEqual(errors,[]);console.log('PASS selection, replacement, responsive bounds, PNG/clipboard, kinsoku, navigation/audio identity, diagnosis shared controls');
  }finally{await b.close();}

@@ -37,6 +37,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   check('Recipient gets same trio and sender marker, with independent touch selection');
   await recipient.close();
 
+  await p.locator('#labMake').click();await p.locator('#labSharePreview').waitFor();
   const downloadEvent=p.waitForEvent('download');await p.locator('#labSave').click();const download=await downloadEvent;
   await download.saveAs(path.join(out,'lab-share-selected.png'));
   const png=fs.readFileSync(path.join(out,'lab-share-selected.png'));assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),800);
@@ -50,6 +51,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   for(let i=0;i<8;i++)await p.locator('#labShuffle').click();assert.equal(await p.locator('.lab-choose:enabled').count(),3);
   check('Immediate unlimited rerolls, no duplicate candidates or stale selection');
 
+  await p.locator('#labMake').click();await p.locator('#labSharePreview').waitFor();
   const blankDownload=p.waitForEvent('download');await p.locator('#labSave').click();await(await blankDownload).saveAs(path.join(out,'lab-share-unselected.png'));
 
   await p.goto(base+'/lab.html?eps=1,1,999999&pick=999999');await ready(p);
@@ -57,7 +59,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   await p.goto(base+'/lab.html?eps=128,98,16&pick=999999');await ready(p);assert.deepEqual(await cards(p),[128,98,16]);assert.equal(await p.locator('.lab-sender').count(),0);
   check('Invalid duplicate/unknown IDs recover, invalid pick does not replace valid trio');
   await p.evaluate(()=>{window.originalAudio=document.querySelector('audio');window.labMarker=true;});
-  await p.locator('.lab-exit').click();await p.locator('.hero').waitFor();assert.equal(await p.locator('link[href*="/lab.css"]').count(),0);
+  await p.locator('.site-header .brand').click();await p.locator('.hero').waitFor();assert.equal(await p.locator('link[href*="/lab.css"]').count(),0);
   await p.goBack();await ready(p);assert(await p.evaluate(()=>window.labMarker&&window.originalAudio===document.querySelector('audio')));
   assert.equal(await p.locator('link[href*="/lab.css"]').count(),1);
   await p.locator('#labDexToggle').click();assert.equal(await p.locator('#labDexGrid .lab-owned').count(),1);
@@ -69,7 +71,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   const f=await fail.newPage();f.on('pageerror',e=>errors.push(e.message));await f.route('**/assets/img/ep/*',r=>r.abort());
   await f.goto(base+'/lab.html?eps=128,98,16');await ready(f);await f.locator('.lab-choose').first().click();await f.locator('#labConfirm').click();assert(await f.locator('#labResult').isVisible());
   await f.locator('#labCopy').click();assert(await f.locator('#labCopyFallback').isVisible());
-  const failedDownload=f.waitForEvent('download');await f.locator('#labSave').click();await failedDownload;await fail.close();
+  await f.locator('#labMake').click();await f.locator('#labSharePreview').waitFor();const failedDownload=f.waitForEvent('download');await f.locator('#labSave').click();await failedDownload;await fail.close();
   check('Storage/image failures and denied clipboard retain selection, sharing fallback and PNG generation');
   await p.goto(base+'/episodes/122.html');await p.locator('.tkp-play').click();
   await p.waitForFunction(()=>document.querySelector('audio').currentTime>2,null,{timeout:60000});

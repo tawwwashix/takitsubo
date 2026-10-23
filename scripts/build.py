@@ -2015,9 +2015,14 @@ def build_search_json():
 def build_lab():
     page = head("エピソード研究所", "そこに3つのエピソードがあるじゃろう！ ランダムな3択から気になる回を選んで、同じ3択をシェアしよう。", "", "lab.html")
     page += header("")
-    page += f'''<main id="episodeLab" data-share-module="assets/js/share-tools.js?v={av('assets/js/share-tools.js')}" data-module="assets/js/lab/game.js?v={av('assets/js/lab/game.js')}" data-css="assets/css/lab.css?v={av('assets/css/lab.css')}" data-source="data/search.json?v={av('data/search.json')}">
+    page += f'''<main class="container">
+<div class="page-head" style="text-align:center;">
+<h1 class="page-title"><span class="en">EPISODE LAB</span>エピソード研究所</h1>
+</div>
+<section id="episodeLab" data-share-module="assets/js/share-tools.js?v={av('assets/js/share-tools.js')}" data-module="assets/js/lab/game.js?v={av('assets/js/lab/game.js')}" data-css="assets/css/lab.css?v={av('assets/css/lab.css')}" data-source="data/search.json?v={av('data/search.json')}">
 <p style="text-align:center;padding:60px">研究所を準備しています…</p>
 <noscript><p>3択にはJavaScriptが必要です。<a href="episodes/">エピソード一覧はこちら</a></p></noscript>
+</section>
 </main>'''
     page += footer("")
     (ROOT / "lab.html").write_text(page, encoding="utf-8")

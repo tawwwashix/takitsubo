@@ -1,25 +1,18 @@
-/* Lab-only stylesheet: normal site chrome is restored when this stylesheet unloads. */
-#sitePage:has(#episodeLab)>.site-header,
-#sitePage:has(#episodeLab)>.site-footer,
-#sitePage:has(#episodeLab)>.ambient-bubbles,
-#sitePage:has(#episodeLab)>.datyou-top { display:none; }
+/* The lab lives inside the standard site header, page heading and footer. */
 #episodeLab {
   --lab-ink:#284e60; --lab-paper:#f4faff; --lab-line:#7daaac;
-  color:var(--lab-ink); background:linear-gradient(180deg,var(--bg),var(--band-soft));
-  padding:20px 24px 32px; min-height:100svh; font-family:var(--font-body),sans-serif;
+  color:var(--lab-ink);
+  padding:20px 0 42px; font-family:var(--font-body),sans-serif;
 }
 #episodeLab * { box-sizing:border-box; }
 #episodeLab [hidden] { display:none!important; }
-#episodeLab button,#episodeLab a { font:inherit; }
+#episodeLab button:not(.sh-btn),#episodeLab a:not(.sh-btn) { font:inherit; }
 #episodeLab button { cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
 #episodeLab button:disabled { cursor:default; }
 #episodeLab :focus-visible { outline:3px solid var(--primary); outline-offset:4px; }
+#episodeLab .lab-machine-tools { display:flex;justify-content:flex-end;padding:0 2px 8px; }
 #episodeLab .lab-wrap { max-width:1040px; margin:auto; }
-#episodeLab .lab-heading { display:flex; align-items:center; justify-content:space-between; gap:20px; color:var(--ink); margin-bottom:14px; }
-#episodeLab .lab-heading>div { text-align:center; }
-#episodeLab h1 { font-family:var(--font-display); font-size:24px; letter-spacing:.08em; line-height:1.4; margin:0; }
 #episodeLab .lab-kicker { display:block; font:700 9px var(--font-num),sans-serif; letter-spacing:.2em; margin:0 0 3px; }
-#episodeLab .lab-exit { color:var(--primary-deep); text-decoration:none; font:700 12px var(--font-num),sans-serif; min-width:80px; min-height:44px; display:flex; align-items:center; }
 #episodeLab .lab-icon-button { background:var(--surface); color:var(--sub); border:1px solid var(--line); border-radius:8px; padding:8px 10px; font-size:11px; min-height:44px; min-width:80px; }
 #episodeLab .lab-machine { border:4px solid #4e7b85; border-radius:12px; background:#bbd8ef; padding:8px; box-shadow:inset 0 3px #f2ffef,0 6px #699aab,0 10px 24px #39769820; overflow:hidden; }
 #episodeLab .lab-scene { position:relative; isolation:isolate; border:3px solid #5d8e94; border-radius:5px 5px 0 0; background:#dfefff; height:440px; overflow:hidden; }
@@ -96,7 +89,7 @@
 #episodeLab .lab-modal-top { display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:12px; }
 #episodeLab .lab-modal-top h2 { font-size:18px; margin:0; }
 #episodeLab .lab-close { border:2px solid #7da5a7; background:#fff; min-width:44px; height:44px; font-size:24px; color:var(--lab-ink); }
-#episodeLab #labSharePreview { width:100%; display:block; border:1px solid #b8c6b0; margin-bottom:16px; }
+
 #episodeLab .lab-footnote { font-size:11px; color:#536f6b; line-height:1.9; margin:12px 0 0; }
 #episodeLab #labCopyFallback { width:100%; font-size:12px; padding:10px; margin-top:10px; border:1px solid var(--lab-ink); }
 #episodeLab #labDexGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(135px,1fr)); gap:24px 20px; margin-top:24px; }
@@ -112,11 +105,8 @@
 #episodeLab.lab-paused .lab-float,#episodeLab.lab-paused .lab-cartridge { animation-play-state:paused; }
 #episodeLab.lab-paused .lab-art { transition:none; }
 @media(max-width:760px) {
-  #episodeLab { padding:12px 10px 24px; }
-  #episodeLab .lab-heading { gap:8px; margin-bottom:12px; }
-  #episodeLab h1 { font-size:18px; letter-spacing:.04em; }
+  #episodeLab { padding:14px 0 32px; }
   #episodeLab .lab-kicker { font-size:7px; }
-  #episodeLab .lab-exit { min-width:48px; font-size:10px; }
   #episodeLab .lab-icon-button { min-width:58px; font-size:10px; padding:6px; }
   #episodeLab .lab-machine { padding:5px; border-width:3px; border-radius:9px; }
   #episodeLab .lab-scene { height:clamp(350px,65vw,400px); }
@@ -150,8 +140,7 @@
   #episodeLab #labDexGrid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px 14px; }
 }
 @media(max-width:360px) {
-  #episodeLab { padding:8px 6px 18px; }
-  #episodeLab h1 { font-size:15px; }
+  #episodeLab { padding:12px 0 28px; }
   #episodeLab .lab-scene { height:310px; }
   #episodeLab .lab-console { padding:10px 8px; }
   #episodeLab .lab-dialogue { gap:8px; }
@@ -161,8 +150,6 @@
   #episodeLab .lab-float,#episodeLab .lab-cartridge { animation:none!important; }
   #episodeLab .lab-art,#episodeLab .lab-cards { transition:none; }
   #episodeLab #labMotion { display:none; }
-  #episodeLab .lab-heading>div { margin-right:auto; }
-  #episodeLab .lab-heading { justify-content:flex-start; gap:20px; }
 }
 
 /* Insert the bottom edge behind a socket lip; all three remain interactive. */
@@ -216,3 +203,5 @@
   #episodeLab #labDex .lab-modal-top { top:-16px; }
   #episodeLab .lab-item-actions { display:grid;grid-template-columns:1fr;width:100%; }
 }
+
+#episodeLab #labShare + .lab-footnote { text-align:center; }

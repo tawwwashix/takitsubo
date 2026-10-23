@@ -24,29 +24,38 @@ export function wrapLines(ctx, text, width, limit = Infinity) {
 }
 
 // Shared interaction, wording and fallbacks for the diagnosis and episode lab.
-export function mountShareControls(host, {prefix, getBlob, getLink, getX, filename, signal}) {
+export function mountShareControls(host, {prefix, getBlob, getLink, getX, filename, signal, previewMode = 'always'}) {
   host.classList.add('episode-share');
   host.innerHTML = `<style>
-    .episode-share{margin:20px 0;color:var(--ink,#284e60)}
-    .episode-share .share-buttons{display:flex;flex-wrap:wrap;gap:8px}
-    .episode-share .share-action{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid #8fb5d0;border-radius:6px;background:#f4faff;color:#254e70;font:inherit;font-size:13px;font-weight:700;text-decoration:none;cursor:pointer}
-    .episode-share .share-action:hover{background:#e2f2ff}
-    .episode-share .share-note,.episode-share .share-status{font-size:12px;line-height:1.6;margin:8px 0;color:#466680}
-    .episode-share details{margin-top:10px}.episode-share summary{cursor:pointer;font-size:12px;padding:8px 0}
-    .episode-share img{display:block;width:100%;max-width:620px;margin:12px auto}.episode-share input{width:100%;padding:10px}
+    .episode-share{margin:20px 0;color:var(--ink,#284e60);text-align:center}
+    .episode-share .sh-btn{min-height:44px;text-decoration:none}
+    .episode-share .sh-btn:disabled{opacity:.6;cursor:wait}
+    .episode-share .share-status{font-size:12px;line-height:1.8;margin:10px 0;color:var(--sub)}
+    .episode-share .share-status:empty,.episode-share .share-entry:empty{display:none}
+    .episode-share img{display:block;width:100%;max-width:540px;height:auto;margin:20px auto 0;border-radius:18px;box-shadow:var(--shadow-hover)}
+    .episode-share[data-preview-mode="on-demand"] img{max-width:760px}
+    .episode-share input{width:100%;padding:10px}
     .episode-share [hidden]{display:none!important}
-    @media(max-width:600px){.episode-share .share-buttons{display:grid;grid-template-columns:1fr 1fr}.episode-share .share-action{padding:9px 6px;font-size:12px}}
-  </style><div class="share-buttons">
-    <button type="button" class="share-action" id="${prefix}Save">画像を保存</button>
-    <button type="button" class="share-action" id="${prefix}CopyImage">画像をコピー</button>
-    <a class="share-action" id="${prefix}X" target="_blank" rel="noopener">Xでシェア</a>
-    ${getLink ? `<button type="button" class="share-action" id="${prefix}Copy">同じ3択のリンクをコピー</button>` : ''}
-  </div><p class="share-note">Xには、保存またはコピーした画像を投稿画面で添付してね。</p>
+  </style><div class="sh-actions share-entry" id="${prefix}Entry">
+    <button type="button" class="sh-btn" id="${prefix}Make" aria-expanded="false" aria-controls="${prefix}ImagePanel">この3択のシェア画像を作る</button>
+    ${getLink ? `<button type="button" class="sh-btn" id="${prefix}Copy">同じ3択のリンクをコピー</button>` : ''}
+  </div>
   <p class="share-status" id="${prefix}ShareStatus" role="status"></p>
   <input id="${prefix}CopyFallback" aria-label="コピーするリンク" readonly hidden>
-  <details><summary>シェア画像を確認</summary><img id="${prefix}SharePreview" alt="シェア画像のプレビュー" hidden></details>`;
+  <div id="${prefix}ImagePanel" hidden>
+    <img id="${prefix}SharePreview" alt="${getLink ? '今回の3択と選んだ回のシェア画像' : 'ふさわしいゲーム診断の結果画像'}" hidden>
+    <div id="${prefix}ImageActions" hidden>
+      <div class="sh-actions">
+        <button type="button" class="sh-btn save" id="${prefix}Save">📥 画像を保存</button>
+        <button type="button" class="sh-btn copy" id="${prefix}CopyImage">📋 画像をコピー</button>
+        <a class="sh-btn share" id="${prefix}X" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.4Z"/></svg>Xでシェアする</a>
+      </div><p class="sh-note">画像を保存／コピーしてから、Xの投稿画面に添付してね。</p>
+      <div class="sh-actions" id="${prefix}LinkRow" ${getLink ? '' : 'hidden'}></div>
+    </div>
+  </div>`;
+  host.dataset.previewMode = previewMode;
   const $ = suffix => host.querySelector('#' + prefix + suffix);
-  let revision = 0, pending = null, url = null;
+  let revision = 0, pending = null, url = null, expanded = previewMode === 'always';
   const live = () => !signal.aborted && host.isConnected;
   const status = text => { if(live()) $('ShareStatus').textContent = text; };
   async function image() {
@@ -55,10 +64,33 @@ export function mountShareControls(host, {prefix, getBlob, getLink, getX, filena
     const blob = await pending;
     if (!live() || version !== revision) throw new DOMException('Selection changed', 'AbortError');
     if (!url) url = URL.createObjectURL(blob);
-    $('SharePreview').src = url; $('SharePreview').hidden = false;
+    const preview = $('SharePreview');
+    if (preview.src !== url) preview.src = url;
+    await preview.decode();
+    if (!live() || version !== revision) throw new DOMException('Selection changed', 'AbortError');
+    preview.hidden = false;
     return blob;
   }
   function failure(e) { if(e.name !== 'AbortError') status('画像を用意できなかった。もう一度試してね。'); }
+  async function reveal() {
+    const version = revision;
+    expanded = true; $('ImagePanel').hidden = false;
+    $('Make').disabled = true; $('Make').setAttribute('aria-expanded','true');
+    status('画像を準備中…');
+    try {
+      await image();
+      const restoreFocus = document.activeElement === $('Make');
+      $('ImageActions').hidden = false; $('Make').hidden = true;
+      if(getLink) $('LinkRow').append($('Copy'));
+      $('Entry').hidden = true;
+      if(restoreFocus) $('Save').focus({preventScroll:true});
+      status('');
+    } catch(e) {
+      if (!live() || version !== revision) return;
+      failure(e); $('Entry').hidden = false; $('Make').hidden = false; $('Make').textContent = '画像をもう一度作る';
+    } finally { if(live() && version === revision) $('Make').disabled = false; }
+  }
+  $('Make').onclick = reveal;
   $('Save').onclick = async () => {
     status('画像を準備中…');
     try { await image(); const a = document.createElement('a'); a.href = url; a.download = filename(); a.click(); status('画像を保存したよ。'); } catch(e) { failure(e); }
@@ -77,12 +109,18 @@ export function mountShareControls(host, {prefix, getBlob, getLink, getX, filena
     try { await navigator.clipboard.writeText(value); if(version === revision) status('同じ3枚・同じ並びのリンクをコピーしたよ。'); }
     catch (_) { if(!live() || version !== revision) return; $('CopyFallback').hidden = false; $('CopyFallback').value = value; $('CopyFallback').focus(); $('CopyFallback').select(); status('この欄のリンクをコピーしてね。'); }
   };
-  host.querySelector('details').ontoggle = () => { if(host.querySelector('details').open) image().catch(failure); };
-  function invalidate() {
+  function invalidate({reset = false} = {}) {
     revision++; pending = null; if(url) URL.revokeObjectURL(url); url = null;
+    if(reset && previewMode === 'on-demand') expanded = false;
     $('SharePreview').hidden = true; $('SharePreview').removeAttribute('src');
     $('CopyFallback').hidden = true; status(''); $('X').href = getX();
-    if(host.querySelector('details').open) image().catch(failure);
+    $('ImageActions').hidden = true; $('ImagePanel').hidden = !expanded;
+    $('Entry').hidden = previewMode === 'always';
+    $('Make').hidden = previewMode === 'always'; $('Make').disabled = false;
+    $('Make').textContent = 'この3択のシェア画像を作る';
+    $('Make').setAttribute('aria-expanded',String(expanded));
+    if(getLink) $('Entry').append($('Copy'));
+    if(expanded) reveal();
   }
   signal.addEventListener('abort', () => { revision++; if(url) URL.revokeObjectURL(url); }, {once:true});
   invalidate(); return {invalidate};

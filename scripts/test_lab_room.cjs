@@ -17,7 +17,7 @@ fs.mkdirSync(out, { recursive: true });
   const paused = () => p.locator('.lab-cartridge').first().evaluate(e => getComputedStyle(e).animationPlayState);
   try {
     await p.goto(base + '/lab.html?eps=101,30,95&pick=101'); await ready();
-    assert(await p.locator('.site-header').isHidden()); assert(await p.locator('.site-footer').isHidden());
+    assert(await p.locator('.site-header').isVisible()); assert(await p.locator('.site-footer').isVisible());
     await p.locator('.lab-choose').first().focus(); await p.keyboard.press('ArrowRight');
     assert.equal(await p.locator('.is-inspected').getAttribute('data-number'), '30');
     await p.keyboard.press('ArrowRight');
@@ -78,12 +78,12 @@ fs.mkdirSync(out, { recursive: true });
     await p.locator('#labShuffle').click();
     assert(await p.locator('#labInspection').isHidden()); assert(await p.locator('#labResult').isHidden());
     check('Reduced-motion mode retains complete inspect/confirm/reroll flow and selected cartridge presentation');
-    await p.locator('.lab-exit').click(); await p.locator('.hero').waitFor();
+    await p.locator('.site-header .brand').click(); await p.locator('.hero').waitFor();
     assert(await p.locator('.site-header').isVisible()); assert(await p.locator('.site-footer').isVisible());
     assert.equal(await p.locator('link[href*="/lab.css"]').count(), 0);
     await p.goBack(); await ready();
     assert.equal(await p.locator('link[href*="/lab.css"]').count(), 1);
-    check('Exit restores normal site chrome; returning mounts one fresh lab');
+    check('Common header navigates home; returning mounts one fresh lab');
     assert.deepEqual(errors, []);
   } finally {
     fs.writeFileSync(path.join(out,'lab-room-report.json'), JSON.stringify({checks,errors},null,2));
