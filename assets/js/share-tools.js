@@ -28,6 +28,7 @@ export function mountShareControls(host, {prefix, getBlob, getLink, getX, filena
   host.classList.add('episode-share');
   host.innerHTML = `<style>
     .episode-share{margin:20px 0;color:var(--ink,#284e60);text-align:center}
+    .episode-share[data-preview-mode="always"]{margin-bottom:0}
     .episode-share .sh-btn{min-height:44px;text-decoration:none}
     .episode-share .sh-btn:disabled{opacity:.6;cursor:wait}
     .episode-share .share-status{font-size:12px;line-height:1.8;margin:10px 0;color:var(--sub)}
@@ -49,7 +50,7 @@ export function mountShareControls(host, {prefix, getBlob, getLink, getX, filena
         <button type="button" class="sh-btn save" id="${prefix}Save">📥 画像を保存</button>
         <button type="button" class="sh-btn copy" id="${prefix}CopyImage">📋 画像をコピー</button>
         <a class="sh-btn share" id="${prefix}X" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.4Z"/></svg>Xでシェアする</a>
-      </div><p class="sh-note">画像を保存／コピーしてから、Xの投稿画面に添付してね。</p>
+      </div><p class="sh-note">${getLink ? '画像を保存／コピーしてから、Xの投稿画面に添付してね。' : '画像を保存/コピーしてから、Xのポストに添付すると盛り上がります！'}</p>
       <div class="sh-actions" id="${prefix}LinkRow" ${getLink ? '' : 'hidden'}></div>
     </div>
   </div>`;
