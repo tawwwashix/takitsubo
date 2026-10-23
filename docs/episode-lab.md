@@ -71,6 +71,10 @@ Worktree直下の `start-episode-lab.bat` をダブルクリック。
 
 ## 実装と検証
 
+「手持ちに加える」の色は `assets/css/lab.css` 冒頭の `--lab-confirm-*` で調整する。
+背景・ホバー背景・文字・縁・下側の影・上側のハイライトをまとめて指定できる。
+共有PNGは診断と同じ `assets/img/mainlogo.webp` を使い、青いグラデーション、光の帯、泡、コーラルの下線で番組の見た目をそろえる。カートリッジはゲーム画面と同じSVGを再利用する。
+
 `assets/js/lab-loader.js` が研究所でのみ `assets/js/lab/game.js` と `assets/css/lab.css` を読み込む。
 共通ヘッダー・フッター・ページ見出し（EPISODE LAB / エピソード研究所）を表示し、独自のEXITは置かない。「動き ON／OFF」はゲーム枠内に置く。ゲーム画面、今回の3択の共有欄、手持ちエピソードの順で並ぶ。離脱時にCSS・監視処理・画像生成処理・オブジェクトURLを終了・解放する。既存の音声プレイヤーは維持する。
 背景は静止SVG、動きはCSS中心。WebGL・追加ライブラリ・連続JavaScript描画は使わない。

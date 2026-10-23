@@ -1,6 +1,13 @@
 /* The lab lives inside the standard site header, page heading and footer. */
 #episodeLab {
   --lab-ink:#284e60; --lab-paper:#f4faff; --lab-line:#7daaac;
+  /* 「手持ちに加える」の色。通常・ホバー・文字・縁・影をここで調整。 */
+  --lab-confirm-bg:#f4afa0;
+  --lab-confirm-hover:#f09c8b;
+  --lab-confirm-text:#632e29;
+  --lab-confirm-border:#cf8175;
+  --lab-confirm-shadow:#c78074;
+  --lab-confirm-highlight:#ffe0d6;
   color:var(--lab-ink);
   padding:20px 0 42px; font-family:var(--font-body),sans-serif;
 }
@@ -231,7 +238,7 @@
 }
 @media(prefers-reduced-motion:reduce) { #episodeLab .lab-card,#episodeLab .lab-shadow { transition:none; } }
 
-#episodeLab #labConfirm { background:#b94c43;border-color:#923a34;box-shadow:0 3px 0 #87352f,inset 0 2px 0 #df8075; }
-#episodeLab #labConfirm:hover:not(:disabled) { background:#a53d35; }
-#episodeLab #labConfirm:active:not(:disabled) { box-shadow:inset 0 1px #87352f; }
+#episodeLab #labConfirm { background:var(--lab-confirm-bg);color:var(--lab-confirm-text);border-color:var(--lab-confirm-border);box-shadow:0 2px 0 var(--lab-confirm-shadow),inset 0 2px 0 var(--lab-confirm-highlight); }
+#episodeLab #labConfirm:hover:not(:disabled) { background:var(--lab-confirm-hover); }
+#episodeLab #labConfirm:active:not(:disabled) { box-shadow:inset 0 1px var(--lab-confirm-shadow); }
 #episodeLab #labStorageNote { color:var(--lab-ink);margin:0 0 8px;font-size:12px; }

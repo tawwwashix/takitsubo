@@ -577,6 +577,7 @@ function imageFor(ep, signal) {
 async function createShareImage(episodes, chosen, signal, fromSender, wrapLines, kind="trio") {
   await document.fonts.ready;
   const images = await Promise.all(episodes.map(e => imageFor(e, signal)));
+  const logo = await imageFor({image:"assets/img/mainlogo.webp"}, signal);
   const shells = await Promise.all(episodes.map(ep => {
     const art = createCartridge(ep, true), svg = art.querySelector("svg");
     let source = new XMLSerializer().serializeToString(svg);
@@ -589,22 +590,30 @@ async function createShareImage(episodes, chosen, signal, fromSender, wrapLines,
   const canvas = document.createElement("canvas"); canvas.width = 1200; canvas.height = kind==="party"?1100:800;
   const height=canvas.height, isParty=kind==="party";
   const c = canvas.getContext("2d"), ink = "#254e70";
-  c.fillStyle = "#e7f4ff"; c.fillRect(0,0,1200,height);
-  c.strokeStyle = "#cee5f5"; c.lineWidth=1;
-  for(let y=0;y<height;y+=32) { c.beginPath(); c.moveTo(0,y); c.lineTo(1200,y); c.stroke(); }
-  c.fillStyle=ink;c.font='bold 24px "Noto Sans JP",sans-serif';c.fillText("ゲームの滝壺｜エピソード研究所",44,40);
-  c.font='bold 40px "Noto Sans JP",sans-serif';c.fillText(isParty?"わたしの手持ちエピソード":"この3本、どれを聴く？",44,91);
-  if(isParty) {c.font='bold 24px "Noto Sans JP",sans-serif';c.textAlign="right";c.fillText(`${episodes.length} / 6`,1156,91);c.textAlign="left";}
+  const sky=c.createLinearGradient(0,0,0,height);
+  sky.addColorStop(0,"#2086d3");sky.addColorStop(160/height,"#69b1e5");sky.addColorStop(270/height,"#d7edff");sky.addColorStop(.75,"#dce8fb");sky.addColorStop(1,"#9ec7e5");
+  c.fillStyle=sky;c.fillRect(0,0,1200,height);
+  c.fillStyle="rgba(255,255,255,.1)";
+  for(const x of [180,650,1080]) {c.beginPath();c.moveTo(x,0);c.lineTo(x+90,0);c.lineTo(x-100,height);c.lineTo(x-210,height);c.closePath();c.fill();}
+  c.fillStyle="rgba(255,255,255,.36)";
+  for(const [x,y,r] of [[27,240,8],[1168,280,10],[420,190,5],[805,570,6],[30,690,6],[1140,680,5],[1010,45,7]]) {c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill();}
+  c.save();c.shadowColor="rgba(8,40,80,.3)";c.shadowBlur=14;c.shadowOffsetY=4;
+  if(logo) c.drawImage(logo,30,14,138,138);
+  c.fillStyle="#fff";c.font='bold 22px "Noto Sans JP",sans-serif';c.fillText("ゲームの滝壺｜ゲーム系ポッドキャスト",190,39);
+  c.font='900 44px "Noto Sans JP",sans-serif';c.fillText("エピソード研究所",190,94);c.restore();
+  c.fillStyle="#ee735c";c.beginPath();c.roundRect(190,108,260,6,3);c.fill();
+  c.fillStyle="#fff";c.font='bold 30px "Noto Sans JP",sans-serif';c.fillText(isParty?"わたしの手持ちエピソード":"この3本、どれを聴く？",190,151);
+  if(isParty) {c.font='bold 24px "Noto Sans JP",sans-serif';c.textAlign="right";c.fillText(`${episodes.length} / 6`,1156,151);c.textAlign="left";}
   if(isParty) {
     c.save();c.strokeStyle="#aac8dc";c.lineWidth=2;c.setLineDash([9,7]);
     for(let i=episodes.length;i<6;i++) {
-      const x=84+(i%3)*380,y=125+Math.floor(i/3)*440;
+      const x=84+(i%3)*380,y=198+Math.floor(i/3)*440;
       c.beginPath();c.roundRect(x,y,240,280,10);c.stroke();
     }
     c.restore();
   }
   episodes.forEach((ep,i) => {
-    const x=(isParty?84:54)+(i%3)*380, y=isParty?125+Math.floor(i/3)*440:146, w=isParty?240:310, h=w*7/6;
+    const x=(isParty?84:54)+(i%3)*380, y=isParty?198+Math.floor(i/3)*440:198, w=isParty?240:310, h=w*7/6;
     c.fillStyle="#92b2cc"; c.fillRect(x+8,y+16,w,h-8);
     if(shells[i]) c.drawImage(shells[i],x,y,w,h);
     const ix=x+w*.0875, iy=y+h*.2357, iw=w*.825;
@@ -615,8 +624,8 @@ async function createShareImage(episodes, chosen, signal, fromSender, wrapLines,
     c.font='bold 21px "Noto Sans JP",sans-serif';
     wrapLines(c,ep.title,320,isParty?2:4).forEach((line,j)=>c.fillText(line,x,y+h+73+j*30));
     if(ep.number===chosen) {
-      c.fillStyle=ink;c.fillRect(x+12,103,w-24,32);c.fillStyle="#fff";c.textAlign="center";c.font='bold 18px "Noto Sans JP",sans-serif';
-      c.fillText(fromSender?"✓ 紹介した人の選択":"✓ 私はこれ",x+w/2,126);c.textAlign="left";
+      c.fillStyle=ink;c.beginPath();c.roundRect(x+12,160,w-24,30,8);c.fill();c.fillStyle="#fff";c.textAlign="center";c.font='bold 18px "Noto Sans JP",sans-serif';
+      c.fillText(fromSender?"✓ 紹介した人の選択":"✓ 私はこれ",x+w/2,182);c.textAlign="left";
     }
   });
   c.fillStyle=ink;c.fillRect(0,height-52,1200,52);c.fillStyle="#fff";c.font='bold 19px "Noto Sans JP",sans-serif';c.fillText("game-takitsubo.com/lab.html",44,height-18);

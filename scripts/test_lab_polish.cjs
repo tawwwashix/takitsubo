@@ -29,7 +29,7 @@ const base=process.argv[2]||'http://127.0.0.1:8766',out=path.resolve(__dirname,'
     assert(Math.abs(samples.start-samples.before)<2);assert(samples.middle>samples.before+2 && samples.middle<samples.end-2,JSON.stringify({width,reroll,...samples}));
    }
    await p.mouse.move(0,0);
-   const color=await p.locator('#labConfirm').evaluate(e=>getComputedStyle(e).backgroundColor);assert.equal(color,'rgb(185, 76, 67)');
+   const color=await p.locator('#labConfirm').evaluate(e=>getComputedStyle(e).backgroundColor);assert.equal(color,'rgb(244, 175, 160)');
    await p.locator('#labDexToggle').click();assert.equal(await p.locator('#labStorageNote').textContent(),'※このブラウザに保存されます');
    assert(await p.locator('#labStorageNote').evaluate(e=>e.getBoundingClientRect().bottom<=document.querySelector('.lab-dex-controls').getBoundingClientRect().top));
    await p.keyboard.press('Escape');assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
@@ -45,7 +45,7 @@ const base=process.argv[2]||'http://127.0.0.1:8766',out=path.resolve(__dirname,'
   await p.locator('#labPartyMake').click();await preview('labParty');
   const hand=await intent('#labPartyX');assert.equal(hand.url.href,'https://game-takitsubo.com/lab.html');assert(hand.text.includes('私の手持ちはこの1本！'));assert(hand.text.includes('#滝壺エピソード研究所'));
   const pd=p.waitForEvent('download');await p.locator('#labPartySave').click();await(await pd).saveAs(path.join(out,'lab-polish-party.png'));
-  const labels=await p.evaluate(()=>window.canvasLabels);for(const text of ['ゲームの滝壺｜エピソード研究所','この3本、どれを聴く？','わたしの手持ちエピソード','#ゲームの滝壺 #滝壺エピソード研究所'])assert(labels.includes(text));
+  const labels=await p.evaluate(()=>window.canvasLabels);for(const text of ['ゲームの滝壺｜ゲーム系ポッドキャスト','エピソード研究所','この3本、どれを聴く？','わたしの手持ちエピソード','#ゲームの滝壺 #滝壺エピソード研究所'])assert(labels.includes(text));
   assert.equal(new URL(p.url()).origin,new URL(base).origin,'Sharing must not change local history origin');
   await p.locator('#labPartyGrid [data-number="22"]').click();await p.locator('#labItemRemove').click();assert((await intent('#labX')).text.includes('私は #22 を選んだ！'));await p.keyboard.press('Escape');
   await p.goto(base+'/lab.html?eps=31,22,23&pick=31');await ready();assert((await intent('#labX')).text.includes('紹介した人は #31'));
