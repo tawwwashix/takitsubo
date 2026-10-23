@@ -30,7 +30,7 @@ const retired = ['excavate.html','assets/js/excavate-loader.js','assets/js/excav
   try {
     await p.goto(url); await p.locator('.lab-choose').first().waitFor();
     assert.equal(await p.locator('.is-inspected,.is-selected').count(),0);
-    assert(await p.locator('#labInspection').isHidden());
+    assert.equal(await p.locator('#labConfirm').getAttribute('aria-disabled'),'true');
     const tones=await p.locator('#labCards .lab-art').evaluateAll(es=>es.map(e=>e.dataset.tone));
     assert.deepEqual(tones,['gray','black','amber']);
     assert.equal(await p.locator('.lab-cart-front text').first().textContent(),'GAME NO TAKITSUBO');
@@ -65,11 +65,11 @@ const retired = ['excavate.html','assets/js/excavate-loader.js','assets/js/excav
     }
     check('Every slot enlarges without clipping; all three remain touchable at 320–1280px; inspection does not save');
     await p.setViewportSize({width:390,height:844});
-    await p.locator('#labConfirm').tap();
-    await p.waitForTimeout(600);
-    assert((await p.locator('.is-selected .lab-float').evaluate(e=>getComputedStyle(e).animationName)).includes('lab-insert'));
-    const before=await p.locator('.is-selected .lab-cartridge').evaluate(e=>getComputedStyle(e).transform);
-    await p.waitForFunction(t=>getComputedStyle(document.querySelector('.is-selected .lab-cartridge')).transform!==t,before);
+    await p.locator('#labConfirm').tap();await p.waitForURL('**/episodes/'+trio[2]+'.html');
+    await p.goBack();await p.locator('.lab-choose').first().waitFor();
+    await p.locator('.lab-choose').nth(2).tap();
+    const before=await p.locator('.is-inspected .lab-cartridge').evaluate(e=>getComputedStyle(e).transform);
+    await p.waitForFunction(t=>getComputedStyle(document.querySelector('.is-inspected .lab-cartridge')).transform!==t,before);
     await p.screenshot({path:path.join(out,'cartridges-mobile-selected.png'),fullPage:true});
     await p.locator('#labDexToggle').tap();
     assert.equal(await p.locator('#labDexGrid .lab-art').getAttribute('data-tone'),'amber');

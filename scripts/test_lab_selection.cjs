@@ -13,9 +13,9 @@ fs.mkdirSync(out,{recursive:true});
   for(const w of [320,390,768,1280]) {
    await p.setViewportSize({width:w,height:900});
    for(let i=0;i<3;i++) {
-    await p.locator('.lab-choose').nth(i).click();await p.locator('#labConfirm').click();
+    await p.locator('.lab-choose').nth(i).click();
     assert.equal(await p.locator('.lab-choose:enabled').count(),3);
-    assert.equal(await p.locator('.is-selected').getAttribute('data-number'),String([50,54,47][i]));
+    assert.equal(await p.locator('.is-inspected').getAttribute('data-number'),String([50,54,47][i]));
     await p.waitForTimeout(600);
     assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     const bounds=await p.locator('.lab-scene').evaluate(e=>{
