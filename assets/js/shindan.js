@@ -3,7 +3,7 @@ window.Takitsubo.register(function (page) {
    - 診断プール(data/shindan.json)はビルド時に全エピソードから自動生成
    - ゲームは「番組でよく話題に出たタイトルほど出やすい」重み付き抽選。
    - 名前+最新回番号をシードにするため、同じ最新回では同じ名前から同じ結果になる */
-return (function () {
+return (async function () {
   "use strict";
 
   function later(fn, delay) {
@@ -14,6 +14,8 @@ return (function () {
 
   var panel = document.getElementById("shindanPanel");
   if (!panel) return;
+  const {wrapLines, mountShareControls} = await import(new URL(panel.dataset.shareModule, location.href));
+  if(page.signal.aborted) return;
   var SITE_URL = (panel.dataset.site || "").replace(/\/$/, "") + "/shindan.html";
   var HASHTAG = panel.dataset.hashtag || "#ゲームの滝壺";
   var NAME_MAX = 10; // なまえは全角10文字まで
@@ -152,18 +154,18 @@ return (function () {
       '<a class="sh-ep-card" href="episodes/' + g[2] + '.html">' + epImg +
       '<span class="sh-ep-body"><span class="sh-ep-hash">#' + g[2] + '</span><span class="sh-ep-title">' + esc(ep[0]) + '</span></span></a>' +
       '<p class="sh-db-link">📚 <a href="games/?q=' + encodeURIComponent(g[0]) + '">滝壺データベースで「' + esc(g[0]) + '」の登場回をぜんぶ見る</a></p></div>' +
-      '<div class="sh-canvas-wrap"><canvas id="shCanvas" width="1080" height="1350"></canvas></div>' +
-      '<div class="sh-actions">' +
-      '<button class="sh-btn save" id="shSave">📥 画像を保存</button>' +
-      '<button class="sh-btn copy" id="shCopy">📋 画像をコピー</button>' +
-      '<a class="sh-btn share" id="shX" href="https://x.com/intent/post?text=' + encodeURIComponent(shareText) + '" target="_blank" rel="noopener">' + X_SVG + 'Xでシェアする</a>' +
-      '</div>' +
-      '<p class="sh-note">画像を保存/コピーしてから、Xのポストに添付すると盛り上がります！</p>' +
+      '<canvas id="shCanvas" width="1080" height="1350" hidden></canvas><section id="shShare" aria-label="診断結果をシェア"></section>' +
       '<button class="sh-btn retry" id="shRetry">🔄 なまえを変えてもう一度</button>' +
       '<p class="sh-fusa-link">※「ふさわしいゲーム」は番組の<a href="series/fusawashii.html">名物企画</a>から生まれた診断です</p>' +
       '</div>';
 
-    drawShareImage(dispName, g, ep, rare, pct);
+    const drawing = drawShareImage(dispName, g, ep, rare, pct);
+    const resultCanvas = document.getElementById("shCanvas");
+    mountShareControls(document.getElementById("shShare"), {
+      prefix:"sh", signal:page.signal, getX:()=>"https://x.com/intent/post?text=" + encodeURIComponent(shareText),
+      filename:()=>"fusawashii-shindan.png",
+      getBlob:async()=>{ await drawing; return new Promise((resolve,reject)=>resultCanvas.toBlob(blob=>blob?resolve(blob):reject(new Error("PNG encoding failed")),"image/png")); }
+    });
 
     track("shindan_complete", {
       result_title: g[0],
@@ -179,29 +181,6 @@ return (function () {
       renderIntro();
       // 結果ページの下部にいるので、診断の先頭(ページ最上部)へ戻す
       window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-    document.getElementById("shSave").addEventListener("click", function () {
-      track("shindan_save", { result_title: g[0] });
-      var a = document.createElement("a");
-      a.download = "fusawashii-shindan.png";
-      a.href = document.getElementById("shCanvas").toDataURL("image/png");
-      a.click();
-    });
-    document.getElementById("shCopy").addEventListener("click", function () {
-      track("shindan_copy", { result_title: g[0] });
-      var btn = this;
-      var canvas = document.getElementById("shCanvas");
-      canvas.toBlob(function (blob) {
-        if (page.signal.aborted) return;
-        if (blob && navigator.clipboard && window.ClipboardItem) {
-          navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]).then(
-            function () { btn.textContent = "✅ コピーしました！"; later(function () { btn.textContent = "📋 画像をコピー"; }, 1800); },
-            function () { btn.textContent = "保存ボタンをお使いください"; later(function () { btn.textContent = "📋 画像をコピー"; }, 2200); });
-        } else {
-          btn.textContent = "このブラウザでは保存をお使いください";
-          later(function () { btn.textContent = "📋 画像をコピー"; }, 2200);
-        }
-      }, "image/png");
     });
   }
 
@@ -225,32 +204,13 @@ return (function () {
   }
   // タイトルを折り返し。最大3行+高さ制約。それでも収まらない超長タイトルは「…」で切る
   function fitTitle(ctx, text, maxW, maxH, family, startSize) {
-    var size, lines, cur, i;
-    for (size = (startSize || 52); size >= 30; size -= 4) {
-      var maxLines = Math.min(3, Math.floor(maxH / (size * 1.22)));
-      if (maxLines < 1) continue;
+    for (let size = startSize || 52; size >= 30; size -= 4) {
       ctx.font = "900 " + size + "px " + family;
-      lines = []; cur = "";
-      for (i = 0; i < text.length; i++) {
-        if (ctx.measureText(cur + text[i]).width > maxW) { lines.push(cur); cur = text[i]; }
-        else cur += text[i];
-      }
-      lines.push(cur);
-      if (lines.length <= maxLines) return { lines: lines, size: size };
+      const lines = wrapLines(ctx, text, maxW);
+      if(lines.length <= Math.min(3, Math.floor(maxH/(size*1.22)))) return {lines, size};
     }
-    // 最小サイズでも入らない → 3行に詰めて末尾を「…」に
-    size = 34;
-    ctx.font = "900 " + size + "px " + family;
-    lines = []; cur = "";
-    for (i = 0; i < text.length && lines.length < 3; i++) {
-      if (ctx.measureText(cur + text[i]).width > maxW) { lines.push(cur); cur = text[i]; }
-      else cur += text[i];
-    }
-    if (lines.length < 3 && cur) lines.push(cur);
-    var last = lines[lines.length - 1];
-    while (last.length && ctx.measureText(last + "…").width > maxW) last = last.slice(0, -1);
-    lines[lines.length - 1] = last + "…";
-    return { lines: lines, size: size };
+    const size = 30; ctx.font = "900 " + size + "px " + family;
+    return {lines:wrapLines(ctx,text,maxW,Math.min(3,Math.floor(maxH/(size*1.22)))), size};
   }
 
   function drawShareImage(name, g, ep, rare, pct) {
@@ -441,23 +401,20 @@ return (function () {
       ctx.restore();
     };
 
-    // ロゴ画像とエピソード画像を両方読み込んでから描画
-    function load(src, cb) {
-      if (page.signal.aborted) return;
-      if (!src) { cb(null); return; }
-      var im = new Image();
-      im.onload = function () { if (!page.signal.aborted) cb(im); };
-      im.onerror = function () { if (!page.signal.aborted) cb(null); };
-      im.src = src;
-    }
-    var start = function () {
-      if (page.signal.aborted) return;
-      load("assets/img/mainlogo.webp", function (logo) {
-        load(ep[1], function (art) { draw(art, logo); });
+    function load(src) {
+      return new Promise(resolve => {
+        if (!src || page.signal.aborted) { resolve(null); return; }
+        const im = new Image(); let done = false;
+        const finish = value => { if(done) return; done=true; clearTimeout(timer); page.signal.removeEventListener('abort',abort); im.onload=im.onerror=null; resolve(value); };
+        const abort = () => finish(null);
+        const timer = setTimeout(abort,6000);
+        im.onload=()=>finish(im); im.onerror=abort;
+        page.signal.addEventListener('abort',abort,{once:true}); im.src=src;
       });
-    };
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
-    else start();
+    }
+    return Promise.all([document.fonts.ready, load("assets/img/mainlogo.webp"), load(ep[1])]).then(([,logo,art]) => {
+      if(!page.signal.aborted) draw(art,logo);
+    });
   }
 
   /* ---------- 起動 ---------- */

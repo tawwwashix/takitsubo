@@ -67,9 +67,9 @@ const retired = ['excavate.html','assets/js/excavate-loader.js','assets/js/excav
     await p.setViewportSize({width:390,height:844});
     await p.locator('#labConfirm').tap();
     await p.waitForTimeout(600);
-    assert((await p.locator('.is-selected .lab-float').evaluate(e=>getComputedStyle(e).animationName)).includes('lab-float'));
-    const before=await p.locator('.is-selected .lab-float').evaluate(e=>getComputedStyle(e).transform);
-    await p.waitForFunction(t=>getComputedStyle(document.querySelector('.is-selected .lab-float')).transform!==t,before);
+    assert((await p.locator('.is-selected .lab-float').evaluate(e=>getComputedStyle(e).animationName)).includes('lab-insert'));
+    const before=await p.locator('.is-selected .lab-cartridge').evaluate(e=>getComputedStyle(e).transform);
+    await p.waitForFunction(t=>getComputedStyle(document.querySelector('.is-selected .lab-cartridge')).transform!==t,before);
     await p.screenshot({path:path.join(out,'cartridges-mobile-selected.png'),fullPage:true});
     await p.locator('#labDexToggle').tap();
     assert.equal(await p.locator('#labDexGrid .lab-art').getAttribute('data-tone'),'amber');

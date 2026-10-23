@@ -127,8 +127,7 @@ ASSETS = ["navigation", "site", "search", "games", "shindan", "player", "lab-loa
 
 
 def navigation_version():
-    return (av("assets/css/style.css") + "".join(av(f"assets/js/{name}.js") for name in ASSETS)
-            + av("assets/js/lab/game.js") + av("assets/css/lab.css"))
+    return av("assets/css/style.css") + "".join(av(f"assets/js/{name}.js") for name in ASSETS)
 
 
 def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="website", published=None):
@@ -1442,7 +1441,7 @@ def build_shindan():
 <h1 class="page-title"><span class="en">FUSAWASHII GAME SHINDAN</span>ふさわしいゲーム診断</h1>
 <p style="font-size:13px;color:var(--sub);margin-top:8px;">なまえを入力するだけ。<br>滝壺の3人がこれまでに語ってきた <strong style="color:var(--primary-deep);">全{n_games}タイトル</strong> から<br>あなたに"ふさわしい一本"を診断します。</p>
 </div>
-<div class="shindan-stage" id="shindanPanel" data-version="{av('data/shindan.json')}" data-site="{esc(base)}" data-hashtag="{esc(SITE['hashtag'])}">
+<div class="shindan-stage" id="shindanPanel" data-share-module="assets/js/share-tools.js?v={av('assets/js/share-tools.js')}" data-version="{av('data/shindan.json')}" data-site="{esc(base)}" data-hashtag="{esc(SITE['hashtag'])}">
 <p style="text-align:center;color:var(--faint);padding:40px 0;">読み込み中…</p>
 </div>
 <p class="search-note" style="text-align:center;margin-top:14px;">診断プールは番組の全エピソードから自動生成。<br>新しい回が配信されるたびに、結果の種類も増えていきます。<br>※ごく稀にゲームでないものが出てしまう場合があります。</p>
@@ -2014,9 +2013,9 @@ def build_search_json():
 
 # ============================================================ sitemap
 def build_lab():
-    page = head("エピソード研究所", "そこに3つのエピソードがあるじゃろう！ ランダムな3択から今日の相棒を選んで、同じ3択をシェアしよう。", "", "lab.html")
+    page = head("エピソード研究所", "そこに3つのエピソードがあるじゃろう！ ランダムな3択から気になる回を選んで、同じ3択をシェアしよう。", "", "lab.html")
     page += header("")
-    page += f'''<main id="episodeLab" data-module="assets/js/lab/game.js?v={av('assets/js/lab/game.js')}" data-css="assets/css/lab.css?v={av('assets/css/lab.css')}" data-source="data/search.json?v={av('data/search.json')}">
+    page += f'''<main id="episodeLab" data-share-module="assets/js/share-tools.js?v={av('assets/js/share-tools.js')}" data-module="assets/js/lab/game.js?v={av('assets/js/lab/game.js')}" data-css="assets/css/lab.css?v={av('assets/css/lab.css')}" data-source="data/search.json?v={av('data/search.json')}">
 <p style="text-align:center;padding:60px">研究所を準備しています…</p>
 <noscript><p>3択にはJavaScriptが必要です。<a href="episodes/">エピソード一覧はこちら</a></p></noscript>
 </main>'''
@@ -2046,6 +2045,15 @@ def build_sitemap():
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Generate the site or selected prototype pages")
+    parser.add_argument("--page", choices=["lab", "shindan"], action="append", help="Generate only this page (repeatable); existing data JSON is reused")
+    args = parser.parse_args()
+    if args.page:
+        for name in dict.fromkeys(args.page):
+            {"lab": build_lab, "shindan": build_shindan}[name]()
+        print("Generated: " + ", ".join(args.page))
+        raise SystemExit(0)
     recommended_episodes()  # 設定不備がある場合は生成物を書き換える前に停止
     build_search_json()    # 先に生成(episode一覧ページが ?v= のハッシュを参照するため)
     build_shindan_json()   # 同上(診断ページが ?v= のハッシュを参照)
