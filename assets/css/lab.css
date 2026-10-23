@@ -95,10 +95,8 @@
 #episodeLab dialog::backdrop { background:#234f6499; }
 #episodeLab .lab-modal-top { display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:12px; }
 #episodeLab .lab-modal-top h2 { font-size:18px; margin:0; }
-#episodeLab .lab-close,#episodeLab #labCloseImage { border:2px solid #7da5a7; background:#fff; min-width:44px; height:44px; font-size:24px; color:var(--lab-ink); }
-#episodeLab #labImageStatus { font-size:12px; margin:12px 0; }
+#episodeLab .lab-close { border:2px solid #7da5a7; background:#fff; min-width:44px; height:44px; font-size:24px; color:var(--lab-ink); }
 #episodeLab #labSharePreview { width:100%; display:block; border:1px solid #b8c6b0; margin-bottom:16px; }
-#episodeLab .lab-share-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
 #episodeLab .lab-footnote { font-size:11px; color:#536f6b; line-height:1.9; margin:12px 0 0; }
 #episodeLab #labCopyFallback { width:100%; font-size:12px; padding:10px; margin-top:10px; border:1px solid var(--lab-ink); }
 #episodeLab #labDexGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(135px,1fr)); gap:24px 20px; margin-top:24px; }
@@ -111,7 +109,6 @@
 @keyframes lab-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
 @keyframes lab-rock { 0%,100%{transform:rotateX(-7deg) rotateY(var(--yaw))} 50%{transform:rotateX(-3deg) rotateY(calc(var(--yaw) + 10deg))} }
 @keyframes lab-present { 0%,100%{transform:rotateX(-2deg) rotateY(-5deg)} 50%{transform:rotateX(0) rotateY(5deg)} }
-@keyframes lab-joy { 0%,100%{transform:translateY(0)} 45%{transform:translateY(-12px)} 75%{transform:translateY(2px)} }
 #episodeLab.lab-paused .lab-float,#episodeLab.lab-paused .lab-cartridge { animation-play-state:paused; }
 #episodeLab.lab-paused .lab-art { transition:none; }
 @media(max-width:760px) {
@@ -177,3 +174,45 @@
 @keyframes lab-insert { 0%{transform:translateY(0)} 35%{transform:translateY(-22px)} 78%{transform:translateY(26px)} 90%{transform:translateY(22px)} 100%{transform:translateY(24px)} }
 @keyframes lab-settle { 0%,100%{transform:rotateX(0) rotateY(-2deg)} 50%{transform:rotateX(0) rotateY(2deg)} }
 @media(prefers-reduced-motion:reduce) { #episodeLab .is-selected .lab-float { transform:translateY(24px); } }
+
+/* Personal cartridge case and discovery catalogue. Miniatures are static. */
+#episodeLab .lab-case { margin-top:22px;padding:18px;background:linear-gradient(145deg,#e0effa,#f8fcff);border:2px solid #91b5d0;border-radius:10px;box-shadow:inset 0 0 0 4px #f7fbff,0 4px 0 #9ebfd8; }
+#episodeLab .lab-case-heading { display:flex;align-items:center;justify-content:space-between;gap:12px; }
+#episodeLab .lab-case h2 { font-size:17px;margin:0; }
+#episodeLab #labPartyCount { font-size:13px;font-weight:700; }
+#episodeLab #labPartyGrid,#episodeLab #labReplaceGrid { display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-top:18px; }
+#episodeLab .lab-owned { display:block;position:relative;width:100%;min-width:0;border:0;background:none;color:var(--lab-ink);padding:0;text-align:left; }
+#episodeLab .lab-miniature { width:90%;max-width:160px;margin:0 auto 8px;perspective:none; }
+#episodeLab .lab-miniature .lab-float,#episodeLab .lab-miniature .lab-cartridge { animation:none;transform:none;transform-style:flat; }
+#episodeLab .lab-miniature .lab-cart-front { transform:none;filter:drop-shadow(3px 4px 0 #4f71752b); }
+#episodeLab .lab-dex-title { display:block;font-size:11px;line-height:1.6;overflow-wrap:anywhere; }
+#episodeLab .lab-empty-slot { aspect-ratio:6/7;width:90%;margin:0 auto;border:2px dashed #adc8dd;border-radius:6px;display:grid;place-items:center;color:#7599b4;background:#d2e4f06b;font:700 19px var(--font-num),sans-serif; }
+#episodeLab #labPartyGrid .lab-dex-title { display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden; }
+#episodeLab .lab-result-actions,#episodeLab .lab-item-actions { display:flex;flex-wrap:wrap;gap:10px; }
+#episodeLab .lab-result-actions { flex-direction:column; }
+#episodeLab .lab-secondary:disabled { opacity:.65;box-shadow:none; }
+#episodeLab .lab-dex-controls { display:flex;align-items:center;flex-wrap:wrap;gap:12px 20px;padding:12px 0;border-bottom:1px solid #bfd6e7;font-size:12px; }
+#episodeLab #labDex .lab-modal-top { position:sticky;top:-22px;z-index:4;background:var(--lab-paper);padding:8px 0; }
+#episodeLab .lab-dex-controls label { display:flex;align-items:center;gap:7px;min-height:44px; }
+#episodeLab .lab-dex-controls select { min-height:44px;max-width:100%;padding:8px;background:#fff;color:var(--lab-ink);border:1px solid #86a9c4;border-radius:4px;font:inherit; }
+#episodeLab .lab-dex-controls input { accent-color:#3479af;width:18px;height:18px; }
+#episodeLab .lab-undiscovered { min-width:0;color:#577b96;text-align:center; }
+#episodeLab .lab-silhouette { display:block;position:relative;width:90%;max-width:160px;aspect-ratio:6/7;margin:0 auto 8px;background:linear-gradient(135deg,#7494ad,#526f86);clip-path:polygon(2% 0,88% 0,92% 4%,92% 8%,100% 8%,100% 100%,0 100%,0 2%); }
+#episodeLab .lab-silhouette:before { content:"";position:absolute;top:7%;left:14%;right:14%;height:12%;border:2px solid #9bb7ca44;border-radius:9px; }
+#episodeLab .lab-silhouette:after { content:"";position:absolute;top:25%;left:9%;right:9%;bottom:8%;border:2px solid #9bb7ca33;border-radius:4px; }
+#episodeLab .lab-party-mark { position:absolute;top:0;right:0;background:#295f88;color:#fff;padding:2px 7px;border-radius:3px;font-size:10px; }
+#episodeLab #labItem { width:min(580px,94vw); }
+#episodeLab #labItemTitle { font-size:16px;line-height:1.7; }
+#episodeLab #labItemArt { max-width:210px;margin:20px auto; }
+#episodeLab #labItemArt .lab-art { max-width:210px; }
+#episodeLab #labItemRemove { display:block;min-height:44px;margin:18px 0 0;padding:8px 0;background:none;border:0;text-decoration:underline;color:#687e90;font-size:12px; }
+#episodeLab #labReplaceGrid { grid-template-columns:repeat(3,minmax(0,1fr));gap:20px; }
+@media(hover:hover) and (pointer:fine) { #episodeLab .lab-owned:hover .lab-miniature { transform:translateY(-3px) rotate(-2deg); } }
+@media(max-width:760px) {
+  #episodeLab .lab-case { padding:14px 10px; }
+  #episodeLab #labPartyGrid { grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 12px; }
+  #episodeLab .lab-case h2 { font-size:15px; }
+  #episodeLab .lab-dex-controls { gap:6px 12px; }
+  #episodeLab #labDex .lab-modal-top { top:-16px; }
+  #episodeLab .lab-item-actions { display:grid;grid-template-columns:1fr;width:100%; }
+}

@@ -1,3 +1,5 @@
+const PARTY_KEY = "takitsubo:episode-lab:party:v1";
+const DEX_KEY = "takitsubo:episode-lab:dex:v1";
 const COLLECTION_KEY = "takitsubo:episode-lab:collection:v1";
 // Compatibility import only. All current reads/writes use the lab's own key.
 function savedCollection(storage) {
@@ -92,7 +94,8 @@ export async function mount(root, page) {
   const byNumber = new Map(episodes.map(e => [e.number, e]));
   if (byNumber.size < 3) throw new Error("Three episodes are required");
   let collection = new Set(), saveAvailable = true, round = [], selected = null, senderPick = null;
-  let disposed = false, inspected = null, shareControls;
+  let inspected = null, shareControls;
+  let party = [], ascending = false, showUnseen = true, itemNumber = null, replacing = null;
   const isLocal = ["localhost", "127.0.0.1", "::1", "[::1]"].includes(location.hostname);
   const shareBase = new URL("lab.html", location.href);
   const mergeCollection = () => {
@@ -103,6 +106,18 @@ export async function mount(root, page) {
     } catch (_) { saveAvailable = false; }
   };
   mergeCollection();
+  function readParty() {
+    if (!saveAvailable) return;
+    try {
+      const saved = JSON.parse(localStorage.getItem(PARTY_KEY) || "[]");
+      party = Array.isArray(saved) ? [...new Set(saved.filter(n => Number.isInteger(n) && byNumber.has(n) && collection.has(n)))].slice(0,6) : [];
+    } catch (_) { saveAvailable = false; }
+  }
+  readParty();
+  try {
+    const prefs = JSON.parse(localStorage.getItem(DEX_KEY) || "{}");
+    ascending = prefs?.order === "asc"; showUnseen = prefs?.showUnseen !== false;
+  } catch (_) { saveAvailable = false; }
   root.innerHTML = `
 <div class="lab-wrap">
   <header class="lab-heading"><a class="lab-exit" href="index.html" aria-label="研究所を出てホームへ">← EXIT</a><div><span class="lab-kicker">GAME NO TAKITSUBO</span><h1>エピソード研究所</h1></div><button type="button" id="labMotion" class="lab-icon-button" aria-pressed="false" aria-label="動きを止める">動き ON</button></header>
@@ -122,27 +137,113 @@ export async function mount(root, page) {
   <div class="lab-dialogue"><div class="lab-doctor">${DOCTOR}<span>ポッドキャスト博士</span></div><div class="lab-speech"><span class="lab-speaker">はかせ</span><p id="labSpeech">そこに3つのエピソードがあるじゃろう！</p><p class="lab-sub">気になる一回を、セットしてみるのじゃ。</p></div></div>
   <p id="labNotice" class="lab-notice" role="status" hidden></p>
   <div class="lab-inspection" id="labInspection" hidden><div aria-live="polite" aria-atomic="true"><p class="lab-number" id="labInspectNumber"></p><h2 id="labInspectTitle"></h2><p class="lab-tags" id="labInspectTags"></p></div><button type="button" id="labConfirm" class="lab-primary">この回をセット →</button></div>
-  <section id="labResult" class="lab-result" hidden aria-label="選んだエピソード"><div><span class="lab-kicker">セット中</span><p id="labResultTitle"></p><span id="labSaved"></span></div><a id="labListen" class="lab-primary">このエピソードへ →</a></section>
+  <section id="labResult" class="lab-result" hidden aria-label="選んだエピソード"><div><span class="lab-kicker">セット中</span><p id="labResultTitle"></p><span id="labSaved"></span></div><div class="lab-result-actions"><a id="labListen" class="lab-primary">このエピソードへ →</a><button type="button" id="labAddParty" class="lab-secondary">手持ちに加える</button></div></section>
   </section>
   <nav class="lab-toolbar" aria-label="研究所のメニュー"><button type="button" id="labShuffle" class="lab-secondary">↻ 別の3択</button><button type="button" id="labDexToggle" class="lab-secondary" aria-haspopup="dialog"><span>図鑑</span><strong id="labCount"></strong></button></nav>
   </div>
+  <section class="lab-case" aria-labelledby="labPartyHeading">
+    <div class="lab-case-heading"><h2 id="labPartyHeading">カートリッジケース</h2><span id="labPartyCount"></span></div>
+    <p class="lab-footnote">気に入った回を、6本まで。図鑑からも選べるよ。</p>
+    <div id="labPartyGrid"></div><p id="labPartyStatus" class="lab-footnote" role="status"></p>
+  </section>
   <section id="labShare" aria-label="この3択をシェア"></section>
   <p class="lab-footnote" ${isLocal ? "" : "hidden"}>試作中のリンクはこのPC内での確認用。画像は保存して共有できる。</p>
 </div>
-<dialog id="labDex" aria-labelledby="labDexHeading"><div class="lab-modal-top"><h2 id="labDexHeading">わたしのエピソード図鑑</h2><button type="button" class="lab-close" data-close="labDex" aria-label="図鑑を閉じる">×</button></div><div id="labDexGrid"></div><p class="lab-footnote" id="labStorageNote">このブラウザに保存。聴いたかどうかは記録しない。</p></dialog>
+<dialog id="labDex" aria-labelledby="labDexHeading"><div class="lab-modal-top"><h2 id="labDexHeading">わたしのエピソード図鑑</h2><button type="button" class="lab-close" data-close="labDex" aria-label="図鑑を閉じる">×</button></div><div class="lab-dex-controls"><label>並び順 <select id="labDexOrder"><option value="desc">第○回が大きい順</option><option value="asc">第○回が小さい順</option></select></label><label><input type="checkbox" id="labDexUnseen"> 未発見も表示</label><span id="labDexCount"></span></div><div id="labDexGrid"></div><p class="lab-footnote" id="labStorageNote">このブラウザに保存。聴いたかどうかは記録しない。</p></dialog>
 `;
+  root.insertAdjacentHTML("beforeend", `<dialog id="labItem" aria-labelledby="labItemTitle">
+    <div class="lab-modal-top"><h2 id="labItemTitle"></h2><button type="button" class="lab-close" data-close="labItem" aria-label="カートリッジの詳細を閉じる">×</button></div>
+    <div id="labItemArt"></div><p id="labItemTags" class="lab-footnote"></p>
+    <div class="lab-item-actions"><a id="labItemLink" class="lab-primary">エピソードを開く →</a><button type="button" id="labItemAdd" class="lab-secondary">手持ちに加える</button><button type="button" id="labItemSet" class="lab-secondary">研究所にセット</button></div>
+    <p class="lab-footnote">セットすると、この回とランダムな2本を研究所に並べるよ。</p>
+    <button type="button" id="labItemRemove" class="lab-remove">手持ちから外す</button>
+  </dialog><dialog id="labReplace" aria-labelledby="labReplaceTitle">
+    <div class="lab-modal-top"><h2 id="labReplaceTitle">どの1本と入れ替える？</h2><button type="button" class="lab-close" data-close="labReplace" aria-label="入れ替えをやめる">×</button></div>
+    <p id="labReplaceIncoming"></p><p class="lab-footnote">外した回も図鑑に残るよ。</p><div id="labReplaceGrid"></div>
+  </dialog>`);
   const $ = s => root.querySelector(s);
+  function cartridgeButton(number, action) {
+    const ep = byNumber.get(number), button = document.createElement("button");
+    button.type = "button"; button.className = "lab-owned"; button.dataset.number = number;
+    button.setAttribute("aria-label", `第${number}回 ${ep.title}`);
+    const title = document.createElement("span"); title.className = "lab-dex-title"; title.textContent = `第${number}回 ${ep.title}`;
+    button.append(createCartridge(ep, true), title); button.addEventListener("click", action);
+    return button;
+  }
   function updateCollection() {
     $("#labCount").textContent = `${collection.size} / ${byNumber.size}`;
+    $("#labDexCount").textContent = `発見 ${collection.size} / ${byNumber.size}`;
+    $("#labDexOrder").value = ascending ? "asc" : "desc"; $("#labDexUnseen").checked = showUnseen;
     const grid = $("#labDexGrid"); grid.replaceChildren();
-    if (!collection.size) { const p = document.createElement("p"); p.textContent = "最初の一回を選ぶと、ここに記録されるよ。"; grid.append(p); }
-    [...collection].sort((a,b) => b-a).forEach(number => {
-      const ep = byNumber.get(number), a = document.createElement("a"); a.href = `episodes/${number}.html`;
-      const art = createCartridge(ep, true);
-      const title = document.createElement("span"); title.className = "lab-dex-title"; title.textContent = `第${number}回 ${ep.title}`;
-      a.append(art, title); grid.append(a);
+    const numbers = [...byNumber.keys()].filter(n => showUnseen || collection.has(n)).sort((a,b) => ascending ? a-b : b-a);
+    if (!numbers.length) { const p = document.createElement("p"); p.textContent = "3択から一回をセットすると、ここに記録されるよ。"; grid.append(p); }
+    numbers.forEach(number => {
+      if(!collection.has(number)) {
+        const tile = document.createElement("div"); tile.className = "lab-undiscovered"; tile.dataset.number = number;
+        tile.setAttribute("aria-label", `第${number}回 未発見`);
+        const silhouette = document.createElement("span"); silhouette.className = "lab-silhouette"; silhouette.setAttribute("aria-hidden","true");
+        const label = document.createElement("span"); label.className = "lab-dex-title"; label.textContent = `第${number}回`;
+        tile.append(silhouette,label); grid.append(tile); return;
+      }
+      const button = cartridgeButton(number, () => openItem(number));
+      if(party.includes(number)) { const mark=document.createElement("span");mark.className="lab-party-mark";mark.textContent="手持ち";button.append(mark); }
+      grid.append(button);
     });
-    if (!saveAvailable) $("#labStorageNote").textContent = "保存を利用できないため、この画面内だけで図鑑を記録しているよ。";
+    if (!saveAvailable) $("#labStorageNote").textContent = "保存を利用できないため、この画面内だけで記録しているよ。";
+  }
+  function updateParty() {
+    $("#labPartyCount").textContent = `${party.length} / 6`;
+    const grid = $("#labPartyGrid"); grid.replaceChildren();
+    for(let i=0;i<6;i++) {
+      if(party[i] !== undefined) { grid.append(cartridgeButton(party[i],()=>openItem(party[i]))); }
+      else { const slot=document.createElement("div");slot.className="lab-empty-slot";slot.setAttribute("aria-label",`空き枠 ${i+1}`);slot.textContent=String(i+1).padStart(2,"0");grid.append(slot); }
+    }
+    $("#labAddParty").disabled = selected === null || party.includes(selected);
+    $("#labAddParty").textContent = party.includes(selected) ? "手持ちに登録済み" : "手持ちに加える";
+    if(!saveAvailable) $("#labPartyStatus").textContent="端末への保存を使えないため、この画面内だけで保持しているよ。";
+  }
+  function saveParty(message) {
+    try { localStorage.setItem(PARTY_KEY, JSON.stringify(party)); } catch (_) { saveAvailable = false; }
+    $("#labPartyStatus").textContent=message; updateParty(); updateCollection();
+    if(itemNumber !== null && $("#labItem").open) refreshItem();
+  }
+  function refreshItem() {
+    const ep=byNumber.get(itemNumber), held=party.includes(itemNumber);
+    $("#labItemTitle").textContent=`第${itemNumber}回 ${ep.title}`;
+    $("#labItemArt").replaceChildren(createCartridge(ep,true));
+    $("#labItemTags").textContent=(ep.tags||[]).join(" / ");
+    $("#labItemLink").href=`episodes/${itemNumber}.html`;
+    $("#labItemAdd").disabled=held; $("#labItemAdd").textContent=held?"手持ちに登録済み":"手持ちに加える";
+    $("#labItemRemove").hidden=!held;
+  }
+  function openItem(number) { itemNumber=number;refreshItem();$("#labItem").showModal();syncMotion(); }
+  function renderReplacements() {
+    const grid=$("#labReplaceGrid");grid.replaceChildren();
+    if(party.includes(replacing)) {
+      $("#labReplace").close(); replacing=null; return;
+    }
+    if(party.length < 6) {
+      const add=document.createElement("button");add.type="button";add.className="lab-secondary";add.textContent="空き枠に加える";
+      add.addEventListener("click",()=>{const number=replacing;$("#labReplace").close();replacing=null;addParty(number);});
+      grid.append(add);
+    }
+    party.forEach(number=>grid.append(cartridgeButton(number,()=>{
+      // Re-read before replacing so another tab cannot silently change the target slot.
+      mergeCollection();readParty();
+      const index=party.indexOf(number);
+      if(index<0 || party.includes(replacing)) { renderReplacements(); return; }
+      party[index]=replacing;
+      saveParty(`第${replacing}回を手持ちに加えたよ。第${number}回は図鑑に残っている。`);
+      $("#labReplace").close(); replacing=null;
+    })));
+  }
+  function addParty(number) {
+    if(!collection.has(number)) return;
+    mergeCollection();readParty();
+    if(party.includes(number)) { updateParty(); return; }
+    if(party.length<6) { party.push(number);saveParty(`第${number}回を手持ちに加えたよ。`);return; }
+    replacing=number;$("#labReplaceIncoming").textContent=`加える回：第${number}回 ${byNumber.get(number).title}`;
+    renderReplacements();$("#labReplace").showModal();syncMotion();
   }
   function roundUrl(includeSelection = true) {
     const url = new URL(shareBase);
@@ -217,7 +318,7 @@ export async function mount(root, page) {
     $("#labSaved").textContent = !saveAvailable ? "この画面の図鑑に記録したよ（端末への保存は利用できない）。" : isNew ? "新しい一枚を図鑑に登録したよ。" : "お気に入りとの再会も、いいものじゃ。";
     $("#labListen").href = `episodes/${ep.number}.html`;
     $("#labInspection").hidden = true;
-    renderCards(); updateCollection(); updateShare();
+    renderCards(); updateCollection(); updateParty(); updateShare();
     $("#labListen").focus({preventScroll:true});
   }
   function newRound(ids) {
@@ -235,13 +336,38 @@ export async function mount(root, page) {
     $("#labInspection").hidden = true;
     $("#labSpeech").textContent = "そこに3つのエピソードがあるじゃろう！";
     $(".lab-sub").textContent = "気になる一回を、セットしてみるのじゃ。";
-    renderCards(); updateShare();
+    renderCards(); updateParty(); updateShare();
   }
   $("#labShuffle").addEventListener("click", () => {
     $("#labNotice").hidden = true; newRound();
     $("#labShuffle").focus({preventScroll:true});
   });
   $("#labConfirm").addEventListener("click", () => choose(byNumber.get(inspected)));
+  $("#labAddParty").addEventListener("click",()=>addParty(selected));
+  $("#labItemAdd").addEventListener("click",()=>addParty(itemNumber));
+  $("#labItemRemove").addEventListener("click",()=>{
+    mergeCollection();readParty(); party=party.filter(n=>n!==itemNumber);
+    saveParty(`第${itemNumber}回を手持ちから外したよ。図鑑からいつでも戻せる。`);
+    $("#labItemAdd").focus();
+  });
+  $("#labItemSet").addEventListener("click",()=>{
+    const number=itemNumber;
+    root.querySelectorAll("dialog[open]").forEach(d=>d.close());
+    $("#labNotice").hidden = true;
+    if(!round.some(ep=>ep.number===number)) {
+      const pool=episodes.filter(ep=>ep.number!==number), ids=[number];
+      while(ids.length<3) ids.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0].number);
+      senderPick=null;newRound(ids);
+    }
+    choose(byNumber.get(number));$(".lab-scene").scrollIntoView({behavior:"instant",block:"start"});
+  });
+  function saveDexPreferences() {
+    ascending=$("#labDexOrder").value==="asc";showUnseen=$("#labDexUnseen").checked;
+    try { localStorage.setItem(DEX_KEY,JSON.stringify({order:ascending?"asc":"desc",showUnseen})); } catch (_) { saveAvailable=false; }
+    updateCollection();
+  }
+  $("#labDexOrder").addEventListener("change",saveDexPreferences);
+  $("#labDexUnseen").addEventListener("change",saveDexPreferences);
   let motionPaused = false, sceneVisible = true;
   const syncMotion = () => root.classList.toggle("lab-paused", motionPaused || document.hidden || !sceneVisible || !!root.querySelector("dialog[open]"));
   $("#labMotion").addEventListener("click", () => {
@@ -252,21 +378,38 @@ export async function mount(root, page) {
     syncMotion();
   });
   page.listen(document, "visibilitychange", syncMotion);
-  const sceneObserver = new IntersectionObserver(entries => { sceneVisible = entries[0].isIntersecting; syncMotion(); });
+  // Resize/scroll can queue several transitions for the same scene in one batch.
+  // The newest observation, not the first one, determines whether motion resumes.
+  const sceneObserver = new IntersectionObserver(entries => { sceneVisible = entries.at(-1).isIntersecting; syncMotion(); });
   sceneObserver.observe($(".lab-scene"));
   for (const [trigger, target] of [["labDexToggle", "labDex"]]) {
     $("#" + trigger).addEventListener("click", () => { $("#" + target).showModal(); syncMotion(); });
   }
   root.querySelectorAll("[data-close]").forEach(button => button.addEventListener("click", () => $("#" + button.dataset.close).close()));
   root.querySelectorAll("dialog").forEach(modal => modal.addEventListener("close", syncMotion));
-  page.listen(window,"storage", e => { if (e.key === COLLECTION_KEY) { mergeCollection(); updateCollection(); renderCards(); } });
+  // Updating a case/dex rebuilds its opener. Restore focus to an existing control.
+  $("#labItem").addEventListener("close",()=>{
+    if($("#labDex").open) ($(`#labDexGrid [data-number="${itemNumber}"]`) || $("#labDexOrder")).focus({preventScroll:true});
+    else if(!root.querySelector("dialog[open]") && document.activeElement === document.body) ($(`#labPartyGrid [data-number="${itemNumber}"]`) || $("#labDexToggle")).focus({preventScroll:true});
+  });
+  $("#labReplace").addEventListener("close",()=>{
+    if($("#labItem").open) $("#labItemSet").focus({preventScroll:true});
+    else if(!root.querySelector("dialog[open]")) $("#labListen").focus({preventScroll:true});
+  });
+  page.listen(window,"storage", e => {
+    if(e.key === COLLECTION_KEY || e.key === PARTY_KEY) {
+      mergeCollection(); readParty(); updateCollection(); updateParty(); renderCards();
+      if($("#labItem").open) refreshItem();
+      if($("#labReplace").open) renderReplacements();
+    }
+  });
   shareControls = mountShareControls($("#labShare"), {
     prefix: "lab", signal: page.signal,
     getBlob: () => createShareImage(round.slice(), selected ?? senderPick, page.signal, selected === null && senderPick !== null, wrapLines),
     getLink: () => roundUrl().href, getX: () => shareIntent,
     filename: () => `takitsubo-${round.map(e=>e.number).join("-")}${selected === null ? "" : `-pick-${selected}`}.png`
   });
-  page.onDispose(() => { disposed = true; sceneObserver.disconnect(); root.querySelectorAll("dialog[open]").forEach(modal => modal.close()); });
+  page.onDispose(() => { sceneObserver.disconnect(); root.querySelectorAll("dialog[open]").forEach(modal => modal.close()); });
   syncMotion();
   const initial = readRound(location.search, byNumber); senderPick = initial.pick; newRound(initial.ids); updateCollection();
   if (initial.invalid) { $("#labNotice").hidden = false; $("#labNotice").textContent = initial.ids ? "紹介した人の選択を読み取れなかったため、3枚の候補だけを表示したよ。" : "このリンクの3択は読み取れなかったため、新しい3択を用意したよ。"; }

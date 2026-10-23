@@ -60,7 +60,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   await p.locator('.lab-exit').click();await p.locator('.hero').waitFor();assert.equal(await p.locator('link[href*="/lab.css"]').count(),0);
   await p.goBack();await ready(p);assert(await p.evaluate(()=>window.labMarker&&window.originalAudio===document.querySelector('audio')));
   assert.equal(await p.locator('link[href*="/lab.css"]').count(),1);
-  await p.locator('#labDexToggle').click();assert.equal(await p.locator('#labDexGrid a').count(),1);
+  await p.locator('#labDexToggle').click();assert.equal(await p.locator('#labDexGrid .lab-owned').count(),1);
   check('Home/lab navigation retains collection, keeps audio element and cleans styles');
   for(const width of [320,390,768]){await p.setViewportSize({width,height:900});assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));}
   check('No horizontal overflow at 320, 390 and 768 pixels');

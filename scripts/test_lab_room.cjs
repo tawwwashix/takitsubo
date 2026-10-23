@@ -36,7 +36,7 @@ fs.mkdirSync(out, { recursive: true });
       // The visible 3D faces and sender label must fit within the clipped scene.
       const layout = await p.evaluate(() => {
         const room = document.querySelector('.lab-scene').getBoundingClientRect();
-        return [...document.querySelectorAll('.lab-cart-front,.lab-sender')].map(e => {
+        return [...document.querySelectorAll('.lab-scene .lab-cart-front,.lab-sender')].map(e => {
           const r = e.getBoundingClientRect();
           return r.top >= room.top && r.bottom <= room.bottom && r.left >= room.left && r.right <= room.right;
         });
@@ -47,7 +47,11 @@ fs.mkdirSync(out, { recursive: true });
     check('All three cartridges and sender marker fit at desktop, mobile, 320px, landscape and tablet widths');
     await p.setViewportSize({ width:1280, height:800 });
     await p.locator('#labMotion').click();
-    await p.waitForFunction(() => getComputedStyle(document.querySelector('.lab-float')).animationPlayState === 'running');
+    await p.evaluate(() => window.scrollTo(0,0));
+    await p.waitForFunction(() => getComputedStyle(document.querySelector('.lab-float')).animationPlayState === 'running').catch(async e => {
+      console.error('Motion state', await p.evaluate(()=>({pressed:document.querySelector('#labMotion').getAttribute('aria-pressed'),hidden:document.hidden,classes:document.querySelector('#episodeLab').className,scroll:scrollY,room:document.querySelector('.lab-scene').getBoundingClientRect().toJSON(),viewport:innerHeight})));
+      throw e;
+    });
     const before = await p.locator('.lab-float').first().evaluate(e => getComputedStyle(e).transform);
     await p.waitForTimeout(180);
     const after = await p.locator('.lab-float').first().evaluate(e => getComputedStyle(e).transform);
