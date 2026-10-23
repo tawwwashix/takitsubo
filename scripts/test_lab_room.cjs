@@ -71,7 +71,7 @@ fs.mkdirSync(out, { recursive: true });
     await p.emulateMedia({ reducedMotion: 'reduce' });
     assert.equal(await p.locator('.lab-cartridge').first().evaluate(e => getComputedStyle(e).animationName), 'none');
     await p.locator('.lab-choose').nth(2).click(); await p.locator('#labConfirm').click();
-    await p.waitForURL('**/episodes/95.html');await p.goBack();await ready();
+    assert(await p.locator('#labConfirm').isDisabled());await p.locator('#labOpen').click();await p.waitForURL('**/episodes/95.html');await p.goBack();await ready();
     await p.setViewportSize({ width:390, height:844 });
     await p.screenshot({ path: path.join(out, 'lab-room-selected.png'), fullPage:true });
     await p.locator('#labShuffle').click();

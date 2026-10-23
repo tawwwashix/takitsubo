@@ -46,8 +46,8 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
     await p.locator('#labPartyGrid [data-number="1"]').tap();
    } else await p.locator('#labPartyGrid [data-number="1"]').click();
    assert(await p.locator('#labItem').isVisible());
-   await p.locator('#labItemMove').focus();await p.keyboard.press('Enter');
-   await p.locator('#labPositions button').nth(2).focus();await p.keyboard.press('Enter');assert.deepEqual(await stored(),[2,3,1,4,5,6]);
+   assert.equal(await p.locator('#labItemMove,#labPositions').count(),0);await p.keyboard.press('Escape');
+   await p.locator('#labReorder').click();await p.locator('#labPartyGrid [data-number="1"]').focus();await p.keyboard.press('Enter');await p.locator('#labPartyGrid [data-number="3"]').focus();await p.keyboard.press('Enter');assert.deepEqual(await stored(),[2,3,1,4,5,6]);
    await p.keyboard.press('Escape');await p.reload();await p.locator('.lab-choose').first().waitFor();assert.deepEqual(await order(),[2,3,1,4,5,6]);
    await ctx.close();console.log('PASS stable details, centered CTA, '+(mobile?'long-press touch drag / scroll / tap':'mouse drag')+', outside cancel, keyboard alternative, saved order');
   }

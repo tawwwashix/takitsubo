@@ -24,7 +24,7 @@ export function wrapLines(ctx, text, width, limit = Infinity) {
 }
 
 // Shared interaction, wording and fallbacks for the diagnosis and episode lab.
-export function mountShareControls(host, {prefix, getBlob, getLink, getX, filename, signal, previewMode = 'always'}) {
+export function mountShareControls(host, {prefix, getBlob, getLink, getX, filename, signal, previewMode = 'always', makeLabel = 'この3択のシェア画像を作る', previewAlt}) {
   host.classList.add('episode-share');
   host.innerHTML = `<style>
     .episode-share{margin:20px 0;color:var(--ink,#284e60);text-align:center}
@@ -38,13 +38,13 @@ export function mountShareControls(host, {prefix, getBlob, getLink, getX, filena
     .episode-share input{width:100%;padding:10px}
     .episode-share [hidden]{display:none!important}
   </style><div class="sh-actions share-entry" id="${prefix}Entry">
-    <button type="button" class="sh-btn" id="${prefix}Make" aria-expanded="false" aria-controls="${prefix}ImagePanel">この3択のシェア画像を作る</button>
+    <button type="button" class="sh-btn" id="${prefix}Make" aria-expanded="false" aria-controls="${prefix}ImagePanel">${makeLabel}</button>
     ${getLink ? `<button type="button" class="sh-btn" id="${prefix}Copy">同じ3択のリンクをコピー</button>` : ''}
   </div>
   <p class="share-status" id="${prefix}ShareStatus" role="status"></p>
   <input id="${prefix}CopyFallback" aria-label="コピーするリンク" readonly hidden>
   <div id="${prefix}ImagePanel" hidden>
-    <img id="${prefix}SharePreview" alt="${getLink ? '今回の3択と選んだ回のシェア画像' : 'ふさわしいゲーム診断の結果画像'}" hidden>
+    <img id="${prefix}SharePreview" alt="${previewAlt || (getLink ? '今回の3択と選んだ回のシェア画像' : 'ふさわしいゲーム診断の結果画像')}" hidden>
     <div id="${prefix}ImageActions" hidden>
       <div class="sh-actions">
         <button type="button" class="sh-btn save" id="${prefix}Save">📥 画像を保存</button>
@@ -118,7 +118,7 @@ export function mountShareControls(host, {prefix, getBlob, getLink, getX, filena
     $('ImageActions').hidden = true; $('ImagePanel').hidden = !expanded;
     $('Entry').hidden = previewMode === 'always';
     $('Make').hidden = previewMode === 'always'; $('Make').disabled = false;
-    $('Make').textContent = 'この3択のシェア画像を作る';
+    $('Make').textContent = makeLabel;
     $('Make').setAttribute('aria-expanded',String(expanded));
     if(getLink) $('Entry').append($('Copy'));
     if(expanded) reveal();

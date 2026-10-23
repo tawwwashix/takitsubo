@@ -17,7 +17,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   await p.screenshot({path:path.join(out,'lab-desktop.png'),fullPage:true});
   await p.locator('.lab-choose').nth(1).click();
   assert.equal(await p.evaluate(()=>localStorage.getItem('takitsubo:episode-lab:collection:v1')),null);
-  await p.locator('#labConfirm').click();await p.waitForURL('**/episodes/98.html');await p.goBack();await ready(p);
+  await p.locator('#labOpen').click();await p.waitForURL('**/episodes/98.html');assert.equal(await p.evaluate(()=>localStorage.getItem('takitsubo:episode-lab:collection:v1')),null);await p.goBack();await ready(p);await p.locator('.lab-choose').nth(1).click();await p.locator('#labConfirm').click();
   assert.deepEqual(await p.evaluate(()=>JSON.parse(localStorage.getItem('takitsubo:episode-lab:collection:v1'))),[98]);
   assert.equal(new URL(p.url()).searchParams.get('pick'),'98');
   assert.equal(await p.locator('.lab-choose:disabled').count(),0);
@@ -31,7 +31,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   assert.equal(await q.locator('.lab-sender').count(),1);assert.equal(await q.locator('#labCount').textContent(),'0 / 128');
   assert.equal(await q.locator('.lab-choose:enabled').count(),3);
   await q.screenshot({path:path.join(out,'lab-mobile.png'),fullPage:true});
-  await q.locator('.lab-choose').nth(2).tap();await q.locator('#labConfirm').tap();await q.waitForURL('**/episodes/16.html');await q.goBack();await ready(q);
+  await q.locator('.lab-choose').nth(2).tap();await q.locator('#labConfirm').tap();
   assert.deepEqual(await q.evaluate(()=>JSON.parse(localStorage.getItem('takitsubo:episode-lab:collection:v1'))),[16]);
   assert.equal(new URL(q.url()).searchParams.get('pick'),'16');
   check('Recipient gets same trio and sender marker, with independent touch selection');
@@ -69,7 +69,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   const fail=await browser.newContext();await fail.route(/google-analytics\.com|googletagmanager\.com/,r=>r.abort());
   await fail.addInitScript(()=>{Storage.prototype.getItem=()=>{throw Error('disabled');};Storage.prototype.setItem=()=>{throw Error('disabled');};Object.defineProperty(navigator,'clipboard',{value:{writeText:()=>Promise.reject(Error('denied'))}});});
   const f=await fail.newPage();f.on('pageerror',e=>errors.push(e.message));await f.route('**/assets/img/ep/*',r=>r.abort());
-  await f.goto(base+'/lab.html?eps=128,98,16');await ready(f);await f.locator('.lab-choose').first().click();await f.locator('#labConfirm').click();await f.waitForURL('**/episodes/128.html');await f.goBack();await ready(f);assert(await f.locator('#labPartyStatus').isVisible());
+  await f.goto(base+'/lab.html?eps=128,98,16');await ready(f);await f.locator('.lab-choose').first().click();await f.locator('#labConfirm').click();assert(await f.locator('#labPartyStatus').isVisible());
   await f.locator('#labCopy').click();assert(await f.locator('#labCopyFallback').isVisible());
   await f.locator('#labMake').click();await f.locator('#labSharePreview').waitFor();const failedDownload=f.waitForEvent('download');await f.locator('#labSave').click();await failedDownload;await fail.close();
   check('Storage/image failures and denied clipboard retain selection, sharing fallback and PNG generation');
@@ -77,7 +77,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   await p.waitForFunction(()=>document.querySelector('audio').currentTime>2,null,{timeout:60000});
   await p.evaluate(()=>{window.labAudio=document.querySelector('audio');window.labAudioTime=labAudio.currentTime;window.labAudioEvents=[];['pause','emptied','loadstart','error'].forEach(type=>labAudio.addEventListener(type,()=>labAudioEvents.push(type)));});
   await p.locator('.footer-nav a[href$="lab.html"]').click();await ready(p);
-  await p.locator('.lab-choose').first().focus();await p.keyboard.press('Enter');await p.locator('#labConfirm').focus();await p.keyboard.press('Enter');await p.waitForURL('**/episodes/*.html');await p.goBack();await ready(p);
+  await p.locator('.lab-choose').first().focus();await p.keyboard.press('Enter');await p.locator('#labConfirm').focus();await p.keyboard.press('Enter');await p.locator('#labOpen').click();await p.waitForURL('**/episodes/*.html');await p.goBack();await ready(p);
   await p.locator('#labShuffle').click();
   assert(await p.evaluate(()=>document.querySelector('audio')===labAudio&&!labAudio.paused&&labAudio.currentTime>labAudioTime&&!labAudioEvents.length));
   check('Keyboard selection and reroll preserve actual remote audio playback');

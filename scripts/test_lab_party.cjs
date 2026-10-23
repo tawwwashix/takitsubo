@@ -16,9 +16,8 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
   assert.equal(await p.locator('#labDexGrid>*').first().getAttribute('data-number'),'128');
   await p.locator('#labDexOrder').selectOption('asc');assert.equal(await p.locator('#labDexGrid>*').first().getAttribute('data-number'),'1');
   await p.locator('#labDexUnseen').uncheck();assert.equal(await p.locator('.lab-undiscovered').count(),0);await p.keyboard.press('Escape');
-  await p.locator('.lab-choose').first().tap();await p.locator('#labConfirm').tap();await p.waitForURL('**/episodes/50.html');
-  assert.deepEqual(await party(),[]);await p.goBack();await ready(p);
-  await openDex(50);await p.locator('#labItemAdd').tap();assert.deepEqual(await party(),[50]);assert(await p.locator('#labItemAdd').isDisabled());await closeDex();
+  await p.locator('.lab-choose').first().tap();await p.locator('#labConfirm').tap();assert.deepEqual(await party(),[50]);
+  await openDex(50);assert.deepEqual(await party(),[50]);assert(await p.locator('#labItemAdd').isDisabled());await closeDex();
   await p.evaluate(({keys})=>localStorage.setItem(keys.collection,'[50,54,47,1,5,28,7]'),{keys});await p.reload();await ready(p);
   for(const n of [54,47,1,5,28]) {await openDex(n);await p.locator('#labItemAdd').tap();await closeDex();}
   assert.deepEqual(await party(),[50,54,47,1,5,28]);

@@ -57,19 +57,6 @@ function createCartridge(ep, miniature = false) {
   art.querySelector(".lab-cart-picture").append(img);
   return art;
 }
-const DOCTOR = `<svg viewBox="0 0 104 112" role="img" aria-label="ヘッドホンと白衣のポッドキャスト博士" shape-rendering="crispEdges">
-<path fill="#254746" d="M26 18h52v8h8v38h-8v8H26v-8h-8V26h8z"/>
-<path fill="#f0cfa3" d="M30 25h44v39H30zM42 62h20v18H42z"/>
-<path fill="#ede9ce" d="M22 23V11h13V5h17v8h18v-5h9v12h7v14H68v-8H50v8H35v-7h-9v13h-7V23z"/>
-<path fill="#8db8a3" d="M13 31h10v27H13zM81 31h10v27H81z"/>
-<path fill="#254746" d="M29 38h20v16H29zM57 38h20v16H57zM49 42h8v5h-8z"/>
-<path fill="#e2f1de" d="M33 42h12v8H33zM61 42h12v8H61z"/>
-<path fill="#c27a58" d="M47 58h13v4H47z"/>
-<path fill="#fff9e7" stroke="#254746" stroke-width="3" d="m33 72 18 11 20-11 16 13 8 24H10l8-24z"/>
-<path fill="#408b80" d="M45 82h15v27H45z"/>
-<path fill="none" stroke="#254746" stroke-width="3" d="m31 76 8 19 10-11m24-8-8 19-10-11M72 94h10v9H72"/>
-<path fill="#e6af52" d="M72 88h4v8h-4z"/><path fill="#f0cfa3" d="M13 99h14v10H13zM78 99h14v10H78z"/>
-</svg>`;
 
 export function readRound(search, byNumber) {
   const p = new URLSearchParams(search), raw = p.get("eps");
@@ -94,7 +81,8 @@ export async function mount(root, page) {
   const byNumber = new Map(episodes.map(e => [e.number, e]));
   if (byNumber.size < 3) throw new Error("Three episodes are required");
   let collection = new Set(), saveAvailable = true, round = [], selected = null, senderPick = null;
-  let inspected = null, shareControls;
+  let inspected = null, shareControls, partyShareControls, partySignature = null;
+  let reorderMode=false, reorderSource=null, replacingFromRound=false;
   let party = [], ascending = false, showUnseen = true, itemNumber = null, replacing = null;
   const isLocal = ["localhost", "127.0.0.1", "::1", "[::1]"].includes(location.hostname);
   const shareBase = new URL("lab.html", location.href);
@@ -122,15 +110,19 @@ export async function mount(root, page) {
 <div class="lab-wrap">
 
   <div class="lab-machine">
-  <div class="lab-machine-tools"><div class="lab-dialogue"><div class="lab-doctor">${DOCTOR}</div><p id="labSpeech">そこに3つのエピソードがあるじゃろう！</p></div><button type="button" id="labMotion" class="lab-icon-button" aria-pressed="false" aria-label="動きを止める">動き ON</button></div>
+  <div class="lab-machine-tools"><div class="lab-dialogue"><div class="lab-doctor"><img src="assets/img/hyuuma.webp" alt="ひゅうま" width="48" height="48"></div><p id="labSpeech">そこに3つのエピソードがあるじゃろう！</p></div><button type="button" id="labMotion" class="lab-icon-button" aria-pressed="false" aria-label="動きを止める">動き ON</button></div>
   <section class="lab-scene" aria-label="カートリッジが浮かぶ研究所">
     <svg class="lab-room" viewBox="0 0 1000 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true" shape-rendering="crispEdges">
-      <defs><pattern id="labWallTiles" width="100" height="76" patternUnits="userSpaceOnUse"><path fill="#dfefff" d="M0 0h100v76H0z"/><path fill="none" stroke="#bed9ef" stroke-width="2" d="M0 76V0h100"/></pattern><pattern id="labFloorTiles" width="100" height="44" patternUnits="userSpaceOnUse"><path fill="#badcec" d="M0 0h100v44H0z"/><path fill="none" stroke="#e7f6ff" stroke-width="2" d="M0 44V0h100"/></pattern></defs>
-      <path fill="url(#labWallTiles)" d="M0 0h1000v340H0z"/><path fill="#a5cbe5" d="M0 285h1000v62H0z"/><path fill="#f4fbff" d="M0 278h1000v8H0z"/><path fill="#6799bd" d="M0 332h1000v14H0z"/><path fill="url(#labFloorTiles)" d="M0 346h1000v124H0z"/>
+      <defs><pattern id="labWallTiles" width="100" height="76" patternUnits="userSpaceOnUse"><path fill="#dfefff" d="M0 0h100v76H0z"/><path fill="none" stroke="#bed9ef" stroke-width="2" d="M0 76V0h100"/></pattern></defs>
+      <path fill="url(#labWallTiles)" d="M0 0h1000v340H0z"/><path fill="#a5cbe5" d="M0 285h1000v62H0z"/><path fill="#f4fbff" d="M0 278h1000v8H0z"/><path fill="#6799bd" d="M0 332h1000v14H0z"/>
       <path fill="#729c99" d="M54 52h220v178H54z"/><path fill="#fff9dc" d="M60 46h208v174H60z"/><path fill="#9fe3ef" d="M70 56h188v154H70z"/><path fill="#75afa4" d="M70 124 108 93l50 29 42-47 58 31v104H70z"/><path fill="#9bcd84" d="m70 161 49-22 37 20 62-36 40 25v62H70z"/><path fill="#bce9df" d="M179 87h23v95h-23zM166 183h49v7h-49zM152 195h78v6h-78z"/><path fill="#fff9dc" d="M161 56h6v154h-6zM70 128h188v6H70z"/>
       <path fill="#729c99" d="M762 74h186v159H762z"/><path fill="#f4e6bb" d="M753 64h186v159H753z"/><path fill="#668f94" d="M763 74h166v59H763zM763 145h166v65H763z"/><path fill="#d98e6f" d="M778 88h15v43h-15zM801 92h11v39h-11z"/><path fill="#d0b76e" d="M818 84h20v47h-20z"/><path fill="#87b9af" d="M850 98h55v33h-55z"/><path fill="#d9e2cc" d="M861 104h32v4h-32zM861 114h22v4h-22z"/><path fill="#8dd1c0" d="M782 170h24v31h-24zM788 153h12v17h-12z"/><path fill="#c2c7e7" d="M830 180h32v21h-32zM838 157h16v23h-16z"/><path fill="#e1b971" d="M883 156h30v45h-30z"/>
       <path fill="#80aba4" d="M353 38h294v94H353z"/><path fill="#f3faff" d="M358 33h284v92H358z"/><path fill="#427981" d="M369 44h262v70H369z"/><path fill="none" stroke="#aeeaff" stroke-width="4" d="M388 80h20l8-15 12 30 10-40 14 48 9-23h30m20 0h15l9-23 11 42 12-27 8 8h39"/>
       <path fill="#d0e5f4" d="M337 0h326v8H337z"/><path fill="#edf7ff" d="M361 8h278v7H361z"/><path fill="#83aca1" d="M28 272h84v60H28zM902 272h70v60h-70z"/><path fill="#8fa987" d="M41 246h59v27H41zM50 220h13v30H50zM77 232h15v23H77z"/>
+    </svg>
+    <svg class="lab-floor" viewBox="0 0 1000 180" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#badcec" d="M0 0h1000v180H0z"/>
+      <g stroke="#e7f6ff" stroke-width="2" fill="none"><path d="M0 12h1000M0 34h1000M0 68h1000M0 116h1000M0 178h1000"/><path d="M400 0 0 180M440 0 200 180M480 0 400 180M520 0 600 180M560 0 800 180M600 0 1000 180M360 0-200 180M640 0 1200 180"/></g>
     </svg>
     <section id="labCards" class="lab-cards" aria-label="博士の3つの候補"></section>
   </section>
@@ -138,7 +130,7 @@ export async function mount(root, page) {
   <p id="labNotice" class="lab-notice" role="status" hidden></p>
   <div class="lab-inspection" id="labInspection">
     <div class="lab-detail-stack"><div id="labDetailSizes" aria-hidden="true" inert></div><div class="lab-detail-copy" aria-live="polite" aria-atomic="true"><p class="lab-number" id="labInspectNumber"></p><h2 id="labInspectTitle"></h2><p class="lab-tags" id="labInspectTags"></p></div><p id="labInspectPrompt">どのエピソードにする？</p></div>
-    <a id="labConfirm" class="lab-primary" aria-disabled="true" tabindex="-1">このエピソードに決める！</a>
+    <button type="button" id="labConfirm" class="lab-primary" disabled>手持ちに加える</button><a id="labOpen" class="lab-open" aria-disabled="true" tabindex="-1">エピソードを開く →</a>
   </div>
   </section>
   <nav class="lab-toolbar" aria-label="研究所のメニュー"><button type="button" id="labShuffle" class="lab-secondary">↻ 別の3択</button><button type="button" id="labDexToggle" class="lab-secondary" aria-haspopup="dialog"><span>図鑑</span><strong id="labCount"></strong></button></nav>
@@ -146,30 +138,29 @@ export async function mount(root, page) {
   <section id="labShare" aria-label="この3択をシェア"></section>
   <p class="lab-footnote" ${isLocal ? "" : "hidden"}>試作中のリンクはこのPC内での確認用。画像は保存して共有できる。</p>
   <section class="lab-case" aria-labelledby="labPartyHeading">
-    <div class="lab-case-heading"><h2 id="labPartyHeading">手持ちエピソード</h2><span id="labPartyCount"></span></div>
-    <div id="labPartyGrid"></div><p id="labPartyStatus" class="lab-footnote" role="status" hidden></p><span id="labPartyAnnounce" class="lab-sr-only" role="status"></span>
+    <div class="lab-case-heading"><h2 id="labPartyHeading">手持ちエピソード</h2><div class="lab-case-tools"><span id="labPartyCount"></span><button type="button" id="labReorder" class="lab-icon-button" aria-pressed="false">並び替え</button></div></div><p id="labReorderHint" class="lab-footnote" hidden>交換する2本を順に選んでね。</p>
+    <div id="labPartyGrid"></div><p id="labPartyStatus" class="lab-footnote" role="status" hidden></p><span id="labPartyAnnounce" class="lab-sr-only" role="status"></span><section id="labPartyShare" aria-label="手持ちエピソードをシェア" hidden></section>
   </section>
 
 </div>
-<dialog id="labDex" aria-labelledby="labDexHeading"><div class="lab-modal-top"><h2 id="labDexHeading">わたしのエピソード図鑑</h2><button type="button" class="lab-close" data-close="labDex" aria-label="図鑑を閉じる">×</button></div><div class="lab-dex-controls"><label>並び順 <select id="labDexOrder"><option value="desc">第○回が大きい順</option><option value="asc">第○回が小さい順</option></select></label><label><input type="checkbox" id="labDexUnseen"> 未発見も表示</label><span id="labDexCount"></span></div><div id="labDexGrid"></div><p class="lab-footnote" id="labStorageNote">このブラウザに保存。聴いたかどうかは記録しない。</p></dialog>
+<dialog id="labDex" aria-labelledby="labDexHeading"><div class="lab-modal-top"><h2 id="labDexHeading">エピソード図鑑</h2><button type="button" class="lab-close" data-close="labDex" aria-label="図鑑を閉じる">×</button></div><div class="lab-dex-controls"><label>並び順 <select id="labDexOrder"><option value="desc">新しい順</option><option value="asc">古い順</option></select></label><label><input type="checkbox" id="labDexUnseen"> 未発見も表示</label><span id="labDexCount"></span></div><div id="labDexGrid"></div><p class="lab-footnote" id="labStorageNote">このブラウザに保存。聴いたかどうかは記録しない。</p></dialog>
 `;
   root.insertAdjacentHTML("beforeend", `<dialog id="labItem" aria-labelledby="labItemTitle">
     <div class="lab-modal-top"><h2 id="labItemTitle"></h2><button type="button" class="lab-close" data-close="labItem" aria-label="カートリッジの詳細を閉じる">×</button></div>
     <div id="labItemArt"></div><p id="labItemTags" class="lab-footnote"></p>
-    <div class="lab-item-actions"><a id="labItemLink" class="lab-primary">エピソードを開く →</a><button type="button" id="labItemAdd" class="lab-secondary">手持ちに加える</button><button type="button" id="labItemMove" class="lab-secondary" aria-expanded="false" aria-controls="labPositions">位置を変える</button></div>
-    <div id="labPositions" class="lab-positions" aria-label="交換先の位置" hidden></div>
+    <div class="lab-item-actions"><a id="labItemLink" class="lab-primary">エピソードを開く →</a><button type="button" id="labItemAdd" class="lab-secondary">手持ちに加える</button></div>
     <button type="button" id="labItemRemove" class="lab-remove">手持ちから外す</button>
   </dialog><dialog id="labReplace" aria-labelledby="labReplaceTitle">
-    <div class="lab-modal-top"><h2 id="labReplaceTitle">どの1本と入れ替える？</h2><button type="button" class="lab-close" data-close="labReplace" aria-label="入れ替えをやめる">×</button></div>
-    <p id="labReplaceIncoming"></p><p class="lab-footnote">外した回も図鑑に残るよ。</p><div id="labReplaceGrid"></div>
+    <div class="lab-modal-top"><h2 id="labReplaceTitle">手持ちがいっぱいだ！</h2><button type="button" class="lab-close" data-close="labReplace" aria-label="入れ替えをやめる">×</button></div>
+    <p id="labReplaceIncoming"></p><button type="button" id="labSendDex" class="lab-secondary">図鑑に登録する</button><p class="lab-footnote">手持ちに加えるなら、入れ替える1本を選んでね。外した回も図鑑に残るよ。</p><div id="labReplaceGrid"></div>
   </dialog>`);
   const $ = s => root.querySelector(s);
   function cartridgeButton(number, action) {
     const ep = byNumber.get(number), button = document.createElement("button");
     button.type = "button"; button.className = "lab-owned"; button.dataset.number = number;
-    button.setAttribute("aria-label", `第${number}回 ${ep.title}`);
+    button.setAttribute("aria-label", `#${number} ${ep.title}`);
     const title = document.createElement("span"); title.className = "lab-dex-title"; title.textContent = ep.title;
-    const meta=document.createElement("span");meta.className="lab-card-meta";meta.textContent=`第${number}回`;
+    const meta=document.createElement("span");meta.className="lab-card-meta";meta.textContent=`#${number}`;
     button.append(createCartridge(ep, true), meta, title); button.addEventListener("click", action);
     return button;
   }
@@ -183,9 +174,9 @@ export async function mount(root, page) {
     numbers.forEach(number => {
       if(!collection.has(number)) {
         const tile = document.createElement("div"); tile.className = "lab-undiscovered"; tile.dataset.number = number;
-        tile.setAttribute("aria-label", `第${number}回 未発見`);
+        tile.setAttribute("aria-label", `#${number} 未発見`);
         const silhouette = document.createElement("span"); silhouette.className = "lab-silhouette"; silhouette.setAttribute("aria-hidden","true");
-        const label = document.createElement("span"); label.className = "lab-dex-title"; label.textContent = `第${number}回`;
+        const label = document.createElement("span"); label.className = "lab-dex-title"; label.textContent = `#${number}`;
         tile.append(silhouette,label); grid.append(tile); return;
       }
       const button = cartridgeButton(number, () => openItem(number));
@@ -198,9 +189,24 @@ export async function mount(root, page) {
     $("#labPartyCount").textContent = `${party.length} / 6`;
     const grid = $("#labPartyGrid"); grid.replaceChildren();
     for(let i=0;i<6;i++) {
-      if(party[i] !== undefined) { grid.append(cartridgeButton(party[i],()=>openItem(party[i]))); }
+      if(party[i] !== undefined) {
+        const number=party[i],button=cartridgeButton(number,()=>{
+          if(!reorderMode) {openItem(number);return;}
+          if(reorderSource===null) reorderSource=number;
+          else if(reorderSource===number) reorderSource=null;
+          else {
+            const source=reorderSource;reorderSource=null;swapParty(source,number);
+            $(`#labPartyGrid [data-number="${source}"]`)?.focus({preventScroll:true});
+          }
+          updateReorder();
+        });grid.append(button);
+      }
       else { const slot=document.createElement("div");slot.className="lab-empty-slot";slot.setAttribute("aria-label",`空き枠 ${i+1}`);slot.textContent=String(i+1).padStart(2,"0");grid.append(slot); }
     }
+    updateReorder();syncAcquireButton();
+    $("#labPartyShare").hidden=party.length===0;
+    const signature=party.join(",");
+    if(signature!==partySignature) {partySignature=signature;partyShareControls?.invalidate({reset:party.length===0});}
     $("#labPartyStatus").hidden=saveAvailable;
     if(!saveAvailable) $("#labPartyStatus").textContent="端末への保存を使えないため、この画面内だけで保持しているよ。";
   }
@@ -211,23 +217,39 @@ export async function mount(root, page) {
   }
   function refreshItem() {
     const ep=byNumber.get(itemNumber), held=party.includes(itemNumber);
-    $("#labItemTitle").textContent=`第${itemNumber}回 ${ep.title}`;
+    $("#labItemTitle").textContent=`#${itemNumber} ${ep.title}`;
     $("#labItemArt").replaceChildren(createCartridge(ep,true));
     $("#labItemTags").textContent=(ep.tags||[]).join(" / ");
     $("#labItemLink").href=`episodes/${itemNumber}.html`;
     $("#labItemAdd").disabled=held; $("#labItemAdd").textContent=held?"手持ちに登録済み":"手持ちに加える";
     $("#labItemRemove").hidden=!held;
-    $("#labItemMove").hidden=!held || party.length<2;
-    const positions=$("#labPositions");positions.replaceChildren();
-    if(!held || party.length<2) { positions.hidden=true;$("#labItemMove").setAttribute("aria-expanded","false"); }
-    party.forEach((number,index)=>{
-      const button=document.createElement("button");button.type="button";button.className="lab-secondary";
-      button.textContent=String(index+1);button.disabled=number===itemNumber;
-      button.setAttribute("aria-label",`位置${index+1}（第${number}回）と交換`);
-      button.addEventListener("click",()=>{swapParty(itemNumber,number);$("#labItemMove").focus();});positions.append(button);
-    });
   }
-  function openItem(number) { $("#labPositions").hidden=true;$("#labItemMove").setAttribute("aria-expanded","false");itemNumber=number;refreshItem();$("#labItem").showModal();syncMotion(); }
+  function openItem(number) { itemNumber=number;refreshItem();$("#labItem").showModal();syncMotion(); }
+  function syncAcquireButton() {
+    const held=party.includes(inspected),button=$("#labConfirm");
+    button.disabled=inspected===null || held;
+    button.textContent=held?"手持ちに登録済み":"手持ちに加える";
+    button.setAttribute("aria-disabled",String(button.disabled));
+  }
+  // Commit discovery only after the user chooses a destination. Closing the
+  // full-party dialog leaves the incoming episode and shared choice untouched.
+  function acquire(number, fromRound, destination) {
+    mergeCollection();readParty();
+    if(destination!=="dex" && !party.includes(number)) {
+      if(destination===null) {if(party.length>=6) {addParty(number,fromRound);return;}party.push(number);}
+      else {const index=party.indexOf(destination);if(index<0) {renderReplacements();return;}party[index]=number;}
+    }
+    collection.add(number);
+    try {localStorage.setItem(COLLECTION_KEY,JSON.stringify([...collection]));}catch(_){saveAvailable=false;}
+    if(fromRound && round.some(ep=>ep.number===number)) {
+      selected=number;
+      history.replaceState({...history.state,labChoice:{eps:round.map(e=>e.number).join(","),pick:selected}},"");
+      updateShare();
+    }
+    saveParty(destination==="dex"?`#${number}を図鑑に登録したよ。`:`#${number}を手持ちに加えたよ。`);
+    renderCards();highlightParty(number);
+    if($("#labReplace").open) $("#labReplace").close();
+  }
   function renderReplacements() {
     const grid=$("#labReplaceGrid");grid.replaceChildren();
     if(party.includes(replacing)) {
@@ -235,7 +257,7 @@ export async function mount(root, page) {
     }
     if(party.length < 6) {
       const add=document.createElement("button");add.type="button";add.className="lab-secondary";add.textContent="空き枠に加える";
-      add.addEventListener("click",()=>{const number=replacing;$("#labReplace").close();replacing=null;addParty(number);});
+      add.addEventListener("click",()=>{acquire(replacing,replacingFromRound,null);});
       grid.append(add);
     }
     party.forEach(number=>grid.append(cartridgeButton(number,()=>{
@@ -243,18 +265,17 @@ export async function mount(root, page) {
       mergeCollection();readParty();
       const index=party.indexOf(number);
       if(index<0 || party.includes(replacing)) { renderReplacements(); return; }
-      party[index]=replacing;
-      const added=replacing;
-      saveParty(`第${replacing}回を手持ちに加えたよ。第${number}回は図鑑に残っている。`);
-      highlightParty(added);$("#labReplace").close(); replacing=null;
+      acquire(replacing,replacingFromRound,number);
     })));
   }
-  function addParty(number) {
-    if(!collection.has(number)) return;
+  function addParty(number,fromRound=false) {
+    if(!byNumber.has(number) || (!fromRound && !collection.has(number))) return;
     mergeCollection();readParty();
-    if(party.includes(number)) { updateParty(); return; }
-    if(party.length<6) { party.push(number);saveParty(`第${number}回を手持ちに加えたよ。`);highlightParty(number);return; }
-    replacing=number;$("#labReplaceIncoming").textContent=`加える回：第${number}回 ${byNumber.get(number).title}`;
+    if(party.includes(number)) {updateParty();return;}
+    if(party.length<6) {acquire(number,fromRound,null);return;}
+    replacing=number;replacingFromRound=fromRound;
+    $("#labReplaceIncoming").textContent=`#${number} ${byNumber.get(number).title}`;
+    $("#labSendDex").textContent=collection.has(number)?"図鑑に残す":"図鑑に登録する";
     renderReplacements();$("#labReplace").showModal();syncMotion();
   }
   function roundUrl(includeSelection = true) {
@@ -269,9 +290,9 @@ export async function mount(root, page) {
     const url = roundUrl();
     history.replaceState(history.state, "", url);
     const chosen = selected ?? senderPick;
-    const text = chosen === null ? "博士からこの3択！ あなたならどれ？" : selected === null ? `この3択、紹介した人は第${chosen}回を選んだ！ あなたならどれ？` : `この3択、私は第${chosen}回を選んだ！ あなたならどれ？`;
+    const text = chosen === null ? "博士からこの3択！ あなたならどれ？" : selected === null ? `この3択、紹介した人は#${chosen}を選んだ！ あなたならどれ？` : `この3択、私は#${chosen}を選んだ！ あなたならどれ？`;
     const intent = new URL("https://twitter.com/intent/tweet");
-    intent.searchParams.set("text", `${text}\n${round.map(e => `第${e.number}回 ${Array.from(e.title).slice(0,28).join("")}${Array.from(e.title).length>28?"…":""}`).join("\n")}\n#ゲームの滝壺`);
+    intent.searchParams.set("text", `${text}\n${round.map(e => `#${e.number} ${Array.from(e.title).slice(0,28).join("")}${Array.from(e.title).length>28?"…":""}`).join("\n")}\n#ゲームの滝壺`);
     if (!isLocal) intent.searchParams.set("url", url.href);
     shareIntent = intent.href;
     shareControls?.invalidate({reset});
@@ -282,11 +303,11 @@ export async function mount(root, page) {
       const card = document.createElement("article"); card.className = "lab-card"; card.dataset.number = ep.number;
       card.style.setProperty("--slot", index);
       const button = document.createElement("button"); button.type = "button"; button.className = "lab-choose";
-      button.setAttribute("aria-label", `第${ep.number}回 ${ep.title}を調べる`);
+      button.setAttribute("aria-label", `#${ep.number} ${ep.title}を調べる`);
       button.setAttribute("aria-controls", "labInspection");
       button.setAttribute("aria-pressed", String(ep.number === inspected));
-      const pedestal = document.createElement("span"); pedestal.className = "lab-pedestal"; pedestal.setAttribute("aria-hidden", "true");
-      button.append(createCartridge(ep), pedestal);
+      const shadow = document.createElement("span"); shadow.className = "lab-shadow"; shadow.setAttribute("aria-hidden", "true");
+      button.append(createCartridge(ep), shadow);
       const badge = document.createElement("span"); badge.className = "lab-card-badge"; badge.textContent = collection.has(ep.number) ? "図鑑に登録済み" : ""; button.append(badge);
 
       button.addEventListener("click", () => inspect(ep));
@@ -308,31 +329,23 @@ export async function mount(root, page) {
     inspected = ep.number;
     $("#labInspectPrompt").hidden=true;
     $("#labCards").dataset.active = String(round.findIndex(item => item.number === inspected));
-    $("#labInspectNumber").textContent = `第${ep.number}回 · ${ep.date || ""}`;
+    $("#labInspectNumber").textContent = `#${ep.number} · ${ep.date || ""}`;
     $("#labInspectTitle").textContent = ep.title;
     $("#labInspectTags").textContent = (ep.tags || []).slice(0,2).join(" / ");
-    $("#labConfirm").href=`episodes/${ep.number}.html`;
-    $("#labConfirm").setAttribute("aria-disabled","false");$("#labConfirm").tabIndex=0;
-    $("#labConfirm").setAttribute("aria-label", `第${ep.number}回に決めてエピソードを開く`);
+    syncAcquireButton();
+    $("#labOpen").href=`episodes/${ep.number}.html`;
+    $("#labOpen").setAttribute("aria-disabled","false");$("#labOpen").tabIndex=0;
     $("#labCards").querySelectorAll(".lab-card").forEach(card => {
       const active = Number(card.dataset.number) === inspected;
       card.classList.toggle("is-inspected", active);
       card.querySelector("button").setAttribute("aria-pressed", String(active));
     });
   }
-  function choose(ep) {
-    if (!ep) return;
-    mergeCollection(); selected = ep.number; collection.add(ep.number);
-    try { localStorage.setItem(COLLECTION_KEY, JSON.stringify([...collection])); } catch (_) { saveAvailable = false; }
-    history.replaceState({...history.state,labChoice:{eps:round.map(e=>e.number).join(","),pick:selected}},"");
-    // The real link performs navigation (including open-in-new-tab); no intermediate state.
-    renderCards(); updateCollection(); updateParty(); updateShare();
-  }
   function sizeDetails() {
     const sizes=$("#labDetailSizes");sizes.replaceChildren();
     round.forEach(ep=>{
       const copy=document.createElement("div");copy.className="lab-detail-copy";
-      const number=document.createElement("p");number.className="lab-number";number.textContent=`第${ep.number}回 · ${ep.date || ""}`;
+      const number=document.createElement("p");number.className="lab-number";number.textContent=`#${ep.number} · ${ep.date || ""}`;
       const title=document.createElement("h2");title.textContent=ep.title;
       const tags=document.createElement("p");tags.className="lab-tags";tags.textContent=(ep.tags||[]).slice(0,2).join(" / ");
       copy.append(number,title,tags);sizes.append(copy);
@@ -351,8 +364,8 @@ export async function mount(root, page) {
     selected = null; inspected = null;
     ["#labInspectNumber","#labInspectTitle","#labInspectTags"].forEach(id=>$(id).textContent="");
     $("#labInspectPrompt").hidden=false;
-    $("#labConfirm").removeAttribute("href");$("#labConfirm").removeAttribute("aria-label");
-    $("#labConfirm").setAttribute("aria-disabled","true");$("#labConfirm").tabIndex=-1;
+    $("#labOpen").removeAttribute("href");$("#labOpen").setAttribute("aria-disabled","true");$("#labOpen").tabIndex=-1;
+    syncAcquireButton();
     sizeDetails();
     renderCards(); updateParty(); updateShare(true);
   }
@@ -360,21 +373,31 @@ export async function mount(root, page) {
     $("#labNotice").hidden = true; newRound();
     $("#labShuffle").focus({preventScroll:true});
   });
-  $("#labConfirm").addEventListener("click", event => {
-    if(inspected===null) { event.preventDefault();return; }
-    choose(byNumber.get(inspected));
-  });
-  $("#labConfirm").addEventListener("auxclick",event=>{if(event.button===1 && inspected!==null) choose(byNumber.get(inspected));});
+  $("#labConfirm").addEventListener("click",()=>addParty(inspected,true));
+  $("#labOpen").addEventListener("click",e=>{if(inspected===null)e.preventDefault();});
+  $("#labSendDex").addEventListener("click",()=>{if(replacing!==null)acquire(replacing,replacingFromRound,"dex");});
   $("#labItemAdd").addEventListener("click",()=>addParty(itemNumber));
   $("#labItemRemove").addEventListener("click",()=>{
     mergeCollection();readParty(); party=party.filter(n=>n!==itemNumber);
-    saveParty(`第${itemNumber}回を手持ちから外したよ。図鑑からいつでも戻せる。`);
+    saveParty(`#${itemNumber}を手持ちから外したよ。図鑑からいつでも戻せる。`);
     $("#labItemAdd").focus();
   });
-  $("#labItemMove").addEventListener("click",()=>{
-    const positions=$("#labPositions");positions.hidden=!positions.hidden;
-    $("#labItemMove").setAttribute("aria-expanded",String(!positions.hidden));
-  });
+  function updateReorder() {
+    if(party.length<2) {reorderMode=false;reorderSource=null;}
+    if(!party.includes(reorderSource)) reorderSource=null;
+    $("#labReorder").disabled=party.length<2;
+    $("#labReorder").setAttribute("aria-pressed",String(reorderMode));
+    $("#labReorder").textContent=reorderMode?"並び替えを終える":"並び替え";
+    $("#labReorderHint").hidden=!reorderMode;
+    $("#labPartyGrid").dataset.reordering=String(reorderMode);
+    $("#labPartyGrid").querySelectorAll("button").forEach(button=>{
+      const active=Number(button.dataset.number)===reorderSource;
+      button.classList.toggle("is-reorder-source",active);
+      if(reorderMode) button.setAttribute("aria-pressed",String(active));else button.removeAttribute("aria-pressed");
+    });
+  }
+  $("#labReorder").addEventListener("click",()=>{cancelReorder();reorderMode=!reorderMode;reorderSource=null;updateReorder();});
+  page.listen($("#labPartyGrid"),"keydown",e=>{if(e.key==="Escape" && reorderMode){reorderMode=false;reorderSource=null;updateReorder();$("#labReorder").focus();}});
   function highlightParty(number) {
     const slot=$(`#labPartyGrid [data-number="${number}"]`);if(!slot) return;
     slot.classList.add("is-updated");slot.addEventListener("animationend",()=>slot.classList.remove("is-updated"),{once:true});
@@ -383,7 +406,7 @@ export async function mount(root, page) {
     mergeCollection();readParty();const a=party.indexOf(source),b=party.indexOf(target);
     if(a<0 || b<0 || a===b) return;
     [party[a],party[b]]=[party[b],party[a]];
-    saveParty(`第${source}回を位置${b+1}へ、第${target}回を位置${a+1}へ移動したよ。`);
+    saveParty(`#${source}を位置${b+1}へ、#${target}を位置${a+1}へ移動したよ。`);
     highlightParty(source);highlightParty(target);
   }
   const cancelReorder=installPartyReorder($("#labPartyGrid"),swapParty,page);
@@ -420,11 +443,12 @@ export async function mount(root, page) {
   });
   $("#labReplace").addEventListener("close",()=>{
     if($("#labItem").open) ($("#labItemAdd").disabled ? $("#labItemLink") : $("#labItemAdd")).focus({preventScroll:true});
-    else if(!root.querySelector("dialog[open]")) $("#labDexToggle").focus({preventScroll:true});
+    else if(!root.querySelector("dialog[open]")) ($("#labConfirm").disabled ? $("#labOpen") : $("#labConfirm")).focus({preventScroll:true});
+    replacing=null;replacingFromRound=false;
   });
   page.listen(window,"storage", e => {
     if(e.key === COLLECTION_KEY || e.key === PARTY_KEY) {
-      cancelReorder();mergeCollection(); readParty(); updateCollection(); updateParty(); renderCards();
+      cancelReorder();reorderSource=null;mergeCollection(); readParty(); updateCollection(); updateParty(); renderCards();
       if($("#labItem").open) refreshItem();
       if($("#labReplace").open) renderReplacements();
     }
@@ -434,6 +458,18 @@ export async function mount(root, page) {
     getBlob: () => createShareImage(round.slice(), selected ?? senderPick, page.signal, selected === null && senderPick !== null, wrapLines),
     getLink: () => roundUrl().href, getX: () => shareIntent,
     filename: () => `takitsubo-${round.map(e=>e.number).join("-")}${selected === null ? "" : `-pick-${selected}`}.png`
+  });
+  partyShareControls=mountShareControls($("#labPartyShare"), {
+    prefix:"labParty",signal:page.signal,previewMode:"on-demand",
+    makeLabel:"手持ちのシェア画像を作る",previewAlt:"手持ちエピソードのシェア画像",
+    getBlob:()=>createShareImage(party.map(n=>byNumber.get(n)),null,page.signal,false,wrapLines,"party"),
+    getX:()=>{
+      const url=new URL("https://twitter.com/intent/tweet");
+      url.searchParams.set("text",`私の手持ちエピソード\n${party.map(n=>`#${n}`).join(" / ")}\n#ゲームの滝壺`);
+      if(!isLocal) url.searchParams.set("url",shareBase.href);
+      return url.href;
+    },
+    filename:()=>`takitsubo-party-${party.join("-")}.png`
   });
   page.onDispose(() => { sceneObserver.disconnect(); root.querySelectorAll("dialog[open]").forEach(modal => modal.close()); });
   syncMotion();
@@ -470,6 +506,7 @@ function installPartyReorder(grid, swap, page) {
     pending.button.classList.add("is-drag-source");point(pending.x,pending.y);
   }
   function prepare(event,x,y,kind,id) {
+    if(grid.dataset.reordering==="true") return;
     const button=event.target.closest("button[data-number]");
     if(!button || !grid.contains(button) || grid.querySelectorAll("button[data-number]").length<2) return;
     cancel();pending={button,x,y,kind,id};
@@ -533,7 +570,7 @@ function imageFor(ep, signal) {
   });
 }
 
-async function createShareImage(episodes, chosen, signal, fromSender, wrapLines) {
+async function createShareImage(episodes, chosen, signal, fromSender, wrapLines, kind="trio") {
   await document.fonts.ready;
   const images = await Promise.all(episodes.map(e => imageFor(e, signal)));
   const shells = await Promise.all(episodes.map(ep => {
@@ -545,29 +582,39 @@ async function createShareImage(episodes, chosen, signal, fromSender, wrapLines)
     return imageFor({image:"data:image/svg+xml;charset=utf-8," + encodeURIComponent(source)}, signal);
   }));
   if(signal.aborted) throw new DOMException("Disposed", "AbortError");
-  const canvas = document.createElement("canvas"); canvas.width = 1200; canvas.height = 800;
+  const canvas = document.createElement("canvas"); canvas.width = 1200; canvas.height = kind==="party"?1100:800;
+  const height=canvas.height, isParty=kind==="party";
   const c = canvas.getContext("2d"), ink = "#254e70";
-  c.fillStyle = "#e7f4ff"; c.fillRect(0,0,1200,800);
+  c.fillStyle = "#e7f4ff"; c.fillRect(0,0,1200,height);
   c.strokeStyle = "#cee5f5"; c.lineWidth=1;
-  for(let y=0;y<800;y+=32) { c.beginPath(); c.moveTo(0,y); c.lineTo(1200,y); c.stroke(); }
-  c.fillStyle=ink;c.font='bold 40px "Noto Sans JP",sans-serif';c.fillText("この3択、あなたならどれ？",44,76);
+  for(let y=0;y<height;y+=32) { c.beginPath(); c.moveTo(0,y); c.lineTo(1200,y); c.stroke(); }
+  c.fillStyle=ink;c.font='bold 40px "Noto Sans JP",sans-serif';c.fillText(isParty?"手持ちエピソード":"この3択、あなたならどれ？",44,76);
+  if(isParty) {c.font='bold 24px "Noto Sans JP",sans-serif';c.textAlign="right";c.fillText(`${episodes.length} / 6`,1156,76);c.textAlign="left";}
+  if(isParty) {
+    c.save();c.strokeStyle="#aac8dc";c.lineWidth=2;c.setLineDash([9,7]);
+    for(let i=episodes.length;i<6;i++) {
+      const x=84+(i%3)*380,y=125+Math.floor(i/3)*440;
+      c.beginPath();c.roundRect(x,y,240,280,10);c.stroke();
+    }
+    c.restore();
+  }
   episodes.forEach((ep,i) => {
-    const x=54+i*380, y=146, w=310, h=w*7/6;
+    const x=(isParty?84:54)+(i%3)*380, y=isParty?125+Math.floor(i/3)*440:146, w=isParty?240:310, h=w*7/6;
     c.fillStyle="#92b2cc"; c.fillRect(x+8,y+16,w,h-8);
     if(shells[i]) c.drawImage(shells[i],x,y,w,h);
     const ix=x+w*.0875, iy=y+h*.2357, iw=w*.825;
     c.fillStyle="#fff";c.fillRect(ix,iy,iw,iw);
     const img=images[i];
     if(img) { const scale=Math.min(iw/img.naturalWidth,iw/img.naturalHeight);c.drawImage(img,ix+(iw-img.naturalWidth*scale)/2,iy+(iw-img.naturalHeight*scale)/2,img.naturalWidth*scale,img.naturalHeight*scale); }
-    c.fillStyle=ink;c.font='bold 19px "Noto Sans JP",sans-serif';c.fillText(`第${ep.number}回`,x,y+h+37);
+    c.fillStyle=ink;c.font='bold 19px "Noto Sans JP",sans-serif';c.fillText(`#${ep.number}`,x,y+h+37);
     c.font='bold 21px "Noto Sans JP",sans-serif';
-    wrapLines(c,ep.title,320,4).forEach((line,j)=>c.fillText(line,x,y+h+73+j*30));
+    wrapLines(c,ep.title,320,isParty?2:4).forEach((line,j)=>c.fillText(line,x,y+h+73+j*30));
     if(ep.number===chosen) {
       c.fillStyle=ink;c.fillRect(x+12,103,w-24,32);c.fillStyle="#fff";c.textAlign="center";c.font='bold 18px "Noto Sans JP",sans-serif';
       c.fillText(fromSender?"✓ 紹介した人の選択":"✓ 私はこれ",x+w/2,126);c.textAlign="left";
     }
   });
-  c.fillStyle=ink;c.fillRect(0,748,1200,52);c.fillStyle="#fff";c.font='bold 19px "Noto Sans JP",sans-serif';c.fillText("ゲームの滝壺 / エピソード研究所",44,782);
-  c.textAlign="right";c.fillText("#ゲームの滝壺",1156,782);
+  c.fillStyle=ink;c.fillRect(0,height-52,1200,52);c.fillStyle="#fff";c.font='bold 19px "Noto Sans JP",sans-serif';c.fillText("ゲームの滝壺 / エピソード研究所",44,height-18);
+  c.textAlign="right";c.fillText("#ゲームの滝壺",1156,height-18);
   return new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("PNG encoding failed")),"image/png"));
 }

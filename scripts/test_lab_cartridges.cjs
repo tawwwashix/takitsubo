@@ -33,7 +33,7 @@ const retired = ['excavate.html','assets/js/excavate-loader.js','assets/js/excav
     assert.equal(await p.locator('#labConfirm').getAttribute('aria-disabled'),'true');
     const tones=await p.locator('#labCards .lab-art').evaluateAll(es=>es.map(e=>e.dataset.tone));
     assert.deepEqual(tones,['gray','black','amber']);
-    assert.equal(await p.locator('.lab-cart-front text').first().textContent(),'GAME NO TAKITSUBO');
+    assert.equal(await p.locator('#labCards .lab-cart-front text').first().textContent(),'GAME NO TAKITSUBO');
     assert.equal(await p.locator('.lab-scene-caption,.lab-card-number,.lab-stage-hint,.lab-bottom').count(),0);
     assert(!(await p.locator('#episodeLab').innerText()).includes('まだ見ぬ一回'));
     await p.screenshot({path:path.join(out,'cartridges-mobile-neutral.png'),fullPage:true});
@@ -65,8 +65,7 @@ const retired = ['excavate.html','assets/js/excavate-loader.js','assets/js/excav
     }
     check('Every slot enlarges without clipping; all three remain touchable at 320–1280px; inspection does not save');
     await p.setViewportSize({width:390,height:844});
-    await p.locator('#labConfirm').tap();await p.waitForURL('**/episodes/'+trio[2]+'.html');
-    await p.goBack();await p.locator('.lab-choose').first().waitFor();
+    await p.locator('#labConfirm').tap();
     await p.locator('.lab-choose').nth(2).tap();
     const before=await p.locator('.is-inspected .lab-cartridge').evaluate(e=>getComputedStyle(e).transform);
     await p.waitForFunction(t=>getComputedStyle(document.querySelector('.is-inspected .lab-cartridge')).transform!==t,before);

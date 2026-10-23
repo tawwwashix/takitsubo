@@ -21,7 +21,7 @@ fs.mkdirSync(out,{recursive:true});
   await p.screenshot({path:path.join(out,'site-lab-collapsed-mobile.png'),fullPage:true});
   await p.locator('#labMake').click();await preview();assert(await p.locator('#labSave').isVisible());assert(await p.locator('#labMake').isHidden());
   let old=await p.locator('#labSharePreview').getAttribute('src');
-  await p.locator('.lab-choose').nth(1).click();await p.locator('#labConfirm').click();await p.waitForURL('**/episodes/54.html');await p.goBack();await ready();await p.locator('#labMake').click();await preview();
+  await p.locator('.lab-choose').nth(1).click();await p.locator('#labConfirm').click();await preview();
   assert.notEqual(await p.locator('#labSharePreview').getAttribute('src'),old);
   await p.locator('.lab-choose').nth(2).click();assert.equal(new URL(p.url()).searchParams.get('pick'),'54');
   const downloadEvent=p.waitForEvent('download');await p.locator('#labSave').click();const download=await downloadEvent;
