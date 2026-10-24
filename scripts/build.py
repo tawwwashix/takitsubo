@@ -1453,7 +1453,7 @@ def build_shindan():
 <h1 class="page-title"><span class="en">FUSAWASHII GAME SHINDAN</span>ふさわしいゲーム診断</h1>
 <p style="font-size:13px;color:var(--sub);margin-top:8px;">なまえを入力するだけ。<br>滝壺の3人がこれまでに語ってきた <strong style="color:var(--primary-deep);">全{n_games}タイトル</strong> から<br>あなたに"ふさわしい一本"を診断します。</p>
 </div>
-<div class="shindan-stage" id="shindanPanel" data-share-module="assets/js/share-tools.js?v={av('assets/js/share-tools.js')}" data-version="{av('data/shindan.json')}" data-site="{esc(base)}" data-hashtag="{esc(SITE['hashtag'])}">
+<div class="shindan-stage" id="shindanPanel" data-module="assets/js/shindan/main.js?v={av('assets/js/shindan/main.js')}" data-share-module="assets/js/share-tools.js?v={av('assets/js/share-tools.js')}" data-version="{av('data/shindan.json')}" data-site="{esc(base)}" data-hashtag="{esc(SITE['hashtag'])}">
 <p style="text-align:center;color:var(--faint);padding:40px 0;">読み込み中…</p>
 </div>
 <p class="search-note" style="text-align:center;margin-top:14px;">診断プールは番組の全エピソードから自動生成。<br>新しい回が配信されるたびに、結果の種類も増えていきます。<br>※ごく稀にゲームでないものが出てしまう場合があります。</p>
