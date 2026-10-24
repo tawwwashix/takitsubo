@@ -870,6 +870,23 @@ span.ep-card-num {
 /* ---------- トップページ: 3つの導線バブル ---------- */
 .route-section { padding-top: 30px; }
 .route-bubbles {
+  /* ===== トップの泡の位置調整（画面幅1051px以上のPCだけに適用） =====
+     平行四辺形の基準位置からの移動量。pxを付けて指定する。
+     x: プラスで右、マイナスで左 / y: プラスで下、マイナスで上。
+     ホバー時にもこの位置を維持する。スマホ・中間幅の配置は変わらない。
+     保存 → ローカルのトップページを再読み込みで確認できる。 */
+  --route-db-x: 0px;       /* DB：横 */
+  --route-db-y: 0px;       /* DB：縦 */
+  --route-shindan-x: -70px;  /* 診断：横 */
+  --route-shindan-y: 0px;  /* 診断：縦 */
+  --route-awq-x: 70px;      /* AWQ：横 */
+  --route-awq-y: -12px;    /* AWQ：縦 */
+  --route-lab-x: 0px;      /* 研究所：横 */
+  --route-lab-y: -12px;    /* 研究所：縦 */
+  /* 泡を大きく動かした場合の上下の余白。前後のセクションとの間隔を確保する。 */
+  --route-space-top: 20px;
+  --route-space-bottom: 44px;
+  /* ===== 位置調整ここまで（以下は通常変更不要） ===== */
   position: relative; isolation: isolate;
   display: grid; grid-template-columns: repeat(8, minmax(0, 1fr));
   grid-template-rows: repeat(2, auto); max-width:860px; margin:0 auto;
@@ -883,6 +900,8 @@ span.ep-card-num {
 }
 .route-bubble {
   --bubble: 221, 241, 255; --route-accent: #1476C5;
+  --route-x:0px; --route-y:0px;
+  transform:translate(var(--route-x),var(--route-y));
   position: relative; display: grid; aspect-ratio: 1; place-items: center;
   min-width: 0; width:100%; padding: clamp(25px, 3vw, 38px); overflow: hidden;
   color: var(--ink); text-align: center; text-decoration: none;
@@ -910,28 +929,28 @@ span.ep-card-num {
 .route-bubble-lab {
   grid-column:6 / span 3; grid-row:2;
   --bubble: 222, 235, 255; --route-accent: #2468bb;
-  transform:translateY(-12px);
+  --route-x:var(--route-lab-x); --route-y:var(--route-lab-y);
 }
-.route-bubble-db { grid-column:1 / span 3; grid-row:1; }
+.route-bubble-db { grid-column:1 / span 3; grid-row:1; --route-x:var(--route-db-x); --route-y:var(--route-db-y); }
 .route-bubble-shindan {
   grid-column:5 / span 3; grid-row:1;
   --bubble: 255, 231, 224; --route-accent: var(--accent);
+  --route-x:var(--route-shindan-x); --route-y:var(--route-shindan-y);
 }
 .route-bubble-awq {
   grid-column:2 / span 3; grid-row:2;
   --bubble: 222, 249, 242; --route-accent: #15845D;
-  transform:translateY(-12px);
+  --route-x:var(--route-awq-x); --route-y:var(--route-awq-y);
 }
 .route-bubble:hover {
   z-index: 2; color: var(--ink); text-decoration: none;
-  transform: translateY(-6px);
+  transform: translate(var(--route-x),calc(var(--route-y) - 6px));
   box-shadow:
     inset -16px -20px 34px rgba(72, 155, 204, .1),
     inset 12px 14px 24px rgba(255, 255, 255, .82),
     0 27px 48px rgba(65, 141, 190, .23),
     0 0 0 4px rgba(var(--bubble), .5);
 }
-.route-bubble-awq:hover,.route-bubble-lab:hover { transform:translateY(-18px); }
 .route-bubble:focus-visible { outline-color: var(--route-accent); outline-offset: 7px; }
 .route-bubble-inner {
   position: relative; z-index: 1; display: flex; width: 100%; min-height: 79%;
@@ -988,6 +1007,9 @@ span.ep-card-num {
 .route-mini-bubble:nth-child(9) { --size: 52px; --x: -1%; --y: 73%; }
 .route-mini-bubble:nth-child(10) { --size: 15px; --x: 49%; --y: 94%; }
 
+@media (min-width:1051px) {
+  .route-bubbles { padding-top:var(--route-space-top);padding-bottom:var(--route-space-bottom); }
+}
 @media (min-width:821px) and (max-width:1050px) {
   .route-bubbles { max-width:720px;margin:auto;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto;gap:24px; }
   .route-bubble { grid-column:auto;grid-row:auto;transform:none; }
