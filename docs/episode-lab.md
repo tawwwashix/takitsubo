@@ -76,13 +76,13 @@ Worktree直下の `start-episode-lab.bat` をダブルクリック。
 共有PNGは診断と同じ `assets/img/mainlogo.webp` を使い、青いグラデーション、光の帯、泡、コーラルの下線で番組の見た目をそろえる。カートリッジはゲーム画面と同じSVGを再利用する。
 
 共通ヘッダーは診断の次に、PC「研究所」／スマホ「エピソード研究所」を表示する。フッターは「エピソード研究所」。研究所を開いているときはヘッダーのリンクを選択表示する。
-トップの泡は、幅1050px超で研究所を上・DBを左・診断を右・AWQを下にした横長のひし形、821〜1050pxで2列、820px以下で横長の泡を縦に並べる。色と配置は機能別クラスで指定し、並び順に依存させない。研究所のアイコンは `hyuuma.webp` を右向きに反転して使う。
+トップの泡は、幅1050px超で上段DB・診断／下段AWQ・研究所を右へずらした平行四辺形、821〜1050pxで2列、820px以下で横長の泡を縦に並べる。色と配置は機能別クラスで指定し、並び順に依存させない。トップの研究所アイコンは `hyuuma.webp` の左向きを使う。研究所内の博士は右向きのまま維持する。
 
 `assets/js/lab-loader.js` が研究所でのみ `assets/js/lab/game.js` と `assets/css/lab.css` を読み込む。
 共通ヘッダー・フッター・ページ見出し（EPISODE LAB / エピソード研究所）を表示し、独自のEXITは置かない。「動き ON／OFF」はゲーム枠内に置く。ゲーム画面、今回の3択の共有欄、手持ちエピソードの順で並ぶ。離脱時にCSS・監視処理・画像生成処理・オブジェクトURLを終了・解放する。既存の音声プレイヤーは維持する。
 背景は静止SVG、動きはCSS中心。WebGL・追加ライブラリ・連続JavaScript描画は使わない。
 「動き OFF」、OSの動きを減らす設定に対応。画面外・非表示タブ・モーダル表示中は研究所の浮遊を休止する。
-図鑑はモーダルで、Escape／閉じるボタンで戻れる。共有は画面直下で生成・表示し、診断と共通の `assets/js/share-tools.js` で保存・コピー・Xの操作と日本語の禁則処理をそろえる。表示方法は診断の常時表示（既定）と、研究所の `previewMode: 'on-demand'` を分ける。
+図鑑・詳細・交換選択はモーダルで、Escape／閉じるボタン／外側の背景クリック・タップで戻れる。一番手前だけ閉じ、交換選択を閉じても登録や交換は確定しない。内部の余白・スクロール操作・内側から外側へのドラッグでは閉じない。共有は画面直下で生成・表示し、診断と共通の `assets/js/share-tools.js` で保存・コピー・Xの操作と日本語の禁則処理をそろえる。表示方法は診断の常時表示（既定）と、研究所の `previewMode: 'on-demand'` を分ける。
 スマホでも3枚は横並び。狭い画面や長いタイトルでは縦スクロールを許容する。
 
 ```text
@@ -98,6 +98,7 @@ node scripts/test_lab_party.cjs
 node scripts/test_lab_simplified.cjs
 node scripts/test_lab_collect.cjs
 node scripts/test_lab_polish.cjs
+node scripts/test_lab_backdrop.cjs
 node scripts/test_lab_site_frame.cjs
 ```
 

@@ -871,8 +871,8 @@ span.ep-card-num {
 .route-section { padding-top: 30px; }
 .route-bubbles {
   position: relative; isolation: isolate;
-  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
-  grid-template-rows: repeat(4, auto);
+  display: grid; grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: repeat(2, auto); max-width:860px; margin:0 auto;
   align-items: center; gap: 0; padding: 20px 0 44px;
 }
 .route-bubbles::before {
@@ -908,19 +908,19 @@ span.ep-card-num {
   filter: blur(13px);
 }
 .route-bubble-lab {
-  grid-column:3 / span 2; grid-row:1 / span 2;
+  grid-column:6 / span 3; grid-row:2;
   --bubble: 222, 235, 255; --route-accent: #2468bb;
+  transform:translateY(-12px);
 }
-.route-bubble-db { grid-column:1 / span 2; grid-row:2 / span 2; transform:translateY(-12px); }
+.route-bubble-db { grid-column:1 / span 3; grid-row:1; }
 .route-bubble-shindan {
-  grid-column:5 / span 2; grid-row:2 / span 2;
+  grid-column:5 / span 3; grid-row:1;
   --bubble: 255, 231, 224; --route-accent: var(--accent);
-  transform:translateY(10px);
 }
 .route-bubble-awq {
-  grid-column:3 / span 2; grid-row:3 / span 2;
+  grid-column:2 / span 3; grid-row:2;
   --bubble: 222, 249, 242; --route-accent: #15845D;
-  transform:translateX(16px) translateY(14px);
+  transform:translateY(-12px);
 }
 .route-bubble:hover {
   z-index: 2; color: var(--ink); text-decoration: none;
@@ -931,9 +931,7 @@ span.ep-card-num {
     0 27px 48px rgba(65, 141, 190, .23),
     0 0 0 4px rgba(var(--bubble), .5);
 }
-.route-bubble-db:hover { transform:translateY(-18px); }
-.route-bubble-shindan:hover { transform:translateY(4px); }
-.route-bubble-awq:hover { transform:translate(16px,8px); }
+.route-bubble-awq:hover,.route-bubble-lab:hover { transform:translateY(-18px); }
 .route-bubble:focus-visible { outline-color: var(--route-accent); outline-offset: 7px; }
 .route-bubble-inner {
   position: relative; z-index: 1; display: flex; width: 100%; min-height: 79%;
@@ -952,7 +950,7 @@ span.ep-card-num {
   border: 2px solid rgba(255, 255, 255, .9); border-radius: 18px;
   image-rendering: auto; box-shadow: 0 7px 16px rgba(35, 93, 129, .15);
 }
-.route-bubble-image-hyuuma { image-rendering:auto;transform:scaleX(-1); }
+.route-bubble-image-hyuuma { image-rendering:auto; }
 .route-bubble-en {
   color: var(--route-accent); font-family: var(--font-num); font-weight: 700;
   font-size: clamp(8px, .88vw, 10px); line-height: 1.4; letter-spacing: .16em;

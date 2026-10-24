@@ -471,12 +471,6 @@ def build_index():
 
 <section class="section route-section">
 <div class="route-bubbles" aria-label="ゲームの滝壺をもっと楽しむ">
-<a class="route-bubble route-bubble-lab" href="lab.html"><span class="route-bubble-inner">
-<img class="route-bubble-image route-bubble-image-hyuuma" src="assets/img/hyuuma.webp" alt="" aria-hidden="true">
-<span class="route-bubble-en">EPISODE LAB</span>
-<span class="route-bubble-title"><span class="route-bubble-title-line">次に聴くのはどの回？</span><span class="route-bubble-title-line">エピソード研究所</span></span>
-<span class="route-bubble-desc">ランダムな3本から、気になる一回を。手持ちや図鑑も自由に楽しもう。</span>
-<span class="route-bubble-cta">研究所へ →</span></span></a>
 <a class="route-bubble route-bubble-db" href="games/">
 <span class="route-bubble-inner">
 <img class="route-bubble-image route-bubble-image-scissors" src="assets/img/scissors.png" alt="" aria-hidden="true">
@@ -504,6 +498,12 @@ def build_index():
 <span class="route-bubble-cta">順位を見る →</span>
 </span>
 </a>
+<a class="route-bubble route-bubble-lab" href="lab.html"><span class="route-bubble-inner">
+<img class="route-bubble-image route-bubble-image-hyuuma" src="assets/img/hyuuma.webp" alt="" aria-hidden="true">
+<span class="route-bubble-en">EPISODE LAB</span>
+<span class="route-bubble-title"><span class="route-bubble-title-line">次に聴くのはどの回？</span><span class="route-bubble-title-line">エピソード研究所</span></span>
+<span class="route-bubble-desc">ランダムな3本から、気になる一回を。手持ちや図鑑も自由に楽しもう。</span>
+<span class="route-bubble-cta">研究所へ →</span></span></a>
 <i class="route-mini-bubble" aria-hidden="true"></i>
 <i class="route-mini-bubble" aria-hidden="true"></i>
 <i class="route-mini-bubble" aria-hidden="true"></i>

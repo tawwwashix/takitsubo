@@ -439,7 +439,32 @@ export async function mount(root, page) {
     $("#" + trigger).addEventListener("click", () => { $("#" + target).showModal(); syncMotion(); });
   }
   root.querySelectorAll("[data-close]").forEach(button => button.addEventListener("click", () => $("#" + button.dataset.close).close()));
-  root.querySelectorAll("dialog").forEach(modal => modal.addEventListener("close", syncMotion));
+  root.querySelectorAll("dialog").forEach(modal => {
+    let backdropPress = null, backdropTap = false;
+    const outside = event => {
+      const r = modal.getBoundingClientRect();
+      return event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom;
+    };
+    modal.addEventListener("pointerdown", event => {
+      backdropTap = false;
+      backdropPress = event.isPrimary && event.button === 0 && event.target === modal && outside(event)
+        ? {id:event.pointerId,x:event.clientX,y:event.clientY} : null;
+    });
+    modal.addEventListener("pointerup", event => {
+      backdropTap = !!backdropPress && event.pointerId === backdropPress.id && outside(event)
+        && Math.hypot(event.clientX-backdropPress.x,event.clientY-backdropPress.y) <= 8;
+      backdropPress = null;
+    });
+    modal.addEventListener("pointercancel", () => { backdropPress = null; backdropTap = false; });
+    // Close on click, not pointerup, so the same gesture cannot activate the dialog underneath.
+    modal.addEventListener("click", event => {
+      if(backdropTap && event.target === modal && outside(event)) {
+        event.preventDefault(); event.stopPropagation(); modal.close();
+      }
+      backdropTap = false;
+    });
+    modal.addEventListener("close", () => { backdropPress = null; backdropTap = false; syncMotion(); });
+  });
   // Updating a case/dex rebuilds its opener. Restore focus to an existing control.
   $("#labItem").addEventListener("close",()=>{
     if($("#labDex").open) ($(`#labDexGrid [data-number="${itemNumber}"]`) || $("#labDexOrder")).focus({preventScroll:true});
