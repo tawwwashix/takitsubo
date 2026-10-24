@@ -21,8 +21,14 @@ const base=process.argv[2]||'http://127.0.0.1:8766',out=path.resolve(__dirname,'
     const samples=await p.evaluate(async()=>{
      const grid=document.querySelector('#labCards'),width=()=>parseFloat(getComputedStyle(grid).gridTemplateColumns);
      const before=width();document.querySelector('.lab-choose').click();const start=width();
-     const animations=grid.getAnimations().map(a=>a.transitionProperty);
-     await new Promise(r=>setTimeout(r,100));const middle=width();await new Promise(r=>setTimeout(r,250));
+     const active=grid.getAnimations(),animations=active.map(a=>a.transitionProperty);
+     const transition=active.find(a=>a.transitionProperty==='grid-template-columns');
+     if(!transition) return {before,start,middle:start,end:width(),animations};
+     // Sample the browser's real CSS interpolation at a deterministic time.
+     // Wall-clock sleeps can run before the first animation frame under load.
+     transition.pause();await transition.ready;
+     transition.currentTime=Number(transition.effect.getTiming().duration)/2;
+     const middle=width();transition.finish();
      return{before,start,middle,end:width(),animations};
     });
     assert(samples.animations.includes('grid-template-columns'),'First selection must animate');

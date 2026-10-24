@@ -14,7 +14,17 @@ return (async function () {
 
   var panel = document.getElementById("shindanPanel");
   if (!panel) return;
-  const {wrapLines, mountShareControls} = await import(new URL(panel.dataset.shareModule, location.href));
+  function showLoadError() {
+    if (page.signal.aborted) return;
+    panel.innerHTML = '<p style="text-align:center;color:var(--faint);padding:40px 0;">診断データの読み込みに失敗しました。ページを再読み込みしてください。</p>';
+  }
+  let wrapLines, mountShareControls;
+  try {
+    ({wrapLines, mountShareControls} = await import(new URL(panel.dataset.shareModule, location.href)));
+  } catch (_) {
+    showLoadError();
+    return;
+  }
   if(page.signal.aborted) return;
   var SITE_URL = (panel.dataset.site || "").replace(/\/$/, "") + "/shindan.html";
   var HASHTAG = panel.dataset.hashtag || "#ゲームの滝壺";
@@ -427,10 +437,7 @@ return (async function () {
   return fetch("data/shindan.json?v=" + panel.dataset.version, { signal: page.signal })
     .then(function (r) { return r.json(); })
     .then(function (d) { if (!page.signal.aborted) { DATA = d; renderIntro(); } })
-    .catch(function () {
-      if (page.signal.aborted) return;
-      panel.innerHTML = '<p style="text-align:center;color:var(--faint);padding:40px 0;">診断データの読み込みに失敗しました。ページを再読み込みしてください。</p>';
-    });
+    .catch(showLoadError);
 })();
 
 });
