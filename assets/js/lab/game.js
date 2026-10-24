@@ -206,7 +206,8 @@ export async function mount(root, page) {
     updateReorder();syncAcquireButton();
     $("#labPartyShare").hidden=party.length===0;
     const signature=party.join(",");
-    if(signature!==partySignature) {partySignature=signature;partyShareControls?.invalidate({reset:party.length===0});}
+    // Editing the party closes the old image. Generate again only on an explicit click.
+    if(signature!==partySignature) {partySignature=signature;partyShareControls?.invalidate({reset:true});}
     $("#labPartyStatus").hidden=saveAvailable;
     if(!saveAvailable) $("#labPartyStatus").textContent="端末への保存を使えないため、この画面内だけで保持しているよ。";
   }
@@ -620,10 +621,10 @@ async function createPartyShareImage(episodes, signal, wrapLines) {
   for(const [x,y,r] of [[27,240,8],[1168,280,10],[420,190,5],[805,570,6],[30,690,6],[1140,680,5],[1010,45,7]]) {c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fill();}
   c.save();c.shadowColor="rgba(8,40,80,.3)";c.shadowBlur=14;c.shadowOffsetY=4;
   if(logo) c.drawImage(logo,30,14,138,138);
-  c.fillStyle="#fff";c.font='bold 22px "Noto Sans JP",sans-serif';c.fillText("ゲームの滝壺｜ゲーム系ポッドキャスト",190,39);
-  c.font='900 44px "Noto Sans JP",sans-serif';c.fillText("エピソード研究所",190,94);c.restore();
-  c.fillStyle="#ee735c";c.beginPath();c.roundRect(190,108,260,6,3);c.fill();
-  c.fillStyle="#fff";c.font='bold 30px "Noto Sans JP",sans-serif';c.fillText("わたしの手持ちエピソード",190,151);
+  c.fillStyle="#fff";c.font='900 44px "Noto Sans JP",sans-serif';c.fillText("エピソード研究所",190,79);
+  const underlineWidth=c.measureText("エピソード").width;c.restore();
+  c.fillStyle="#ee735c";c.beginPath();c.roundRect(190,94,underlineWidth,6,3);c.fill();
+  c.fillStyle="#fff";c.font='bold 30px "Noto Sans JP",sans-serif';c.fillText("手持ちエピソード",190,140);
   {c.font='bold 24px "Noto Sans JP",sans-serif';c.textAlign="right";c.fillText(`${episodes.length} / 6`,1156,151);c.textAlign="left";}
   {
     c.save();c.strokeStyle="#aac8dc";c.lineWidth=2;c.setLineDash([9,7]);
@@ -646,7 +647,7 @@ async function createPartyShareImage(episodes, signal, wrapLines) {
     wrapLines(c,ep.title,320,2).forEach((line,j)=>c.fillText(line,x,y+h+73+j*30));
 
   });
-  c.fillStyle=ink;c.fillRect(0,height-52,1200,52);c.fillStyle="#fff";c.font='bold 19px "Noto Sans JP",sans-serif';c.fillText("game-takitsubo.com/lab.html",44,height-18);
-  c.textAlign="right";c.fillText("#ゲームの滝壺 #滝壺エピソード研究所",1156,height-18);
+  c.fillStyle=ink;c.fillRect(0,height-52,1200,52);c.fillStyle="#fff";c.font='bold 22px "Noto Sans JP",sans-serif';
+  c.textAlign="center";c.fillText("#ゲームの滝壺 #滝壺エピソード研究所",600,height-18);
   return new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("PNG encoding failed")),"image/png"));
 }

@@ -23,7 +23,7 @@ fs.mkdirSync(out,{recursive:true});
   await p.screenshot({path:path.join(out,'site-lab-collapsed-mobile.png'),fullPage:true});
   await p.locator('#labPartyMake').click();await preview();assert(await p.locator('#labPartySave').isVisible());assert(await p.locator('#labPartyMake').isHidden());
   let old=await p.locator('#labPartySharePreview').getAttribute('src');
-  await p.locator('.lab-choose').nth(1).click();await p.locator('#labConfirm').click();await preview();
+  await p.locator('.lab-choose').nth(1).click();await p.locator('#labConfirm').click();assert(await p.locator('#labPartySharePreview').isHidden());assert(await p.locator('#labPartySave').isHidden());assert.equal(await p.locator('#labPartySharePreview').getAttribute('src'),null);await p.locator('#labPartyMake').click();await preview();
   assert.notEqual(await p.locator('#labPartySharePreview').getAttribute('src'),old);
   await p.locator('.lab-choose').nth(2).click();assert.equal(new URL(p.url()).searchParams.get('pick'),'54');
   const downloadEvent=p.waitForEvent('download');await p.locator('#labPartySave').click();const download=await downloadEvent;
