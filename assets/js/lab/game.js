@@ -488,7 +488,7 @@ export async function mount(root, page) {
   partyShareControls=mountShareControls($("#labPartyShare"), {
     prefix:"labParty",signal:page.signal,previewMode:"on-demand",
     makeLabel:"手持ちのシェア画像を作る",previewAlt:"手持ちエピソードのシェア画像",
-    getBlob:()=>createPartyShareImage(party.map(n=>byNumber.get(n)),page.signal,wrapLines),
+    getBlob:signal=>createPartyShareImage(party.map(n=>byNumber.get(n)),signal,wrapLines),
     getX:()=>{
       const url=new URL("https://twitter.com/intent/tweet");
       url.searchParams.set("text",`ゲームの滝壺、私の手持ちはこの${party.length}本！\nあなたの推し回は？\n${shareHashtags}`);

@@ -22,6 +22,7 @@ return (async function () {
 
   var state = { name: "" };
   var DATA = null; // shindan.json
+  let shareControls = null;
 
   // Xロゴ(サイト共通のヘッダー/エピソードページと同じもの)
   var X_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.4Z"/></svg>';
@@ -57,6 +58,8 @@ return (async function () {
 
   /* ---------- 画面: イントロ ---------- */
   function renderIntro() {
+    shareControls?.dispose();
+    shareControls = null;
     var introShare = "ゲームの滝壺「ふさわしいゲーム診断」\nあなたに“ふさわしい一本”を全" + DATA.games.length + "タイトルから診断！\n" +
       HASHTAG + " #ふさわしいゲーム診断\n" + SITE_URL;
     panel.innerHTML =
@@ -159,12 +162,16 @@ return (async function () {
       '<p class="sh-fusa-link">※「ふさわしいゲーム」は番組の<a href="series/fusawashii.html">名物企画</a>から生まれた診断です</p>' +
       '</div>';
 
-    const drawing = drawShareImage(dispName, g, ep, rare, pct);
     const resultCanvas = document.getElementById("shCanvas");
-    mountShareControls(document.getElementById("shShare"), {
+    shareControls = mountShareControls(document.getElementById("shShare"), {
       prefix:"sh", signal:page.signal, getX:()=>"https://x.com/intent/post?text=" + encodeURIComponent(shareText),
       filename:()=>"fusawashii-shindan.png",
-      getBlob:async()=>{ await drawing; return new Promise((resolve,reject)=>resultCanvas.toBlob(blob=>blob?resolve(blob):reject(new Error("PNG encoding failed")),"image/png")); }
+      onAction:action=>track("shindan_" + action, {result_title:g[0]}),
+      getBlob:async signal=>{
+        await drawShareImage(dispName, g, ep, rare, pct, resultCanvas, signal);
+        if(signal.aborted) throw new DOMException('Disposed', 'AbortError');
+        return new Promise((resolve,reject)=>resultCanvas.toBlob(blob=>blob?resolve(blob):reject(new Error("PNG encoding failed")),"image/png"));
+      }
     });
 
     track("shindan_complete", {
@@ -213,8 +220,7 @@ return (async function () {
     return {lines:wrapLines(ctx,text,maxW,Math.min(3,Math.floor(maxH/(size*1.22)))), size};
   }
 
-  function drawShareImage(name, g, ep, rare, pct) {
-    var canvas = document.getElementById("shCanvas");
+  function drawShareImage(name, g, ep, rare, pct, canvas, signal) {
     var ctx = canvas.getContext("2d");
     var W = 1080, H = 1350;                 // スマホ向け縦長(X表示に最適な4:5)
     var CX = W / 2;
@@ -403,17 +409,17 @@ return (async function () {
 
     function load(src) {
       return new Promise(resolve => {
-        if (!src || page.signal.aborted) { resolve(null); return; }
+        if (!src || signal.aborted) { resolve(null); return; }
         const im = new Image(); let done = false;
-        const finish = value => { if(done) return; done=true; clearTimeout(timer); page.signal.removeEventListener('abort',abort); im.onload=im.onerror=null; resolve(value); };
+        const finish = value => { if(done) return; done=true; clearTimeout(timer); signal.removeEventListener('abort',abort); im.onload=im.onerror=null; resolve(value); };
         const abort = () => finish(null);
         const timer = setTimeout(abort,6000);
         im.onload=()=>finish(im); im.onerror=abort;
-        page.signal.addEventListener('abort',abort,{once:true}); im.src=src;
+        signal.addEventListener('abort',abort,{once:true}); im.src=src;
       });
     }
     return Promise.all([document.fonts.ready, load("assets/img/mainlogo.webp"), load(ep[1])]).then(([,logo,art]) => {
-      if(!page.signal.aborted) draw(art,logo);
+      if(!signal.aborted) draw(art,logo);
     });
   }
 

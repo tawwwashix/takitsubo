@@ -24,7 +24,7 @@ export function wrapLines(ctx, text, width, limit = Infinity) {
 }
 
 // Shared interaction, wording and fallbacks for the diagnosis and episode lab.
-export function mountShareControls(host, {prefix, getBlob, getX, filename, signal, previewMode = 'always', makeLabel = 'この3択のシェア画像を作る', previewAlt}) {
+export function mountShareControls(host, {prefix, getBlob, getX, filename, signal, previewMode = 'always', makeLabel = 'シェア画像を作る', previewAlt, onAction = () => {}}) {
   host.classList.add('episode-share');
   host.innerHTML = `<style>
     .episode-share{margin:20px 0;color:var(--ink,#284e60);text-align:center}
@@ -53,11 +53,17 @@ export function mountShareControls(host, {prefix, getBlob, getX, filename, signa
   host.dataset.previewMode = previewMode;
   const $ = suffix => host.querySelector('#' + prefix + suffix);
   let revision = 0, pending = null, url = null, expanded = previewMode === 'always';
-  const live = () => !signal.aborted && host.isConnected;
+  let disposed = false, generation = null;
+  const live = () => !disposed && !signal.aborted && host.isConnected;
   const status = text => { if(live()) $('ShareStatus').textContent = text; };
   async function image() {
     const version = revision;
-    if (!pending) pending = Promise.resolve().then(getBlob).catch(e => { if(version === revision) pending = null; throw e; });
+    if (!live()) throw new DOMException('Disposed', 'AbortError');
+    if (!pending) {
+      generation = new AbortController();
+      const generationSignal = generation.signal;
+      pending = Promise.resolve().then(() => getBlob(generationSignal)).catch(e => { if(version === revision) pending = null; throw e; });
+    }
     const blob = await pending;
     if (!live() || version !== revision) throw new DOMException('Selection changed', 'AbortError');
     if (!url) url = URL.createObjectURL(blob);
@@ -70,12 +76,14 @@ export function mountShareControls(host, {prefix, getBlob, getX, filename, signa
   }
   function failure(e) { if(e.name !== 'AbortError') status('画像を用意できなかった。もう一度試してね。'); }
   async function reveal() {
+    if (!live()) return;
     const version = revision;
     expanded = true; $('ImagePanel').hidden = false;
     $('Make').disabled = true; $('Make').setAttribute('aria-expanded','true');
     status('画像を準備中…');
     try {
       await image();
+      if (!live() || version !== revision) return;
       const restoreFocus = document.activeElement === $('Make');
       $('ImageActions').hidden = false; $('Make').hidden = true;
       $('Entry').hidden = true;
@@ -88,10 +96,12 @@ export function mountShareControls(host, {prefix, getBlob, getX, filename, signa
   }
   $('Make').onclick = reveal;
   $('Save').onclick = async () => {
+    onAction('save');
     status('画像を準備中…');
     try { await image(); const a = document.createElement('a'); a.href = url; a.download = filename(); a.click(); status('画像を保存したよ。'); } catch(e) { failure(e); }
   };
   $('CopyImage').onclick = async () => {
+    onAction('copy');
     if (!navigator.clipboard?.write || !window.ClipboardItem) { status('画像のコピーを使えないため「画像を保存」を使ってね。'); return; }
     status('画像を準備中…');
     try {
@@ -100,8 +110,15 @@ export function mountShareControls(host, {prefix, getBlob, getX, filename, signa
       status('画像をコピーしたよ。');
     } catch(e) { if(e.name !== 'AbortError') status('画像のコピーを使えないため「画像を保存」を使ってね。'); }
   };
+  function releaseImage() {
+    revision++;
+    generation?.abort(); generation = null; pending = null;
+    if(url) URL.revokeObjectURL(url);
+    url = null;
+  }
   function invalidate({reset = false} = {}) {
-    revision++; pending = null; if(url) URL.revokeObjectURL(url); url = null;
+    if (!live()) return;
+    releaseImage();
     if(reset && previewMode === 'on-demand') expanded = false;
     $('SharePreview').hidden = true; $('SharePreview').removeAttribute('src');
     status(''); $('X').href = getX();
@@ -112,6 +129,14 @@ export function mountShareControls(host, {prefix, getBlob, getX, filename, signa
     $('Make').setAttribute('aria-expanded',String(expanded));
     if(expanded) reveal();
   }
-  signal.addEventListener('abort', () => { revision++; if(url) URL.revokeObjectURL(url); }, {once:true});
-  invalidate(); return {invalidate};
+  function dispose() {
+    if (disposed) return;
+    disposed = true;
+    releaseImage();
+    $('SharePreview').removeAttribute('src');
+    $('Make').onclick = $('Save').onclick = $('CopyImage').onclick = null;
+    signal.removeEventListener('abort', dispose);
+  }
+  signal.addEventListener('abort', dispose, {once:true});
+  invalidate(); return {invalidate, dispose};
 }
