@@ -9,7 +9,7 @@ const legacyKey = 'takitsubo:excavation:v1';
 const retired = ['excavate.html','assets/js/excavate-loader.js','assets/js/excavate/game.js','assets/css/excavate.css','start-excavation.bat','scripts/preview_excavation.py'];
 
 (async () => {
-  const source = fs.readFileSync(path.resolve(__dirname,'../assets/js/lab/game.js'),'utf8');
+  const source = fs.readFileSync(path.resolve(__dirname,'../assets/js/lab/cartridge.js'),'utf8');
   const { cartridgeTone } = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
   const episodes = JSON.parse(fs.readFileSync(path.resolve(__dirname,'../data/search.json'),'utf8')).episodes.filter(e=>e.number>0);
   assert.deepEqual([35,33,7].map(cartridgeTone),['gray','gray','gray']);

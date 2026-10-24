@@ -18,7 +18,7 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
     for(let i=0;i<3;i++) {
      await p.locator('.lab-choose').nth(i).click();await p.waitForTimeout(350);
      const rect=await p.locator('#labInspection').boundingBox();assert(Math.abs(rect.height-initial.height)<1,'Details change height');
-     const confirm=await p.locator('#labConfirm').boundingBox();assert(Math.abs(confirm.x+confirm.width/2-(rect.x+rect.width/2))<1);
+     const confirm=await p.locator('#labOpen').boundingBox();assert(Math.abs(confirm.x+confirm.width/2-(rect.x+rect.width/2))<1);
      assert.equal(await p.locator('.lab-card-title,#labResult,#labAddParty').count(),0);
      assert(!(await p.locator('#episodeLab').innerText()).includes('どんな話か、出会ってみよう'));
      assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));

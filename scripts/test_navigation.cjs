@@ -44,7 +44,15 @@ function check(name) { report.checks.push(name); console.log('PASS ' + name); }
     data.label = label; report.continuity.push(data);
     assert(data.same, label + ': audio identity'); assert(!data.paused, label + ': playing');
     assert(data.time > report.continuity.at(-2)?.time || report.continuity.length === 1, label + ': time advances');
-    assert.equal(data.events.length, 0, label + ': no interruption events'); assert.equal(data.resources, 7);
+    assert.equal(data.events.length, 0, label + ': no interruption events');
+    // Page-specific modules may load lazily; the persistent shell scripts must
+    // still load just once each, rather than asserting a global request count.
+    const duplicates = await page.evaluate(() => {
+      const names = performance.getEntriesByType('resource').map(e => new URL(e.name).pathname)
+        .filter(p => /\/assets\/js\/(navigation|site|search|games|shindan|player|lab-loader)\.js$/.test(p));
+      return names.length !== new Set(names).size;
+    });
+    assert.equal(duplicates, false, label + ': shell scripts loaded more than once');
     console.log('AUDIO ' + label + ' ' + data.time.toFixed(2));
   }
   try {
@@ -85,7 +93,7 @@ function check(name) { report.checks.push(name); console.log('PASS ' + name); }
     await nav('お知らせ'); await sample('news');
     await nav('聴き方'); await sample('guide');
     await nav('おたより'); await sample('otayori');
-    await page.locator('.footer-nav a').filter({ hasText: 'エピソード' }).click(); await ready();
+    await page.locator('.footer-nav a').filter({ hasText: /^エピソード$/ }).click(); await ready();
     await page.locator('#q').fill('#121'); await page.locator('#list a[href="121.html"]').click(); await ready();
     await sample('121 before pressing play');
     const oldSrc = await page.locator('audio').getAttribute('src');
@@ -172,7 +180,7 @@ function check(name) { report.checks.push(name); console.log('PASS ' + name); }
     assert.equal(await page.locator('audio').count(), 1); assert.equal(await page.locator('.tk-mini').count(), 1); check('Repeated initialization and search keyboard shortcut');
     await nav('ホーム');
     await page.route('**/data/search.json*', async route => { await new Promise(resolve => setTimeout(resolve, 500)); await route.continue().catch(() => {}); });
-    await page.locator('#siteNav a').filter({ hasText: 'エピソード' }).click();
+    await page.locator('#siteNav a').filter({ hasText: /^エピソード$/ }).click();
     await page.waitForURL('**/episodes/');
     await nav('滝壺DB'); await page.waitForTimeout(600);
     assert(page.url().endsWith('/games/')); assert.equal(await page.locator('#gmQ').count(), 1);

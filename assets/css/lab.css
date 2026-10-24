@@ -1,6 +1,9 @@
-/* The lab lives inside the standard site header, page heading and footer. */
+/* 研究所専用。サイト共通のヘッダー・フッターには適用しない。
+   調整箇所: 色=冒頭の変数 / カートリッジ=lab-cart-* / 詳細欄=lab-inspection
+   手持ち・図鑑=lab-case, lab-owned / 共有ボタン=末尾のlabPartyShare
+   選択・ホバー・画面幅の上書きは下側の該当セクションで調整する。 */
 #episodeLab {
-  --lab-ink:#284e60; --lab-paper:#f4faff; --lab-line:#7daaac;
+  --lab-ink:#284e60; --lab-paper:#f4faff;
   /* 「手持ちに加える」の色。通常・ホバー・文字・縁・影をここで調整。 */
   --lab-confirm-bg:#f4afa0;
   --lab-confirm-hover:#f09c8b;
@@ -17,7 +20,7 @@
 #episodeLab button { cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
 #episodeLab button:disabled { cursor:default; }
 #episodeLab :focus-visible { outline:3px solid var(--primary); outline-offset:4px; }
-#episodeLab .lab-machine-tools { display:flex;justify-content:flex-end;padding:0 2px 8px; }
+#episodeLab .lab-machine-tools { display:flex; }
 #episodeLab .lab-wrap { max-width:1040px; margin:auto; }
 #episodeLab .lab-icon-button { background:var(--surface); color:var(--sub); border:1px solid var(--line); border-radius:8px; padding:8px 10px; font-size:11px; min-height:44px; min-width:80px; }
 #episodeLab .lab-machine { border:4px solid #4e7b85; border-radius:12px; background:#bbd8ef; padding:8px; box-shadow:inset 0 3px #f2ffef,0 6px #699aab,0 10px 24px #39769820; overflow:hidden; }
@@ -57,12 +60,11 @@
 @media(hover:hover) and (pointer:fine) {
   #episodeLab .lab-choose:hover:not(:disabled) .lab-art { transform:translateY(-5px); }
   #episodeLab .lab-choose:hover:not(:disabled) .lab-cartridge { animation-name:lab-present; }
-  #episodeLab #labDexGrid a:hover .lab-art { transform:translateY(-5px) rotate(-3deg); }
 }
 #episodeLab .lab-console { border:3px solid #5d8e94; border-top:6px solid #82b6b5; background:var(--lab-paper); padding:14px 20px; box-shadow:inset 0 3px #fff; }
-#episodeLab .lab-dialogue { display:flex; align-items:center; gap:18px; }
-#episodeLab .lab-doctor { width:70px; flex-shrink:0; background:linear-gradient(#c4e2f7 65%,#96bfdf 65%); border:2px solid #7cad9f; box-shadow:2px 2px 0 #d1e8c8; position:relative; padding:4px 3px 0; }
-#episodeLab #labSpeech { font-size:18px; line-height:1.6; font-weight:900; margin:2px 0 0; }
+#episodeLab .lab-dialogue { display:flex; align-items:center; }
+#episodeLab .lab-doctor { flex-shrink:0; position:relative; }
+#episodeLab #labSpeech { font-weight:900; }
 #episodeLab .lab-number { font:700 11px var(--font-num),sans-serif; color:#5c7473; margin:0 0 4px; }
 #episodeLab .lab-detail-copy h2 { font-size:15px; line-height:1.6; margin:0; font-weight:700; overflow-wrap:anywhere; }
 #episodeLab .lab-tags { font-size:10px; color:#58736b; margin:5px 0 0; line-height:1.6; }
@@ -83,12 +85,10 @@
 
 #episodeLab .lab-footnote { font-size:11px; color:#536f6b; line-height:1.9; margin:12px 0 0; }
 #episodeLab #labDexGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(135px,1fr)); gap:24px 20px; margin-top:24px; }
-#episodeLab #labDexGrid a { color:var(--lab-ink); text-decoration:none; min-width:0; }
 #episodeLab #labDexGrid .lab-art { width:90%; max-width:160px; margin:0 auto 8px; perspective:none; transition:transform .18s; }
 #episodeLab #labDexGrid .lab-float,#episodeLab #labDexGrid .lab-cartridge { animation:none; transform:none; transform-style:flat; }
 #episodeLab #labDexGrid .lab-cart-front { transform:none; filter:drop-shadow(3px 4px 0 #4f71752b); }
 #episodeLab #labDexGrid .lab-dex-title { font-size:11px;line-height:1.7;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;height:5.1em;overflow:hidden;margin-top:6px;overflow-wrap:anywhere; }
-#episodeLab #labDexGrid a:focus-visible .lab-art { transform:translateY(-5px) rotate(-3deg); }
 @keyframes lab-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
 @keyframes lab-rock { 0%,100%{transform:rotateX(-7deg) rotateY(var(--yaw))} 50%{transform:rotateX(-3deg) rotateY(calc(var(--yaw) + 10deg))} }
 @keyframes lab-present { 0%,100%{transform:rotateX(-2deg) rotateY(-5deg)} 50%{transform:rotateX(0) rotateY(5deg)} }
@@ -106,9 +106,6 @@
   #episodeLab .lab-card-badge { font-size:8px; }
   #episodeLab .lab-sender { font-size:7px; padding:1px 3px; bottom:21px; }
   #episodeLab .lab-console { padding:12px 10px; }
-  #episodeLab .lab-dialogue { gap:10px; }
-  #episodeLab .lab-doctor { width:57px; }
-  #episodeLab #labSpeech { font-size:13px; line-height:1.6; }
   #episodeLab .lab-detail-copy h2 { font-size:13px; line-height:1.65; }
   #episodeLab .lab-number { font-size:10px; }
   #episodeLab .lab-tags { font-size:9px; }
@@ -125,8 +122,6 @@
   #episodeLab { padding:12px 0 28px; }
   #episodeLab .lab-scene { height:310px; }
   #episodeLab .lab-console { padding:10px 8px; }
-  #episodeLab .lab-dialogue { gap:8px; }
-  #episodeLab #labSpeech { font-size:12px; }
 }
 @media(prefers-reduced-motion:reduce) {
   #episodeLab .lab-float,#episodeLab .lab-cartridge { animation:none!important; }
