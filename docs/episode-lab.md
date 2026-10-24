@@ -15,7 +15,8 @@ Worktree直下の `start-episode-lab.bat` をダブルクリック。
 
 | 変更したいもの | ファイル |
 | --- | --- |
-| ページ見出し・説明文・共通メニュー | `scripts/build.py` の `build_lab` / `header` / `footer` |
+| ページ見出し・説明文 | `scripts/sitebuild/pages.py` の `build_lab` |
+| 共通メニュー・フッター | `scripts/sitebuild/common.py` の `header` / `footer` |
 | 研究所内の固定文言・背景SVG・画面構成 | `assets/js/lab/view.js` |
 | 3択・選択・登録・交換・図鑑の表示更新 | `assets/js/lab/game.js` |
 | カートリッジの形状・既存の色割り当て | `assets/js/lab/cartridge.js` |
@@ -145,3 +146,7 @@ Windowsの制限環境ではChromeのファイル保存がキャンセルされ�
 今回はバージョン構成の移行と共通読込の診断JS変更のため全ページを一度更新した。それ以後の研究所の機能・見た目の更新では全ページ再生成は不要。
 共通メニューへの研究所追加・トップの泡の配置変更では全体を再生成する。本文やエピソードデータを変更せず、共通ヘッダー・CSSの参照バージョンの更新として、研究所単独の変更とは別コミットにまとめる。
 生成HTMLを直接編集しない。公開時に生成する運用への変更は行っていない。
+
+## 生成処理の保守
+
+生成コマンドは従来どおり。分割先と静的ページの更新日管理は [site-build.md](site-build.md) を参照。診断は `assets/js/shindan.js` を安定したローダーとし、本体を `assets/js/shindan/main.js` から診断ページでだけ読み込む。診断本体だけの変更で全ページの共通バージョンは変わらない。

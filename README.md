@@ -19,10 +19,12 @@ takitsubo/
 │   ├── episodes.json     全エピソードデータ
 │   ├── series.json       名物企画の定義
 │   ├── news.json         お知らせ
+│   ├── page_meta.json    聴き方・おたより・プライバシーの本文更新日
 │   ├── aliases.json      ゲームタイトル表記ゆれ辞書
 │   └── ranking.json      アートワーククイズ集計(Google Sheetsから自動生成)
 ├── scripts/
-│   ├── build.py          データ→全HTML生成
+│   ├── build.py          データ→全HTML生成の入口（コマンドは従来どおり）
+│   ├── sitebuild/        ページ別の生成処理・共通部品
 │   ├── update_from_rss.py RSSから新着取得→自動更新(画像・配信リンクも取得)
 │   ├── sync_awq.py       AWQ得点・出題リンク・X画像をGoogle Sheetsから同期
 │   ├── fetch_links.py    エピソード別の配信リンク自動取得(Apple/LISTEN/YouTube)
@@ -44,6 +46,8 @@ takitsubo/
 3. リポジトリの Settings → Pages → Branch を `main` / `(root)` にして保存
 4. 数分で `https://ユーザー名.github.io/リポジトリ名/` に公開されます
 5. **自動更新が有効化**: `.github/workflows/update.yml` が毎週水曜の配信後にRSSとAWQランキングを更新し、生成物をコミットします。基本ノータッチでOK
+
+生成処理の編集場所、差分が増える条件、静的ページの更新日は [ビルドの保守](docs/site-build.md) を参照。生成HTMLをGitに残す運用は継続します。
 
 ## 日常の運用
 
@@ -270,7 +274,7 @@ python scripts/update_from_rss.py
 
 - 各回への「語られ度」は4段階で自動判定:
   ⭐メイン > 🍜滝壺3分ゲーム紹介 > 📑チャプターに登場 > 💬トーク内
-  (絵文字・バッジ文言は `build.py` の `LEVEL_BADGE`/`LEVEL_MARK`、
+  (絵文字・バッジ文言は `scripts/sitebuild/catalog.py` の `LEVEL_BADGE`/`LEVEL_MARK`、
   索引カードの背景色は `style.css` の `.gm-item.lv3` / `.gm-item.s3` で調整)
 
 **⭐メインの判定(概要欄の新フォーマット)**:

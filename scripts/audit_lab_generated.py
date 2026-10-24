@@ -7,6 +7,8 @@ import pathlib
 import re
 import subprocess
 
+from sitebuild.sitemap import static_page_dates
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 
@@ -36,5 +38,8 @@ if __name__ == '__main__':
         checked += 1
     data_changes = git('diff', '--name-only', base, '--', 'data').splitlines()
     assert not unexpected, f'Unexpected generated content changes: {unexpected}'
-    assert not data_changes, f'Unexpected data changes: {data_changes}'
-    print(f'PASS {checked} existing pages: only navigation/loader/asset versions changed; data unchanged')
+    # Explicit static-page editorial dates were added during the build cleanup.
+    # All existing episode/catalog/ranking data must still match the merge base.
+    assert set(data_changes) <= {'data/page_meta.json'}, f'Unexpected data changes: {data_changes}'
+    static_page_dates()
+    print(f'PASS {checked} existing pages: only navigation/loader/asset versions changed; existing data unchanged')

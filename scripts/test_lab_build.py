@@ -1,11 +1,8 @@
 """A child-module edit must invalidate the lab only, with no source mutation."""
-import importlib.util
 import pathlib
 import tempfile
 
-spec = importlib.util.spec_from_file_location('site_build', pathlib.Path(__file__).with_name('build.py'))
-build = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(build)
+from sitebuild import common as build
 original_root = build.ROOT
 scratch = original_root / '.local-preview'
 scratch.mkdir(exist_ok=True)
