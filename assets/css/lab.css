@@ -188,8 +188,9 @@
 #episodeLab #labDetailSizes { visibility:hidden;pointer-events:none; }
 #episodeLab .lab-tags { min-height:1.6em; }
 #episodeLab #labInspectPrompt { align-self:center;text-align:center;font-size:14px;margin:0;color:#55758e; }
-#episodeLab #labConfirm { justify-self:center;width:min(100%,400px);min-height:52px;font-weight:700;font-size:16px;white-space:normal; }
-#episodeLab #labConfirm:disabled { opacity:.45;cursor:default;transform:none; }
+#episodeLab .lab-save-actions { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);justify-self:center;width:min(100%,340px);gap:10px;margin-top:8px; }
+#episodeLab .lab-save-actions button { min-height:54px;padding:8px 10px;white-space:normal;font-size:12px;line-height:1.4; }
+#episodeLab .lab-save-actions button:disabled { opacity:.6;cursor:default;transform:none; }
 #episodeLab .lab-card-meta { display:flex;align-items:center;justify-content:space-between;gap:4px;flex-wrap:wrap;min-height:22px;font-size:10px;line-height:1.5; }
 #episodeLab .lab-party-mark { display:inline-block;white-space:nowrap; }
 #episodeLab .lab-sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0; }
@@ -203,7 +204,6 @@
 @media(max-width:760px) {
   #episodeLab #labSpeech { font-size:11px; }
   #episodeLab .lab-inspection { padding:10px; }
-  #episodeLab #labConfirm { font-size:14px; }
 }
 @media(prefers-reduced-motion:reduce) { #episodeLab .lab-owned.is-updated { animation:none; } }
 
@@ -216,10 +216,16 @@
 #episodeLab .lab-sender { bottom:23px; }
 #episodeLab .lab-doctor img { display:block;width:44px;height:44px;object-fit:contain;transform:scaleX(-1); }
 #episodeLab .lab-doctor { width:44px; }
-#episodeLab .lab-open { justify-self:center;display:inline-flex;align-items:center;justify-content:center;min-height:44px;font-size:13px;font-weight:700;color:#286a9d;text-underline-offset:4px; }
+#episodeLab a.lab-open { justify-self:center;display:inline-flex;align-items:center;justify-content:center;width:min(100%,400px);min-height:54px;font-size:16px;font-weight:700;background:#246ca1;border-color:#205e89;color:#fff;box-shadow:0 3px #194b72,inset 0 2px #69a6d1; }
+#episodeLab .lab-open:hover { background:#1c5e91; }
 #episodeLab .lab-open[aria-disabled="true"] { opacity:.45;text-decoration:none;cursor:default; }
+#episodeLab .lab-navigation-note { margin:3px 0 0;text-align:center;font-size:11px;line-height:1.6;color:#55758e; }
+#episodeLab .lab-item-actions { display:grid;grid-template-columns:minmax(0,1fr);gap:6px; }
+#episodeLab .lab-item-actions #labItemAdd { justify-self:center;margin-top:10px; }
+#episodeLab .is-registered .lab-cart-front { animation:lab-registered .65s ease-out; }
+@keyframes lab-registered { 0%,30% { filter:brightness(1.28); } 100% { filter:brightness(1); } }
+@media(prefers-reduced-motion:reduce) { #episodeLab .is-registered .lab-cart-front { animation:none; } }
 #episodeLab .lab-inspection { row-gap:6px; }
-#episodeLab #labConfirm { margin-top:6px; }
 #episodeLab .lab-case-tools { display:flex;align-items:center;gap:12px; }
 #episodeLab #labReorder { min-width:76px; }
 #episodeLab #labPartyGrid[data-reordering="true"] .lab-owned { outline:2px dashed #85aecb;outline-offset:4px;cursor:pointer; }

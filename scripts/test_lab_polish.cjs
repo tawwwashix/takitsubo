@@ -36,20 +36,21 @@ const base=process.argv[2]||'http://127.0.0.1:8766',out=path.resolve(__dirname,'
    await p.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));await p.waitForTimeout(100);
    await p.screenshot({path:path.join(out,`lab-polish-${width}.png`),fullPage:true});
   }
-  await p.goto(base+'/lab.html?eps=31,22,23');await ready();
-  let share=await intent('#labX');assert.equal(share.url.origin,'https://game-takitsubo.com');assert.equal(share.url.pathname,'/lab.html');assert.equal(share.url.searchParams.get('eps'),'31,22,23');assert(!share.text.includes('私は'));
-  await p.locator('.lab-choose').nth(1).click();await p.locator('#labConfirm').click();share=await intent('#labX');assert.equal(share.url.searchParams.get('pick'),'22');assert(share.text.includes('私は #22 を手持ちに！'));assert(share.text.includes('#ゲームの滝壺 #滝壺エピソード研究所'));
-  await p.locator('#labMake').click();await preview('lab');
-  assert.equal(await p.locator('#labShare .sh-note').textContent(),'画像を保存/コピーしてから、Xのポストに添付すると盛り上がります！');
-  const d=p.waitForEvent('download');await p.locator('#labSave').click();await(await d).saveAs(path.join(out,'lab-polish-share.png'));
-  await p.locator('#labPartyMake').click();await preview('labParty');
+  await p.goto(base+'/lab.html?eps=31,22,23&pick=31');await ready();
+  assert.equal(await p.locator('#labShare,#labX,#labMake').count(),0);assert.equal(await p.locator('.lab-sender').count(),1);
+  assert.equal(await p.locator('#labRegister').isDisabled(),true);
+  for(let i=0;i<3;i++) {
+   await p.locator('.lab-choose').nth(i).click();await p.locator('#labRegister').click();
+   assert(await p.locator('#labRegister').isDisabled());assert.equal(await p.locator('#labRegister').textContent(),'✓ 図鑑に登録済み');assert(await p.locator('#labConfirm').isEnabled());
+  }
+  const state=await p.evaluate(()=>({dex:JSON.parse(localStorage.getItem('takitsubo:episode-lab:collection:v1')),party:JSON.parse(localStorage.getItem('takitsubo:episode-lab:party:v1'))}));
+  assert.deepEqual(state.dex,[31,22,23]);assert.deepEqual(state.party,[]);
+  await p.locator('#labConfirm').click();await p.locator('#labPartyMake').click();await preview('labParty');
   const hand=await intent('#labPartyX');assert.equal(hand.url.href,'https://game-takitsubo.com/lab.html');assert(hand.text.includes('私の手持ちはこの1本！'));assert(hand.text.includes('#滝壺エピソード研究所'));
-  const pd=p.waitForEvent('download');await p.locator('#labPartySave').click();await(await pd).saveAs(path.join(out,'lab-polish-party.png'));
-  const labels=await p.evaluate(()=>window.canvasLabels);for(const text of ['ゲームの滝壺｜ゲーム系ポッドキャスト','エピソード研究所','この3本、どれを聴く？','わたしの手持ちエピソード','#ゲームの滝壺 #滝壺エピソード研究所'])assert(labels.includes(text));
-  assert.equal(new URL(p.url()).origin,new URL(base).origin,'Sharing must not change local history origin');
-  await p.locator('#labPartyGrid [data-number="22"]').click();await p.locator('#labItemRemove').click();assert((await intent('#labX')).text.includes('私は #22 を選んだ！'));await p.keyboard.press('Escape');
-  await p.goto(base+'/lab.html?eps=31,22,23&pick=31');await ready();assert((await intent('#labX')).text.includes('紹介した人は #31'));
+  assert.equal(await p.locator('#labOpen').textContent(),'エピソードページへ →');assert.equal(await p.locator('#labOpenNote').textContent(),'エピソードの詳細ページに移動します');
+  await p.locator('#labPartyGrid [data-number="23"]').click();assert.equal(await p.locator('#labItemLink').textContent(),'エピソードページへ →');assert.equal(await p.locator('#labItemLinkNote').textContent(),'エピソードの詳細ページに移動します');await p.keyboard.press('Escape');
+  await p.reload();await ready();assert.equal(await p.locator('#labCount').textContent(),'3 / 128');
   await p.emulateMedia({reducedMotion:'reduce'});await p.locator('.lab-choose').first().click();assert.equal(await p.locator('#labCards').evaluate(e=>getComputedStyle(e).transitionDuration),'0s');
-  assert.deepEqual(errors,[]);console.log('PASS first/reroll interpolation, responsive intro, coral action, prominent storage note, canonical URLs and tags, accurate choice text, removed link controls, PNG labels/downloads, local history, reduced motion');
+  assert.deepEqual(errors,[]);console.log('PASS first/reroll interpolation, responsive intro, coral action, prominent storage note, unlimited direct dex registration, party-only canonical share, navigation hints, reload persistence, local history, reduced motion');
  }finally{await b.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

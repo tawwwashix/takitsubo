@@ -22,8 +22,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   assert.equal(new URL(p.url()).searchParams.get('pick'),'98');
   assert.equal(await p.locator('.lab-choose:disabled').count(),0);
   check('Three ordered cartridges, inspect without saving, explicit confirmation, correct episode link and shared collection');
-  const shared=new URL(await p.locator('#labX').getAttribute('href')).searchParams.get('url');assert.equal(new URL(shared).origin,'https://game-takitsubo.com');
-  assert.equal(new URL(shared).searchParams.get('eps'),'128,98,16');assert.equal(new URL(shared).searchParams.get('pick'),'98');
+  const shared=p.url(); // Previously shared trio URLs remain readable.
   const recipient=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
   await recipient.route(/google-analytics\.com|googletagmanager\.com/,r=>r.abort());
   const q=await recipient.newPage();q.on('pageerror',e=>errors.push(e.message));
@@ -37,13 +36,13 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   check('Recipient gets same trio and sender marker, with independent touch selection');
   await recipient.close();
 
-  await p.locator('#labMake').click();await p.locator('#labSharePreview').waitFor();
-  const downloadEvent=p.waitForEvent('download');await p.locator('#labSave').click();const download=await downloadEvent;
+  await p.locator('#labPartyMake').click();await p.locator('#labPartySharePreview').waitFor();
+  const downloadEvent=p.waitForEvent('download');await p.locator('#labPartySave').click();const download=await downloadEvent;
   await download.saveAs(path.join(out,'lab-share-selected.png'));
-  const png=fs.readFileSync(path.join(out,'lab-share-selected.png'));assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),800);
-  assert(download.suggestedFilename().includes('128-98-16-pick-98'));
+  const png=fs.readFileSync(path.join(out,'lab-share-selected.png'));assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),1100);
+  assert(download.suggestedFilename().includes('party-98'));
 
-  check('1200x800 PNG download preserves trio/choice; direct save action');
+  check('1200x1100 PNG download preserves party; direct save action');
 
   const old=await cards(p);await p.locator('#labShuffle').click();const fresh=await cards(p);
   assert.equal(new Set(fresh).size,3);assert(fresh.every(n=>!old.includes(n)));assert.equal(await p.locator('#labConfirm').getAttribute('aria-disabled'),'true');
@@ -51,8 +50,8 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   for(let i=0;i<8;i++)await p.locator('#labShuffle').click();assert.equal(await p.locator('.lab-choose:enabled').count(),3);
   check('Immediate unlimited rerolls, no duplicate candidates or stale selection');
 
-  await p.locator('#labMake').click();await p.locator('#labSharePreview').waitFor();
-  const blankDownload=p.waitForEvent('download');await p.locator('#labSave').click();await(await blankDownload).saveAs(path.join(out,'lab-share-unselected.png'));
+  assert(await p.locator('#labPartySharePreview').isVisible());
+  const blankDownload=p.waitForEvent('download');await p.locator('#labPartySave').click();await(await blankDownload).saveAs(path.join(out,'lab-share-unselected.png'));
 
   await p.goto(base+'/lab.html?eps=1,1,999999&pick=999999');await ready(p);
   assert(await p.locator('#labNotice').isVisible());assert.equal(new Set(await cards(p)).size,3);
@@ -71,7 +70,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   const f=await fail.newPage();f.on('pageerror',e=>errors.push(e.message));await f.route('**/assets/img/ep/*',r=>r.abort());
   await f.goto(base+'/lab.html?eps=128,98,16');await ready(f);await f.locator('.lab-choose').first().click();await f.locator('#labConfirm').click();assert(await f.locator('#labPartyStatus').isVisible());
   assert.equal(await f.locator('#labCopy,#labCopyFallback').count(),0);
-  await f.locator('#labMake').click();await f.locator('#labSharePreview').waitFor();const failedDownload=f.waitForEvent('download');await f.locator('#labSave').click();await failedDownload;await fail.close();
+  await f.locator('#labPartyMake').click();await f.locator('#labPartySharePreview').waitFor();const failedDownload=f.waitForEvent('download');await f.locator('#labPartySave').click();await failedDownload;await fail.close();
   check('Storage/image failures retain selection and PNG generation; obsolete link controls removed');
   await p.goto(base+'/episodes/122.html');await p.locator('.tkp-play').click();
   await p.waitForFunction(()=>document.querySelector('audio').currentTime>2,null,{timeout:60000});

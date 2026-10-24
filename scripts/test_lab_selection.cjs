@@ -24,12 +24,11 @@ fs.mkdirSync(out,{recursive:true});
    }
    await p.screenshot({path:path.join(out,`lab-blue-${w}.png`),fullPage:true});
   }
-  const shared=new URL(await p.locator('#labX').getAttribute('href')).searchParams.get('url');assert.equal(new URL(shared).origin,'https://game-takitsubo.com');
-  assert.equal(new URL(shared).searchParams.get('eps'),'50,54,47');assert.equal(new URL(shared).searchParams.get('pick'),'47');
-  await p.locator('#labMake').click();await p.locator('#labSharePreview').waitFor();
-  const download=p.waitForEvent('download');await p.locator('#labSave').click();await(await download).saveAs(path.join(out,'lab-blue-share.png'));
-  const png=fs.readFileSync(path.join(out,'lab-blue-share.png'));assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),800);
-  await p.locator('#labCopyImage').click();await p.waitForFunction(()=>document.querySelector('#labShareStatus').textContent.includes('コピーした'));
+  assert.equal(new URL(p.url()).searchParams.get('eps'),'50,54,47');assert.equal(await p.locator('#labShare').count(),0);
+  await p.locator('#labConfirm').click();await p.locator('#labPartyMake').click();await p.locator('#labPartySharePreview').waitFor();
+  const download=p.waitForEvent('download');await p.locator('#labPartySave').click();await(await download).saveAs(path.join(out,'lab-blue-share.png'));
+  const png=fs.readFileSync(path.join(out,'lab-blue-share.png'));assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),1100);
+  await p.locator('#labPartyCopyImage').click();await p.waitForFunction(()=>document.querySelector('#labPartyShareStatus').textContent.includes('コピーした'));
   const lines=await p.evaluate(async()=>{
    const {wrapLines}=await import(new URL(document.querySelector('#episodeLab').dataset.shareModule,location.href));
    const c=document.createElement('canvas').getContext('2d');c.font='bold 21px sans-serif';

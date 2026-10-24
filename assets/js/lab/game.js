@@ -81,7 +81,7 @@ export async function mount(root, page) {
   const byNumber = new Map(episodes.map(e => [e.number, e]));
   if (byNumber.size < 3) throw new Error("Three episodes are required");
   let collection = new Set(), saveAvailable = true, round = [], selected = null, senderPick = null;
-  let inspected = null, shareControls, partyShareControls, partySignature = null;
+  let inspected = null, partyShareControls, partySignature = null;
   let reorderMode=false, reorderSource=null, replacingFromRound=false;
   let party = [], ascending = false, showUnseen = true, itemNumber = null, replacing = null;
   const shareBase = new URL(root.dataset.sharePage);
@@ -130,12 +130,13 @@ export async function mount(root, page) {
   <p id="labNotice" class="lab-notice" role="status" hidden></p>
   <div class="lab-inspection" id="labInspection">
     <div class="lab-detail-stack"><div id="labDetailSizes" aria-hidden="true" inert></div><div class="lab-detail-copy" aria-live="polite" aria-atomic="true"><p class="lab-number" id="labInspectNumber"></p><h2 id="labInspectTitle"></h2><p class="lab-tags" id="labInspectTags"></p></div><p id="labInspectPrompt">どのエピソードにする？</p></div>
-    <button type="button" id="labConfirm" class="lab-primary" disabled>手持ちに加える</button><a id="labOpen" class="lab-open" aria-disabled="true" tabindex="-1">エピソードを開く →</a>
+    <a id="labOpen" class="lab-primary lab-open" aria-describedby="labOpenNote" aria-disabled="true" tabindex="-1">エピソードページへ →</a>
+    <p id="labOpenNote" class="lab-navigation-note">エピソードの詳細ページに移動します</p>
+    <div class="lab-save-actions"><button type="button" id="labRegister" class="lab-secondary" disabled>図鑑に登録</button><button type="button" id="labConfirm" class="lab-secondary" disabled>手持ちに加える</button></div>
   </div>
   </section>
   <nav class="lab-toolbar" aria-label="研究所のメニュー"><button type="button" id="labShuffle" class="lab-secondary">↻ 別の3択</button><button type="button" id="labDexToggle" class="lab-secondary" aria-haspopup="dialog"><span>図鑑</span><strong id="labCount"></strong></button></nav>
   </div>
-  <section id="labShare" aria-label="この3択をシェア"></section>
   <section class="lab-case" aria-labelledby="labPartyHeading">
     <div class="lab-case-heading"><h2 id="labPartyHeading">手持ちエピソード</h2><div class="lab-case-tools"><span id="labPartyCount"></span><button type="button" id="labReorder" class="lab-icon-button" aria-pressed="false">並び替え</button></div></div><p id="labReorderHint" class="lab-footnote" hidden>交換する2本を順に選んでね。</p>
     <div id="labPartyGrid"></div><p id="labPartyStatus" class="lab-footnote" role="status" hidden></p><span id="labPartyAnnounce" class="lab-sr-only" role="status"></span><section id="labPartyShare" aria-label="手持ちエピソードをシェア" hidden></section>
@@ -147,7 +148,7 @@ export async function mount(root, page) {
   root.insertAdjacentHTML("beforeend", `<dialog id="labItem" aria-labelledby="labItemTitle">
     <div class="lab-modal-top"><h2 id="labItemTitle"></h2><button type="button" class="lab-close" data-close="labItem" aria-label="カートリッジの詳細を閉じる">×</button></div>
     <div id="labItemArt"></div><p id="labItemTags" class="lab-footnote"></p>
-    <div class="lab-item-actions"><a id="labItemLink" class="lab-primary">エピソードを開く →</a><button type="button" id="labItemAdd" class="lab-secondary">手持ちに加える</button></div>
+    <div class="lab-item-actions"><a id="labItemLink" class="lab-primary lab-open" aria-describedby="labItemLinkNote">エピソードページへ →</a><p id="labItemLinkNote" class="lab-navigation-note">エピソードの詳細ページに移動します</p><button type="button" id="labItemAdd" class="lab-secondary">手持ちに加える</button></div>
     <button type="button" id="labItemRemove" class="lab-remove">手持ちから外す</button>
   </dialog><dialog id="labReplace" aria-labelledby="labReplaceTitle">
     <div class="lab-modal-top"><h2 id="labReplaceTitle">手持ちがいっぱいだ！</h2><button type="button" class="lab-close" data-close="labReplace" aria-label="入れ替えをやめる">×</button></div>
@@ -169,7 +170,7 @@ export async function mount(root, page) {
     $("#labDexOrder").value = ascending ? "asc" : "desc"; $("#labDexUnseen").checked = showUnseen;
     const grid = $("#labDexGrid"); grid.replaceChildren();
     const numbers = [...byNumber.keys()].filter(n => showUnseen || collection.has(n)).sort((a,b) => ascending ? a-b : b-a);
-    if (!numbers.length) { const p = document.createElement("p"); p.textContent = "3択からエピソードを決めると、ここに記録されるよ。"; grid.append(p); }
+    if (!numbers.length) { const p = document.createElement("p"); p.textContent = "気になる回を「図鑑に登録」すると、ここに記録されるよ。"; grid.append(p); }
     numbers.forEach(number => {
       if(!collection.has(number)) {
         const tile = document.createElement("div"); tile.className = "lab-undiscovered"; tile.dataset.number = number;
@@ -229,11 +230,15 @@ export async function mount(root, page) {
     button.disabled=inspected===null || held;
     button.textContent=held?"手持ちに登録済み":"手持ちに加える";
     button.setAttribute("aria-disabled",String(button.disabled));
+    const registered=collection.has(inspected),register=$("#labRegister");
+    register.disabled=inspected===null || registered;
+    register.textContent=registered?"✓ 図鑑に登録済み":"図鑑に登録";
   }
   // Commit discovery only after the user chooses a destination. Closing the
   // full-party dialog leaves the incoming episode and shared choice untouched.
   function acquire(number, fromRound, destination) {
     mergeCollection();readParty();
+    const firstDiscovery=!collection.has(number);
     if(destination!=="dex" && !party.includes(number)) {
       if(destination===null) {if(party.length>=6) {addParty(number,fromRound);return;}party.push(number);}
       else {const index=party.indexOf(destination);if(index<0) {renderReplacements();return;}party[index]=number;}
@@ -243,11 +248,16 @@ export async function mount(root, page) {
     if(fromRound && round.some(ep=>ep.number===number)) {
       selected=number;
       history.replaceState({...history.state,labChoice:{eps:round.map(e=>e.number).join(","),pick:selected}},"");
-      updateShare();
+      updateRoundUrl();
     }
     saveParty(destination==="dex"?`#${number}を図鑑に登録したよ。`:`#${number}を手持ちに加えたよ。`);
     renderCards();highlightParty(number);
-    if(!fromRound && selected!==null) updateShare();
+    if(firstDiscovery) {
+      const card=$(`#labCards [data-number="${number}"]`);
+      card?.classList.add("is-registered");
+      card?.addEventListener("animationend",()=>card.classList.remove("is-registered"),{once:true});
+    }
+    if(!fromRound && selected!==null) updateRoundUrl();
     if($("#labReplace").open) $("#labReplace").close();
   }
   function renderReplacements() {
@@ -285,20 +295,9 @@ export async function mount(root, page) {
     if (pick !== null) url.searchParams.set("pick", pick);
     return url;
   }
-  let shareIntent = "";
-  function updateShare(reset = false) {
+  function updateRoundUrl() {
     const url = roundUrl();
     history.replaceState(history.state, "", url);
-    const chosen = selected ?? senderPick;
-    const choice = chosen === null ? "" : selected === null ? `\n紹介した人は #${chosen} を選んだ！` : `\n私は #${chosen} を手持ちに！`;
-    // A full party can send the chosen episode straight to the catalogue.
-    const choiceText = selected !== null && !party.includes(selected) ? `\n私は #${selected} を選んだ！` : choice;
-    const intent = new URL("https://twitter.com/intent/tweet");
-    intent.searchParams.set("text", `ランダムに出てきたこの3本。あなたならどれを聴く？${choiceText}\n${shareHashtags}`);
-    const publicUrl = new URL(shareBase);publicUrl.search=url.search;
-    intent.searchParams.set("url", publicUrl.href);
-    shareIntent = intent.href;
-    shareControls?.invalidate({reset});
   }
   function renderCards() {
     const cards = $("#labCards"); cards.replaceChildren();
@@ -370,20 +369,23 @@ export async function mount(root, page) {
     $("#labOpen").removeAttribute("href");$("#labOpen").setAttribute("aria-disabled","true");$("#labOpen").tabIndex=-1;
     syncAcquireButton();
     sizeDetails();
-    renderCards(); updateParty(); updateShare(true);
+    renderCards(); updateParty(); updateRoundUrl();
   }
   $("#labShuffle").addEventListener("click", () => {
     $("#labNotice").hidden = true; newRound();
     $("#labShuffle").focus({preventScroll:true});
   });
   $("#labConfirm").addEventListener("click",()=>addParty(inspected,true));
+  $("#labRegister").addEventListener("click",()=>{
+    if(inspected!==null && !collection.has(inspected)) acquire(inspected,true,"dex");
+  });
   $("#labOpen").addEventListener("click",e=>{if(inspected===null)e.preventDefault();});
   $("#labSendDex").addEventListener("click",()=>{if(replacing!==null)acquire(replacing,replacingFromRound,"dex");});
   $("#labItemAdd").addEventListener("click",()=>addParty(itemNumber));
   $("#labItemRemove").addEventListener("click",()=>{
     mergeCollection();readParty(); party=party.filter(n=>n!==itemNumber);
     saveParty(`#${itemNumber}を手持ちから外したよ。図鑑からいつでも戻せる。`);
-    if(selected===itemNumber) updateShare();
+    if(selected===itemNumber) updateRoundUrl();
     $("#labItemAdd").focus();
   });
   function updateReorder() {
@@ -477,21 +479,15 @@ export async function mount(root, page) {
   });
   page.listen(window,"storage", e => {
     if(e.key === COLLECTION_KEY || e.key === PARTY_KEY) {
-      cancelReorder();reorderSource=null;mergeCollection(); readParty(); updateCollection(); updateParty(); renderCards();updateShare();
+      cancelReorder();reorderSource=null;mergeCollection(); readParty(); updateCollection(); updateParty(); renderCards();updateRoundUrl();
       if($("#labItem").open) refreshItem();
       if($("#labReplace").open) renderReplacements();
     }
   });
-  shareControls = mountShareControls($("#labShare"), {
-    prefix: "lab", signal: page.signal, previewMode: "on-demand",
-    getBlob: () => createShareImage(round.slice(), selected ?? senderPick, page.signal, selected === null && senderPick !== null, wrapLines),
-    previewAlt:"今回の3択と選んだ回のシェア画像", getX: () => shareIntent,
-    filename: () => `takitsubo-${round.map(e=>e.number).join("-")}${selected === null ? "" : `-pick-${selected}`}.png`
-  });
   partyShareControls=mountShareControls($("#labPartyShare"), {
     prefix:"labParty",signal:page.signal,previewMode:"on-demand",
     makeLabel:"手持ちのシェア画像を作る",previewAlt:"手持ちエピソードのシェア画像",
-    getBlob:()=>createShareImage(party.map(n=>byNumber.get(n)),null,page.signal,false,wrapLines,"party"),
+    getBlob:()=>createPartyShareImage(party.map(n=>byNumber.get(n)),page.signal,wrapLines),
     getX:()=>{
       const url=new URL("https://twitter.com/intent/tweet");
       url.searchParams.set("text",`ゲームの滝壺、私の手持ちはこの${party.length}本！\nあなたの推し回は？\n${shareHashtags}`);
@@ -505,7 +501,7 @@ export async function mount(root, page) {
   const initial = readRound(location.search, byNumber), ownChoice=history.state?.labChoice;
   senderPick = initial.pick; newRound(initial.ids); updateCollection();
   if(initial.pick!==null && ownChoice?.eps===initial.ids?.join(",") && ownChoice.pick===initial.pick) {
-    selected=initial.pick;senderPick=null;renderCards();updateShare();
+    selected=initial.pick;senderPick=null;renderCards();updateRoundUrl();
   }
   if (initial.invalid) { $("#labNotice").hidden = false; $("#labNotice").textContent = initial.ids ? "紹介した人の選択を読み取れなかったため、3枚の候補だけを表示したよ。" : "このリンクの3択は読み取れなかったため、新しい3択を用意したよ。"; }
 }
@@ -599,7 +595,7 @@ function imageFor(ep, signal) {
   });
 }
 
-async function createShareImage(episodes, chosen, signal, fromSender, wrapLines, kind="trio") {
+async function createPartyShareImage(episodes, signal, wrapLines) {
   await document.fonts.ready;
   const images = await Promise.all(episodes.map(e => imageFor(e, signal)));
   const logo = await imageFor({image:"assets/img/mainlogo.webp"}, signal);
@@ -612,8 +608,8 @@ async function createShareImage(episodes, chosen, signal, fromSender, wrapLines,
     return imageFor({image:"data:image/svg+xml;charset=utf-8," + encodeURIComponent(source)}, signal);
   }));
   if(signal.aborted) throw new DOMException("Disposed", "AbortError");
-  const canvas = document.createElement("canvas"); canvas.width = 1200; canvas.height = kind==="party"?1100:800;
-  const height=canvas.height, isParty=kind==="party";
+  const canvas = document.createElement("canvas"); canvas.width = 1200; canvas.height = 1100;
+  const height=canvas.height;
   const c = canvas.getContext("2d"), ink = "#254e70";
   const sky=c.createLinearGradient(0,0,0,height);
   sky.addColorStop(0,"#2086d3");sky.addColorStop(160/height,"#69b1e5");sky.addColorStop(270/height,"#d7edff");sky.addColorStop(.75,"#dce8fb");sky.addColorStop(1,"#9ec7e5");
@@ -627,9 +623,9 @@ async function createShareImage(episodes, chosen, signal, fromSender, wrapLines,
   c.fillStyle="#fff";c.font='bold 22px "Noto Sans JP",sans-serif';c.fillText("ゲームの滝壺｜ゲーム系ポッドキャスト",190,39);
   c.font='900 44px "Noto Sans JP",sans-serif';c.fillText("エピソード研究所",190,94);c.restore();
   c.fillStyle="#ee735c";c.beginPath();c.roundRect(190,108,260,6,3);c.fill();
-  c.fillStyle="#fff";c.font='bold 30px "Noto Sans JP",sans-serif';c.fillText(isParty?"わたしの手持ちエピソード":"この3本、どれを聴く？",190,151);
-  if(isParty) {c.font='bold 24px "Noto Sans JP",sans-serif';c.textAlign="right";c.fillText(`${episodes.length} / 6`,1156,151);c.textAlign="left";}
-  if(isParty) {
+  c.fillStyle="#fff";c.font='bold 30px "Noto Sans JP",sans-serif';c.fillText("わたしの手持ちエピソード",190,151);
+  {c.font='bold 24px "Noto Sans JP",sans-serif';c.textAlign="right";c.fillText(`${episodes.length} / 6`,1156,151);c.textAlign="left";}
+  {
     c.save();c.strokeStyle="#aac8dc";c.lineWidth=2;c.setLineDash([9,7]);
     for(let i=episodes.length;i<6;i++) {
       const x=84+(i%3)*380,y=198+Math.floor(i/3)*440;
@@ -638,7 +634,7 @@ async function createShareImage(episodes, chosen, signal, fromSender, wrapLines,
     c.restore();
   }
   episodes.forEach((ep,i) => {
-    const x=(isParty?84:54)+(i%3)*380, y=isParty?198+Math.floor(i/3)*440:198, w=isParty?240:310, h=w*7/6;
+    const x=84+(i%3)*380, y=198+Math.floor(i/3)*440, w=240, h=w*7/6;
     c.fillStyle="#92b2cc"; c.fillRect(x+8,y+16,w,h-8);
     if(shells[i]) c.drawImage(shells[i],x,y,w,h);
     const ix=x+w*.0875, iy=y+h*.2357, iw=w*.825;
@@ -647,11 +643,8 @@ async function createShareImage(episodes, chosen, signal, fromSender, wrapLines,
     if(img) { const scale=Math.min(iw/img.naturalWidth,iw/img.naturalHeight);c.drawImage(img,ix+(iw-img.naturalWidth*scale)/2,iy+(iw-img.naturalHeight*scale)/2,img.naturalWidth*scale,img.naturalHeight*scale); }
     c.fillStyle=ink;c.font='bold 19px "Noto Sans JP",sans-serif';c.fillText(`#${ep.number}`,x,y+h+37);
     c.font='bold 21px "Noto Sans JP",sans-serif';
-    wrapLines(c,ep.title,320,isParty?2:4).forEach((line,j)=>c.fillText(line,x,y+h+73+j*30));
-    if(ep.number===chosen) {
-      c.fillStyle=ink;c.beginPath();c.roundRect(x+12,160,w-24,30,8);c.fill();c.fillStyle="#fff";c.textAlign="center";c.font='bold 18px "Noto Sans JP",sans-serif';
-      c.fillText(fromSender?"✓ 紹介した人の選択":"✓ 私はこれ",x+w/2,182);c.textAlign="left";
-    }
+    wrapLines(c,ep.title,320,2).forEach((line,j)=>c.fillText(line,x,y+h+73+j*30));
+
   });
   c.fillStyle=ink;c.fillRect(0,height-52,1200,52);c.fillStyle="#fff";c.font='bold 19px "Noto Sans JP",sans-serif';c.fillText("game-takitsubo.com/lab.html",44,height-18);
   c.textAlign="right";c.fillText("#ゲームの滝壺 #滝壺エピソード研究所",1156,height-18);

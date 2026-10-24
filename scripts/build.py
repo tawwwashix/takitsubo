@@ -2015,7 +2015,7 @@ def build_search_json():
 
 # ============================================================ sitemap
 def build_lab():
-    page = head("エピソード研究所", "そこに3つのエピソードがあるじゃろう！ ランダムな3択から気になる回を選んで、同じ3択をシェアしよう。", "", "lab.html")
+    page = head("エピソード研究所", "ランダムな3択から、次に聴きたいエピソードを見つけよう。気になる回を図鑑に登録したり、手持ちの6本を選んでシェアしたり、遊び方は自由。", "", "lab.html")
     page += header("", "lab")
     page += f'''<main class="container">
 <div class="page-head" style="text-align:center;">
