@@ -24,6 +24,7 @@ SITE = json.loads((ROOT / "data/site.json").read_text(encoding="utf-8"))
 EPS = json.loads((ROOT / "data/episodes.json").read_text(encoding="utf-8"))["episodes"]
 SERIES = json.loads((ROOT / "data/series.json").read_text(encoding="utf-8"))["series"]
 NEWS = json.loads((ROOT / "data/news.json").read_text(encoding="utf-8"))["news"]
+PAGE_META = json.loads((ROOT / "data/page_meta.json").read_text(encoding="utf-8"))
 try:
     RANKING = json.loads((ROOT / "data/ranking.json").read_text(encoding="utf-8"))
 except (FileNotFoundError, json.JSONDecodeError):
@@ -2040,6 +2041,25 @@ def build_lab():
     (ROOT / "lab.html").write_text(page, encoding="utf-8")
 
 
+def static_page_dates():
+    """Editorial dates, never build dates. Null explicitly omits unknown lastmod."""
+    paths = ("guide.html", "otayori.html", "privacy.html")
+    if not isinstance(PAGE_META, dict) or set(PAGE_META) != set(paths):
+        raise ValueError("page_meta.json: guide.html / otayori.html / privacy.html を指定してください")
+    result = []
+    for path in paths:
+        entry = PAGE_META[path]
+        if not isinstance(entry, dict) or "updated" not in entry:
+            raise ValueError(f"page_meta.json: {path} に updated が必要です")
+        date = entry["updated"]
+        if date is not None:
+            if not isinstance(date, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date):
+                raise ValueError(f"page_meta.json: {path} の updated は YYYY-MM-DD または null です")
+            datetime.date.fromisoformat(date)
+        result.append((path, date))
+    return result
+
+
 def build_sitemap():
     base = SITE["base_url"].rstrip("/")
     today = datetime.date.today().isoformat()
@@ -2047,14 +2067,14 @@ def build_sitemap():
     # (URL, 最終更新日): エピソード=配信日 / お知らせ=掲載日 / 一覧系=最新回の配信日
     urls = [("", latest), ("episodes/", latest), ("series/", latest), ("awq/", latest),
             ("news/", NEWS[-1]["date"] if NEWS else today),
-            ("shindan.html", latest), ("lab.html", latest), ("games/", latest),
-            ("guide.html", today), ("otayori.html", today), ("privacy.html", today)]
+            ("shindan.html", latest), ("lab.html", latest), ("games/", latest)]
+    urls += static_page_dates()
     urls += [(f"episodes/{e['number']}.html", e["date"]) for e in EPS]
     urls += [(f"games/{i['slug']}.html", EPS_BY_NUM[max(x["num"] for x in i["eps"])]["date"])
              for i in games_db() if i["paged"]]
     urls += [(f"series/{s['slug']}.html", latest) for s in SERIES]
     urls += [(f"news/{n['slug']}.html", n["date"]) for n in NEWS]
-    body = "".join(f"<url><loc>{base}/{u}</loc><lastmod>{d}</lastmod></url>" for u, d in urls)
+    body = "".join(f"<url><loc>{base}/{u}</loc>" + (f"<lastmod>{d}</lastmod>" if d else "") + "</url>" for u, d in urls)
     (ROOT / "sitemap.xml").write_text(
         f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{body}</urlset>',
         encoding="utf-8")
@@ -2066,6 +2086,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate the site or selected prototype pages")
     parser.add_argument("--page", choices=["lab", "shindan"], action="append", help="Generate only this page (repeatable); existing data JSON is reused")
     args = parser.parse_args()
+    static_page_dates()  # Validate metadata before writing any output.
     if args.page:
         for name in dict.fromkeys(args.page):
             {"lab": build_lab, "shindan": build_shindan}[name]()
