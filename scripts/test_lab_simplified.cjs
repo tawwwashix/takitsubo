@@ -25,6 +25,7 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
     }
     await p.screenshot({path:path.join(out,`lab-simple-${width}.png`),fullPage:true});
    }
+   await p.locator('#labReorder').click();
    await p.locator('#labPartyGrid').scrollIntoViewIfNeeded();await p.waitForTimeout(200);
    const center=async n=>{const r=await p.locator(`#labPartyGrid [data-number="${n}"] .lab-art`).boundingBox();return{x:r.x+r.width/2,y:r.y+r.height/2};};
    let a=await center(1),b=await center(2);
@@ -34,6 +35,7 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
    else {await p.mouse.move(a.x,a.y);await p.mouse.down();await p.mouse.move(b.x,b.y,{steps:10});await p.mouse.up();}
    await p.waitForFunction(()=>document.querySelector('#labPartyGrid .lab-owned').dataset.number==='2');
    assert.deepEqual(await order(),[2,1,3,4,5,6]);assert.deepEqual(await stored(),await order());assert(!(await p.locator('#labItem').isVisible()));
+   await p.locator('#labReorder').click();
    a=await center(1);const outside={x:5,y:a.y};
    if(mobile){await touch('touchStart',[a]);await p.waitForTimeout(400);await touch('touchMove',[outside]);await touch('touchEnd',[]);}
    else {await p.mouse.move(a.x,a.y);await p.mouse.down();await p.mouse.move(outside.x,outside.y,{steps:5});await p.mouse.up();}

@@ -52,9 +52,9 @@ const base=process.argv[2]||'http://127.0.0.1:8766',out=path.resolve(__dirname,'
   const state=await p.evaluate(()=>({dex:JSON.parse(localStorage.getItem('takitsubo:episode-lab:collection:v1')),party:JSON.parse(localStorage.getItem('takitsubo:episode-lab:party:v1'))}));
   assert.deepEqual(state.dex,[31,22,23]);assert.deepEqual(state.party,[]);
   await p.locator('#labConfirm').click();await p.locator('#labPartyMake').click();await preview('labParty');
-  const hand=await intent('#labPartyX');assert.equal(hand.url.href,'https://game-takitsubo.com/lab.html');assert(hand.text.includes('私の手持ちはこの1本！'));assert(hand.text.includes('#滝壺エピソード研究所'));
-  assert.equal(await p.locator('#labOpen').textContent(),'エピソードページへ →');assert.equal(await p.locator('#labOpenNote').textContent(),'エピソードの詳細ページに移動します');
-  await p.locator('#labPartyGrid [data-number="23"]').click();assert.equal(await p.locator('#labItemLink').textContent(),'エピソードページへ →');assert.equal(await p.locator('#labItemLinkNote').textContent(),'エピソードの詳細ページに移動します');await p.keyboard.press('Escape');
+  const hand=await intent('#labPartyX');assert.equal(hand.url.origin+hand.url.pathname,'https://game-takitsubo.com/lab.html');assert.equal(hand.url.searchParams.get('party'),'23');assert(hand.text.includes('気になるエピソードを1本選びました！'));assert(hand.text.includes('#滝壺エピソード研究所'));
+  assert.equal(await p.locator('#labOpen').textContent(),'エピソードの詳細ページに移動 →');assert.equal(await p.locator('#labOpenNote').count(),0);
+  await p.locator('#labPartyGrid [data-number="23"]').click();assert.equal(await p.locator('#labItemLink').textContent(),'エピソードの詳細ページに移動 →');assert.equal(await p.locator('#labItemLinkNote').count(),0);await p.keyboard.press('Escape');
   await p.reload();await ready();assert.equal(await p.locator('#labCount').textContent(),'3 / 128');
   await p.emulateMedia({reducedMotion:'reduce'});await p.locator('.lab-choose').first().click();assert.equal(await p.locator('#labCards').evaluate(e=>getComputedStyle(e).transitionDuration),'0s');
   assert.deepEqual(errors,[]);console.log('PASS first/reroll interpolation, responsive intro, coral action, prominent storage note, unlimited direct dex registration, party-only canonical share, navigation hints, reload persistence, local history, reduced motion');

@@ -1,6 +1,6 @@
 // Touch starts as ordinary scrolling. Only a stationary long press arms a drag;
 // a non-passive touchmove then owns that gesture without disabling page scrolling.
-export function installPartyReorder(grid, swap, page) {
+export function installPartyReorder(grid, swap, page, onStart = () => {}) {
   let pending=null, timer=null, ghost=null, target=null, suppressUntil=0;
   const listen=(node,type,handler,options={})=>node.addEventListener(type,handler,{...options,signal:page.signal});
   function cancel() {
@@ -17,13 +17,13 @@ export function installPartyReorder(grid, swap, page) {
   }
   function start() {
     if(!pending || !pending.button.isConnected) { cancel();return; }
+    onStart();
     ghost=document.createElement("div");ghost.className="lab-drag-ghost";ghost.setAttribute("aria-hidden","true");
     ghost.style.width=`${Math.min(130,pending.button.getBoundingClientRect().width)}px`;
     ghost.append(pending.button.querySelector(".lab-art").cloneNode(true));grid.parentElement.append(ghost);
     pending.button.classList.add("is-drag-source");point(pending.x,pending.y);
   }
   function prepare(event,x,y,kind,id) {
-    if(grid.dataset.reordering==="true") return;
     const button=event.target.closest("button[data-number]");
     if(!button || !grid.contains(button) || grid.querySelectorAll("button[data-number]").length<2) return;
     cancel();pending={button,x,y,kind,id};

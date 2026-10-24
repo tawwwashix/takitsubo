@@ -1,9 +1,9 @@
 // All lab dependencies use the same content-derived version from build.py.
 const version = new URL(import.meta.url).search;
 const load = name => import(new URL(name + version, import.meta.url));
-const [{createCartridge}, {installPartyReorder}, {createPartyShareImage}, {renderLab}, {createLabStorage, PARTY_KEY, COLLECTION_KEY}] = await Promise.all([
+const [{createCartridge}, {installPartyReorder}, {createPartyShareImage}, {renderLab}, {createLabStorage, PARTY_KEY, COLLECTION_KEY}, {drawRound, readSharedParty}, {installTransfer}] = await Promise.all([
   load('./cartridge.js'), load('./party-reorder.js'), load('./party-share.js'),
-  load('./view.js'), load('./storage.js')
+  load('./view.js'), load('./storage.js'), load('./selection.js'), load('./transfer.js')
 ]);
 
 // URLからの候補復元（以前共有した3択のリンクも維持）
@@ -31,6 +31,8 @@ export async function mount(root, page) {
   const byNumber = new Map(episodes.map(e => [e.number, e]));
   if (byNumber.size < 3) throw new Error("Three episodes are required");
   const storage = createLabStorage(byNumber);
+  const sharedParty = readSharedParty(location.search, byNumber);
+  let sharedView = !!sharedParty.ids;
   let collection = new Set(), round = [], selected = null, senderPick = null;
   let inspected = null, partyShareControls, partySignature = null;
   let reorderMode=false, reorderSource=null, replacingFromRound=false;
@@ -47,6 +49,24 @@ export async function mount(root, page) {
   ({ascending, showUnseen} = storage.readPreferences());
   renderLab(root);
   const $ = s => root.querySelector(s);
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const transfer = installTransfer(root, page, createCartridge, () => !motionPaused && !reducedMotion.matches && !document.hidden);
+  page.listen(reducedMotion, 'change', () => transfer.cancel());
+  if (sharedParty.ids) {
+    $('#labShared').hidden = false; $('#labExperience').hidden = true;
+    sharedParty.ids.forEach(number => {
+      const ep = byNumber.get(number), link = document.createElement('a');
+      link.className = 'lab-owned'; link.href = `episodes/${number}.html`;
+      link.setAttribute('aria-label', `#${number} ${ep.title}：エピソードの詳細ページに移動`);
+      const title = document.createElement('span'); title.className = 'lab-dex-title'; title.textContent = ep.title;
+      const meta = document.createElement('span'); meta.className = 'lab-card-meta'; meta.textContent = `#${number}`;
+      link.append(createCartridge(ep, true), meta, title); $('#labSharedGrid').append(link);
+    });
+  }
+  $('#labStartOwn').addEventListener('click', () => {
+    sharedView = false; $('#labShared').hidden = true; $('#labExperience').hidden = false;
+    newRound(); $('#labShuffle').focus({preventScroll:true});
+  });
 // 手持ち・図鑑の表示
   function cartridgeButton(number, action) {
     const ep = byNumber.get(number), button = document.createElement("button");
@@ -118,7 +138,7 @@ export async function mount(root, page) {
     $("#labItemAdd").disabled=held; $("#labItemAdd").textContent=held?"手持ちに登録済み":"手持ちに加える";
     $("#labItemRemove").hidden=!held;
   }
-  function openItem(number) { itemNumber=number;refreshItem();$("#labItem").showModal();syncMotion(); }
+  function openItem(number) { transfer.cancel();itemNumber=number;refreshItem();$("#labItem").showModal();syncMotion(); }
   function syncAcquireButton() {
     const held=party.includes(inspected),button=$("#labConfirm");
     button.disabled=inspected===null || held;
@@ -132,6 +152,9 @@ export async function mount(root, page) {
   // full-party dialog leaves the incoming episode and shared choice untouched.
 // 登録と交換（保存するのは行き先が確定してから）
   function acquire(number, fromRound, destination) {
+    transfer.cancel();
+    const source = fromRound ? $(`#labCards [data-number="${number}"] .lab-art`) : $('#labItemArt .lab-art');
+    const sourceRect = source?.getBoundingClientRect();
     mergeCollection();readParty();
     const firstDiscovery=!collection.has(number);
     if(destination!=="dex" && !party.includes(number)) {
@@ -146,7 +169,7 @@ export async function mount(root, page) {
       updateRoundUrl();
     }
     saveParty(destination==="dex"?`#${number}を図鑑に登録したよ。`:`#${number}を手持ちに加えたよ。`);
-    renderCards();highlightParty(number);
+    renderCards();
     if(firstDiscovery) {
       const card=$(`#labCards [data-number="${number}"]`);
       card?.classList.add("is-registered");
@@ -154,6 +177,9 @@ export async function mount(root, page) {
     }
     if(!fromRound && selected!==null) updateRoundUrl();
     if($("#labReplace").open) $("#labReplace").close();
+    if (!fromRound) { if ($('#labItem').open) $('#labItem').close(); if ($('#labDex').open) $('#labDex').close(); }
+    if (firstDiscovery) $('#labDexToggle').animate([{background:'#c2e5ff'}, {background:'transparent'}], {duration:220});
+    transfer.fly(byNumber.get(number), sourceRect, destination === 'dex' ? $('#labDexToggle') : $(`#labPartyGrid [data-number="${number}"] .lab-art`), destination === 'dex');
   }
   function renderReplacements() {
     const grid=$("#labReplaceGrid");grid.replaceChildren();
@@ -180,7 +206,6 @@ export async function mount(root, page) {
     if(party.length<6) {acquire(number,fromRound,null);return;}
     replacing=number;replacingFromRound=fromRound;
     $("#labReplaceIncoming").textContent=`#${number} ${byNumber.get(number).title}`;
-    $("#labSendDex").textContent=collection.has(number)?"図鑑に残す":"図鑑に登録する";
     renderReplacements();$("#labReplace").showModal();syncMotion();
   }
 // 3択・選択状態・履歴
@@ -192,6 +217,7 @@ export async function mount(root, page) {
     return url;
   }
   function updateRoundUrl() {
+    if (sharedView) return;
     const url = roundUrl();
     history.replaceState(history.state, "", url);
   }
@@ -228,7 +254,7 @@ export async function mount(root, page) {
     $("#labInspectPrompt").hidden=true;
     $("#labCards").dataset.active = String(round.findIndex(item => item.number === inspected));
     $("#labInspectNumber").textContent = `#${ep.number} · ${ep.date || ""}`;
-    $("#labInspectTitle").textContent = ep.title;
+    $("#labInspectTitle").textContent = ep.title; $("#labInspectTitle").scrollTop = 0;
     $("#labInspectTags").textContent = (ep.tags || []).slice(0,2).join(" / ");
     syncAcquireButton();
     $("#labOpen").href=`episodes/${ep.number}.html`;
@@ -239,24 +265,11 @@ export async function mount(root, page) {
       card.querySelector("button").setAttribute("aria-pressed", String(active));
     });
   }
-  function sizeDetails() {
-    const sizes=$("#labDetailSizes");sizes.replaceChildren();
-    round.forEach(ep=>{
-      const copy=document.createElement("div");copy.className="lab-detail-copy";
-      const number=document.createElement("p");number.className="lab-number";number.textContent=`#${ep.number} · ${ep.date || ""}`;
-      const title=document.createElement("h2");title.textContent=ep.title;
-      const tags=document.createElement("p");tags.className="lab-tags";tags.textContent=(ep.tags||[]).slice(0,2).join(" / ");
-      copy.append(number,title,tags);sizes.append(copy);
-    });
-  }
   function newRound(ids) {
+    transfer.cancel();mergeCollection();
     if (ids) round = ids.map(n => byNumber.get(n));
     else {
-      const last = new Set(round.map(e => e.number));
-      let pool = [...byNumber.values()].filter(e => !last.has(e.number));
-      if (pool.length < 3) pool = [...byNumber.values()];
-      round = [];
-      while (round.length < 3) round.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
+      round = drawRound([...byNumber.values()], round, collection);
       senderPick = null;
     }
     selected = null; inspected = null;
@@ -264,7 +277,6 @@ export async function mount(root, page) {
     $("#labInspectPrompt").hidden=false;
     $("#labOpen").removeAttribute("href");$("#labOpen").setAttribute("aria-disabled","true");$("#labOpen").tabIndex=-1;
     syncAcquireButton();
-    sizeDetails();
     renderCards(); updateParty(); updateRoundUrl();
   }
   $("#labShuffle").addEventListener("click", () => {
@@ -276,7 +288,6 @@ export async function mount(root, page) {
     if(inspected!==null && !collection.has(inspected)) acquire(inspected,true,"dex");
   });
   $("#labOpen").addEventListener("click",e=>{if(inspected===null)e.preventDefault();});
-  $("#labSendDex").addEventListener("click",()=>{if(replacing!==null)acquire(replacing,replacingFromRound,"dex");});
   $("#labItemAdd").addEventListener("click",()=>addParty(itemNumber));
   $("#labItemRemove").addEventListener("click",()=>{
     mergeCollection();readParty(); party=party.filter(n=>n!==itemNumber);
@@ -290,7 +301,7 @@ export async function mount(root, page) {
     if(!party.includes(reorderSource)) reorderSource=null;
     $("#labReorder").disabled=party.length<2;
     $("#labReorder").setAttribute("aria-pressed",String(reorderMode));
-    $("#labReorder").textContent=reorderMode?"並び替えを終える":"並び替え";
+    $("#labReorder").textContent=reorderMode?"完了":"並び替え";
     $("#labReorderHint").hidden=!reorderMode;
     $("#labPartyGrid").dataset.reordering=String(reorderMode);
     $("#labPartyGrid").querySelectorAll("button").forEach(button=>{
@@ -306,13 +317,14 @@ export async function mount(root, page) {
     slot.classList.add("is-updated");slot.addEventListener("animationend",()=>slot.classList.remove("is-updated"),{once:true});
   }
   function swapParty(source,target) {
+    transfer.cancel();reorderSource=null;
     mergeCollection();readParty();const a=party.indexOf(source),b=party.indexOf(target);
     if(a<0 || b<0 || a===b) return;
     [party[a],party[b]]=[party[b],party[a]];
     saveParty(`#${source}を位置${b+1}へ、#${target}を位置${a+1}へ移動したよ。`);
     highlightParty(source);highlightParty(target);
   }
-  const cancelReorder=installPartyReorder($("#labPartyGrid"),swapParty,page);
+  const cancelReorder=installPartyReorder($("#labPartyGrid"),swapParty,page,()=>{transfer.cancel();reorderSource=null;updateReorder();});
   function saveDexPreferences() {
     ascending=$("#labDexOrder").value==="asc";showUnseen=$("#labDexUnseen").checked;
     storage.savePreferences({ascending, showUnseen});
@@ -324,8 +336,8 @@ export async function mount(root, page) {
   let motionPaused = false, sceneVisible = true;
   const syncMotion = () => root.classList.toggle("lab-paused", motionPaused || document.hidden || !sceneVisible || !!root.querySelector("dialog[open]"));
   $("#labMotion").addEventListener("click", () => {
-    motionPaused = !motionPaused;
-    $("#labMotion").textContent = motionPaused ? "動き OFF" : "動き ON";
+    transfer.cancel();motionPaused = !motionPaused;
+    $("#labMotion").textContent = motionPaused ? "アニメーション OFF" : "アニメーション ON";
     $("#labMotion").setAttribute("aria-pressed", String(motionPaused));
     $("#labMotion").setAttribute("aria-label", motionPaused ? "動きを再開する" : "動きを止める");
     syncMotion();
@@ -336,7 +348,7 @@ export async function mount(root, page) {
   const sceneObserver = new IntersectionObserver(entries => { sceneVisible = entries.at(-1).isIntersecting; syncMotion(); });
   sceneObserver.observe($(".lab-scene"));
   for (const [trigger, target] of [["labDexToggle", "labDex"]]) {
-    $("#" + trigger).addEventListener("click", () => { $("#" + target).showModal(); syncMotion(); });
+    $("#" + trigger).addEventListener("click", () => { transfer.cancel();$("#" + target).showModal(); syncMotion(); });
   }
   root.querySelectorAll("[data-close]").forEach(button => button.addEventListener("click", () => $("#" + button.dataset.close).close()));
   root.querySelectorAll("dialog").forEach(modal => {
@@ -378,7 +390,7 @@ export async function mount(root, page) {
 // 別タブとの同期と共有画像
   page.listen(window,"storage", e => {
     if(e.key === COLLECTION_KEY || e.key === PARTY_KEY) {
-      cancelReorder();reorderSource=null;mergeCollection(); readParty(); updateCollection(); updateParty(); renderCards();updateRoundUrl();
+      transfer.cancel();cancelReorder();reorderSource=null;mergeCollection(); readParty(); updateCollection(); updateParty(); renderCards();updateRoundUrl();
       if($("#labItem").open) refreshItem();
       if($("#labReplace").open) renderReplacements();
     }
@@ -389,8 +401,9 @@ export async function mount(root, page) {
     getBlob:signal=>createPartyShareImage(party.map(n=>byNumber.get(n)),signal,wrapLines),
     getX:()=>{
       const url=new URL("https://twitter.com/intent/tweet");
-      url.searchParams.set("text",`ゲームの滝壺、私の手持ちはこの${party.length}本！\nあなたの推し回は？\n${shareHashtags}`);
-      url.searchParams.set("url",shareBase.href);
+      url.searchParams.set("text",`ゲームの滝壺から、気になるエピソードを${party.length}本選びました！\n選んだ回はこちらから👇\n${shareHashtags}`);
+      const shared = new URL(shareBase); shared.searchParams.set('party', party.join(','));
+      url.searchParams.set("url",shared.href);
       return url.href;
     },
     filename:()=>`takitsubo-party-${party.join("-")}.png`
@@ -402,5 +415,6 @@ export async function mount(root, page) {
   if(initial.pick!==null && ownChoice?.eps===initial.ids?.join(",") && ownChoice.pick===initial.pick) {
     selected=initial.pick;senderPick=null;renderCards();updateRoundUrl();
   }
-  if (initial.invalid) { $("#labNotice").hidden = false; $("#labNotice").textContent = initial.ids ? "紹介した人の選択を読み取れなかったため、3枚の候補だけを表示したよ。" : "このリンクの3択は読み取れなかったため、新しい3択を用意したよ。"; }
+  if (sharedParty.invalid) { $("#labNotice").hidden=false; $("#labNotice").textContent="このリンクの手持ちは読み取れなかったため、新しい3択を用意したよ。"; }
+  if (!sharedParty.invalid && initial.invalid) { $("#labNotice").hidden = false; $("#labNotice").textContent = initial.ids ? "紹介した人の選択を読み取れなかったため、3枚の候補だけを表示したよ。" : "このリンクの3択は読み取れなかったため、新しい3択を用意したよ。"; }
 }

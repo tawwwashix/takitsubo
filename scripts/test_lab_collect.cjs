@@ -25,7 +25,7 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
   await p.locator('.lab-choose').first().click();await p.locator('#labConfirm').click();assert(await p.locator('#labReplace').isVisible());
   assert(!(await state()).collection.includes(31));await p.keyboard.press('Escape');assert(!(await state()).collection.includes(31));assert(!new URL(p.url()).searchParams.has('pick'));
   await p.locator('#labOpen').click();await p.waitForURL('**/episodes/31.html');assert(!(await state()).collection.includes(31));await p.goBack();await ready();
-  await p.locator('.lab-choose').first().click();await p.locator('#labConfirm').click();await p.locator('#labSendDex').click();
+  await p.locator('.lab-choose').first().click();await p.locator('#labConfirm').click();assert.equal(await p.locator('#labSendDex').count(),0);await p.keyboard.press('Escape');await p.locator('#labRegister').click();
   assert((await state()).collection.includes(31));assert.deepEqual((await state()).party,[1,2,3,4,5,6]);assert.equal(new URL(p.url()).searchParams.get('pick'),'31');
   await p.locator('.lab-choose').nth(1).click();await p.locator('#labConfirm').click();await p.locator('#labReplaceGrid [data-number="1"]').click();
   assert.deepEqual((await state()).party,[22,2,3,4,5,6]);assert((await state()).collection.includes(1));assert((await state()).collection.includes(22));assert(await p.locator('#labConfirm').isDisabled());

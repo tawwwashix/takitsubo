@@ -8,7 +8,7 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
  const ready=page=>page.locator('.lab-choose').first().waitFor();
  const party=()=>p.evaluate(k=>JSON.parse(localStorage.getItem(k)||'[]'),keys.party);
  const openDex=async n=>{await p.locator('#labDexToggle').tap();await p.locator(`#labDexGrid [data-number="${n}"]`).tap();};
- const closeDex=async()=>{await p.locator('[data-close="labItem"]').tap();await p.locator('[data-close="labDex"]').tap();};
+ const closeDex=async()=>{for(const id of ['labItem','labDex'])if(await p.locator('#'+id).isVisible())await p.locator('[data-close="'+id+'"]').tap();};
  try {
   await p.goto(base+'/lab.html?eps=50,54,47');await ready(p);
   assert.equal(await p.locator('#labPartyGrid .lab-empty-slot').count(),6);
@@ -25,7 +25,7 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
   await p.locator('#labItemAdd').tap();await p.locator('#labReplaceGrid [data-number="50"]').tap();assert.deepEqual(await party(),[7,54,47,1,5,28]);await closeDex();
   assert(await p.evaluate(k=>JSON.parse(localStorage.getItem(k)).includes(50),keys.collection));
   await p.locator('#labPartyGrid [data-number="54"]').tap();await p.locator('#labItemRemove').tap();assert.deepEqual(await party(),[7,47,1,5,28]);
-  await p.locator('#labItemAdd').tap();assert.deepEqual(await party(),[7,47,1,5,28,54]);await p.locator('[data-close="labItem"]').tap();
+  await p.locator('#labItemAdd').tap();assert.deepEqual(await party(),[7,47,1,5,28,54]);if(await p.locator('#labItem').isVisible())await p.locator('[data-close="labItem"]').tap();
   assert.equal(await p.locator('#labItemSet').count(),0);assert(await p.locator('#labPartyStatus').isHidden());
   await openDex(50);assert.equal(await p.locator('#labItemLink').getAttribute('href'),'episodes/50.html');await p.locator('#labItemAdd').tap();await p.locator('#labReplaceGrid [data-number="7"]').tap();await closeDex();
   assert.deepEqual(await party(),[50,47,1,5,28,54]);

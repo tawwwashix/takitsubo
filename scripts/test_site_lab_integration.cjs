@@ -37,7 +37,7 @@ fs.mkdirSync(out, {recursive:true});
     const modules = await page.evaluate(() => performance.getEntriesByType('resource')
       .map(r => new URL(r.name)).filter(u => u.pathname.includes('/assets/js/lab/'))
       .map(u => ({name:u.pathname.split('/').pop(), version:u.searchParams.get('v')})));
-    assert.equal(new Set(modules.map(m => m.name)).size, 6);
+    assert.equal(new Set(modules.map(m => m.name)).size, 8);
     assert.equal(new Set(modules.map(m => m.version)).size, 1);
     assert(modules.every(m => m.version));
     await page.evaluate(() => { window.labAuditMarker = true; window.auditAudio = document.querySelector('audio'); });

@@ -19,7 +19,7 @@ fs.mkdirSync(out,{recursive:true});
   assert(await p.locator('#labPartyMake').isVisible());assert.equal(await p.locator('#labCopy').count(),0);assert(await p.locator('#labPartySave').isHidden());assert(await p.locator('#labPartyX').isHidden());
   assert.equal(await p.locator('#labShare').count(),0);
   assert(await p.locator('.lab-machine').evaluate(e=>e.nextElementSibling.classList.contains('lab-case')));
-  assert.equal(new URL(new URL(await p.locator('#labPartyX').getAttribute('href')).searchParams.get('url')).href,'https://game-takitsubo.com/lab.html');
+  assert(new URL(new URL(await p.locator('#labPartyX').getAttribute('href')).searchParams.get('url')).searchParams.has('party'));
   await p.screenshot({path:path.join(out,'site-lab-collapsed-mobile.png'),fullPage:true});
   await p.locator('#labPartyMake').click();await preview();assert(await p.locator('#labPartySave').isVisible());assert(await p.locator('#labPartyMake').isHidden());
   let old=await p.locator('#labPartySharePreview').getAttribute('src');

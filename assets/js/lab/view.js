@@ -2,9 +2,16 @@
 export function renderLab(root) {
   root.innerHTML = `
 <div class="lab-wrap">
+  <section id="labShared" class="lab-case lab-shared" hidden aria-labelledby="labSharedHeading">
+    <h2 id="labSharedHeading">シェアされた手持ち</h2>
+    <p class="lab-footnote">気になるカートリッジから、エピソードの詳細ページへ。</p>
+    <div id="labSharedGrid"></div>
+    <button type="button" id="labStartOwn" class="lab-primary">自分も3択で探す →</button>
+  </section>
+  <div id="labExperience">
 
   <div class="lab-machine">
-  <div class="lab-machine-tools"><div class="lab-dialogue"><div class="lab-doctor"><img src="assets/img/hyuuma.webp" alt="ひゅうま" width="48" height="48"></div><p id="labSpeech">そこに3つのエピソードがあるじゃろう！</p></div><button type="button" id="labMotion" class="lab-icon-button" aria-pressed="false" aria-label="動きを止める">動き ON</button></div>
+  <div class="lab-machine-tools"><div class="lab-dialogue"><div class="lab-doctor"><img src="assets/img/hyuuma.webp" alt="ひゅうま" width="48" height="48"></div><p id="labSpeech">そこに3つのエピソードがあるじゃろう！</p></div><button type="button" id="labDexToggle" class="lab-icon-button" aria-haspopup="dialog"><span>図鑑</span><strong id="labCount"></strong></button></div>
   <section class="lab-scene" aria-label="カートリッジが浮かぶ研究所">
     <svg class="lab-room" viewBox="0 0 1000 470" preserveAspectRatio="xMidYMid slice" aria-hidden="true" shape-rendering="crispEdges">
       <defs><pattern id="labWallTiles" width="100" height="76" patternUnits="userSpaceOnUse"><path fill="#dfefff" d="M0 0h100v76H0z"/><path fill="none" stroke="#bed9ef" stroke-width="2" d="M0 76V0h100"/></pattern></defs>
@@ -23,29 +30,30 @@ export function renderLab(root) {
   <section class="lab-console" aria-label="博士とエピソードを選ぶ">
   <p id="labNotice" class="lab-notice" role="status" hidden></p>
   <div class="lab-inspection" id="labInspection">
-    <div class="lab-detail-stack"><div id="labDetailSizes" aria-hidden="true" inert></div><div class="lab-detail-copy" aria-live="polite" aria-atomic="true"><p class="lab-number" id="labInspectNumber"></p><h2 id="labInspectTitle"></h2><p class="lab-tags" id="labInspectTags"></p></div><p id="labInspectPrompt">どのエピソードにする？</p></div>
-    <a id="labOpen" class="lab-primary lab-open" aria-describedby="labOpenNote" aria-disabled="true" tabindex="-1">エピソードページへ →</a>
-    <p id="labOpenNote" class="lab-navigation-note">エピソードの詳細ページに移動します</p>
+    <div class="lab-detail-stack"><div class="lab-detail-copy" aria-live="polite" aria-atomic="true"><p class="lab-number" id="labInspectNumber"></p><h2 id="labInspectTitle" tabindex="0"></h2><p class="lab-tags" id="labInspectTags"></p></div><p id="labInspectPrompt">どのエピソードにする？</p></div>
+    <a id="labOpen" class="lab-primary lab-open" aria-disabled="true" tabindex="-1">エピソードの詳細ページに移動 →</a>
     <div class="lab-save-actions"><button type="button" id="labRegister" class="lab-secondary" disabled>図鑑に登録</button><button type="button" id="labConfirm" class="lab-secondary" disabled>手持ちに加える</button></div>
   </div>
   </section>
-  <nav class="lab-toolbar" aria-label="研究所のメニュー"><button type="button" id="labShuffle" class="lab-secondary">↻ 別の3択</button><button type="button" id="labDexToggle" class="lab-secondary" aria-haspopup="dialog"><span>図鑑</span><strong id="labCount"></strong></button></nav>
+  <nav class="lab-toolbar" aria-label="研究所のメニュー"><button type="button" id="labShuffle" class="lab-secondary">↻ 別の3択</button></nav>
   </div>
   <section class="lab-case" aria-labelledby="labPartyHeading">
-    <div class="lab-case-heading"><h2 id="labPartyHeading">手持ちエピソード</h2><div class="lab-case-tools"><span id="labPartyCount"></span><button type="button" id="labReorder" class="lab-icon-button" aria-pressed="false">並び替え</button></div></div><p id="labReorderHint" class="lab-footnote" hidden>交換する2本を順に選んでね。</p>
+    <div class="lab-case-heading"><h2 id="labPartyHeading">手持ちエピソード <span id="labReorderHint" class="lab-reorder-badge" hidden>並び替え中</span></h2><div class="lab-case-tools"><span id="labPartyCount"></span><button type="button" id="labReorder" class="lab-icon-button" aria-pressed="false">並び替え</button></div></div>
     <div id="labPartyGrid"></div><p id="labPartyStatus" class="lab-footnote" role="status" hidden></p><span id="labPartyAnnounce" class="lab-sr-only" role="status"></span><section id="labPartyShare" aria-label="手持ちエピソードをシェア" hidden></section>
   </section>
 
+<div class="lab-settings"><button type="button" id="labMotion" class="lab-icon-button" aria-pressed="false" aria-label="動きを止める">アニメーション ON</button></div>
+</div>
 </div>
 <dialog id="labDex" aria-labelledby="labDexHeading"><div class="lab-modal-top"><h2 id="labDexHeading">エピソード図鑑</h2><button type="button" class="lab-close" data-close="labDex" aria-label="図鑑を閉じる">×</button></div><p class="lab-footnote" id="labStorageNote">※このブラウザに保存されます</p><div class="lab-dex-controls"><label>並び順 <select id="labDexOrder"><option value="desc">新しい順</option><option value="asc">古い順</option></select></label><label><input type="checkbox" id="labDexUnseen"> 未発見も表示</label><span id="labDexCount"></span></div><div id="labDexGrid"></div></dialog>
 `;
   root.insertAdjacentHTML("beforeend", `<dialog id="labItem" aria-labelledby="labItemTitle">
     <div class="lab-modal-top"><h2 id="labItemTitle"></h2><button type="button" class="lab-close" data-close="labItem" aria-label="カートリッジの詳細を閉じる">×</button></div>
     <div id="labItemArt"></div><p id="labItemTags" class="lab-footnote"></p>
-    <div class="lab-item-actions"><a id="labItemLink" class="lab-primary lab-open" aria-describedby="labItemLinkNote">エピソードページへ →</a><p id="labItemLinkNote" class="lab-navigation-note">エピソードの詳細ページに移動します</p><button type="button" id="labItemAdd" class="lab-secondary">手持ちに加える</button></div>
+    <div class="lab-item-actions"><a id="labItemLink" class="lab-primary lab-open">エピソードの詳細ページに移動 →</a><button type="button" id="labItemAdd" class="lab-secondary">手持ちに加える</button></div>
     <button type="button" id="labItemRemove" class="lab-remove">手持ちから外す</button>
   </dialog><dialog id="labReplace" aria-labelledby="labReplaceTitle">
-    <div class="lab-modal-top"><h2 id="labReplaceTitle">手持ちがいっぱいだ！</h2><button type="button" class="lab-close" data-close="labReplace" aria-label="入れ替えをやめる">×</button></div>
-    <p id="labReplaceIncoming"></p><button type="button" id="labSendDex" class="lab-secondary">図鑑に登録する</button><p class="lab-footnote">手持ちに加えるなら、入れ替える1本を選んでね。外した回も図鑑に残るよ。</p><div id="labReplaceGrid"></div>
+    <div class="lab-modal-top"><h2 id="labReplaceTitle">手持ちがいっぱいだ！ どれと入れ替える？</h2><button type="button" class="lab-close" data-close="labReplace" aria-label="入れ替えをやめる">×</button></div>
+    <p id="labReplaceIncoming"></p><div id="labReplaceGrid"></div>
   </dialog>`);
 }
