@@ -26,7 +26,7 @@
 #episodeLab .lab-machine { border:4px solid #4e7b85; border-radius:12px; background:#bbd8ef; padding:8px; box-shadow:inset 0 3px #f2ffef,0 6px #699aab,0 10px 24px #39769820; overflow:hidden; }
 #episodeLab .lab-scene { position:relative; isolation:isolate; border:3px solid #5d8e94; border-radius:5px 5px 0 0; background:#dfefff; height:390px; overflow:hidden; }
 #episodeLab .lab-room { position:absolute; width:100%; height:100%; inset:0; z-index:-1; pointer-events:none; }
-#episodeLab .lab-cards { position:absolute; inset:auto 5% 18px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr); align-items:end; gap:18px; transition:grid-template-columns .3s ease; }
+#episodeLab .lab-cards { position:absolute; inset:auto 5% 8px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr); align-items:end; gap:18px; transition:grid-template-columns .3s ease; }
 #episodeLab .lab-cards[data-active="0"] { grid-template-columns:minmax(0,2.5fr) minmax(0,1fr) minmax(0,1fr); }
 #episodeLab .lab-cards[data-active="1"] { grid-template-columns:minmax(0,1fr) minmax(0,2.5fr) minmax(0,1fr); }
 #episodeLab .lab-cards[data-active="2"] { grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,2.5fr); }
@@ -100,7 +100,7 @@
   #episodeLab .lab-machine { padding:5px; border-width:3px; border-radius:9px; }
   #episodeLab .lab-scene { height:clamp(270px,60vw,360px); }
   #episodeLab .lab-room { width:150%; max-width:none; left:-25%; }
-  #episodeLab .lab-cards { left:4%; right:4%; bottom:5px; gap:9px; }
+  #episodeLab .lab-cards { left:4%; right:4%; bottom:2px; gap:9px; }
   #episodeLab .lab-art { width:94%; max-width:125px; margin-bottom:8px; }
   #episodeLab .is-inspected .lab-art { width:100%; max-width:215px; }
   #episodeLab .lab-card-badge { font-size:8px; }
