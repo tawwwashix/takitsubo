@@ -10,6 +10,7 @@ const base=process.argv[2]||'http://127.0.0.1:8766';
    await p.setViewportSize({width,height:900});await p.goto(base+'/lab.html?eps=71,93,107');await ready();await p.evaluate(()=>document.fonts.ready);
    const before=await p.locator('#labShuffle').evaluate(e=>e.getBoundingClientRect().top+scrollY);
    assert(await p.locator('#labConfirm').isHidden());assert(await p.locator('#labSaveActions').evaluate(e=>e.inert));
+   assert.equal(await p.locator('.lab-card-badge:visible').count(),2);
    let anchor=null;
    for(let i=0;i<3;i++) {
     await p.locator('.lab-choose').nth(i).click();await p.waitForTimeout(350);
@@ -18,14 +19,18 @@ const base=process.argv[2]||'http://127.0.0.1:8766';
      const hit=id=>{const e=document.getElementById(id),a=r(id);return e.contains(document.elementFromPoint(a.x+a.width/2,a.y+a.height/2));};
      return {x:dock.x,y:dock.y+scrollY,width:dock.width,center:cards.x+cards.width/2,below:open.top-dock.bottom,navGap:shuffle.left-open.right,tagAligned:Math.abs(tags.top-number.top)<6,hit:hit('labConfirm')&&hit('labRegister')};
     });
+    assert.equal(await p.locator('.is-inspected .lab-card-badge:visible').count(),0);
+    assert.equal(await p.locator('.lab-card-badge:visible').count(),i<2?1:2);
+    const visibleLabels=await p.locator('.lab-card-badge:visible').evaluateAll(es=>es.map(e=>{const b=e.getBoundingClientRect(),a=e.parentElement.getBoundingClientRect(),dock=document.querySelector('#labSaveActions').getBoundingClientRect(),s=getComputedStyle(e);return {text:e.textContent,below:b.top>=a.bottom,clear:b.bottom<dock.top,background:s.backgroundColor,border:s.borderTopWidth};}));
+    assert(visibleLabels.every(b=>b.text==='登録済み'&&b.below&&b.clear&&b.background==='rgba(0, 0, 0, 0)'&&b.border==='0px'),JSON.stringify({width,i,visibleLabels}));
     assert(Math.abs(layout.x+layout.width/2-layout.center)<1);assert(layout.below>60);assert(layout.navGap>=20);assert(layout.tagAligned&&layout.hit);
     if(anchor)assert(Math.abs(layout.y-anchor.y)<1&&Math.abs(layout.x-anchor.x)<1);anchor=layout;
     assert(Math.abs(await p.locator('#labShuffle').evaluate(e=>e.getBoundingClientRect().top+scrollY)-before)<1);
    }
    assert.equal(await p.locator('#labSaveActions').evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)');
    assert.equal(await p.locator('.lab-card-badge:visible').count(),2);
-   const badges=await p.locator('.lab-card-badge:visible').evaluateAll(es=>es.map(e=>{const b=e.getBoundingClientRect(),a=e.parentElement.getBoundingClientRect(),dock=document.querySelector('#labSaveActions').getBoundingClientRect();return {text:e.textContent,aboveDock:b.bottom<dock.top,nearTop:b.top<a.top+a.height*.3,left:b.left,right:b.right};}));
-   assert(badges.every(b=>b.text==='✓ 登録済み'&&b.aboveDock&&b.nearTop&&b.left>=0&&b.right<=width));
+   const badges=await p.locator('.lab-card-badge:visible').evaluateAll(es=>es.map(e=>{const b=e.getBoundingClientRect(),a=e.parentElement.getBoundingClientRect(),dock=document.querySelector('#labSaveActions').getBoundingClientRect();return {text:e.textContent,aboveDock:b.bottom<dock.top,belowArt:b.top>=a.bottom,left:b.left,right:b.right};}));
+   assert(badges.every(b=>b.text==='登録済み'&&b.aboveDock&&b.belowArt&&b.left>=0&&b.right<=width));
    assert(badges[0].right<badges[1].left);
    await p.screenshot({path:`.local-preview/badges-${width}.png`,fullPage:true});
    await p.locator('#labShuffle').click();assert(await p.locator('#labConfirm').isHidden());

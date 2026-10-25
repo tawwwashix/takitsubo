@@ -52,8 +52,9 @@
 #episodeLab .lab-cart-step { position:absolute; right:calc(8% - 12px); top:4%; height:4%; width:24px; background:var(--case-dark); transform:rotateY(90deg); }
 #episodeLab .lab-cart-step-top { left:92%; right:2px; top:calc(8% - 12px); transform:rotateX(90deg); }
 #episodeLab .lab-cart-bottom { left:2px; right:2px; bottom:-12px; transform:rotateX(-90deg); background:var(--case-dark); }
-#episodeLab .lab-card-badge { position:absolute; z-index:3; top:6%; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:9px; line-height:1.5; color:#365e75; background:#edf7ff; border:1px solid #9dbccd; border-radius:4px; padding:2px 5px; pointer-events:none; }
+#episodeLab .lab-card-badge { position:absolute; z-index:3; top:calc(100% + 6px); left:50%; transform:translateX(-50%); white-space:nowrap; font-size:9px; line-height:1.5; color:#496b80; pointer-events:none; }
 #episodeLab .lab-card-badge:empty { display:none; }
+#episodeLab .is-inspected .lab-card-badge { visibility:hidden; }
 #episodeLab .lab-sender { position:absolute; bottom:22px; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:9px; background:#fff4b9; border:1px solid #b1a566; border-radius:3px; padding:2px 4px; z-index:3; pointer-events:none; }
 #episodeLab .is-inspected { z-index:3; }
 #episodeLab .is-inspected .lab-art { width:94%; max-width:240px; transform:translateY(0); }
@@ -238,7 +239,6 @@
 #episodeLab #labPartyShare { margin-bottom:0; }
 #episodeLab #labPartyShare .share-entry .sh-btn { font-size:12px;padding:10px 18px; }
 @media(max-width:760px) {
-  #episodeLab .lab-card { transform:translateY(-28px); }
   #episodeLab .lab-doctor,#episodeLab .lab-doctor img { width:34px;height:34px; }
   #episodeLab .lab-case-tools { gap:7px; }
   #episodeLab #labReorder { font-size:10px;min-width:64px; }

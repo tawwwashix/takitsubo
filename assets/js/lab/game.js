@@ -236,7 +236,7 @@ export async function mount(root, page) {
       button.setAttribute("aria-pressed", String(ep.number === inspected));
       const shadow = document.createElement("span"); shadow.className = "lab-shadow"; shadow.setAttribute("aria-hidden", "true");
       button.append(createCartridge(ep), shadow);
-      const badge = document.createElement("span"); badge.className = "lab-card-badge"; badge.textContent = collection.has(ep.number) ? "✓ 登録済み" : ""; button.querySelector('.lab-art').append(badge);
+      const badge = document.createElement("span"); badge.className = "lab-card-badge"; badge.textContent = collection.has(ep.number) ? "登録済み" : ""; button.querySelector('.lab-art').append(badge);
 
       button.addEventListener("click", () => inspect(ep));
 
