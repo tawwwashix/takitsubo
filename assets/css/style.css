@@ -1533,7 +1533,6 @@ a.series-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hove
   background: rgba(255,255,255,.94); box-shadow: var(--shadow);
 }
 .awq-season.is-current {
-  border-top: 5px solid var(--cyan);
   background: linear-gradient(180deg, #FFFFFF, #F4FAFF);
   box-shadow: 0 12px 34px rgba(30, 126, 214, .17);
 }

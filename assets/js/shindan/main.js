@@ -71,8 +71,6 @@ export async function mount(panel, page) {
       HASHTAG + " #ふさわしいゲーム診断\n" + SITE_URL;
     panel.innerHTML =
       '<div class="sh-screen">' +
-      '<p class="sh-lede">なまえを入力するだけ。<br>滝壺で語られた <strong>' + DATA.games.length + 'タイトル</strong> から、<br>あなたにふさわしい一本を決定します。</p>' +
-      '<p class="sh-lede-sub">なまえが変わると、結果も変わります。<br>新しい回が配信されるたびに候補も増えていきます。</p>' +
       '<form class="sh-name-form" id="shForm" novalidate>' +
       '<label class="sh-name-label" for="shName">なまえ（結果と画像に入ります・' + NAME_MAX + '文字まで）</label>' +
       '<input class="sh-name" id="shName" type="text" maxlength="' + NAME_MAX + '" placeholder="例: たわし" autocomplete="off" required aria-describedby="shNameError" value="' + esc(state.name || "") + '">' +
