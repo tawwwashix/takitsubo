@@ -4,6 +4,7 @@ const base=process.argv[2]||'http://127.0.0.1:8766';
  const b=await chromium.launch({channel:'chrome'}),ctx=await b.newContext(),p=await ctx.newPage(),errors=[];
  await ctx.route(/google-analytics\.com|googletagmanager\.com/,r=>r.abort());p.on('pageerror',e=>errors.push(e.message));
  const ready=()=>p.locator('.lab-choose').first().waitFor();
+ await ctx.addInitScript(()=>{if(!localStorage.getItem('takitsubo:episode-lab:collection:v1'))localStorage.setItem('takitsubo:episode-lab:collection:v1','[71,93]');});
  try {
   for(const width of [320,390,660,1280]) {
    await p.setViewportSize({width,height:900});await p.goto(base+'/lab.html?eps=71,93,107');await ready();await p.evaluate(()=>document.fonts.ready);
@@ -21,6 +22,12 @@ const base=process.argv[2]||'http://127.0.0.1:8766';
     if(anchor)assert(Math.abs(layout.y-anchor.y)<1&&Math.abs(layout.x-anchor.x)<1);anchor=layout;
     assert(Math.abs(await p.locator('#labShuffle').evaluate(e=>e.getBoundingClientRect().top+scrollY)-before)<1);
    }
+   assert.equal(await p.locator('#labSaveActions').evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)');
+   assert.equal(await p.locator('.lab-card-badge:visible').count(),2);
+   const badges=await p.locator('.lab-card-badge:visible').evaluateAll(es=>es.map(e=>{const b=e.getBoundingClientRect(),a=e.parentElement.getBoundingClientRect(),dock=document.querySelector('#labSaveActions').getBoundingClientRect();return {text:e.textContent,aboveDock:b.bottom<dock.top,nearTop:b.top<a.top+a.height*.3,left:b.left,right:b.right};}));
+   assert(badges.every(b=>b.text==='✓ 登録済み'&&b.aboveDock&&b.nearTop&&b.left>=0&&b.right<=width));
+   assert(badges[0].right<badges[1].left);
+   await p.screenshot({path:`.local-preview/badges-${width}.png`,fullPage:true});
    await p.locator('#labShuffle').click();assert(await p.locator('#labConfirm').isHidden());
    assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   }
@@ -44,12 +51,12 @@ const base=process.argv[2]||'http://127.0.0.1:8766';
   });
   for(const c of cases) {
    const visible=['visible','bottom-partial','top-partial'].includes(c.name);
-   assert.equal(c.duration,visible?1700:420);
-   if(visible){assert.equal(Math.round(c.times[2]-c.times[1]),1000);assert.equal(Math.round(c.ys[1]-c.ys[2]),7);assert.equal(Math.round(c.ys[3]-c.ys[2]),21);}
+   assert.equal(c.duration,visible?1300:420);
+   if(visible){assert.equal(Math.round(c.times[2]-c.times[1]),600);assert.equal(Math.round(c.ys[1]-c.ys[2]),7);assert.equal(Math.round(c.ys[3]-c.ys[2]),21);}
    if(['bottom-partial','below'].includes(c.name))assert(c.ys.at(-1)>0,JSON.stringify(c));
    if(c.name==='above')assert(c.ys.at(-1)<0);
   }
-  console.log('PASS one-second anticipation, fast insertion, all viewport edge directions',cases.map(c=>[c.name,c.duration]));
+  console.log('PASS 600ms anticipation, fast insertion, all viewport edge directions',cases.map(c=>[c.name,c.duration]));
 
   await p.evaluate(()=>{localStorage.setItem('takitsubo:episode-lab:party:v1','[107,59,108,60,105,109]');localStorage.setItem('takitsubo:episode-lab:collection:v1','[71,107,59,108,60,105,109]');});
   await p.setViewportSize({width:390,height:844});await p.goto(base+'/lab.html?eps=71,93,12');await ready();await p.evaluate(()=>document.fonts.ready);

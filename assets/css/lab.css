@@ -33,7 +33,7 @@
 #episodeLab .lab-card { --yaw:-16deg; position:relative; min-width:0; text-align:center; }
 #episodeLab .lab-card:nth-child(2) { --yaw:-10deg; }
 #episodeLab .lab-card:nth-child(3) { --yaw:14deg; }
-#episodeLab .lab-choose { display:flex; position:relative; flex-direction:column; align-items:center; width:100%; padding:0; border:0; background:none; color:var(--lab-ink); perspective:900px; }
+#episodeLab .lab-choose { display:flex; position:relative; flex-direction:column; align-items:center; width:100%; padding:0 0 21px; border:0; background:none; color:var(--lab-ink); perspective:900px; }
 #episodeLab .lab-choose:focus-visible { outline-offset:5px; border-radius:5px; }
 #episodeLab .lab-art { display:block; position:relative; width:78%; max-width:200px; aspect-ratio:6/7; perspective:800px; margin:0 auto 20px; transform:translateY(0); transition:transform .22s ease,width .3s ease; z-index:2; }
 #episodeLab .lab-float { display:block; width:100%; height:100%; transform-style:preserve-3d; animation:lab-float 4.8s ease-in-out infinite; animation-delay:calc(var(--slot,0)*-1.4s); }
@@ -52,7 +52,8 @@
 #episodeLab .lab-cart-step { position:absolute; right:calc(8% - 12px); top:4%; height:4%; width:24px; background:var(--case-dark); transform:rotateY(90deg); }
 #episodeLab .lab-cart-step-top { left:92%; right:2px; top:calc(8% - 12px); transform:rotateX(90deg); }
 #episodeLab .lab-cart-bottom { left:2px; right:2px; bottom:-12px; transform:rotateX(-90deg); background:var(--case-dark); }
-#episodeLab .lab-card-badge { font-size:9px; line-height:1.5; color:#466b55; min-height:17px; margin-top:4px; }
+#episodeLab .lab-card-badge { position:absolute; z-index:3; top:6%; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:9px; line-height:1.5; color:#365e75; background:#edf7ff; border:1px solid #9dbccd; border-radius:4px; padding:2px 5px; pointer-events:none; }
+#episodeLab .lab-card-badge:empty { display:none; }
 #episodeLab .lab-sender { position:absolute; bottom:22px; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:9px; background:#fff4b9; border:1px solid #b1a566; border-radius:3px; padding:2px 4px; z-index:3; pointer-events:none; }
 #episodeLab .is-inspected { z-index:3; }
 #episodeLab .is-inspected .lab-art { width:94%; max-width:240px; transform:translateY(0); }
@@ -188,6 +189,8 @@
 #episodeLab .lab-save-actions { position:absolute;z-index:5;bottom:7px;left:50%;transform:translateX(-50%);visibility:hidden;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);justify-self:center;width:min(calc(100% - 20px),400px);gap:10px;margin:0; }
 #episodeLab .lab-save-actions button { min-height:44px;padding:6px 10px;white-space:normal;font-size:12px;line-height:1.4; }
 #episodeLab .lab-save-actions button:disabled { opacity:.6;cursor:default;transform:none; }
+/* Narrow screens can wrap the registered button label: reserve two lines. */
+@media(max-width:360px) { #episodeLab .lab-save-actions button { min-height:50px; } }
 #episodeLab .lab-card-meta { display:flex;align-items:center;justify-content:space-between;gap:4px;flex-wrap:wrap;min-height:22px;font-size:10px;line-height:1.5; }
 #episodeLab .lab-party-mark { display:inline-block;white-space:nowrap; }
 #episodeLab .lab-sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0; }
@@ -282,7 +285,7 @@
 
 /* Separate registration from navigation. Shadows may pass behind the dock. */
 #episodeLab .lab-save-actions.is-visible { visibility:visible; }
-#episodeLab .lab-save-actions { padding:3px;background:#e4f3fbbf;border-radius:5px; }
+#episodeLab .lab-save-actions { padding:3px; }
 #episodeLab .lab-detail-meta { display:flex;align-items:center;gap:16px;min-width:0; }
 #episodeLab .lab-detail-meta .lab-number { flex-shrink:0; }
 #episodeLab .lab-detail-meta .lab-tags { flex:1;min-width:0;text-align:right; }

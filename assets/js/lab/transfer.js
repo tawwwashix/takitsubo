@@ -1,4 +1,22 @@
 // Cosmetic only: persistence completes before this animation starts.
+// 調整用: 時間はミリ秒、距離・幅はpx。全体時間と各段階の時刻は自動計算する。
+const TRANSFER_MOTION = {
+  travelMs: 350,       // 登録先の少し上まで移動する時間
+  holdMs: 600,         // 溜めながらゆっくり浮上する時間
+  insertMs: 100,       // 下へ差し込む時間
+  flashMs: 50,         // 差し込み後、光が最大になるまでの時間
+  settleMs: 200,       // 光を戻す／図鑑へ消える時間
+  offscreenMs: 420,    // 登録先が画面外にある場合の移動時間
+  arrivalLiftPx: 14,   // 到着時、登録先より上に浮かせる距離
+  holdRisePx: 7,       // 溜め中にさらに浮上する距離
+  maxWidthPx: 88,      // 飛び出すコピーの最大幅
+  compactScale: .65,  // 図鑑・画面外へ向かうコピーの到着時倍率
+  vanishScale: .2,    // 図鑑へ消える直前の倍率
+  flashBrightness: 1.5, // 発光の明るさ（1が通常）
+  travelEasing: 'cubic-bezier(.2,.7,.3,1)',
+  insertEasing: 'cubic-bezier(.7,0,1,1)'
+};
+
 export function installTransfer(root, page, createCartridge, enabled) {
   let flight = null, animation = null, target = null, frame = null;
   function cancel() {
@@ -14,30 +32,36 @@ export function installTransfer(root, page, createCartridge, enabled) {
     if (!end.width || !sourceRect.width) return;
     // Partial visibility is not an above-screen destination.
     const visible = end.bottom > 0 && end.top < innerHeight && end.right > 0 && end.left < innerWidth;
-    const width = Math.min(88, end.width, sourceRect.width), height = width * 7 / 6;
+    const motion = TRANSFER_MOTION;
+    const width = Math.min(motion.maxWidthPx, end.width, sourceRect.width), height = width * 7 / 6;
     const startX = sourceRect.left + sourceRect.width / 2 - width / 2;
     const sourceY = sourceRect.top - (sourceRect.documentPosition ? scrollY : 0);
     const startY = Math.max(-height, Math.min(innerHeight, sourceY + sourceRect.height / 2 - height / 2));
     const x = end.left + end.width / 2 - width / 2;
     const y = visible ? end.top + end.height / 2 - height / 2 : (end.bottom <= 0 ? -height * 2 : innerHeight + height);
-    const dx = x - startX, dy = y - startY, scale = !dex && visible ? end.width / width : .65;
+    const dx = x - startX, dy = y - startY, scale = !dex && visible ? end.width / width : motion.compactScale;
     const pose = (lift = 0, size = scale) => `translate(${dx}px,${dy - lift}px) scale(${size})`;
     flight = document.createElement('div'); flight.className = 'lab-transfer'; flight.setAttribute('aria-hidden', 'true');
     flight.style.cssText = `left:${startX}px;top:${startY}px;width:${width}px`;
     flight.append(createCartridge(ep, true)); root.append(flight);
     if (visible && !dex) { target = destination; target.classList.add('is-arriving'); }
+    const arrivedAt = motion.travelMs;
+    const heldAt = arrivedAt + motion.holdMs;
+    const insertedAt = heldAt + motion.insertMs;
+    const flashedAt = insertedAt + motion.flashMs;
+    const totalMs = flashedAt + motion.settleMs;
     const frames = visible ? [
-      {transform:'translate(0,0) scale(1)', opacity:1, offset:0, easing:'cubic-bezier(.2,.7,.3,1)'},
-      {transform:pose(14), opacity:1, offset:350/1700, easing:'linear'},
-      {transform:pose(21), opacity:1, offset:1350/1700, easing:'cubic-bezier(.7,0,1,1)'},
-      {transform:pose(), opacity:1, filter:'brightness(1)', offset:1450/1700},
-      {transform:pose(), opacity:1, filter:'brightness(1.5)', offset:1500/1700},
-      {transform:pose(0, dex ? .2 : scale), opacity:dex ? 0 : 1, filter:'brightness(1)', offset:1}
+      {transform:'translate(0,0) scale(1)', opacity:1, offset:0, easing:motion.travelEasing},
+      {transform:pose(motion.arrivalLiftPx), opacity:1, offset:arrivedAt/totalMs, easing:'linear'},
+      {transform:pose(motion.arrivalLiftPx + motion.holdRisePx), opacity:1, offset:heldAt/totalMs, easing:motion.insertEasing},
+      {transform:pose(), opacity:1, filter:'brightness(1)', offset:insertedAt/totalMs},
+      {transform:pose(), opacity:1, filter:`brightness(${motion.flashBrightness})`, offset:flashedAt/totalMs},
+      {transform:pose(0, dex ? motion.vanishScale : scale), opacity:dex ? 0 : 1, filter:'brightness(1)', offset:1}
     ] : [
       {transform:'translate(0,0) scale(1)', opacity:1},
       {transform:pose(), opacity:0}
     ];
-    animation = flight.animate(frames, {duration:visible ? 1700 : 420, easing:'linear', fill:'forwards'});
+    animation = flight.animate(frames, {duration:visible ? totalMs : motion.offscreenMs, easing:'linear', fill:'forwards'});
     const current = animation;
     current.finished.then(() => { if (animation === current) cancel(); }).catch(() => {});
   }
