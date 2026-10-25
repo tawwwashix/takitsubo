@@ -15,6 +15,11 @@ with tempfile.TemporaryDirectory(dir=scratch) as directory:
     build.ROOT = root
     before = build.lab_version()
     common = build.navigation_version()
+    for newline in (b'\n', b'\r\n'):
+        for source in sources.glob('*.js'):
+            source.write_bytes(source.read_bytes().replace(b'\r\n', b'\n').replace(b'\n', newline))
+        assert build.lab_version() == before, 'Checkout newline style changed the lab version'
+    print('PASS LF and CRLF checkouts keep the same lab bundle version')
     for source in sources.glob('*.js'):
         content = source.read_bytes()
         source.write_bytes(content + b'\n// changed\n')

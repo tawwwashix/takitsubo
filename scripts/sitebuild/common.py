@@ -129,7 +129,8 @@ def lab_version():
     digest = hashlib.md5()
     for source in sorted((ROOT / "assets/js/lab").glob("*.js")):
         digest.update(source.name.encode("utf-8"))
-        digest.update(source.read_bytes())
+        # Git may check out text as CRLF. The same JS must keep the same version.
+        digest.update(source.read_bytes().replace(b'\r\n', b'\n'))
     return digest.hexdigest()[:8]
 
 
