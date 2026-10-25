@@ -6,10 +6,10 @@ from .output import write_output
 
 
 def recommended_episodes():
-    """設定順に3件を選ぶ。入力ミスはページ生成前に検出する。"""
+    """設定順に4件を選ぶ。入力ミスはページ生成前に検出する。"""
     numbers = SITE.get("recommended_episodes", [])
-    if not isinstance(numbers, list) or len(numbers) != 3:
-        raise ValueError("site.json: recommended_episodes はエピソード番号を3件指定してください")
+    if not isinstance(numbers, list) or len(numbers) != 4:
+        raise ValueError("site.json: recommended_episodes はエピソード番号を4件指定してください")
     if any(type(n) is not int or n not in EPS_BY_NUM for n in numbers):
         raise ValueError("site.json: recommended_episodes には存在するエピソードの整数番号を指定してください")
     if len(set(numbers)) != len(numbers):

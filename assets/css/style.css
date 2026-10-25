@@ -766,6 +766,7 @@ a.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); tex
 .ep-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
 }
+.ep-grid.recommended-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .ep-card {
   position: relative; isolation: isolate;
   display: flex; flex-direction: column;
@@ -1841,15 +1842,16 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   .hero .services { justify-content: center; }
   .float-maguro { width: 76px; top: 6%; }
   .float-kani { width: 58px; }
-  .news-bar { border-radius: 18px; flex-wrap: wrap; }
-  .nb-item { white-space: normal; }
+  .news-bar {
+    border-radius: 18px; display: grid;
+    grid-template-columns: auto 1fr; gap: 9px 13px;
+  }
+  .nb-label { grid-column: 1; grid-row: 1; }
+  .nb-more { grid-column: 2; grid-row: 1; justify-self: end; }
+  .nb-item { grid-column: 1 / -1; grid-row: 2; white-space: normal; overflow: visible; }
 }
 @media (max-width: 640px) {
   .news-item { column-gap: 12px; }
-  .recommended-grid { grid-template-columns: minmax(0, 1fr); }
-  .recommended-grid .ep-card { flex-direction: row; align-items: flex-start; }
-  .recommended-grid .ep-card-img { width: 28%; flex-shrink: 0; }
-  .recommended-grid .ep-card-body { min-width: 0; }
   .ep-card.featured { flex-direction: column; }
   .ep-card.featured .ep-card-img { width: 100%; }
   /* エピソードヒーロー: 縦積みにしてアートワークを中央寄せ。
