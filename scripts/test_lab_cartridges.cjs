@@ -8,6 +8,30 @@ const key = 'takitsubo:episode-lab:collection:v1';
 const legacyKey = 'takitsubo:excavation:v1';
 const retired = ['excavate.html','assets/js/excavate-loader.js','assets/js/excavate/game.js','assets/css/excavate.css','start-excavation.bat','scripts/preview_excavation.py'];
 
+// Check actual computed geometry, including frames inside a size transition.
+const measureDepth = async ({frames=1,select=null}={}) => {
+  if(select!==null) document.querySelectorAll('.lab-choose')[select].click();
+  const errors=[], widths=[];
+  for(let frame=0;frame<frames;frame++) {
+    await new Promise(requestAnimationFrame);
+    for(const art of document.querySelectorAll('#labCards .lab-art')) {
+      const style=selector=>getComputedStyle(art.querySelector(selector));
+      const width=parseFloat(getComputedStyle(art).width), depth=width*.12;
+      const near=(value,expected,label)=>{if(Math.abs(value-expected)>.08)errors.push({frame,width,label,value,expected});};
+      widths.push(width);
+      near(new DOMMatrix(style('.lab-cart-front').transform).m43,depth/2,'front');
+      near(new DOMMatrix(style('.lab-cart-back').transform).m43,-depth/2,'back');
+      for(const face of ['.lab-cart-left','.lab-cart-right','.lab-cart-step'])near(parseFloat(style(face).width),depth,face);
+      for(const face of ['.lab-cart-top','.lab-cart-bottom','.lab-cart-step-top'])near(parseFloat(style(face).height),depth,face);
+      near(parseFloat(style('.lab-cart-left').left),-depth/2,'left seam');
+      near(parseFloat(style('.lab-cart-right').right),-depth/2,'right seam');
+      near(parseFloat(style('.lab-cart-top').top),-depth/2,'top seam');
+      near(parseFloat(style('.lab-cart-bottom').bottom),-depth/2,'bottom seam');
+    }
+  }
+  return {errors,widths};
+};
+
 (async () => {
   const source = fs.readFileSync(path.resolve(__dirname,'../assets/js/lab/cartridge.js'),'utf8');
   const { cartridgeTone } = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
@@ -40,6 +64,7 @@ const retired = ['excavate.html','assets/js/excavate-loader.js','assets/js/excav
     check('Starts unselected, fixed gray/black/color cases, requested chrome removed');
     for(const [width,height] of [[320,700],[390,844],[600,900],[768,1024],[1280,850]]) {
       await p.setViewportSize({width,height}); await p.goto(url); await p.locator('.lab-choose').first().waitFor();
+      assert.deepEqual((await p.evaluate(measureDepth)).errors,[]);
       const neutral=await p.locator('#labCards .lab-art').first().boundingBox();
       for(let i=0;i<3;i++) {
         await p.locator('.lab-choose').nth(i).tap();
@@ -60,11 +85,16 @@ const retired = ['excavate.html','assets/js/excavate-loader.js','assets/js/excav
           });
         });
         assert(inside,'Clipped enlarged cartridge at '+width+' slot '+i);
+        assert.deepEqual((await p.evaluate(measureDepth)).errors,[]);
       }
       assert.equal(await p.evaluate(k=>localStorage.getItem(k),key),null);
     }
+    const transition=await p.evaluate(measureDepth,{frames:24,select:0});
+    assert.deepEqual(transition.errors,[]);assert(new Set(transition.widths.map(w=>w.toFixed(1))).size>3);
+    check('Proportional depth and connected faces at all sizes, including enlargement frames');
     check('Every slot enlarges without clipping; all three remain touchable at 320–1280px; inspection does not save');
     await p.setViewportSize({width:390,height:844});
+    await p.locator('.lab-choose').nth(2).tap();await p.waitForTimeout(400);
     await p.locator('#labConfirm').tap();
     await p.locator('.lab-choose').nth(2).tap();
     const before=await p.locator('.is-inspected .lab-cartridge').evaluate(e=>getComputedStyle(e).transform);

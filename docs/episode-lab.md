@@ -169,3 +169,7 @@ Windowsの制限環境ではChromeのファイル保存がキャンセルされ�
 移動演出は `assets/js/lab/transfer.js` 冒頭の `TRANSFER_MOTION` で調整する。時間はミリ秒、距離と幅はpx。`holdMs: 600` が溜め時間で、例えば400にすれば0.4秒になる。`travelMs` は移動、`insertMs` は差し込み、`flashMs` は発光の立ち上がり、`settleMs` は余韻、`offscreenMs` は画面外への移動時間。全体時間とキーフレームの位置は自動計算される。時間は0以上で、全体時間は0より大きくする。
 
 `arrivalLiftPx` は到着時の高さ、`holdRisePx` は溜め中にさらに浮上する距離。差し込む距離は両者の合計になる。`maxWidthPx` はコピーの最大幅、`compactScale` / `vanishScale` は縮小倍率、`flashBrightness` は光の明るさ。変更後は `python scripts/build.py --page lab` を実行してからブラウザを再読み込みする。生成HTMLは直接編集しない。
+
+## カートリッジの厚み
+
+`assets/css/lab.css` 冒頭の `--lab-depth-ratio:12` が正面幅に対する厚みの百分率。12なら幅200pxで24px、80pxで9.6pxになる。`.lab-art` を幅の基準とし、子の立体面が `cqw` から厚みを計算する。表裏のZ位置、側面、上下面、段差は同じ値に追従し、選択の拡大・縮小中も比率を保つ。追加のJavaScript監視や毎フレームの描画処理は使わない。変更後は `python scripts/build.py --page lab` で再生成する。

@@ -4,6 +4,8 @@
    選択・ホバー・画面幅の上書きは下側の該当セクションで調整する。 */
 #episodeLab {
   --lab-ink:#284e60; --lab-paper:#f4faff;
+  /* カートリッジの厚み: 正面幅に対する百分率。12なら幅200pxで厚み24px。 */
+  --lab-depth-ratio:12;
   /* 「手持ちに加える」の色。通常・ホバー・文字・縁・影をここで調整。 */
   --lab-confirm-bg:#f4afa0;
   --lab-confirm-hover:#f09c8b;
@@ -35,23 +37,23 @@
 #episodeLab .lab-card:nth-child(3) { --yaw:14deg; }
 #episodeLab .lab-choose { display:flex; position:relative; flex-direction:column; align-items:center; width:100%; padding:0 0 21px; border:0; background:none; color:var(--lab-ink); perspective:900px; }
 #episodeLab .lab-choose:focus-visible { outline-offset:5px; border-radius:5px; }
-#episodeLab .lab-art { display:block; position:relative; width:78%; max-width:200px; aspect-ratio:6/7; perspective:800px; margin:0 auto 20px; transform:translateY(0); transition:transform .22s ease,width .3s ease; z-index:2; }
+#episodeLab .lab-art { display:block; position:relative; width:78%; max-width:200px; aspect-ratio:6/7; container-type:inline-size; perspective:800px; margin:0 auto 20px; transform:translateY(0); transition:transform .22s ease,width .3s ease; z-index:2; }
 #episodeLab .lab-float { display:block; width:100%; height:100%; transform-style:preserve-3d; animation:lab-float 4.8s ease-in-out infinite; animation-delay:calc(var(--slot,0)*-1.4s); }
-#episodeLab .lab-cartridge { display:block; position:relative; width:100%; height:100%; transform-style:preserve-3d; transform:rotateX(-7deg) rotateY(var(--yaw)); animation:lab-rock 7s ease-in-out infinite; animation-delay:calc(var(--slot,0)*-1.8s); }
+#episodeLab .lab-cartridge { --case-depth:calc(var(--lab-depth-ratio) * 1cqw); --case-half-depth:calc(var(--case-depth) / 2); display:block; position:relative; width:100%; height:100%; transform-style:preserve-3d; transform:rotateX(-7deg) rotateY(var(--yaw)); animation:lab-rock 7s ease-in-out infinite; animation-delay:calc(var(--slot,0)*-1.8s); }
 #episodeLab .lab-cart-front,#episodeLab .lab-cart-back { position:absolute; inset:0; backface-visibility:hidden; }
-#episodeLab .lab-cart-front { transform:translateZ(12px); }
+#episodeLab .lab-cart-front { transform:translateZ(var(--case-half-depth)); }
 #episodeLab .lab-cart-shell { position:absolute; inset:0; width:100%; height:100%; display:block; }
 #episodeLab .lab-cart-picture { position:absolute; left:8.75%; top:23.57%; width:82.5%; aspect-ratio:1; overflow:hidden; border-radius:2px; background:#fffaf0; }
 #episodeLab .lab-cart-picture img { display:block; width:100%; height:100%; object-fit:contain; }
-#episodeLab .lab-cart-back { background:var(--case-dark); clip-path:polygon(0 0,88% 0,92% 4%,92% 8%,100% 8%,100% 100%,0 100%); transform:translateZ(-12px) rotateY(180deg); }
-#episodeLab .lab-cart-side { position:absolute; width:24px; background:var(--case-dark); border:1px solid var(--case-ink); }
-#episodeLab .lab-cart-left { top:2px; bottom:2px; left:-12px; transform:rotateY(-90deg); }
-#episodeLab .lab-cart-right { top:8%; bottom:2px; right:-12px; transform:rotateY(90deg); }
-#episodeLab .lab-cart-top,#episodeLab .lab-cart-bottom,#episodeLab .lab-cart-step-top { position:absolute; height:24px; background:var(--case-body); border:1px solid var(--case-dark); }
-#episodeLab .lab-cart-top { left:2px; right:12%; top:-12px; transform:rotateX(90deg); }
-#episodeLab .lab-cart-step { position:absolute; right:calc(8% - 12px); top:4%; height:4%; width:24px; background:var(--case-dark); transform:rotateY(90deg); }
-#episodeLab .lab-cart-step-top { left:92%; right:2px; top:calc(8% - 12px); transform:rotateX(90deg); }
-#episodeLab .lab-cart-bottom { left:2px; right:2px; bottom:-12px; transform:rotateX(-90deg); background:var(--case-dark); }
+#episodeLab .lab-cart-back { background:var(--case-dark); clip-path:polygon(0 0,88% 0,92% 4%,92% 8%,100% 8%,100% 100%,0 100%); transform:translateZ(calc(-1 * var(--case-half-depth))) rotateY(180deg); }
+#episodeLab .lab-cart-side { position:absolute; width:var(--case-depth); background:var(--case-dark); border:1px solid var(--case-ink); }
+#episodeLab .lab-cart-left { top:2px; bottom:2px; left:calc(-1 * var(--case-half-depth)); transform:rotateY(-90deg); }
+#episodeLab .lab-cart-right { top:8%; bottom:2px; right:calc(-1 * var(--case-half-depth)); transform:rotateY(90deg); }
+#episodeLab .lab-cart-top,#episodeLab .lab-cart-bottom,#episodeLab .lab-cart-step-top { position:absolute; height:var(--case-depth); background:var(--case-body); border:1px solid var(--case-dark); }
+#episodeLab .lab-cart-top { left:2px; right:12%; top:calc(-1 * var(--case-half-depth)); transform:rotateX(90deg); }
+#episodeLab .lab-cart-step { position:absolute; right:calc(8% - var(--case-half-depth)); top:4%; height:4%; width:var(--case-depth); background:var(--case-dark); transform:rotateY(90deg); }
+#episodeLab .lab-cart-step-top { left:92%; right:2px; top:calc(8% - var(--case-half-depth)); transform:rotateX(90deg); }
+#episodeLab .lab-cart-bottom { left:2px; right:2px; bottom:calc(-1 * var(--case-half-depth)); transform:rotateX(-90deg); background:var(--case-dark); }
 #episodeLab .lab-card-badge { position:absolute; z-index:3; top:calc(100% + 6px); left:50%; transform:translateX(-50%); white-space:nowrap; font-size:9px; line-height:1.5; color:#496b80; pointer-events:none; }
 #episodeLab .lab-card-badge:empty { display:none; }
 #episodeLab .is-inspected .lab-card-badge { visibility:hidden; }
