@@ -46,4 +46,3 @@ export function createCartridge(ep, miniature = false) {
   art.querySelector(".lab-cart-picture").append(img);
   return art;
 }
-

@@ -74,4 +74,3 @@ export function installPartyReorder(grid, swap, page, onStart = () => {}) {
   page.onDispose(cancel);
   return cancel;
 }
-

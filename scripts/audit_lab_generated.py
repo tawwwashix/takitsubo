@@ -1,8 +1,9 @@
-"""Read-only audit of this branch's generated pages against its merge base.
+"""Read-only audit against the pre-lab baseline, including after main integration.
 
 Only the new lab, homepage bubble and diagnosis markup may change page bodies.
 Other existing HTML may only change navigation/loader/asset versions and the lab news entry.
 """
+import argparse
 import json
 import pathlib
 import re
@@ -28,7 +29,10 @@ def normalize(text):
 
 
 if __name__ == '__main__':
-    base = git('merge-base', 'main', 'HEAD').strip()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--base-ref', default='6471908e9dcf970df93bf6f765aab92c02bc7301',
+                        help='Pre-lab revision to compare; fixed so merging main does not move the baseline')
+    base = git('rev-parse', '--verify', parser.parse_args().base_ref + '^{commit}').strip()
     paths = git('ls-tree', '-r', '--name-only', base).splitlines()
     checked, unexpected = 0, []
     for path in paths:
