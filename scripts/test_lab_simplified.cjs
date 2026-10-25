@@ -18,7 +18,7 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
     for(let i=0;i<3;i++) {
      await p.locator('.lab-choose').nth(i).click();await p.waitForTimeout(350);
      const rect=await p.locator('#labInspection').boundingBox();assert(Math.abs(rect.height-initial.height)<1,'Details change height');
-     const confirm=await p.locator('#labOpen').boundingBox();assert(Math.abs(confirm.x+confirm.width/2-(rect.x+rect.width/2))<1);
+     const confirm=await p.locator('#labOpen').boundingBox(),shuffle=await p.locator('#labShuffle').boundingBox();assert(confirm.x+confirm.width+20<=shuffle.x);assert(confirm.height>=44&&shuffle.height>=44);
      assert.equal(await p.locator('.lab-card-title,#labResult,#labAddParty').count(),0);
      assert(!(await p.locator('#episodeLab').innerText()).includes('どんな話か、出会ってみよう'));
      assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
@@ -51,7 +51,7 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
    assert.equal(await p.locator('#labItemMove,#labPositions').count(),0);await p.keyboard.press('Escape');
    await p.locator('#labReorder').click();await p.locator('#labPartyGrid [data-number="1"]').focus();await p.keyboard.press('Enter');await p.locator('#labPartyGrid [data-number="3"]').focus();await p.keyboard.press('Enter');assert.deepEqual(await stored(),[2,3,1,4,5,6]);
    await p.keyboard.press('Escape');await p.reload();await p.locator('.lab-choose').first().waitFor();assert.deepEqual(await order(),[2,3,1,4,5,6]);
-   await ctx.close();console.log('PASS stable details, centered CTA, '+(mobile?'long-press touch drag / scroll / tap':'mouse drag')+', outside cancel, keyboard alternative, saved order');
+   await ctx.close();console.log('PASS stable details, separated navigation, '+(mobile?'long-press touch drag / scroll / tap':'mouse drag')+', outside cancel, keyboard alternative, saved order');
   }
   assert.deepEqual(errors,[]);
  } finally {await browser.close();}

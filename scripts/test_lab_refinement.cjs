@@ -11,7 +11,7 @@ const PARTY='takitsubo:episode-lab:party:v1', DEX='takitsubo:episode-lab:collect
   const ready=()=>p.locator('.lab-choose').first().waitFor();
   const state=()=>p.evaluate(({PARTY,DEX})=>({party:JSON.parse(localStorage.getItem(PARTY)),dex:JSON.parse(localStorage.getItem(DEX))}),{PARTY,DEX});
   try {
-    await p.goto(base+'/lab.html?eps=31,22,23');await ready();
+    await p.goto(base+'/lab.html?eps=31,22,23');await ready();await p.evaluate(()=>document.fonts.ready);
     const stats=await p.evaluate(async()=>{
       const url=new URL(document.querySelector('#episodeLab').dataset.module,location.href);url.pathname=url.pathname.replace('game.js','selection.js');
       const {drawRound,readSharedParty}=await import(url);
@@ -37,12 +37,12 @@ const PARTY='takitsubo:episode-lab:party:v1', DEX='takitsubo:episode-lab:collect
     await p.route('**/data/search.json*',r=>r.fulfill({json:source}));
     for(const width of [320,390,768,1280]) {
       await p.setViewportSize({width,height:900});
-      await p.goto(base+'/lab.html?eps=31,22,23');await ready();
+      await p.goto(base+'/lab.html?eps=31,22,23');await ready();await p.evaluate(()=>document.fonts.ready);
       const top=()=>p.locator('#labShuffle').evaluate(e=>e.getBoundingClientRect().top+scrollY);
       const before=await top();
       await p.locator('.lab-choose').first().click();
       assert(await p.locator('#labInspectTitle').evaluate(e=>e.scrollHeight>e.clientHeight));
-      await p.locator('#labInspectTitle').evaluate(e=>e.scrollTop=50);
+      assert.equal(await p.locator('#labInspectTitle').evaluate(e=>getComputedStyle(e).webkitLineClamp),width<=760?'3':'2');
       for(let i=0;i<12;i++) {
         await p.locator('#labShuffle').evaluate(e=>e.click());
         await p.locator('.lab-choose').nth(i%3).evaluate(e=>e.click());
@@ -69,7 +69,7 @@ const PARTY='takitsubo:episode-lab:party:v1', DEX='takitsubo:episode-lab:collect
     await p.goto(base+'/lab.html?party=1,999999');await ready();assert((await p.locator('#labNotice').textContent()).includes('手持ちは読み取れなかった'));
     console.log('PASS recipient view, episode navigation/back, own records unchanged, invalid-link recovery');
 
-    await p.goto(base+'/lab.html?eps=31,22,23');await ready();
+    await p.goto(base+'/lab.html?eps=31,22,23');await ready();await p.evaluate(()=>document.fonts.ready);
     await p.locator('.lab-choose').first().click();await p.locator('#labConfirm').click();
     assert.equal(await p.locator('#labSendDex').count(),0);
     assert.equal(await p.locator('#labReplaceTitle').textContent(),'手持ちがいっぱいだ！ どれと入れ替える？');
@@ -98,10 +98,10 @@ const PARTY='takitsubo:episode-lab:party:v1', DEX='takitsubo:episode-lab:collect
     console.log('PASS uniform short-title tiles, cancel without registration, tap and drag in reorder mode');
 
     await p.evaluate(({PARTY,DEX})=>{localStorage.setItem(PARTY,'[]');localStorage.setItem(DEX,'[]');},{PARTY,DEX});
-    await p.goto(base+'/lab.html?eps=31,22,23');await ready();
+    await p.goto(base+'/lab.html?eps=31,22,23');await ready();await p.evaluate(()=>document.fonts.ready);
     await p.setViewportSize({width:1280,height:1200});
     await p.locator('.lab-choose').first().click();
-    const flight=await p.evaluate(()=>{document.querySelector('#labConfirm').click();const f=document.querySelector('.lab-transfer');if(f)f.getAnimations()[0].pause();return !!f;});
+    const flight=await p.evaluate(async()=>{document.querySelector('#labConfirm').click();await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const f=document.querySelector('.lab-transfer');if(f)f.getAnimations()[0].pause();return !!f;});
     assert(flight);assert.deepEqual((await state()).party,[31]);
     await p.evaluate(()=>document.querySelector('.lab-transfer').getAnimations()[0].finish());
     await p.waitForFunction(()=>!document.querySelector('.lab-transfer'));

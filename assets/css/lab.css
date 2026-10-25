@@ -171,7 +171,7 @@
 }
 
 
-/* Stable control positions across rerolls; only long title content scrolls. */
+/* Stable metadata/title rows; long titles are clamped rather than scrolled. */
 #episodeLab .lab-machine-tools { align-items:center;justify-content:space-between;gap:10px;padding:0 4px 4px; }
 #episodeLab .lab-dialogue { gap:10px;min-width:0; }
 #episodeLab .lab-doctor { width:42px;padding:0;border:0;box-shadow:none;background:none; }
@@ -179,13 +179,13 @@
 #episodeLab .lab-inspection { display:grid;grid-template-columns:minmax(0,1fr);gap:6px;margin:0;padding:2px; }
 #episodeLab .lab-detail-stack { display:grid;min-width:0; }
 #episodeLab .lab-detail-stack > * { grid-area:1 / 1;min-width:0; }
-#episodeLab .lab-detail-copy { min-width:0;display:grid;grid-template-rows:17px 4.8em 21px;font-size:15px;gap:3px; }
-#episodeLab .lab-detail-copy h2 { height:100%;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding-right:4px; }
+#episodeLab .lab-detail-copy { min-width:0;display:grid;grid-template-rows:21px 3.2em;font-size:15px;gap:3px; }
+#episodeLab .lab-detail-copy h2 { height:100%;min-height:0;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2; }
 #episodeLab .lab-detail-copy .lab-tags { margin:0;white-space:nowrap;overflow:auto;scrollbar-width:thin; }
 #episodeLab .lab-detail-copy .lab-number { margin:0; }
 #episodeLab .lab-tags { min-height:1.6em; }
 #episodeLab #labInspectPrompt { align-self:center;text-align:center;font-size:14px;margin:0;color:#55758e; }
-#episodeLab .lab-save-actions { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);justify-self:center;width:min(100%,340px);gap:8px;margin-top:3px; }
+#episodeLab .lab-save-actions { position:absolute;z-index:5;bottom:7px;left:50%;transform:translateX(-50%);visibility:hidden;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);justify-self:center;width:min(calc(100% - 20px),400px);gap:10px;margin:0; }
 #episodeLab .lab-save-actions button { min-height:44px;padding:6px 10px;white-space:normal;font-size:12px;line-height:1.4; }
 #episodeLab .lab-save-actions button:disabled { opacity:.6;cursor:default;transform:none; }
 #episodeLab .lab-card-meta { display:flex;align-items:center;justify-content:space-between;gap:4px;flex-wrap:wrap;min-height:22px;font-size:10px;line-height:1.5; }
@@ -201,8 +201,8 @@
 @media(max-width:760px) {
   #episodeLab #labSpeech { font-size:11px; }
   #episodeLab .lab-inspection { padding:0; }
-  #episodeLab .lab-detail-copy { font-size:13px;grid-template-rows:15px 6em 17px; }
-  #episodeLab .lab-detail-copy h2 { line-height:1.5; }
+  #episodeLab .lab-detail-copy { font-size:13px;grid-template-rows:19px 4.5em; }
+  #episodeLab .lab-detail-copy h2 { line-height:1.5;-webkit-line-clamp:3; }
 }
 @media(prefers-reduced-motion:reduce) { #episodeLab .lab-owned.is-updated { animation:none; } }
 
@@ -250,8 +250,8 @@
 /* Compact collection controls and shared-link landing view. */
 #episodeLab #labPartyGrid,#episodeLab #labReplaceGrid,#episodeLab #labSharedGrid { align-items:start; }
 #episodeLab #labPartyGrid .lab-owned,#episodeLab #labReplaceGrid .lab-owned,#episodeLab #labSharedGrid .lab-owned { display:flex;flex-direction:column;align-self:start; }
-#episodeLab #labPartyGrid .lab-miniature { max-width:110px;margin-bottom:4px; }
-#episodeLab .lab-empty-slot { max-width:110px; }
+#episodeLab #labPartyGrid .lab-miniature { width:80%;max-width:150px;margin-bottom:4px; }
+#episodeLab .lab-empty-slot { width:80%;max-width:150px; }
 #episodeLab #labDexToggle { padding:4px 6px;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:72px;flex-shrink:0; }
 #episodeLab .lab-reorder-badge { display:inline-block;font-size:10px;font-weight:400;color:#286fa4;border:1px solid #85aecb;border-radius:4px;padding:2px 5px;white-space:nowrap; }
 #episodeLab .lab-case-heading { min-height:44px; }
@@ -273,10 +273,28 @@
   #episodeLab #labPartyGrid .lab-card-meta { min-height:16px; }
   #episodeLab #labPartyGrid .lab-dex-title { font-size:10px; }
   #episodeLab #labPartyCount { font-size:11px; }
-  #episodeLab #labPartyGrid .lab-miniature,#episodeLab .lab-empty-slot { max-width:64px; }
   #episodeLab .lab-reorder-badge { font-size:9px;padding:1px 3px; }
   #episodeLab .lab-shared { padding:14px; }
   #episodeLab #labSharedGrid { gap:18px 10px; }
   #episodeLab .lab-machine-tools { gap:6px; }
   #episodeLab #labSpeech { font-size:10px; }
+}
+
+/* Separate registration from navigation. Shadows may pass behind the dock. */
+#episodeLab .lab-save-actions.is-visible { visibility:visible; }
+#episodeLab .lab-save-actions { padding:3px;background:#e4f3fbbf;border-radius:5px; }
+#episodeLab .lab-detail-meta { display:flex;align-items:center;gap:16px;min-width:0; }
+#episodeLab .lab-detail-meta .lab-number { flex-shrink:0; }
+#episodeLab .lab-detail-meta .lab-tags { flex:1;min-width:0;text-align:right; }
+#episodeLab .lab-navigation { display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:16px; }
+#episodeLab .lab-navigation #labOpen { width:auto;max-width:290px;min-height:44px;font-size:12px;padding:8px 12px; }
+#episodeLab .lab-navigation #labShuffle { flex-shrink:0;min-height:44px;max-width:130px;padding:8px 14px;font-size:12px; }
+#episodeLab #labDexToggle { border:2px solid #739ab4;box-shadow:0 2px 0 #5b829b,inset 0 1px #fff;background:#f4faff; }
+#episodeLab #labDexToggle:hover { background:#e4f2ff; }
+#episodeLab #labDexToggle:active { transform:translateY(2px);box-shadow:inset 0 1px #a6c8df; }
+#episodeLab #labItemTags { margin:0 0 12px; }
+@media(max-width:760px) {
+  #episodeLab .lab-navigation { gap:22px;margin-top:14px; }
+  #episodeLab .lab-navigation #labOpen { max-width:220px;padding:7px 8px;font-size:11px; }
+  #episodeLab .lab-navigation #labShuffle { padding:8px 10px;font-size:11px; }
 }

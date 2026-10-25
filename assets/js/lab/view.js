@@ -3,8 +3,8 @@ export function renderLab(root) {
   root.innerHTML = `
 <div class="lab-wrap">
   <section id="labShared" class="lab-case lab-shared" hidden aria-labelledby="labSharedHeading">
-    <h2 id="labSharedHeading">シェアされた手持ち</h2>
-    <p class="lab-footnote">気になるカートリッジから、エピソードの詳細ページへ。</p>
+    <h2 id="labSharedHeading">シェアされた手持ちエピソード</h2>
+    <p class="lab-footnote">選択すると詳細ページに移動します</p>
     <div id="labSharedGrid"></div>
     <button type="button" id="labStartOwn" class="lab-primary">自分も3択で探す →</button>
   </section>
@@ -26,16 +26,15 @@ export function renderLab(root) {
       <g stroke="#e7f6ff" stroke-width="2" fill="none"><path d="M0 12h1000M0 34h1000M0 68h1000M0 116h1000M0 178h1000"/><path d="M400 0 0 180M440 0 200 180M480 0 400 180M520 0 600 180M560 0 800 180M600 0 1000 180M360 0-200 180M640 0 1200 180"/></g>
     </svg>
     <section id="labCards" class="lab-cards" aria-label="博士の3つの候補"></section>
+    <div class="lab-save-actions" id="labSaveActions" inert><button type="button" id="labRegister" class="lab-secondary" disabled>図鑑に登録</button><button type="button" id="labConfirm" class="lab-secondary" disabled>手持ちに加える</button></div>
   </section>
   <section class="lab-console" aria-label="博士とエピソードを選ぶ">
   <p id="labNotice" class="lab-notice" role="status" hidden></p>
   <div class="lab-inspection" id="labInspection">
-    <div class="lab-detail-stack"><div class="lab-detail-copy" aria-live="polite" aria-atomic="true"><p class="lab-number" id="labInspectNumber"></p><h2 id="labInspectTitle" tabindex="0"></h2><p class="lab-tags" id="labInspectTags"></p></div><p id="labInspectPrompt">どのエピソードにする？</p></div>
-    <a id="labOpen" class="lab-primary lab-open" aria-disabled="true" tabindex="-1">エピソードの詳細ページに移動 →</a>
-    <div class="lab-save-actions"><button type="button" id="labRegister" class="lab-secondary" disabled>図鑑に登録</button><button type="button" id="labConfirm" class="lab-secondary" disabled>手持ちに加える</button></div>
+    <div class="lab-detail-stack"><div class="lab-detail-copy" aria-live="polite" aria-atomic="true"><div class="lab-detail-meta"><p class="lab-number" id="labInspectNumber"></p><p class="lab-tags" id="labInspectTags"></p></div><h2 id="labInspectTitle"></h2></div><p id="labInspectPrompt">どのエピソードにする？</p></div>
+    <nav class="lab-navigation" aria-label="エピソードを開く・候補を変更"><a id="labOpen" class="lab-primary lab-open" aria-disabled="true" tabindex="-1">エピソードの詳細ページに移動 →</a><button type="button" id="labShuffle" class="lab-secondary">↻ 別の3択</button></nav>
   </div>
   </section>
-  <nav class="lab-toolbar" aria-label="研究所のメニュー"><button type="button" id="labShuffle" class="lab-secondary">↻ 別の3択</button></nav>
   </div>
   <section class="lab-case" aria-labelledby="labPartyHeading">
     <div class="lab-case-heading"><h2 id="labPartyHeading">手持ちエピソード <span id="labReorderHint" class="lab-reorder-badge" hidden>並び替え中</span></h2><div class="lab-case-tools"><span id="labPartyCount"></span><button type="button" id="labReorder" class="lab-icon-button" aria-pressed="false">並び替え</button></div></div>
@@ -49,7 +48,7 @@ export function renderLab(root) {
 `;
   root.insertAdjacentHTML("beforeend", `<dialog id="labItem" aria-labelledby="labItemTitle">
     <div class="lab-modal-top"><h2 id="labItemTitle"></h2><button type="button" class="lab-close" data-close="labItem" aria-label="カートリッジの詳細を閉じる">×</button></div>
-    <div id="labItemArt"></div><p id="labItemTags" class="lab-footnote"></p>
+    <p id="labItemTags" class="lab-footnote"></p><div id="labItemArt"></div>
     <div class="lab-item-actions"><a id="labItemLink" class="lab-primary lab-open">エピソードの詳細ページに移動 →</a><button type="button" id="labItemAdd" class="lab-secondary">手持ちに加える</button></div>
     <button type="button" id="labItemRemove" class="lab-remove">手持ちから外す</button>
   </dialog><dialog id="labReplace" aria-labelledby="labReplaceTitle">

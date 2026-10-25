@@ -134,12 +134,15 @@ export async function mount(root, page) {
     $("#labItemTitle").textContent=`#${itemNumber} ${ep.title}`;
     $("#labItemArt").replaceChildren(createCartridge(ep,true));
     $("#labItemTags").textContent=(ep.tags||[]).join(" / ");
+    $("#labItemTags").hidden=!(ep.tags||[]).length;
     $("#labItemLink").href=`episodes/${itemNumber}.html`;
     $("#labItemAdd").disabled=held; $("#labItemAdd").textContent=held?"手持ちに登録済み":"手持ちに加える";
     $("#labItemRemove").hidden=!held;
   }
   function openItem(number) { transfer.cancel();itemNumber=number;refreshItem();$("#labItem").showModal();syncMotion(); }
   function syncAcquireButton() {
+    $("#labSaveActions").inert=inspected===null;
+    $("#labSaveActions").classList.toggle("is-visible",inspected!==null);
     const held=party.includes(inspected),button=$("#labConfirm");
     button.disabled=inspected===null || held;
     button.textContent=held?"手持ちに登録済み":"手持ちに加える";
@@ -155,6 +158,7 @@ export async function mount(root, page) {
     transfer.cancel();
     const source = fromRound ? $(`#labCards [data-number="${number}"] .lab-art`) : $('#labItemArt .lab-art');
     const sourceRect = source?.getBoundingClientRect();
+    const sourcePosition = sourceRect ? {left:sourceRect.left, top:sourceRect.top + scrollY, width:sourceRect.width, height:sourceRect.height, documentPosition:true} : null;
     mergeCollection();readParty();
     const firstDiscovery=!collection.has(number);
     if(destination!=="dex" && !party.includes(number)) {
@@ -179,7 +183,7 @@ export async function mount(root, page) {
     if($("#labReplace").open) $("#labReplace").close();
     if (!fromRound) { if ($('#labItem').open) $('#labItem').close(); if ($('#labDex').open) $('#labDex').close(); }
     if (firstDiscovery) $('#labDexToggle').animate([{background:'#c2e5ff'}, {background:'transparent'}], {duration:220});
-    transfer.fly(byNumber.get(number), sourceRect, destination === 'dex' ? $('#labDexToggle') : $(`#labPartyGrid [data-number="${number}"] .lab-art`), destination === 'dex');
+    transfer.fly(byNumber.get(number), sourcePosition, destination === 'dex' ? $('#labDexToggle') : $(`#labPartyGrid [data-number="${number}"] .lab-art`), destination === 'dex');
   }
   function renderReplacements() {
     const grid=$("#labReplaceGrid");grid.replaceChildren();
@@ -254,7 +258,7 @@ export async function mount(root, page) {
     $("#labInspectPrompt").hidden=true;
     $("#labCards").dataset.active = String(round.findIndex(item => item.number === inspected));
     $("#labInspectNumber").textContent = `#${ep.number} · ${ep.date || ""}`;
-    $("#labInspectTitle").textContent = ep.title; $("#labInspectTitle").scrollTop = 0;
+    $("#labInspectTitle").textContent = ep.title;
     $("#labInspectTags").textContent = (ep.tags || []).slice(0,2).join(" / ");
     syncAcquireButton();
     $("#labOpen").href=`episodes/${ep.number}.html`;
