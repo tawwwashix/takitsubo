@@ -94,6 +94,22 @@ function silentWav(seconds) {
       assert.deepEqual(errors, []);
       await context.close();
     }
+    const iconContext = await browser.newContext();
+    await iconContext.route(/google-analytics\.com|googletagmanager\.com/, route => route.abort());
+    const iconPage = await iconContext.newPage();
+    await iconPage.goto(base + '/');
+    const icons = () => iconPage.locator('link[rel="icon"], link[rel="apple-touch-icon"]').evaluateAll(links => links.map(link => link.href));
+    const originalIcons = await icons();
+    assert.equal(originalIcons.length, 2);
+    await iconPage.evaluate(() => { window.iconNavigationMarker = true; });
+    for (const target of ['/episodes/128.html', '/series/', '/index.html']) {
+      await iconPage.evaluate(url => window.Takitsubo.navigate(url), base + target);
+      assert(await iconPage.evaluate(() => window.iconNavigationMarker), 'icon fix must preserve soft navigation');
+      assert.deepEqual(await icons(), originalIcons, 'persistent icons must not resolve relative to the new page');
+    }
+    for (const url of await icons()) assert.equal((await iconContext.request.get(url)).status(), 200);
+    await iconContext.close();
+    console.log('PASS favicon and touch-icon URLs stay valid across root and nested-page navigation');
   } finally {
     await browser.close();
   }

@@ -5,6 +5,10 @@
   var initializers = [], current, request, serial = 0;
   var shell = document.getElementById("sitePage");
   var version = shell.dataset.version;
+  // These shared head links survive page changes; keep their initial base URL.
+  document.head.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]').forEach(function (link) {
+    link.href = link.href;
+  });
   var positions = new Map();
   var nextKey = 0, activeKey = null;
   var status = document.createElement("div");
