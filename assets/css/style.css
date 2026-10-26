@@ -766,7 +766,7 @@ a.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); tex
 .ep-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
 }
-.ep-grid.recommended-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ep-grid.recommended-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .ep-card {
   position: relative; isolation: isolate;
   display: flex; flex-direction: column;
@@ -1832,6 +1832,7 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
 
 @media (max-width: 900px) {
   .ep-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .ep-grid.recommended-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
   .hero-inner { flex-direction: column; gap: 26px; }
