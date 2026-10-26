@@ -136,7 +136,7 @@ def check(root, reference):
         write_json(meta_path, edited)
         before = snapshot(root)
         result = run(root, ok=False)
-        assert "ValueError" in result.stderr
+        assert "ValueError" in result.stderr or "ValidationError" in result.stderr
         assert snapshot(root) == before, "Invalid metadata must fail before writes"
     write_json(meta_path, meta)
     run(root)
@@ -180,7 +180,7 @@ def main():
     scratch.mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="build-test-", dir=scratch) as directory:
         root = pathlib.Path(directory)
-        for name in ("scripts", "data", "assets/js", "assets/css"):
+        for name in ("scripts", "data", "assets/js", "assets/css", "assets/img"):
             shutil.copytree(ROOT / name, root / name, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
         for name in ("episodes", "series", "news"):
             (root / name).mkdir()

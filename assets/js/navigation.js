@@ -54,7 +54,7 @@
     document.title = doc.title;
     document.documentElement.lang = doc.documentElement.lang;
     // Replace page metadata, never the executable scripts or loaded stylesheets.
-    var selector = 'meta[name="description"], meta[property], meta[name="twitter:card"], link[rel="canonical"], script[type="application/ld+json"]';
+    var selector = 'meta[name="description"], meta[name="robots"], meta[property], meta[name="twitter:card"], link[rel="canonical"], script[type="application/ld+json"]';
     document.head.querySelectorAll(selector).forEach(function (el) { el.remove(); });
     doc.head.querySelectorAll(selector).forEach(function (el) { document.head.appendChild(el.cloneNode(true)); });
     Array.from(document.body.attributes).forEach(function (a) { document.body.removeAttribute(a.name); });

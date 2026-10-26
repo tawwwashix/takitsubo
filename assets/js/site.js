@@ -1,4 +1,26 @@
 window.Takitsubo.register(function (page) {
+/* Shared search entry: use the existing results page while keeping audio alive. */
+document.querySelectorAll('.episode-search').forEach(function (form) {
+  var input = form.querySelector('[name="q"]');
+  var database = form.querySelector('.episode-search-db');
+  var databaseUrl = new URL(database.href);
+  function updateDatabase() {
+    var url = new URL(databaseUrl);
+    if (input.value.trim()) url.searchParams.set('q', input.value.trim());
+    database.href = url.href;
+  }
+  input.addEventListener('input', updateDatabase);
+  database.addEventListener('click', updateDatabase);
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var query = input.value.trim();
+    if (!query) { input.value = ''; input.focus(); return; }
+    var url = new URL(form.action);
+    url.searchParams.set('q', query);
+    window.Takitsubo.navigate(url.href);
+  });
+  updateDatabase();
+});
 /* 全ページ共通: スマホ幅ではハンバーガーメニューで開閉 */
 (function () {
   var btn = document.querySelector(".nav-toggle");

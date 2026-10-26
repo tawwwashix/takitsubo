@@ -1,7 +1,26 @@
 """Lab, news, guide, contact and privacy pages."""
-from .common import SVG, av, footer, head, header, jd, lab_version, sec_title, service_buttons, x_post_url
+from urllib.parse import urlsplit
+from .common import SVG, av, episode_search, footer, head, header, jd, lab_version, sec_title, service_buttons, x_post_url
 from .context import NEWS, ROOT, SITE, esc
 from .output import write_output
+
+
+def build_not_found():
+    # A 404 is served at arbitrary depths. Every local reference starts at the site root.
+    root = urlsplit(SITE["base_url"]).path.rstrip("/") + "/"
+    page = head("ページが見つかりませんでした", "検索やホームから、聴きたいエピソードを探せます。", root, "404.html", indexable=False)
+    page += header(root)
+    page += f'''<main class="container not-found">
+<div class="not-found-card">
+<img class="not-found-bird" src="{root}assets/img/datyou.png" alt="" width="88" height="88">
+<p class="not-found-code">404</p>
+<h1 class="page-title">ページが見つかりませんでした</h1>
+<p class="not-found-description">URLが変わったか、ページがなくなった可能性があります。<br>下の検索から、聴きたいエピソードを探せます。</p>
+{episode_search(root)}
+<div class="not-found-links"><a class="not-found-home" href="{root}index.html">ホームへ戻る</a><a href="{root}episodes/">エピソード一覧へ →</a></div>
+</div></main>'''
+    page += footer(root)
+    write_output(ROOT / "404.html", page)
 
 
 def build_news():

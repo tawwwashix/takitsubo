@@ -25,11 +25,21 @@ jobs:
       - name: 依存ライブラリ(画像縮小用)
         run: pip install Pillow
 
+      - name: 更新前の入力データを検証
+        run: python3 scripts/validate_site.py --source-only
+
       - name: AWQランキングと出題画像を同期
         run: python3 scripts/sync_awq.py
 
       - name: RSS取得とページ再生成
         run: python3 scripts/update_from_rss.py
+
+      - name: 公開前に生成物と回帰テストを検証
+        run: |
+          python3 scripts/validate_site.py
+          python3 scripts/test_site_validation.py
+          python3 scripts/test_site_build.py
+          python3 scripts/test_lab_build.py
 
       - name: 変更があればコミット
         run: |

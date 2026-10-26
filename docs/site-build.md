@@ -1,6 +1,6 @@
 # ビルドの保守
 
-生成HTMLは引き続きGitに保存する。手元とGitHub Actionsは、同じJSONと生成処理から同じページを作る。公開方式・RSS取得・AWQ同期の手順は変更していない。
+生成HTMLは引き続きGitに保存する。手元とGitHub Actionsは、同じJSONと生成処理から同じページを作る。RSS取得・AWQ同期の前後に検証を入れ、失敗した場合は自動コミット・pushへ進まない。
 
 ## コマンド
 
@@ -9,6 +9,8 @@ python scripts/build.py
 python scripts/build.py --page lab
 python scripts/build.py --page shindan
 python scripts/build.py --page lab --page shindan
+python scripts/validate_site.py --source-only
+python scripts/validate_site.py
 ```
 
 全体ビルドは毎週のデータ更新にも使う。`--page` は既存の生成済みJSONを使ったページのみの再生成で、データ更新や共通CSS/JS変更時の全体ビルドの代用にはしない。
@@ -21,6 +23,7 @@ python scripts/build.py --page lab --page shindan
 | --- | --- |
 | `cli.py` | 引数と生成順序。検索・診断JSONをHTMLより先に生成 |
 | `context.py` | リポジトリルートと既存JSONの読み込み |
+| `validation.py` | 出力前の入力JSON検証。型、重複、参照、日付、画像 |
 | `common.py` | ヘッダー・フッター・カード・書式・アセットバージョン |
 | `catalog.py` | エピソード内のゲーム情報、名寄せ、読み、診断用データ、DB集計 |
 | `home.py` | トップページ・おすすめ回 |
@@ -29,7 +32,7 @@ python scripts/build.py --page lab --page shindan
 | `awq.py` | アートワーククイズ・ランキング |
 | `games.py` | 滝壺データベースのHTML |
 | `shindan.py` | 診断ページ・診断JSON |
-| `pages.py` | 研究所、お知らせ、聴き方、おたより、プライバシー |
+| `pages.py` | 研究所、お知らせ、聴き方、おたより、プライバシー、404 |
 | `sitemap.py` | サイトマップ・robots.txt・更新日の検証 |
 | `output.py` | 内容が変わったファイルだけ書き込む共通処理 |
 
@@ -61,17 +64,35 @@ HTMLの組み立て方と表示内容は従来のまま移動した。テンプ�
 
 ```text
 python scripts/test_site_build.py
-python scripts/test_site_build.py --reference-ref b2f14a65
+python scripts/test_site_validation.py
 python scripts/test_lab_build.py
-python scripts/audit_lab_generated.py
+python scripts/validate_site.py
 node scripts/test_lab_suite.cjs --site
 ```
 
 `test_site_build.py` は `.local-preview/` 内の一時コピーで動き、RSSへの通信・本物のデータ更新・Git操作はしない。全体の再生成、同内容の保存時刻維持、不要なDBページの除去、診断・研究所だけの変更、静的ページ更新日の検証、新しい回が増えた場合、既存ツールからのimportを確認する。`--reference-ref` は分割直前の単一ファイル版と出力をバイト単位で比較するための任意オプション（指定コミットをローカルで参照できる場合）。
 
-ブラウザ検証はプレビューを起動し、既存のPlaywrightを `NODE_PATH` で指定して行う。診断モジュールの版の切り替え・取得失敗、音声を保持したページ移動も含む。生成物監査は研究所着手前の `6471908e` を固定基準として比較する。main統合後も比較基準は変わらない。必要な場合は `--base-ref` で明示指定できる。許容するデータ変更は `page_meta.json` と2026-10-27付の研究所のお知らせ追加のみで、既存のお知らせやエピソード・DB・ランキングデータの変更は検出する。
+ブラウザ検証は `python scripts/preview_episode_lab.py --port 8766` でプレビューを起動し、既存のPlaywrightを `NODE_PATH` で指定して行う。診断モジュールの版の切り替え・取得失敗、音声を保持したページ移動、トップ検索、深いURLでの404復帰も含む。
 
-このテストはGitHub Actions上の実行や実際のRSS取得を代替しない。週次処理と公開設定を変更せず、その後段のビルドを同じ入口で検証する。
+`validate_site.py` は現在の入力と生成物を照合する公開前チェック。ローカル参照・アンカー・重複ID・canonical・サイトマップ・検索JSON・診断の最新回を検証し、外部通信はしない。`test_site_validation.py` は一時コピーに不正な入力・生成物を与え、失敗することと、不正入力では既存出力の内容・保存時刻が変わらないことを確認する。
+
+`audit_lab_generated.py` と `test_site_build.py --reference-ref b2f14a65` は過去の研究所追加・ビルド分割を調べるための履歴比較専用。前者は研究所着手前の `6471908e` が基準。今回の検索・404追加後の公開前チェックには使わない。
+
+ローカルテストはGitHub Actions上の実行や実際のRSS取得を代替しない。
+
+## 入力検証と自動更新
+
+入力9ファイルを読み込む段階で、JSONの重複キー、非有限数、型、必須値、回番号の重複、企画・おすすめ回の参照、日付、画像の実在とパスの大文字小文字を検証する。エラーにはファイル名と項目名を含める。画像省略時の `null` / 空文字や、既存AWQ履歴の `round: null` は許容する。
+
+自動更新は「既存入力の検証 → AWQ同期 → RSS取得と全体ビルド → 生成物検証とPython回帰テスト3本 → 変更のコミット・push」の順。ビルド自身も出力前に入力を検証する。ブラウザテストはローカルで実施し、自動更新にはブラウザ依存を追加していない。
+
+## トップ検索と404
+
+トップの番組説明とおすすめ回の間に検索フォームを置く。ゲーム名や回番号を既存のエピソード一覧に渡し、補助リンクでは同じ入力語をゲーム索引に渡す。通常のJavaScript有効時は音声を保ったページ移動を使う。JavaScript無効時もGETフォームで一覧へ移動できるが、一覧の絞り込み自体は従来どおりJavaScriptに依存する。
+
+`404.html` は共通ヘッダー・フッター、検索、ホーム・一覧へのリンクを持つ。任意の深さのURLから表示されるためローカル参照はサイトルートからのパスにする。自動転送はせず、`noindex` を付け、canonicalとサイトマップから除外する。通常ページへの移動時には404の `noindex` を除去する。
+
+GitHub Pagesのカスタム404配置は [公式ドキュメント](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site) に従う。ローカルプレビューも存在しないURLにHTTP 404と同じHTMLを返すため、`http://127.0.0.1:8766/missing/deep/page.html` で復帰動作を確認できる。
 
 ### 2026-10-25 の確認結果
 

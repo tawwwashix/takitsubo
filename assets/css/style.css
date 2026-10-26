@@ -1920,3 +1920,28 @@ a.news-item:hover { background: rgba(255,255,255,.6); text-decoration: none; }
   .awq-champion > b small { font-size: 9px; }
   .awq-row-rank { font-size: 15px; }
 }
+
+/* A small shared search entry, not another feature section. */
+.episode-search { max-width:660px; margin:24px auto 30px; text-align:left; }
+.episode-search label { display:block; margin-bottom:8px; color:var(--ink); font-size:14px; font-weight:700; }
+.episode-search-row { display:flex; gap:8px; }
+.episode-search input { flex:1; min-width:0; width:100%; min-height:46px; padding:10px 15px; border:1px solid var(--line); border-radius:14px; background:#fff; color:var(--ink); font:inherit; font-size:16px; }
+.episode-search button,.not-found-home { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:10px 21px; border:0; border-radius:14px; background:var(--primary); color:#fff; font:inherit; font-size:14px; font-weight:700; text-decoration:none; cursor:pointer; }
+.episode-search button:hover,.not-found-home:hover { filter:brightness(.94); }
+.episode-search input:focus-visible,.episode-search button:focus-visible,.not-found-links a:focus-visible { outline:3px solid var(--primary); outline-offset:3px; }
+.episode-search-db { display:block; width:fit-content; margin:9px 0 0 auto; font-size:12px; }
+.not-found { padding-top:48px; padding-bottom:60px; }
+.not-found-card { max-width:800px; margin:auto; padding:34px; border-radius:26px; background:rgba(255,255,255,.9); box-shadow:var(--shadow); text-align:center; }
+.not-found-bird { object-fit:contain; margin:0 auto; }
+.not-found-code { margin:4px 0 12px; color:var(--primary); font-family:Outfit,sans-serif; font-size:42px; font-weight:700; line-height:1.2; }
+.not-found-description { margin:18px 0 24px; color:var(--sub); font-size:14px; line-height:1.9; }
+.not-found-links { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:18px; font-size:14px; }
+@media(max-width:640px) {
+  .episode-search { margin:20px auto 26px; }
+  .episode-search input { padding:10px; }
+  .episode-search button { padding:10px 15px; flex-shrink:0; }
+  .not-found { padding-top:26px; padding-bottom:36px; }
+  .not-found-card { padding:25px 16px; }
+  .not-found .page-title { font-size:21px; line-height:1.6; }
+  .not-found-links { flex-direction:column; gap:15px; }
+}

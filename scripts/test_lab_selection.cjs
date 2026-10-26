@@ -19,8 +19,8 @@ fs.mkdirSync(out,{recursive:true});
     await p.waitForTimeout(600);
     assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     const bounds=await p.locator('.lab-scene').evaluate(e=>{
-     const r=e.getBoundingClientRect();return [...e.querySelectorAll('.lab-cart-front')].every(a=>{const q=a.getBoundingClientRect();return q.left>=r.left&&q.right<=r.right&&q.top>=r.top&&q.bottom<=r.bottom;});
-    });assert(bounds,'Cartridge clipping '+w);
+     const r=e.getBoundingClientRect();return [...e.querySelectorAll('.lab-cart-front')].map(a=>{const q=a.getBoundingClientRect();return {left:q.left-r.left,right:r.right-q.right,top:q.top-r.top,bottom:r.bottom-q.bottom};});
+    });assert(bounds.every(q=>Object.values(q).every(value=>value>=0)),'Cartridge clipping '+w+' '+JSON.stringify(bounds));
    }
    await p.screenshot({path:path.join(out,`lab-blue-${w}.png`),fullPage:true});
   }

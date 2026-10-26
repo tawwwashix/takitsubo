@@ -8,9 +8,10 @@
 ```
 takitsubo/
 ├── index.html            トップページ(生成物)
+├── 404.html              見つからないURLから検索・ホームへ戻るページ(生成物)
 ├── guide.html            ポッドキャストの聴き方(生成物)
 ├── otayori.html          おたよりフォーム(生成物)
-├── episodes/             エピソード一覧+全112回の個別ページ(生成物)
+├── episodes/             エピソード一覧+各回の個別ページ(生成物)
 ├── series/               名物企画ページ(生成物)
 ├── news/                 お知らせページ(生成物)
 ├── assets/               CSS・JS・画像
@@ -24,6 +25,7 @@ takitsubo/
 │   └── ranking.json      アートワーククイズ集計(Google Sheetsから自動生成)
 ├── scripts/
 │   ├── build.py          データ→全HTML生成の入口（コマンドは従来どおり）
+│   ├── validate_site.py  入力JSONと生成物の公開前チェック
 │   ├── sitebuild/        ページ別の生成処理・共通部品
 │   ├── update_from_rss.py RSSから新着取得→自動更新(画像・配信リンクも取得)
 │   ├── sync_awq.py       AWQ得点・出題リンク・X画像をGoogle Sheetsから同期
@@ -36,7 +38,8 @@ takitsubo/
 ## 最初にやること(公開前チェックリスト)
 
 1. `python3 scripts/build.py` を実行して再生成
-2. ローカル確認: `python3 -m http.server` を実行して `http://localhost:8000` を開く
+2. `python3 scripts/validate_site.py` を実行して入力・生成物を検証
+3. ローカル確認: `python3 scripts/preview_episode_lab.py --port 8766` を実行して `http://localhost:8766` を開く
    (※検索機能は fetch を使うため、ファイル直開きでは動きません。必ずサーバー経由で確認)
 
 ## 公開のしかた(GitHub Pages・無料)
@@ -45,7 +48,7 @@ takitsubo/
 2. このフォルダの中身をすべてpush
 3. リポジトリの Settings → Pages → Branch を `main` / `(root)` にして保存
 4. 数分で `https://ユーザー名.github.io/リポジトリ名/` に公開されます
-5. **自動更新が有効化**: `.github/workflows/update.yml` が毎週水曜の配信後にRSSとAWQランキングを更新し、生成物をコミットします。基本ノータッチでOK
+5. **自動更新が有効化**: `.github/workflows/update.yml` が毎週水曜の配信後にRSSとAWQランキングを更新し、入力・生成物の検証とPython回帰テストが通った場合に生成物をコミット・pushします。失敗した場合はActionsのログを確認してください。
 
 生成処理の編集場所、差分が増える条件、静的ページの更新日は [ビルドの保守](docs/site-build.md) を参照。生成HTMLをGitに残す運用は継続します。
 

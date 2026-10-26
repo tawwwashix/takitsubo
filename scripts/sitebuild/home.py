@@ -1,6 +1,6 @@
 """Homepage HTML and editorial episode recommendations."""
 from .catalog import shindan_pool
-from .common import SVG, WAVE, ep_card, fmt_points, footer, head, header, jd, sec_title, series_card, service_buttons, x_post_url
+from .common import SVG, WAVE, ep_card, episode_search, fmt_points, footer, head, header, jd, sec_title, series_card, service_buttons, x_post_url
 from .context import EPS, EPS_BY_NUM, EP_COUNT, NEWS, RANKING, ROOT, SERIES, SITE, esc
 from .output import write_output
 
@@ -119,6 +119,8 @@ def build_index():
 無料で聴けるネットラジオのようなものです。アプリを入れなくても、上のボタンからブラウザですぐ再生できます。通勤・家事・寝る前のおともにどうぞ。
 <a href="guide.html">くわしい聴き方はこちら →</a></div>
 </section>
+
+{episode_search(root)}
 
 <section class="section recommended-section">
 {sec_title("おすすめエピソード", "RECOMMENDED", '<a class="section-more" href="episodes/">すべて見る →</a>')}

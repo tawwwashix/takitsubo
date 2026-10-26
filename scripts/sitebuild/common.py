@@ -141,7 +141,7 @@ def lab_version():
     return digest.hexdigest()[:8]
 
 
-def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="website", published=None):
+def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="website", published=None, indexable=True):
     # ブラウザのタブ/OGPタイトル。トップは「番組名 | 接尾辞」、下層は「ページ名 | 番組名」。
     # 番組名(SITE["title"])はフッターのコピーライトやロゴのalt等にそのまま使うので短いままにする。
     suffix = SITE.get("title_suffix", "")
@@ -165,7 +165,7 @@ def head(title, desc, root, path="", og_image=None, jsonld=None, og_type="websit
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{full}</title>
 <meta name="description" content="{esc(desc)}">
-<link rel="canonical" href="{esc(url)}">
+{f'<link rel="canonical" href="{esc(url)}">' if indexable else '<meta name="robots" content="noindex">'}
 <meta property="og:title" content="{full}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:type" content="{og_type}">
@@ -227,6 +227,15 @@ def header(root, current=""):
 <span></span><span></span><span></span></button>
 <nav class="nav" id="siteNav" aria-label="メインメニュー">{links}</nav>
 </div></header>"""
+
+
+def episode_search(root):
+    """Compact search entry shared by the homepage and the recovery page."""
+    return f'''<form class="episode-search" action="{root}episodes/" method="get" role="search" aria-label="エピソードを検索">
+<label for="episodeSearchInput">エピソードを検索</label>
+<div class="episode-search-row"><input id="episodeSearchInput" name="q" type="search" placeholder="例：シレン、#100" required enterkeyhint="search"><button type="submit">検索</button></div>
+<a class="episode-search-db" href="{root}games/">ゲームの索引はこちら →</a>
+</form>'''
 
 
 def footer(root):

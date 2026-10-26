@@ -4,7 +4,7 @@ from .home import recommended_episodes, build_index
 from .episodes import build_episode_list, build_episode_pages, build_search_json
 from .series import build_series
 from .awq import build_awq
-from .pages import build_news, build_guide, build_otayori, build_privacy, build_lab
+from .pages import build_news, build_guide, build_otayori, build_privacy, build_lab, build_not_found
 from .shindan import build_shindan_json, build_shindan
 from .games import build_games
 from .sitemap import static_page_dates, build_sitemap
@@ -36,6 +36,7 @@ def main(argv=None):
     build_guide()
     build_otayori()
     build_privacy()
+    build_not_found()
     build_sitemap()
     print(f"ビルド完了: エピソード{len(EPS)}ページ + シリーズ{len(SERIES)}ページ + AWQランキング + データベース{n_games}ページ + その他")
     return 0
