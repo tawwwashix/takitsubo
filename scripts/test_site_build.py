@@ -5,12 +5,15 @@ Optional: --reference-ref <commit> compares against its monolithic build.py.
 import argparse
 import copy
 import hashlib
+import html
 import json
 import pathlib
+import re
 import shutil
 import subprocess
 import sys
 import tempfile
+from urllib.parse import parse_qs, urlsplit
 import xml.etree.ElementTree as ET
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -51,6 +54,24 @@ def write_json(path, data):
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def check_game_search_links(root):
+    # Real titles containing URL delimiters must reach search without truncation.
+    cases = [(6, "クイズ&バラエティすくすく犬福"), (45, "パタポン1+2 リプレイ"),
+             (57, "ダンジョンズ&ドラゴンズ"), (69, "ロックマン&フォルテ"),
+             (84, "DETECTIVE X CASE FILE #1『御仏の殺人』")]
+    for number, title in cases:
+        page = (root / f"episodes/{number}.html").read_text(encoding="utf-8")
+        links = [(html.unescape(href), html.unescape(label)) for href, label in
+                 re.findall(r'<a class="tag[^\"]*" href="([^\"]*)">([^<]*)</a>', page)]
+        search_links = [href for href, label in links
+                        if label.endswith(title) and href.startswith("index.html?q=")]
+        assert search_links, f"Missing search fallback for #{number}: {title}"
+        for href in search_links:
+            parsed = urlsplit(href)
+            assert not parsed.fragment and parse_qs(parsed.query) == {"q": [title]}, (title, href)
+    print("PASS game search links preserve ampersands, plus signs and hashes", flush=True)
+
+
 def check(root, reference):
     if reference:
         (root / "scripts/build_reference.py").write_bytes(reference)
@@ -58,6 +79,7 @@ def check(root, reference):
         baseline = content(snapshot(root))
     run(root)
     initial = snapshot(root)
+    check_game_search_links(root)
     if reference:
         assert content(initial) == baseline, changed(baseline, content(initial))
         print(f"PASS reference equivalence: {len(initial)} generated/data files", flush=True)

@@ -11,6 +11,8 @@ const base=process.argv[2]||'http://127.0.0.1:8766',out=path.resolve(__dirname,'
  const intent=async id=>{const u=new URL(await p.locator(id).getAttribute('href'));return {text:u.searchParams.get('text'),url:new URL(u.searchParams.get('url'))};};
  const preview=prefix=>p.waitForFunction(prefix=>{const i=document.querySelector('#'+prefix+'SharePreview');return i&&!i.hidden&&i.complete&&i.naturalWidth===1200;},prefix);
  try {
+  const source=await (await ctx.request.get(base+'/data/search.json')).json();
+  const episodeCount=source.episodes.filter(e=>Number.isInteger(e.number)&&e.number>0).length;
   for(const width of [320,390,1280]) {
    await p.setViewportSize({width,height:900});await p.goto(base+'/lab.html?eps=31,22,23');await ready();
    assert((await p.locator('.page-head p').textContent()).includes('ランダムに並ぶ3本'));assert((await p.locator('.page-head p').textContent()).includes('遊び方はご自由に'));
@@ -55,7 +57,7 @@ const base=process.argv[2]||'http://127.0.0.1:8766',out=path.resolve(__dirname,'
   const hand=await intent('#labPartyX');assert.equal(hand.url.origin+hand.url.pathname,'https://game-takitsubo.com/lab.html');assert.equal(hand.url.searchParams.get('party'),'23');assert(hand.text.includes('気になるエピソードを1本選びました！'));assert(hand.text.includes('#滝壺エピソード研究所'));
   assert.equal(await p.locator('#labOpen').textContent(),'エピソードの詳細ページに移動 →');assert.equal(await p.locator('#labOpenNote').count(),0);
   await p.locator('#labPartyGrid [data-number="23"]').click();assert.equal(await p.locator('#labItemLink').textContent(),'エピソードの詳細ページに移動 →');assert.equal(await p.locator('#labItemLinkNote').count(),0);await p.keyboard.press('Escape');
-  await p.reload();await ready();assert.equal(await p.locator('#labCount').textContent(),'3 / 128');
+  await p.reload();await ready();assert.equal(await p.locator('#labCount').textContent(),`3 / ${episodeCount}`);
   await p.emulateMedia({reducedMotion:'reduce'});await p.locator('.lab-choose').first().click();assert.equal(await p.locator('#labCards').evaluate(e=>getComputedStyle(e).transitionDuration),'0s');
   assert.deepEqual(errors,[]);console.log('PASS first/reroll interpolation, responsive intro, coral action, prominent storage note, unlimited direct dex registration, party-only canonical share, navigation hints, reload persistence, local history, reduced motion');
  }finally{await b.close();}

@@ -50,8 +50,17 @@ export async function mount(root, page) {
   renderLab(root);
   const $ = s => root.querySelector(s);
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const transfer = installTransfer(root, page, createCartridge, () => !motionPaused && !reducedMotion.matches && !document.hidden);
-  page.listen(reducedMotion, 'change', () => transfer.cancel());
+  const motionEnabled = () => !motionPaused && !reducedMotion.matches && !document.hidden;
+  const transfer = installTransfer(root, page, createCartridge, motionEnabled);
+  let discoveryFlash = null;
+  const cancelDiscoveryFlash = () => { discoveryFlash?.cancel(); discoveryFlash = null; };
+  const clearFeedback = () => {
+    cancelDiscoveryFlash();
+    root.querySelectorAll('.is-registered,.is-updated').forEach(node => node.classList.remove('is-registered', 'is-updated'));
+  };
+  page.listen(reducedMotion, 'change', () => { transfer.cancel(); clearFeedback(); });
+  page.listen(document, 'visibilitychange', cancelDiscoveryFlash);
+  page.onDispose(cancelDiscoveryFlash);
   if (sharedParty.ids) {
     $('#labShared').hidden = false; $('#labExperience').hidden = true;
     sharedParty.ids.forEach(number => {
@@ -174,7 +183,7 @@ export async function mount(root, page) {
     }
     saveParty(destination==="dex"?`#${number}を図鑑に登録したよ。`:`#${number}を手持ちに加えたよ。`);
     renderCards();
-    if(firstDiscovery) {
+    if(firstDiscovery && motionEnabled() && !root.classList.contains('lab-paused')) {
       const card=$(`#labCards [data-number="${number}"]`);
       card?.classList.add("is-registered");
       card?.addEventListener("animationend",()=>card.classList.remove("is-registered"),{once:true});
@@ -182,7 +191,10 @@ export async function mount(root, page) {
     if(!fromRound && selected!==null) updateRoundUrl();
     if($("#labReplace").open) $("#labReplace").close();
     if (!fromRound) { if ($('#labItem').open) $('#labItem').close(); if ($('#labDex').open) $('#labDex').close(); }
-    if (firstDiscovery) $('#labDexToggle').animate([{background:'#c2e5ff'}, {background:'transparent'}], {duration:220});
+    if (firstDiscovery && motionEnabled()) {
+      cancelDiscoveryFlash();
+      discoveryFlash = $('#labDexToggle').animate([{background:'#c2e5ff'}, {background:'transparent'}], {duration:220});
+    }
     transfer.fly(byNumber.get(number), sourcePosition, destination === 'dex' ? $('#labDexToggle') : $(`#labPartyGrid [data-number="${number}"] .lab-art`), destination === 'dex');
   }
   function renderReplacements() {
@@ -317,6 +329,7 @@ export async function mount(root, page) {
   $("#labReorder").addEventListener("click",()=>{cancelReorder();reorderMode=!reorderMode;reorderSource=null;updateReorder();});
   page.listen($("#labPartyGrid"),"keydown",e=>{if(e.key==="Escape" && reorderMode){reorderMode=false;reorderSource=null;updateReorder();$("#labReorder").focus();}});
   function highlightParty(number) {
+    if(!motionEnabled() || root.classList.contains('lab-paused')) return;
     const slot=$(`#labPartyGrid [data-number="${number}"]`);if(!slot) return;
     slot.classList.add("is-updated");slot.addEventListener("animationend",()=>slot.classList.remove("is-updated"),{once:true});
   }
@@ -338,9 +351,13 @@ export async function mount(root, page) {
   $("#labDexUnseen").addEventListener("change",saveDexPreferences);
 // 動きの停止・ダイアログ・フォーカス
   let motionPaused = false, sceneVisible = true;
-  const syncMotion = () => root.classList.toggle("lab-paused", motionPaused || document.hidden || !sceneVisible || !!root.querySelector("dialog[open]"));
+  const syncMotion = () => {
+    const paused = motionPaused || document.hidden || !sceneVisible || !!root.querySelector("dialog[open]");
+    root.classList.toggle("lab-paused", paused);
+    if(paused) clearFeedback();
+  };
   $("#labMotion").addEventListener("click", () => {
-    transfer.cancel();motionPaused = !motionPaused;
+    transfer.cancel();cancelDiscoveryFlash();motionPaused = !motionPaused;
     $("#labMotion").textContent = motionPaused ? "アニメーション OFF" : "アニメーション ON";
     $("#labMotion").setAttribute("aria-pressed", String(motionPaused));
     $("#labMotion").setAttribute("aria-label", motionPaused ? "動きを再開する" : "動きを止める");

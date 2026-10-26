@@ -1,9 +1,10 @@
 // Diagnosis must retain analytics and release each discarded result immediately.
 const {chromium} = require('playwright');
 const assert = require('node:assert/strict');
+const path = require('node:path');
 const base = process.argv[2] || 'http://127.0.0.1:8766';
 (async () => {
-  const browser = await chromium.launch({channel:'chrome'});
+  const browser = await chromium.launch({channel:'chrome', downloadsPath:path.resolve(__dirname,'../.local-preview/downloads')});
   const context = await browser.newContext({permissions:['clipboard-read','clipboard-write']});
   await context.route(/google-analytics\.com|googletagmanager\.com/, r => r.abort());
   const page = await context.newPage(), errors = [];
@@ -24,7 +25,8 @@ const base = process.argv[2] || 'http://127.0.0.1:8766';
       await page.locator('#shForm button').click();
       await page.locator('#shSharePreview').waitFor();
       const download = page.waitForEvent('download');
-      await page.locator('#shSave').click(); await download;
+      await page.locator('#shSave').click();
+      assert(await (await download).path(), 'the PNG must finish downloading before retry cleanup');
       await page.locator('#shCopyImage').click();
       await page.waitForFunction(() => document.querySelector('#shShareStatus').textContent.includes('コピーした'));
       await page.locator('#shRetry').click();

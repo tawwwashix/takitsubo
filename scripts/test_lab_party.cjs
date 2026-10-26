@@ -11,10 +11,12 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
  const closeDex=async()=>{for(const id of ['labItem','labDex'])if(await p.locator('#'+id).isVisible())await p.locator('[data-close="'+id+'"]').tap();};
  try {
   await p.goto(base+'/lab.html?eps=50,54,47');await ready(p);
+  const source=await (await ctx.request.get(base+'/data/search.json')).json();
+  const episodeNumbers=source.episodes.filter(e=>Number.isInteger(e.number)&&e.number>0).map(e=>e.number);
   assert.equal(await p.locator('#labPartyGrid .lab-empty-slot').count(),6);
-  await p.locator('#labDexToggle').tap();assert.equal(await p.locator('.lab-undiscovered').count(),128);assert.equal(await p.locator('.lab-undiscovered img').count(),0);
-  assert.equal(await p.locator('#labDexGrid>*').first().getAttribute('data-number'),'128');
-  await p.locator('#labDexOrder').selectOption('asc');assert.equal(await p.locator('#labDexGrid>*').first().getAttribute('data-number'),'1');
+  await p.locator('#labDexToggle').tap();assert.equal(await p.locator('.lab-undiscovered').count(),episodeNumbers.length);assert.equal(await p.locator('.lab-undiscovered img').count(),0);
+  assert.equal(await p.locator('#labDexGrid>*').first().getAttribute('data-number'),String(Math.max(...episodeNumbers)));
+  await p.locator('#labDexOrder').selectOption('asc');assert.equal(await p.locator('#labDexGrid>*').first().getAttribute('data-number'),String(Math.min(...episodeNumbers)));
   await p.locator('#labDexUnseen').uncheck();assert.equal(await p.locator('.lab-undiscovered').count(),0);await p.keyboard.press('Escape');
   await p.locator('.lab-choose').first().tap();await p.locator('#labConfirm').tap();assert.deepEqual(await party(),[50]);
   await openDex(50);assert.deepEqual(await party(),[50]);assert(await p.locator('#labItemAdd').isDisabled());await closeDex();

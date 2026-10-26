@@ -109,10 +109,16 @@ const PARTY='takitsubo:episode-lab:party:v1', DEX='takitsubo:episode-lab:collect
     await p.emulateMedia({reducedMotion:'reduce'});
     await p.locator('.lab-choose').nth(1).click();await p.locator('#labRegister').evaluate(e=>e.click());
     assert.equal(await p.locator('.lab-transfer').count(),0);assert((await state()).dex.includes(22));
+    assert.equal(await p.locator('#labDexToggle').evaluate(e=>e.getAnimations().length),0,'Reduced motion must disable the discovery flash');
     await p.emulateMedia({reducedMotion:'no-preference'});
     await p.locator('#labMotion').click();
     await p.locator('.lab-choose').nth(2).click();await p.locator('#labConfirm').evaluate(e=>e.click());
     assert.equal(await p.locator('.lab-transfer').count(),0);assert.deepEqual((await state()).party,[31,23]);
+    assert.equal(await p.locator('#labDexToggle').evaluate(e=>e.getAnimations().length),0,'Animation OFF must disable the discovery flash');
+    assert.deepEqual(await p.locator('#episodeLab').evaluate(e=>e.getAnimations({subtree:true}).filter(a=>a.playState==='running').map(a=>a.animationName||a.transitionProperty||'web-animation')),[],'Animation OFF must disable selection transitions and registration feedback');
+    assert.equal(await p.locator('.is-registered,.is-updated').count(),0,'Disabled feedback must not be queued for later');
+    await p.locator('#labMotion').click();
+    assert.equal(await p.locator('.is-registered,.is-updated').count(),0,'Resuming motion must not replay earlier feedback');
     console.log('PASS immediate saves, insertion cleanup, interruption, reduced motion and explicit motion off');
     for(const width of [390,1280]) {
       await p.setViewportSize({width,height:900});

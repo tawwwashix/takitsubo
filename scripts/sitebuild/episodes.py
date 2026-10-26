@@ -86,7 +86,7 @@ def build_episode_pages():
             for _, g in episode_game_entries(e):  # 見出し行・注記行はDB側と同じ規則で除外
                 k = _shindan_norm(g)
                 slug = slug_map.get(k)
-                href = f"../games/{slug}.html" if slug else f"index.html?q={esc(g)}"
+                href = f"../games/{slug}.html" if slug else f"index.html?q={urllib.parse.quote(g, safe='')}"
                 if k in feat_keys:
                     cls, mark = "tag t3", LEVEL_MARK[3]
                 elif k in sanbun_keys:
@@ -211,7 +211,7 @@ def build_episode_pages():
         feat_chips = ""
         for name in e.get("featured_games", [])[:5]:
             slug = slug_map.get(_shindan_norm(name))
-            href = f"../games/{slug}.html" if slug else f"index.html?q={esc(name)}"
+            href = f"../games/{slug}.html" if slug else f"index.html?q={urllib.parse.quote(name, safe='')}"
             feat_chips += f'<a class="tag t3" href="{href}">{LEVEL_MARK[3]}{esc(name)}</a>'
         feat_html = f'<div class="ep-hero-games">{feat_chips}</div>' if feat_chips else ""
 

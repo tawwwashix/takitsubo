@@ -135,7 +135,7 @@ python scripts/audit_lab_generated.py
 PlaywrightとChromeが必要。`NODE_PATH` は既存のインストール先へ指定できる。
 テストはGA通信を遮断し、画面・PNG・レポートを `.local-preview/` に出力する。
 一括テストは失敗しても残りを検査し、`suite-report.json` とテスト別ログを保存する。未実施や失敗を成功として扱わない。
-Windowsの制限環境ではChromeのファイル保存がキャンセルされる場合があるため、PNG実保存は通常のWindows環境でも検証する。
+PNGの実保存テストはChromeの一時ダウンロード先を `.local-preview/downloads/` に指定する。Windowsの制限環境で既定の一時保存先が使えずキャンセルされる場合でも、プロジェクト内で保存完了まで確認できる。ダウンロードイベントの発生だけを成功とは扱わない。
 実機のiOS/AndroidのGPU負荷・電池消費は未測定。
 
 旧発掘ゲームのページ・JS・CSS・テスト・起動バッチ・説明書は削除済み。生成処理、トップページ、全ページのフッター、サイトマップからの導線も除去した。

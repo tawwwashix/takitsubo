@@ -43,6 +43,9 @@
     render();
   }
   function play() {
+    // A failed media resource stays failed until explicitly loaded again.
+    // Preserve either the pending resume point or the last playback position.
+    if (audio.error) { pendingSeek = time(); audio.load(); }
     var p = audio.play();
     if (p) p.catch(function (error) { if (error.name !== "AbortError" && error.name !== "NotAllowedError") showError(); });
   }
@@ -57,6 +60,7 @@
     save(); audio.pause();
     active = { ep: v.ep, title: v.title, url: v.url, duration: v.duration };
     started = false; pendingSeek = v.start || null;
+    miniMessage.textContent = "";
     audio.src = v.src; audio.playbackRate = rate;
     miniLink.href = active.url;
     miniLink.title = active.title + " の再生ページへ";
@@ -80,7 +84,10 @@
   }
   function showError() {
     miniMessage.textContent = "音声を読み込めませんでした。再生ボタンで再試行できます。";
-    if (matching()) note(view, "⚠ 音声を読み込めませんでした。通信状況をご確認いただくか、各配信サービスからお聴きください。");
+    if (matching()) {
+      note(view, "⚠ 音声を読み込めませんでした。通信状況をご確認いただくか、各配信サービスからお聴きください。");
+      view.audioError = true;
+    }
   }
   function paint(input, t, d) {
     input.max = Math.floor(d || 1); input.value = Math.floor(t);
@@ -150,7 +157,14 @@
   });
   audio.addEventListener("play", function () {
     if (!started) { started = true; track("player_play", { ep: active.ep }); }
-    miniMessage.textContent = ""; render();
+    render();
+  });
+  audio.addEventListener("playing", function () {
+    miniMessage.textContent = "";
+    if (matching() && view.audioError) {
+      view.box.querySelector(".tkp-note").hidden = true;
+      view.audioError = false;
+    }
   });
   audio.addEventListener("pause", function () { save(); render(); });
   audio.addEventListener("ended", function () {

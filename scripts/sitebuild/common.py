@@ -13,11 +13,19 @@ def x_post_url(text):
     return "https://x.com/intent/post?text=" + urllib.parse.quote(text)
 
 
+def _version_bytes(path):
+    """Text assets have the same version in LF and CRLF checkouts."""
+    content = path.read_bytes()
+    if path.suffix.lower() in {".js", ".css", ".json"}:
+        content = content.replace(b"\r\n", b"\n")
+    return content
+
+
 def av(rel):
     """アセットのキャッシュバスター。内容が変わるとURLの ?v= も変わり、
     ブラウザ(特にスマホ)が古いCSS/JSを掴み続けるのを防ぐ。"""
     try:
-        return hashlib.md5((ROOT / rel).read_bytes()).hexdigest()[:8]
+        return hashlib.md5(_version_bytes(ROOT / rel)).hexdigest()[:8]
     except FileNotFoundError:
         return "0"
 
@@ -129,8 +137,7 @@ def lab_version():
     digest = hashlib.md5()
     for source in sorted((ROOT / "assets/js/lab").glob("*.js")):
         digest.update(source.name.encode("utf-8"))
-        # Git may check out text as CRLF. The same JS must keep the same version.
-        digest.update(source.read_bytes().replace(b'\r\n', b'\n'))
+        digest.update(_version_bytes(source))
     return digest.hexdigest()[:8]
 
 

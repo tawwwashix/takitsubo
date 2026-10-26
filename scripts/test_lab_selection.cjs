@@ -3,7 +3,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const base=process.argv[2]||'http://127.0.0.1:8766',out=path.resolve(__dirname,'../.local-preview');
 fs.mkdirSync(out,{recursive:true});
 (async()=>{
- const b=await chromium.launch({channel:'chrome',headless:true});
+ const b=await chromium.launch({channel:'chrome',headless:true,downloadsPath:path.join(out,'downloads')});
  const ctx=await b.newContext({permissions:['clipboard-read','clipboard-write']}),p=await ctx.newPage(),errors=[];
  await ctx.route(/google-analytics\.com|googletagmanager\.com/,r=>r.abort());
  p.on('pageerror',e=>errors.push(e.message));

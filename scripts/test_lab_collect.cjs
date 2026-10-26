@@ -2,7 +2,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),path
 const base=process.argv[2]||'http://127.0.0.1:8766',out=path.resolve(__dirname,'../.local-preview');
 const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode-lab:collection:v1'};
 (async()=>{
- const b=await chromium.launch({channel:'chrome'}),ctx=await b.newContext({viewport:{width:390,height:844},permissions:['clipboard-read','clipboard-write']}),p=await ctx.newPage(),errors=[];
+ const b=await chromium.launch({channel:'chrome',downloadsPath:path.join(out,'downloads')}),ctx=await b.newContext({viewport:{width:390,height:844},permissions:['clipboard-read','clipboard-write']}),p=await ctx.newPage(),errors=[];
  await ctx.route(/google-analytics\.com|googletagmanager\.com/,r=>r.abort());p.on('pageerror',e=>errors.push(e.message));
  const ready=()=>p.locator('.lab-choose').first().waitFor();
  const state=()=>p.evaluate(keys=>Object.fromEntries(Object.entries(keys).map(([k,v])=>[k,JSON.parse(localStorage.getItem(v)||'[]')])),keys);

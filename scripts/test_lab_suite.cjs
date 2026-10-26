@@ -7,7 +7,7 @@ const base = process.argv.find(a => /^https?:/.test(a)) || 'http://127.0.0.1:876
 fs.mkdirSync(out, {recursive:true});
 const files = fs.readdirSync(__dirname).filter(f => /^test_lab_.*\.cjs$/.test(f) && f !== 'test_lab_suite.cjs');
 files.push('test_share_regression.cjs', 'test_share_failures.cjs', 'test_shindan_module.cjs');
-if(process.argv.includes('--site')) files.push('test_site_lab_integration.cjs', 'test_episode_cards.cjs', 'test_navigation.cjs', 'test_episode_lab.cjs', 'test_analytics.cjs');
+if(process.argv.includes('--site')) files.push('test_site_lab_integration.cjs', 'test_episode_cards.cjs', 'test_navigation.cjs', 'test_episode_lab.cjs', 'test_analytics.cjs', 'test_site_recovery.cjs');
 const results = [];
 for(const file of files) {
   console.log('RUN', file);

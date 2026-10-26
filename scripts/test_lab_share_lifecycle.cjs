@@ -1,7 +1,7 @@
 const {chromium}=require('playwright'),assert=require('node:assert/strict'),path=require('node:path');
 const base=process.argv[2]||'http://127.0.0.1:8766';
 (async()=>{
- const b=await chromium.launch({channel:'chrome'}),c=await b.newContext({viewport:{width:1280,height:900}}),p=await c.newPage(),errors=[];
+ const b=await chromium.launch({channel:'chrome',downloadsPath:path.resolve(__dirname,'../.local-preview/downloads')}),c=await b.newContext({viewport:{width:1280,height:900}}),p=await c.newPage(),errors=[];
  await c.route(/google-analytics\.com|googletagmanager\.com/,r=>r.abort());p.on('pageerror',e=>errors.push(e.message));
  await c.addInitScript(()=>{
   if(localStorage.getItem('takitsubo:episode-lab:party:v1')===null){localStorage.setItem('takitsubo:episode-lab:party:v1','[1,2,3]');localStorage.setItem('takitsubo:episode-lab:collection:v1','[1,2,3]');}

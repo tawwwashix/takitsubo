@@ -12,8 +12,10 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
  const ready=page=>page.locator('.lab-choose').first().waitFor();
  try{
   await p.goto(base+'/lab.html?eps=128,98,16');await ready(p);
+  const source=await (await context.request.get(base+'/data/search.json')).json();
+  const episodeCount=source.episodes.filter(e=>Number.isInteger(e.number)&&e.number>0).length;
   assert.deepEqual(await cards(p),[128,98,16]);assert.equal(await p.locator('.lab-art img').count(),3);
-  assert.equal(await p.locator('#labCount').textContent(),'0 / 128');
+  assert.equal(await p.locator('#labCount').textContent(),`0 / ${episodeCount}`);
   await p.screenshot({path:path.join(out,'lab-desktop.png'),fullPage:true});
   await p.locator('.lab-choose').nth(1).click();
   assert.equal(await p.evaluate(()=>localStorage.getItem('takitsubo:episode-lab:collection:v1')),null);
@@ -27,7 +29,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   await recipient.route(/google-analytics\.com|googletagmanager\.com/,r=>r.abort());
   const q=await recipient.newPage();q.on('pageerror',e=>errors.push(e.message));
   await q.goto(base+new URL(shared).pathname+new URL(shared).search);await ready(q);assert.deepEqual(await cards(q),[128,98,16]);
-  assert.equal(await q.locator('.lab-sender').count(),1);assert.equal(await q.locator('#labCount').textContent(),'0 / 128');
+  assert.equal(await q.locator('.lab-sender').count(),1);assert.equal(await q.locator('#labCount').textContent(),`0 / ${episodeCount}`);
   assert.equal(await q.locator('.lab-choose:enabled').count(),3);
   await q.screenshot({path:path.join(out,'lab-mobile.png'),fullPage:true});
   await q.locator('.lab-choose').nth(2).tap();await q.locator('#labConfirm').tap();

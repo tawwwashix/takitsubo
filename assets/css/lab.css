@@ -97,7 +97,8 @@
 @keyframes lab-rock { 0%,100%{transform:rotateX(-7deg) rotateY(var(--yaw))} 50%{transform:rotateX(-3deg) rotateY(calc(var(--yaw) + 10deg))} }
 @keyframes lab-present { 0%,100%{transform:rotateX(-2deg) rotateY(-5deg)} 50%{transform:rotateX(0) rotateY(5deg)} }
 #episodeLab.lab-paused .lab-float,#episodeLab.lab-paused .lab-cartridge { animation-play-state:paused; }
-#episodeLab.lab-paused .lab-art { transition:none; }
+#episodeLab.lab-paused .lab-art,#episodeLab.lab-paused .lab-cards,#episodeLab.lab-paused .lab-card,#episodeLab.lab-paused .lab-shadow { transition:none; }
+#episodeLab.lab-paused .is-registered .lab-cart-front,#episodeLab.lab-paused .lab-owned.is-updated { animation:none; }
 @media(max-width:760px) {
   #episodeLab { padding:14px 0 32px; }
   #episodeLab .lab-icon-button { min-width:58px; font-size:10px; padding:6px; }

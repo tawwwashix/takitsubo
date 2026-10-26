@@ -65,14 +65,23 @@ window.Takitsubo.register(function (page) {
   var triggers = document.querySelectorAll(".art-zoom");
   if (!triggers.length) return;
 
-  var box = null, lastTrigger = null;
-  page.onDispose(function () { if (box) box.remove(); document.body.classList.remove("art-lightbox-open"); });
+  var box = null, lastTrigger = null, background = [];
+  function restoreBackground() {
+    background.forEach(function (el) { el.inert = false; });
+    background = [];
+  }
+  page.onDispose(function () {
+    restoreBackground();
+    if (box) box.remove();
+    document.body.classList.remove("art-lightbox-open");
+  });
 
   function build() {
     box = document.createElement("div");
     box.className = "art-lightbox";
     box.setAttribute("role", "dialog");
     box.setAttribute("aria-modal", "true");
+    box.setAttribute("aria-label", "アートワークの拡大表示");
     box.innerHTML =
       '<button class="art-lightbox-close" type="button" aria-label="閉じる">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>' +
@@ -89,6 +98,9 @@ window.Takitsubo.register(function (page) {
     img.src = src;
     img.alt = caption || "";
     box.querySelector("figcaption").textContent = caption || "";
+    // Keep the page and persistent player outside the modal interaction scope.
+    background = Array.from(document.body.children).filter(function (el) { return el !== box && !el.inert; });
+    background.forEach(function (el) { el.inert = true; });
     box.classList.add("show");
     document.body.classList.add("art-lightbox-open");
     box.querySelector(".art-lightbox-close").focus();
@@ -97,6 +109,7 @@ window.Takitsubo.register(function (page) {
     if (!box) return;
     box.classList.remove("show");
     document.body.classList.remove("art-lightbox-open");
+    restoreBackground();
     if (lastTrigger) lastTrigger.focus();
   }
   triggers.forEach(function (t) {
@@ -106,7 +119,12 @@ window.Takitsubo.register(function (page) {
     });
   });
   page.listen(document, "keydown", function (ev) {
-    if (ev.key === "Escape" && box && box.classList.contains("show")) close();
+    if (!box || !box.classList.contains("show")) return;
+    if (ev.key === "Escape") close();
+    if (ev.key === "Tab") {
+      ev.preventDefault();
+      box.querySelector(".art-lightbox-close").focus();
+    }
   });
 })();
 
