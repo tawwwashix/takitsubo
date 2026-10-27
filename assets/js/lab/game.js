@@ -92,7 +92,7 @@ export async function mount(root, page) {
     $("#labDexOrder").value = ascending ? "asc" : "desc"; $("#labDexUnseen").checked = showUnseen;
     const grid = $("#labDexGrid"); grid.replaceChildren();
     const numbers = [...byNumber.keys()].filter(n => showUnseen || collection.has(n)).sort((a,b) => ascending ? a-b : b-a);
-    if (!numbers.length) { const p = document.createElement("p"); p.textContent = "気になる回を「図鑑に登録」すると、ここに記録されるよ。"; grid.append(p); }
+    if (!numbers.length) { const p = document.createElement("p"); p.textContent = "気になる回を「図鑑に登録」すると、ここに記録されます。"; grid.append(p); }
     numbers.forEach(number => {
       if(!collection.has(number)) {
         const tile = document.createElement("div"); tile.className = "lab-undiscovered"; tile.dataset.number = number;

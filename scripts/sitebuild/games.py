@@ -97,7 +97,7 @@ def build_games():
 </div>
 
 <div class="searchbox" style="margin-top:18px;">{SVG['search']}
-<input type="search" id="gmQ" placeholder="ゲーム名で探す（例:シレン、どらくえ、FF）" aria-label="タイトルを検索" autocomplete="off">
+<input type="search" id="gmQ" placeholder="ゲーム名で探す（例：シレン、どらくえ、FF）" aria-label="タイトルを検索" autocomplete="off">
 <button type="button" class="search-clear" id="gmClear" aria-label="検索キーワードを消す" hidden>{SVG['close']}</button>
 </div>
 <div class="filter-row" role="group" aria-label="語られ度で絞り込み" style="justify-content:center;margin-bottom:0;">

@@ -134,7 +134,7 @@ def build_index():
 <img class="route-bubble-image route-bubble-image-scissors" src="assets/img/scissors.png" alt="" aria-hidden="true">
 <span class="route-bubble-en">TAKITSUBO DATABASE</span>
 <span class="route-bubble-title"><span class="route-bubble-title-line">語られたゲームを探せる</span><span class="route-bubble-title-line">滝壺データベース</span></span>
-<span class="route-bubble-desc">全{shindan_count}タイトルを収録。メイン特集から、ちょい出しまで探せる索引です。</span>
+<span class="route-bubble-desc">全{shindan_count}タイトルを収録。メイン特集から、ちょい出しまで探せる索引です！</span>
 <span class="route-bubble-cta">索引を見る →</span>
 </span>
 </a>
@@ -143,7 +143,7 @@ def build_index():
 <img class="route-bubble-image" src="assets/img/rock_ichigo.png" alt="" aria-hidden="true">
 <span class="route-bubble-en">FUSAWASHII GAME SHINDAN</span>
 <span class="route-bubble-title"><span class="route-bubble-title-line">あなたにふさわしい</span><span class="route-bubble-title-line">ゲームを診断！</span></span>
-<span class="route-bubble-desc">名前を入力するだけ。全{ep_count}回・{shindan_count}タイトルから、運命の一本を選びます。</span>
+<span class="route-bubble-desc">名前を入力するだけ。全{ep_count}回・{shindan_count}タイトルから、運命の一本を選びます！</span>
 <span class="route-bubble-cta">診断する →</span>
 </span>
 </a>
@@ -152,15 +152,15 @@ def build_index():
 <img class="route-bubble-image route-bubble-image-photo" src="{awq_thumb}" alt="" aria-hidden="true">
 <span class="route-bubble-en">ARTWORK QUIZ RANKING</span>
 <span class="route-bubble-title"><span class="route-bubble-title-line">この絵、いったい何の</span><span class="route-bubble-title-line">エピソード？</span></span>
-<span class="route-bubble-desc">公式ランキングと、歴代の出題画像・答えをまとめて見られます。</span>
+<span class="route-bubble-desc">公式ランキングと、歴代の出題画像・答えをまとめて見られます！</span>
 <span class="route-bubble-cta">順位を見る →</span>
 </span>
 </a>
 <a class="route-bubble route-bubble-lab" href="lab.html"><span class="route-bubble-inner">
 <img class="route-bubble-image route-bubble-image-hyuuma" src="assets/img/hyuuma.webp" alt="" aria-hidden="true">
 <span class="route-bubble-en">EPISODE LAB</span>
-<span class="route-bubble-title"><span class="route-bubble-title-line">次に聴くのはどの回？</span><span class="route-bubble-title-line">エピソード研究所</span></span>
-<span class="route-bubble-desc">ランダムな3本から、気になる一回を。手持ちや図鑑も自由に楽しもう。</span>
+<span class="route-bubble-title"><span class="route-bubble-title-line">聴く回に迷った時は！</span><span class="route-bubble-title-line">エピソード研究所</span></span>
+<span class="route-bubble-desc">ランダムな3本から気になる回を選ぼう！ ついでに手持ちを選んで、図鑑に登録しよう！</span>
 <span class="route-bubble-cta">研究所へ →</span></span></a>
 <i class="route-mini-bubble" aria-hidden="true"></i>
 <i class="route-mini-bubble" aria-hidden="true"></i>
