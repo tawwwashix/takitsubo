@@ -86,7 +86,7 @@ def build_games():
     page += f"""<main class="container">
 <div class="page-head" style="text-align:center;">
 <h1 class="page-title"><span class="en">TAKITSUBO DATABASE</span>滝壺データベース</h1>
-<p style="font-size:13px;color:var(--sub);margin-top:8px;">これまでの全{EP_COUNT}回で話題に出たゲームタイトルの索引です。<br>がっつり特集した一本も、雑談にちらっと出ただけの一本も、ぜんぶ載っています。</p>
+<p style="font-size:13px;color:var(--sub);margin-top:8px;">これまでの全{EP_COUNT}回で話題に上がったゲームタイトルの索引です。<br>がっつり特集した一本から雑談にちらっと出ただけの一本まで、すべて載っています。</p>
 </div>
 
 <div class="gm-stats">
@@ -97,7 +97,7 @@ def build_games():
 </div>
 
 <div class="searchbox" style="margin-top:18px;">{SVG['search']}
-<input type="search" id="gmQ" placeholder="ゲーム名で探す（例：シレン、どらくえ、FF）" aria-label="タイトルを検索" autocomplete="off">
+<input type="search" id="gmQ" placeholder="例：シレン、どらくえ、FF" aria-label="タイトルを検索" autocomplete="off">
 <button type="button" class="search-clear" id="gmClear" aria-label="検索キーワードを消す" hidden>{SVG['close']}</button>
 </div>
 <div class="filter-row" role="group" aria-label="語られ度で絞り込み" style="justify-content:center;margin-bottom:0;">

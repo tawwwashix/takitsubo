@@ -233,7 +233,7 @@ def episode_search(root):
     """Compact search entry shared by the homepage and the recovery page."""
     return f'''<form class="episode-search" action="{root}episodes/" method="get" role="search" aria-label="エピソードを検索">
 <label for="episodeSearchInput">エピソードを検索</label>
-<div class="episode-search-row"><input id="episodeSearchInput" name="q" type="search" placeholder="キーワードで検索（例：ドラクエ、わるい村、#100）" required enterkeyhint="search"><button type="submit">検索</button></div>
+<div class="episode-search-row"><input id="episodeSearchInput" name="q" type="search" placeholder="例：ドラクエ、わるい村、#100" required enterkeyhint="search"><button type="submit">検索</button></div>
 <a class="episode-search-db" href="{root}games/">ゲームの索引はこちら →</a>
 </form>'''
 

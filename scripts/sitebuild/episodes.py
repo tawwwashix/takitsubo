@@ -31,7 +31,7 @@ def build_episode_list():
 <div class="page-head"><h1 class="page-title"><span class="en">EPISODES</span>エピソード一覧</h1></div>
 
 <div class="searchbox">{SVG['search']}
-<input type="search" id="q" placeholder="キーワードで検索（例：ドラクエ、わるい村、#100）" aria-label="エピソードを検索" autocomplete="off">
+<input type="search" id="q" placeholder="例：ドラクエ、わるい村、#100" aria-label="エピソードを検索" autocomplete="off">
 <button type="button" class="search-clear" id="qClear" aria-label="検索キーワードを消す" hidden>{SVG['close']}</button>
 </div>
 <p class="search-note">💡 タイトルだけでなく、<strong>番組内で話題に出たゲームタイトル</strong>も検索対象です。</p>
