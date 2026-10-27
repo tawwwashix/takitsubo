@@ -28,7 +28,7 @@ fs.mkdirSync(out,{recursive:true});
   await p.locator('#labConfirm').click();await p.locator('#labPartyMake').click();await p.locator('#labPartySharePreview').waitFor();
   const download=p.waitForEvent('download');await p.locator('#labPartySave').click();await(await download).saveAs(path.join(out,'lab-blue-share.png'));
   const png=fs.readFileSync(path.join(out,'lab-blue-share.png'));assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),1100);
-  await p.locator('#labPartyCopyImage').click();await p.waitForFunction(()=>document.querySelector('#labPartyShareStatus').textContent.includes('コピーした'));
+  await p.locator('#labPartyCopyImage').click();await p.waitForFunction(()=>document.querySelector('#labPartyCopyImage').textContent==='✅ コピーしました！');
   const lines=await p.evaluate(async()=>{
    const {wrapLines}=await import(new URL(document.querySelector('#episodeLab').dataset.shareModule,location.href));
    const c=document.createElement('canvas').getContext('2d');c.font='bold 21px sans-serif';

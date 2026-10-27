@@ -43,10 +43,47 @@ def main():
         command = [sys.executable, '-X', 'utf8', 'scripts/build.py']
         run = subprocess.run(command, cwd=root, capture_output=True, encoding='utf-8')
         assert run.returncode == 0, run.stderr
-        baseline = snapshot(root)
         source = load_sources(root)
         assert audit_generated(root, source)['pages'] >= 700
         print('PASS current data, intentional null AWQ rounds, complete generated site', flush=True)
+
+        # AWQ synchronization can precede RSS publication. The preflight, build
+        # and publication gate must all accept a question with a pending answer.
+        ranking_path, episodes_path = root / 'data/ranking.json', root / 'data/episodes.json'
+        original_ranking, original_episodes = ranking_path.read_bytes(), episodes_path.read_bytes()
+        future = max([e['number'] for e in source['episodes']['episodes']] + [q['round'] for q in source['ranking']['quizzes']]) + 1
+        ranking = copy.deepcopy(source['ranking'])
+        quiz = copy.deepcopy(ranking['quizzes'][0])
+        quiz['round'] = future
+        ranking['quizzes'].append(quiz)
+        write_json(ranking_path, ranking)
+        gate = subprocess.run([sys.executable, 'scripts/validate_site.py', '--source-only'], cwd=root, capture_output=True, encoding='utf-8')
+        assert gate.returncode == 0, gate.stderr
+        run = subprocess.run(command, cwd=root, capture_output=True, encoding='utf-8')
+        assert run.returncode == 0, run.stderr
+        audit_generated(root, load_sources(root))
+        card = (root / 'awq/index.html').read_text(encoding='utf-8').split(f'id="quiz-{future}"', 1)[1].split('</article>', 1)[0]
+        assert '答えのエピソード情報は準備中です。' in card
+        assert f'episodes/{future}.html' not in card
+        episodes = copy.deepcopy(source['episodes'])
+        ep = copy.deepcopy(episodes['episodes'][-1])
+        ep['number'] = future
+        episodes['episodes'].append(ep)
+        write_json(episodes_path, episodes)
+        run = subprocess.run(command, cwd=root, capture_output=True, encoding='utf-8')
+        assert run.returncode == 0, run.stderr
+        audit_generated(root, load_sources(root))
+        card = (root / 'awq/index.html').read_text(encoding='utf-8').split(f'id="quiz-{future}"', 1)[1].split('</article>', 1)[0]
+        assert f'episodes/{future}.html' in card
+        assert '答えのエピソード情報は準備中です。' not in card
+        ranking_path.write_bytes(original_ranking)
+        episodes_path.write_bytes(original_episodes)
+        run = subprocess.run(command, cwd=root, capture_output=True, encoding='utf-8')
+        assert run.returncode == 0, run.stderr
+        # Episode pages are append-only; remove this test-only future episode.
+        (root / f'episodes/{future}.html').unlink()
+        baseline = snapshot(root)
+        print('PASS AWQ-before-RSS preflight/build/gate, pending answer and later episode link', flush=True)
 
         mutations = [
             ('episodes', lambda d: d['episodes'].append(copy.deepcopy(d['episodes'][0])), 'duplicate values'),
@@ -64,7 +101,9 @@ def main():
             ('site', lambda d: d.update(title_suffix=[]), '.title_suffix'),
             ('series', lambda d: d['series'][0].update(slug='../escape'), '.slug'),
             ('news', lambda d: d['news'][0].update(body=[]), '.body'),
-            ('ranking', lambda d: d['quizzes'][0].update(round=99999), 'unknown episode number'),
+            ('ranking', lambda d: d['quizzes'][0].update(round=True), '.round'),
+            ('ranking', lambda d: d['quizzes'][0].update(round=0), '.round'),
+            ('ranking', lambda d: d['quizzes'].append(copy.deepcopy(d['quizzes'][0])), 'duplicate values'),
             ('aliases', lambda d: d.update(titles=[{'canonical':'game', 'aliases':[None]}]), '.aliases'),
             ('game_readings', lambda d: d.update(readings=[]), '.readings'),
             ('game_series', lambda d: d.update(series={'game': {'add': True}}), '.add'),

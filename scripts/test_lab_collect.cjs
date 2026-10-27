@@ -37,7 +37,7 @@ const keys={party:'takitsubo:episode-lab:party:v1',collection:'takitsubo:episode
   let old=await p.locator('#labPartySharePreview').getAttribute('src');await p.locator('#labReorder').click();await p.locator('#labPartyGrid [data-number="22"]').click();await p.locator('#labPartyGrid [data-number="2"]').click();assert(await p.locator('#labPartySharePreview').isHidden());assert(await p.locator('#labPartySave').isHidden());assert.equal(await p.locator('#labPartySharePreview').getAttribute('src'),null);await p.locator('#labPartyMake').click();await preview();
   assert.notEqual(await p.locator('#labPartySharePreview').getAttribute('src'),old);assert.deepEqual((await state()).party,[2,22,3,4,5,23]);await p.locator('#labReorder').click();
   const download=p.waitForEvent('download');await p.locator('#labPartySave').click();const d=await download;assert(d.suggestedFilename().includes('party-2-22-3-4-5-23'));await d.saveAs(path.join(out,'lab-party-share.png'));
-  await p.locator('#labPartyCopyImage').click();await p.waitForFunction(()=>document.querySelector('#labPartyShareStatus').textContent.includes('コピーした'));
+  await p.locator('#labPartyCopyImage').click();await p.waitForFunction(()=>document.querySelector('#labPartyCopyImage').textContent==='✅ コピーしました！');
   assert.equal(await p.locator('#labPartyCopy').count(),0);
   await p.locator('#labDexToggle').click();
   for(const width of [390,1280]) {

@@ -28,7 +28,7 @@ fs.mkdirSync(out,{recursive:true});
   await p.locator('.lab-choose').nth(2).click();assert.equal(new URL(p.url()).searchParams.get('pick'),'54');
   const downloadEvent=p.waitForEvent('download');await p.locator('#labPartySave').click();const download=await downloadEvent;
   assert(download.suggestedFilename().includes('party-50-54'));await download.saveAs(path.join(out,'site-lab-share.png'));
-  await p.locator('#labPartyCopyImage').click();await p.waitForFunction(()=>document.querySelector('#labPartyShareStatus').textContent.includes('コピーした'));
+  await p.locator('#labPartyCopyImage').click();await p.waitForFunction(()=>document.querySelector('#labPartyCopyImage').textContent==='✅ コピーしました！');
   for(const width of [320,390,768,1280]) {
    await p.setViewportSize({width,height:900});await p.locator('#labPartyShare').scrollIntoViewIfNeeded();
    assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
@@ -50,7 +50,7 @@ fs.mkdirSync(out,{recursive:true});
   const layout=await p.locator('#shSave').evaluate(b=>({below:b.getBoundingClientRect().top>=document.querySelector('#shSharePreview').getBoundingClientRect().bottom,center:getComputedStyle(b.parentElement).justifyContent}));assert(layout.below);assert.equal(layout.center,'center');
   await p.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));await p.screenshot({path:path.join(out,'site-diagnosis-result-mobile.png'),fullPage:true});
   const d=p.waitForEvent('download');await p.locator('#shSave').click();await(await d).saveAs(path.join(out,'site-diagnosis-result.png'));
-  await p.locator('#shCopyImage').click();await p.waitForFunction(()=>document.querySelector('#shShareStatus').textContent.includes('コピーした'));
+  await p.locator('#shCopyImage').click();await p.waitForFunction(()=>document.querySelector('#shCopyImage').textContent==='✅ コピーしました！');
   assert.deepEqual(errors,[]);console.log('PASS site header/footer and title, mobile navigation, optional generation, automatic diagnosis image, old button style/alignment, party changes refresh images, rerolls preserve images, visible-image downloads and clipboard');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

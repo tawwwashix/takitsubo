@@ -28,7 +28,7 @@ const base = process.argv[2] || 'http://127.0.0.1:8766';
       await page.locator('#shSave').click();
       assert(await (await download).path(), 'the PNG must finish downloading before retry cleanup');
       await page.locator('#shCopyImage').click();
-      await page.waitForFunction(() => document.querySelector('#shShareStatus').textContent.includes('コピーした'));
+      await page.waitForFunction(() => document.querySelector('#shCopyImage').textContent === '✅ コピーしました！');
       await page.locator('#shRetry').click();
       counts.push(await page.evaluate(() => liveBlobs.size));
     }

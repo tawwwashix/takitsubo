@@ -240,13 +240,18 @@ def load_sources(root):
                         continue
                     integer(row.get(count), loc + '.' + count)
     unique(season_numbers, 'ranking.json.seasons.season')
+    quiz_rounds = []
     for i, raw in enumerate(array(ranking.get('quizzes'), 'ranking.json.quizzes')):
         field = f'ranking.json.quizzes[{i}]'
         quiz = obj(raw, field)
-        require(type(quiz.get('round')) is int and quiz['round'] in numbers, field + '.round', 'unknown episode number')
+        # AWQ questions may be published before the answer episode reaches RSS.
+        # The page already renders a pending answer without an episode link.
+        if integer(quiz.get('round'), field + '.round', 1):
+            quiz_rounds.append(quiz['round'])
         image(quiz.get('image'), field + '.image')
         if quiz.get('x_url'):
             url(quiz['x_url'], field + '.x_url')
+    unique(quiz_rounds, 'ranking.json.quizzes.round')
 
     for i, raw in enumerate(array(data['aliases'].get('titles'), 'aliases.json.titles')):
         item = obj(raw, f'aliases.json.titles[{i}]')

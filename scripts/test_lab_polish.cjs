@@ -15,7 +15,7 @@ const base=process.argv[2]||'http://127.0.0.1:8766',out=path.resolve(__dirname,'
   const episodeCount=source.episodes.filter(e=>Number.isInteger(e.number)&&e.number>0).length;
   for(const width of [320,390,1280]) {
    await p.setViewportSize({width,height:900});await p.goto(base+'/lab.html?eps=31,22,23');await ready();
-   assert((await p.locator('.page-head p').textContent()).includes('ランダムに並ぶ3本'));assert((await p.locator('.page-head p').textContent()).includes('遊び方はご自由に'));
+   assert((await p.locator('.page-head p').textContent()).includes('ランダムなエピソードが3本登場'));assert((await p.locator('.page-head p').textContent()).includes('遊び方はご自由に'));
    assert.equal(await p.locator('#labCopy,#labCopyFallback').count(),0);assert(!(await p.locator('#episodeLab').innerText()).includes('試作中のリンク'));
    for(const reroll of [false,true]) {
     if(reroll) {await p.locator('#labShuffle').click();await p.waitForTimeout(350);}

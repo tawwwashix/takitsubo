@@ -39,13 +39,13 @@ export function mountShareControls(host, {prefix, getBlob, getX, filename, signa
   </style><div class="sh-actions share-entry" id="${prefix}Entry">
     <button type="button" class="sh-btn" id="${prefix}Make" aria-expanded="false" aria-controls="${prefix}ImagePanel">${makeLabel}</button>
   </div>
-  <p class="share-status" id="${prefix}ShareStatus" role="status"></p>
   <div id="${prefix}ImagePanel" hidden>
     <img id="${prefix}SharePreview" alt="${previewAlt || 'ふさわしいゲーム診断の結果画像'}" hidden>
+    <p class="share-status" id="${prefix}ShareStatus" role="status"></p>
     <div id="${prefix}ImageActions" hidden>
       <div class="sh-actions">
         <button type="button" class="sh-btn save" id="${prefix}Save">📥 画像を保存</button>
-        <button type="button" class="sh-btn copy" id="${prefix}CopyImage">📋 画像をコピー</button>
+        <button type="button" class="sh-btn copy" id="${prefix}CopyImage" aria-live="polite">📋 画像をコピー</button>
         <a class="sh-btn share" id="${prefix}X" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3l13.31 17.4Z"/></svg>Xでシェアする</a>
       </div><p class="sh-note">画像を保存/コピーしてから、Xのポストに添付すると盛り上がります！</p>
     </div>
@@ -53,7 +53,7 @@ export function mountShareControls(host, {prefix, getBlob, getX, filename, signa
   host.dataset.previewMode = previewMode;
   const $ = suffix => host.querySelector('#' + prefix + suffix);
   let revision = 0, pending = null, url = null, expanded = previewMode === 'always';
-  let disposed = false, generation = null;
+  let disposed = false, generation = null, preparedBlob = null, copyTimer = null;
   const live = () => !disposed && !signal.aborted && host.isConnected;
   const status = text => { if(live()) $('ShareStatus').textContent = text; };
   async function image() {
@@ -72,6 +72,7 @@ export function mountShareControls(host, {prefix, getBlob, getX, filename, signa
     await preview.decode();
     if (!live() || version !== revision) throw new DOMException('Selection changed', 'AbortError');
     preview.hidden = false;
+    preparedBlob = blob;
     return blob;
   }
   function failure(e) { if(e.name !== 'AbortError') status('画像を用意できなかった。もう一度試してね。'); }
@@ -102,16 +103,33 @@ export function mountShareControls(host, {prefix, getBlob, getX, filename, signa
   };
   $('CopyImage').onclick = async () => {
     onAction('copy');
-    if (!navigator.clipboard?.write || !window.ClipboardItem) { status('画像のコピーを使えないため「画像を保存」を使ってね。'); return; }
-    status('画像を準備中…');
+    if (!window.isSecureContext) {
+      status('このHTTPアドレスでは画像をコピーできないよ。HTTPSで開くか、同じPCならlocalhostで開いてね。「画像を保存」も使えるよ。'); return;
+    }
+    if (!navigator.clipboard?.write || !window.ClipboardItem) { status('このブラウザでは画像のコピーに対応していないため「画像を保存」を使ってね。'); return; }
+    if (!preparedBlob) { status('画像の準備が終わってから、もう一度コピーしてね。'); return; }
+    const version = revision, button = $('CopyImage');
+    clearTimeout(copyTimer); copyTimer = null;
+    button.disabled = true; button.textContent = 'コピー中…'; status('');
     try {
-      // Promise-valued ClipboardItem keeps the original user gesture on Safari.
-      await navigator.clipboard.write([new ClipboardItem({'image/png': image()})]);
-      status('画像をコピーしたよ。');
-    } catch(e) { if(e.name !== 'AbortError') status('画像のコピーを使えないため「画像を保存」を使ってね。'); }
+      // The preview is already encoded. Write its Blob during the click itself,
+      // preserving user activation without regenerating or awaiting the image.
+      await navigator.clipboard.write([new ClipboardItem({'image/png': preparedBlob})]);
+      if (!live() || version !== revision) return;
+      button.textContent = '✅ コピーしました！';
+      copyTimer = setTimeout(() => {
+        if(live() && version === revision) button.textContent = '📋 画像をコピー';
+        copyTimer = null;
+      }, 1800);
+    } catch(e) {
+      if (!live() || version !== revision) return;
+      button.textContent = '📋 画像をコピー';
+      if(e.name !== 'AbortError') status('画像をコピーできなかった。ブラウザのコピー許可を確認するか「画像を保存」を使ってね。');
+    } finally { if(live() && version === revision) button.disabled = false; }
   };
   function releaseImage() {
     revision++;
+    clearTimeout(copyTimer); copyTimer = null; preparedBlob = null;
     generation?.abort(); generation = null; pending = null;
     if(url) URL.revokeObjectURL(url);
     url = null;
@@ -122,6 +140,7 @@ export function mountShareControls(host, {prefix, getBlob, getX, filename, signa
     if(reset && previewMode === 'on-demand') expanded = false;
     $('SharePreview').hidden = true; $('SharePreview').removeAttribute('src');
     status(''); $('X').href = getX();
+    $('CopyImage').disabled = false; $('CopyImage').textContent = '📋 画像をコピー';
     $('ImageActions').hidden = true; $('ImagePanel').hidden = !expanded;
     $('Entry').hidden = previewMode === 'always';
     $('Make').hidden = previewMode === 'always'; $('Make').disabled = false;
