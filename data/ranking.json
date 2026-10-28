@@ -137,7 +137,7 @@
       "label": "シーズン3",
       "active": true,
       "start_round": 101,
-      "through_round": 126,
+      "through_round": 128,
       "entries": [
         {
           "round": 101,
@@ -1084,104 +1084,184 @@
           "round": 126,
           "listener": "YOSHIHARU",
           "points": 1
+        },
+        {
+          "round": 127,
+          "listener": "ゆぐみ",
+          "points": 33
+        },
+        {
+          "round": 127,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 127,
+          "listener": "コマツナ",
+          "points": 1
+        },
+        {
+          "round": 127,
+          "listener": "キミヒコ",
+          "points": 1
+        },
+        {
+          "round": 127,
+          "listener": "YOSHIHARU",
+          "points": 1
+        },
+        {
+          "round": 127,
+          "listener": "天ぷらパーカー",
+          "points": 1
+        },
+        {
+          "round": 127,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 127,
+          "listener": "とんこつ",
+          "points": 1
+        },
+        {
+          "round": 127,
+          "listener": "たかちゃん",
+          "points": 1
+        },
+        {
+          "round": 128,
+          "listener": "emuda",
+          "points": 1234
+        },
+        {
+          "round": 128,
+          "listener": "キミヒコ",
+          "points": 1234
+        },
+        {
+          "round": 128,
+          "listener": "コマツナ",
+          "points": 1234
+        },
+        {
+          "round": 128,
+          "listener": "ねこあげ",
+          "points": 1234
+        },
+        {
+          "round": 128,
+          "listener": "天ぷらパーカー",
+          "points": 1234
+        },
+        {
+          "round": 128,
+          "listener": "とんこつ",
+          "points": 1234
+        },
+        {
+          "round": 128,
+          "listener": "ume",
+          "points": 1234
         }
       ],
       "ranking": [
         {
           "listener": "コマツナ",
-          "points": 1558,
-          "awards": 5,
+          "points": 2793,
+          "awards": 7,
           "x_url": "https://x.com/komatunapodcast",
           "rank": 1
         },
         {
           "listener": "ume",
-          "points": 1438,
-          "awards": 26,
+          "points": 2673,
+          "awards": 28,
           "x_url": "https://x.com/ume_999",
           "rank": 2
         },
         {
-          "listener": "YOSHIHARU",
-          "points": 1150,
-          "awards": 17,
-          "x_url": "https://x.com/hmaruSE",
+          "listener": "キミヒコ",
+          "points": 2029,
+          "awards": 27,
+          "x_url": "https://x.com/lvss4x",
           "rank": 3
         },
         {
-          "listener": "キミヒコ",
-          "points": 794,
-          "awards": 25,
-          "x_url": "https://x.com/lvss4x",
+          "listener": "emuda",
+          "points": 1662,
+          "awards": 28,
+          "x_url": "https://x.com/emuda01",
           "rank": 4
         },
         {
-          "listener": "ゆぐみ",
-          "points": 663,
-          "awards": 15,
-          "x_url": "https://x.com/gozayugu",
+          "listener": "天ぷらパーカー",
+          "points": 1531,
+          "awards": 22,
+          "x_url": "https://x.com/tempu_radio",
           "rank": 5
         },
         {
-          "listener": "emuda",
-          "points": 427,
-          "awards": 26,
-          "x_url": "https://x.com/emuda01",
+          "listener": "とんこつ",
+          "points": 1425,
+          "awards": 11,
+          "x_url": "https://x.com/IjE4Jku1QHhEW8L",
           "rank": 6
+        },
+        {
+          "listener": "ねこあげ",
+          "points": 1350,
+          "awards": 6,
+          "x_url": "https://x.com/necoage",
+          "rank": 7
+        },
+        {
+          "listener": "YOSHIHARU",
+          "points": 1151,
+          "awards": 18,
+          "x_url": "https://x.com/hmaruSE",
+          "rank": 8
+        },
+        {
+          "listener": "ゆぐみ",
+          "points": 696,
+          "awards": 16,
+          "x_url": "https://x.com/gozayugu",
+          "rank": 9
         },
         {
           "listener": "王夜",
           "points": 352,
           "awards": 14,
           "x_url": "https://x.com/Ouya08",
-          "rank": 7
-        },
-        {
-          "listener": "天ぷらパーカー",
-          "points": 296,
-          "awards": 20,
-          "x_url": "https://x.com/tempu_radio",
-          "rank": 8
+          "rank": 10
         },
         {
           "listener": "榊",
           "points": 222,
           "awards": 1,
           "x_url": "https://x.com/sakaki_kasiwa",
-          "rank": 9
+          "rank": 11
         },
         {
           "listener": "ゆうたろー",
           "points": 206,
           "awards": 5,
           "x_url": "https://x.com/otakunogorakuyu",
-          "rank": 10
-        },
-        {
-          "listener": "とんこつ",
-          "points": 190,
-          "awards": 9,
-          "x_url": "https://x.com/IjE4Jku1QHhEW8L",
-          "rank": 11
+          "rank": 12
         },
         {
           "listener": "クバノちゃん",
           "points": 120,
           "awards": 1,
           "x_url": null,
-          "rank": 12
-        },
-        {
-          "listener": "ねこあげ",
-          "points": 116,
-          "awards": 5,
-          "x_url": "https://x.com/necoage",
           "rank": 13
         },
         {
           "listener": "たかちゃん",
-          "points": 115,
-          "awards": 4,
+          "points": 116,
+          "awards": 5,
           "x_url": "https://x.com/hagitaka_chan",
           "rank": 14
         },
