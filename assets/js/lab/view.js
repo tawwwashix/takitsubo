@@ -25,7 +25,7 @@ export function renderLab(root) {
       <path fill="#badcec" d="M0 0h1000v180H0z"/>
       <g stroke="#e7f6ff" stroke-width="2" fill="none"><path d="M0 12h1000M0 34h1000M0 68h1000M0 116h1000M0 178h1000"/><path d="M400 0 0 180M440 0 200 180M480 0 400 180M520 0 600 180M560 0 800 180M600 0 1000 180M360 0-200 180M640 0 1200 180"/></g>
     </svg>
-    <p id="labLoading" class="lab-loading" role="status">カートリッジを準備中…</p>
+    <p id="labLoading" class="lab-loading" role="status" hidden><span>エピソードを準備中</span><span class="lab-loading-dots" aria-hidden="true"><i></i><i></i><i></i></span></p>
     <section id="labCards" class="lab-cards" aria-label="博士の3つの候補"></section>
     <div class="lab-save-actions" id="labSaveActions" inert><button type="button" id="labRegister" class="lab-secondary" disabled>図鑑に登録</button><button type="button" id="labConfirm" class="lab-secondary" disabled>手持ちに加える</button></div>
   </section>

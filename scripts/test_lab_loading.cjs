@@ -31,6 +31,28 @@ const gate = () => { let release; const promise = new Promise(r => release=r); r
   await p.unroute('**/lab/game.js*');await p.unroute('**/share-tools.js*');
   check('Episode data loads alongside game code; cards do not wait for sharing UI or PNG code');
 
+  // Warm the two deterministic rounds, then watch for any transient loader flash.
+  await p.evaluate(async()=>{
+   await Promise.all(Array.from({length:6},(_,i)=>{const image=new Image();image.src=`assets/img/ep/${i+1}.jpg`;return image.decode();}));
+   Math.random=()=>0;window.__loadingFlashes=0;
+   window.__loadingWatch=new MutationObserver(()=>{if(!document.querySelector('#labLoading').hidden)window.__loadingFlashes++;});
+   window.__loadingWatch.observe(document.querySelector('#labLoading'),{attributes:true,attributeFilter:['hidden']});
+  });
+  for(let i=0;i<3;i++){await p.locator('#labShuffle').click();await ready();}
+  await p.waitForTimeout(250);
+  assert.equal(await p.evaluate(()=>window.__loadingFlashes),0,'Warm rounds must not flash the loader or reveal an expired timer');
+  await p.evaluate(()=>window.__loadingWatch.disconnect());
+  check('Fast cached rounds never flash a loading label or leave a delayed timer behind');
+
+  await p.addInitScript(()=>{
+   window.__loadingTimeline={start:null,shown:null};
+   const observer=new MutationObserver(()=>{
+    const cards=document.querySelector('#labCards'),label=document.querySelector('#labLoading');
+    if(cards?.classList.contains('is-loading')&&window.__loadingTimeline.start===null)window.__loadingTimeline.start=performance.now();
+    if(label&&!label.hidden&&window.__loadingTimeline.start!==null){window.__loadingTimeline.shown=performance.now();observer.disconnect();}
+   });observer.observe(document,{subtree:true,childList:true,attributes:true,attributeFilter:['hidden','class']});
+  });
+
   const imageGate=gate();
   await p.route('**/img/ep/31.jpg',async r=>{await imageGate.promise;await r.continue().catch(()=>{});});
   await p.goto(base+'/lab.html?eps=31,22,23',{waitUntil:'domcontentloaded'});
@@ -41,7 +63,25 @@ const gate = () => { let release; const promise = new Promise(r => release=r); r
   assert(await p.locator('#labCards .lab-art').first().isHidden());
   await p.locator('.lab-choose').first().evaluate(e=>e.click());
   assert.equal(await p.locator('.is-inspected').count(),0);
+  const timing=await p.evaluate(()=>window.__loadingTimeline);
+  assert(timing.shown-timing.start>=150,JSON.stringify(timing));
+  assert.equal(await p.locator('#labLoading>span').first().textContent(),'エピソードを準備中');
+  for(const width of [320,390,1280]){
+   await p.setViewportSize({width,height:844});
+   const position=await p.evaluate(()=>{const scene=document.querySelector('.lab-scene').getBoundingClientRect(),label=document.querySelector('#labLoading').getBoundingClientRect();return {right:scene.right-label.right,bottom:scene.bottom-label.bottom,inside:label.left>=scene.left&&label.top>=scene.top};});
+   assert(position.inside&&position.right>=12&&position.right<=18&&position.bottom>=12&&position.bottom<=18,JSON.stringify(position));
+  }
+  assert.equal(await p.locator('.lab-loading-dots').evaluate(e=>e.getAnimations({subtree:true}).filter(a=>a.playState==='running').length),3);
+  await p.locator('#labMotion').evaluate(e=>e.click());
+  assert.equal(await p.locator('.lab-loading-dots i').first().evaluate(e=>getComputedStyle(e).animationName),'none');
+  await p.locator('#labMotion').evaluate(e=>e.click());
+  await p.emulateMedia({reducedMotion:'reduce'});
+  assert.equal(await p.locator('.lab-loading-dots i').first().evaluate(e=>getComputedStyle(e).animationName),'none');
+  await p.emulateMedia({reducedMotion:'no-preference'});
+  await p.screenshot({path:path.join(out,'loading-desktop.png')});
+  await p.setViewportSize({width:390,height:844});
   await p.screenshot({path:path.join(out,'loading-mobile.png')});
+  check('Loader appears after a delay at the lower right at three widths; dots respect animation OFF and reduced motion');
   imageGate.release();await ready();
   assert.equal(await p.locator('#labCards').getAttribute('aria-busy'),'false');
   assert(await p.locator('#labLoading').isHidden());
@@ -59,7 +99,7 @@ const gate = () => { let release; const promise = new Promise(r => release=r); r
   });
   await p.goto(base+'/lab.html?eps=31,22,23&decode-test=1',{waitUntil:'domcontentloaded'});
   await p.waitForFunction(()=>typeof window.__releaseDecode==='function');
-  assert(await p.locator('#labLoading').isVisible());
+  await p.locator('#labLoading').waitFor();
   assert(await p.locator('#labCards img').evaluateAll(es=>es.every(e=>e.complete)));
   await p.evaluate(()=>window.__releaseDecode());await ready();
   check('Downloaded artwork is still withheld until decoding completes');

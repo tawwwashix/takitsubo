@@ -1,6 +1,7 @@
 // All lab dependencies use the same content-derived version from build.py.
 const version = new URL(import.meta.url).search;
 const load = name => import(new URL(name + version, import.meta.url));
+const LOADING_DELAY_MS = 200;
 const [{createCartridge}, {installPartyReorder}, {prepareImage}, {renderLab}, {createLabStorage, PARTY_KEY, COLLECTION_KEY}, {drawRound, readSharedParty}, {installTransfer}] = await Promise.all([
   load('./cartridge.js'), load('./party-reorder.js'), load('./image-ready.js'),
   load('./view.js'), load('./storage.js'), load('./selection.js'), load('./transfer.js')
@@ -32,6 +33,7 @@ export async function mount(root, page, data) {
   let collection = new Set(), round = [], selected = null, senderPick = null;
   let inspected = null, partyShareControls, partySignature = null;
   let roundPreparation = null, roundReady = false;
+  let loadingTimer = null;
   const dexTiles = new Map();
   page.onDispose(() => roundPreparation?.abort());
   let reorderMode=false, reorderSource=null, replacingFromRound=false;
@@ -253,10 +255,16 @@ export async function mount(root, page, data) {
   function renderCards() {
     roundPreparation?.abort();
     const preparation = roundPreparation = new AbortController();
+    const clearLoading = () => { clearTimeout(loadingTimer); loadingTimer = null; $('#labLoading').hidden = true; };
+    clearLoading();
+    preparation.signal.addEventListener('abort', clearLoading, {once:true});
     roundReady = false;
     const cards = $("#labCards"); cards.replaceChildren();
     cards.classList.add('is-loading'); cards.inert = true; cards.setAttribute('aria-busy', 'true');
-    $('#labLoading').hidden = false;
+    loadingTimer = setTimeout(() => {
+      loadingTimer = null;
+      if (!preparation.signal.aborted && !page.signal.aborted && roundPreparation === preparation && !roundReady) $('#labLoading').hidden = false;
+    }, LOADING_DELAY_MS);
     round.forEach((ep, index) => {
       const card = document.createElement("article"); card.className = "lab-card"; card.dataset.number = ep.number;
       card.style.setProperty("--slot", index);
@@ -287,7 +295,7 @@ export async function mount(root, page, data) {
       roundReady = true;
       cards.classList.remove('is-loading'); cards.inert = false; cards.setAttribute('aria-busy', 'false');
       cards.querySelectorAll('button').forEach(button => button.disabled = false);
-      $('#labLoading').hidden = true;
+      clearLoading();
       syncMotion();
       updateCards();
     }).catch(error => { if (error.name !== 'AbortError') console.error(error); });
@@ -388,9 +396,10 @@ export async function mount(root, page, data) {
 // 動きの停止・ダイアログ・フォーカス
   let motionPaused = false, sceneVisible = true;
   const syncMotion = () => {
-    const paused = motionPaused || !roundReady || document.hidden || !sceneVisible || !!root.querySelector("dialog[open]");
-    root.classList.toggle("lab-paused", paused);
-    if(paused) clearFeedback();
+    const paused = motionPaused || document.hidden || !sceneVisible || !!root.querySelector("dialog[open]");
+    root.classList.toggle("lab-paused", paused || !roundReady);
+    $('#labLoading').classList.toggle('is-static', paused);
+    if(paused || !roundReady) clearFeedback();
   };
   $("#labMotion").addEventListener("click", () => {
     transfer.cancel();cancelDiscoveryFlash();motionPaused = !motionPaused;
