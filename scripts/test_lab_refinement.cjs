@@ -45,6 +45,7 @@ const PARTY='takitsubo:episode-lab:party:v1', DEX='takitsubo:episode-lab:collect
       assert.equal(await p.locator('#labInspectTitle').evaluate(e=>getComputedStyle(e).webkitLineClamp),width<=760?'3':'2');
       for(let i=0;i<12;i++) {
         await p.locator('#labShuffle').evaluate(e=>e.click());
+        await ready();
         await p.locator('.lab-choose').nth(i%3).evaluate(e=>e.click());
         assert(Math.abs(await top()-before)<1,`Control moved at ${width}`);
       }

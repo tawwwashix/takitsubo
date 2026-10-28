@@ -1,8 +1,8 @@
 // All lab dependencies use the same content-derived version from build.py.
 const version = new URL(import.meta.url).search;
 const load = name => import(new URL(name + version, import.meta.url));
-const [{createCartridge}, {installPartyReorder}, {createPartyShareImage}, {renderLab}, {createLabStorage, PARTY_KEY, COLLECTION_KEY}, {drawRound, readSharedParty}, {installTransfer}] = await Promise.all([
-  load('./cartridge.js'), load('./party-reorder.js'), load('./party-share.js'),
+const [{createCartridge}, {installPartyReorder}, {prepareImage}, {renderLab}, {createLabStorage, PARTY_KEY, COLLECTION_KEY}, {drawRound, readSharedParty}, {installTransfer}] = await Promise.all([
+  load('./cartridge.js'), load('./party-reorder.js'), load('./image-ready.js'),
   load('./view.js'), load('./storage.js'), load('./selection.js'), load('./transfer.js')
 ]);
 
@@ -21,11 +21,7 @@ export function readRound(search, byNumber) {
 }
 
 // 画面の状態と操作を接続する。描画素材・保存・PNG・ドラッグは別モジュール
-export async function mount(root, page) {
-  const {wrapLines, mountShareControls} = await import(new URL(root.dataset.shareModule, location.href));
-  const response = await fetch(root.dataset.source, { signal: page.signal });
-  if (!response.ok) throw new Error("Episode data unavailable");
-  const data = await response.json();
+export async function mount(root, page, data) {
   if (page.signal.aborted) return;
   const episodes = data.episodes.filter(e => Number.isInteger(e.number) && e.number > 0 && typeof e.title === "string");
   const byNumber = new Map(episodes.map(e => [e.number, e]));
@@ -35,6 +31,9 @@ export async function mount(root, page) {
   let sharedView = !!sharedParty.ids;
   let collection = new Set(), round = [], selected = null, senderPick = null;
   let inspected = null, partyShareControls, partySignature = null;
+  let roundPreparation = null, roundReady = false;
+  const dexTiles = new Map();
+  page.onDispose(() => roundPreparation?.abort());
   let reorderMode=false, reorderSource=null, replacingFromRound=false;
   let party = [], ascending = false, showUnseen = true, itemNumber = null, replacing = null;
   const shareBase = new URL(root.dataset.sharePage);
@@ -86,31 +85,45 @@ export async function mount(root, page) {
     button.append(createCartridge(ep, true), meta, title); button.addEventListener("click", action);
     return button;
   }
-  function updateCollection() {
+  function updateCollection(opening = false) {
     $("#labCount").textContent = `${collection.size} / ${byNumber.size}`;
     $("#labDexCount").textContent = `発見 ${collection.size} / ${byNumber.size}`;
     $("#labDexOrder").value = ascending ? "asc" : "desc"; $("#labDexUnseen").checked = showUnseen;
-    const grid = $("#labDexGrid"); grid.replaceChildren();
+    if (!storage.available) $("#labStorageNote").textContent = "保存を利用できないため、この画面内だけで記録しているよ。";
+    // Counts update immediately; the closed catalogue does not need any DOM work.
+    if (!opening && !$("#labDex").open) return;
+    const grid = $("#labDexGrid");
     const numbers = [...byNumber.keys()].filter(n => showUnseen || collection.has(n)).sort((a,b) => ascending ? a-b : b-a);
-    if (!numbers.length) { const p = document.createElement("p"); p.textContent = "気になる回を「図鑑に登録」すると、ここに記録されます。"; grid.append(p); }
-    numbers.forEach(number => {
-      if(!collection.has(number)) {
-        const tile = document.createElement("div"); tile.className = "lab-undiscovered"; tile.dataset.number = number;
+    const visible = new Set(numbers.map(String));
+    [...grid.children].forEach(node => { if (!visible.has(node.dataset.number)) node.remove(); });
+    if (!numbers.length) { const p = document.createElement("p"); p.textContent = "気になる回を「図鑑に登録」すると、ここに記録されます。"; grid.replaceChildren(p); }
+    numbers.forEach((number, index) => {
+      const discovered = collection.has(number);
+      let tile = dexTiles.get(number);
+      if (tile && tile.classList.contains('lab-owned') !== discovered) { tile.remove(); tile = null; }
+      if (!tile && !discovered) {
+        tile = document.createElement("div"); tile.className = "lab-undiscovered"; tile.dataset.number = number;
         tile.setAttribute("aria-label", `#${number} 未発見`);
         const silhouette = document.createElement("span"); silhouette.className = "lab-silhouette"; silhouette.setAttribute("aria-hidden","true");
         const label = document.createElement("span"); label.className = "lab-dex-title"; label.textContent = `#${number}`;
-        tile.append(silhouette,label); grid.append(tile); return;
+        tile.append(silhouette,label);
       }
-      const button = cartridgeButton(number, () => openItem(number));
-      if(party.includes(number)) { const mark=document.createElement("span");mark.className="lab-party-mark";mark.textContent="手持ち";button.querySelector(".lab-card-meta").append(mark); }
-      grid.append(button);
+      if (!tile) tile = cartridgeButton(number, () => openItem(number));
+      if (discovered) {
+        const mark = tile.querySelector('.lab-party-mark');
+        if (party.includes(number) && !mark) { const badge=document.createElement('span');badge.className='lab-party-mark';badge.textContent='手持ち';tile.querySelector('.lab-card-meta').append(badge); }
+        else if (!party.includes(number)) mark?.remove();
+      }
+      dexTiles.set(number, tile);
+      if (grid.children[index] !== tile) grid.insertBefore(tile, grid.children[index] || null);
     });
-    if (!storage.available) $("#labStorageNote").textContent = "保存を利用できないため、この画面内だけで記録しているよ。";
   }
   function updateParty() {
     $("#labPartyCount").textContent = `${party.length} / 6`;
-    const grid = $("#labPartyGrid"); grid.replaceChildren();
-    for(let i=0;i<6;i++) {
+    const grid = $("#labPartyGrid"), signature=party.join(",");
+    if (signature !== partySignature) {
+      grid.replaceChildren();
+      for(let i=0;i<6;i++) {
       if(party[i] !== undefined) {
         const number=party[i],button=cartridgeButton(number,()=>{
           if(!reorderMode) {openItem(number);return;}
@@ -124,10 +137,10 @@ export async function mount(root, page) {
         });grid.append(button);
       }
       else { const slot=document.createElement("div");slot.className="lab-empty-slot";slot.setAttribute("aria-label",`空き枠 ${i+1}`);slot.textContent=String(i+1).padStart(2,"0");grid.append(slot); }
+      }
     }
     updateReorder();syncAcquireButton();
     $("#labPartyShare").hidden=party.length===0;
-    const signature=party.join(",");
     // Editing the party closes the old image. Generate again only on an explicit click.
     if(signature!==partySignature) {partySignature=signature;partyShareControls?.invalidate({reset:true});}
     $("#labPartyStatus").hidden=storage.available;
@@ -182,7 +195,7 @@ export async function mount(root, page) {
       updateRoundUrl();
     }
     saveParty(destination==="dex"?`#${number}を図鑑に登録したよ。`:`#${number}を手持ちに加えたよ。`);
-    renderCards();
+    updateCards();
     if(firstDiscovery && motionEnabled() && !root.classList.contains('lab-paused')) {
       const card=$(`#labCards [data-number="${number}"]`);
       card?.classList.add("is-registered");
@@ -238,11 +251,17 @@ export async function mount(root, page) {
     history.replaceState(history.state, "", url);
   }
   function renderCards() {
+    roundPreparation?.abort();
+    const preparation = roundPreparation = new AbortController();
+    roundReady = false;
     const cards = $("#labCards"); cards.replaceChildren();
+    cards.classList.add('is-loading'); cards.inert = true; cards.setAttribute('aria-busy', 'true');
+    $('#labLoading').hidden = false;
     round.forEach((ep, index) => {
       const card = document.createElement("article"); card.className = "lab-card"; card.dataset.number = ep.number;
       card.style.setProperty("--slot", index);
       const button = document.createElement("button"); button.type = "button"; button.className = "lab-choose";
+      button.disabled = true;
       button.setAttribute("aria-label", `#${ep.number} ${ep.title}を調べる`);
       button.setAttribute("aria-controls", "labInspection");
       button.setAttribute("aria-pressed", String(ep.number === inspected));
@@ -262,10 +281,27 @@ export async function mount(root, page) {
       cards.append(card);
     });
     cards.dataset.active = String(round.findIndex(ep => ep.number === inspected));
+    syncMotion();
+    Promise.all([...cards.querySelectorAll('img')].map(img => prepareImage(img, preparation.signal))).then(() => {
+      if (preparation.signal.aborted || page.signal.aborted || roundPreparation !== preparation) return;
+      roundReady = true;
+      cards.classList.remove('is-loading'); cards.inert = false; cards.setAttribute('aria-busy', 'false');
+      cards.querySelectorAll('button').forEach(button => button.disabled = false);
+      $('#labLoading').hidden = true;
+      syncMotion();
+      updateCards();
+    }).catch(error => { if (error.name !== 'AbortError') console.error(error); });
+  }
+  function updateCards() {
+    $('#labCards').querySelectorAll('.lab-card').forEach(card => {
+      const number = Number(card.dataset.number);
+      card.querySelector('.lab-card-badge').textContent = collection.has(number) ? '登録済み' : '';
+      if (senderPick !== number) card.querySelector('.lab-sender')?.remove();
+    });
     inspect(byNumber.get(inspected));
   }
   function inspect(ep) {
-    if (!ep) return;
+    if (!ep || !roundReady) return;
     inspected = ep.number;
     $("#labInspectPrompt").hidden=true;
     $("#labCards").dataset.active = String(round.findIndex(item => item.number === inspected));
@@ -352,7 +388,7 @@ export async function mount(root, page) {
 // 動きの停止・ダイアログ・フォーカス
   let motionPaused = false, sceneVisible = true;
   const syncMotion = () => {
-    const paused = motionPaused || document.hidden || !sceneVisible || !!root.querySelector("dialog[open]");
+    const paused = motionPaused || !roundReady || document.hidden || !sceneVisible || !!root.querySelector("dialog[open]");
     root.classList.toggle("lab-paused", paused);
     if(paused) clearFeedback();
   };
@@ -369,7 +405,7 @@ export async function mount(root, page) {
   const sceneObserver = new IntersectionObserver(entries => { sceneVisible = entries.at(-1).isIntersecting; syncMotion(); });
   sceneObserver.observe($(".lab-scene"));
   for (const [trigger, target] of [["labDexToggle", "labDex"]]) {
-    $("#" + trigger).addEventListener("click", () => { transfer.cancel();$("#" + target).showModal(); syncMotion(); });
+    $("#" + trigger).addEventListener("click", () => { transfer.cancel();updateCollection(true);$("#" + target).showModal(); syncMotion(); });
   }
   root.querySelectorAll("[data-close]").forEach(button => button.addEventListener("click", () => $("#" + button.dataset.close).close()));
   root.querySelectorAll("dialog").forEach(modal => {
@@ -411,15 +447,32 @@ export async function mount(root, page) {
 // 別タブとの同期と共有画像
   page.listen(window,"storage", e => {
     if(e.key === COLLECTION_KEY || e.key === PARTY_KEY) {
-      transfer.cancel();cancelReorder();reorderSource=null;mergeCollection(); readParty(); updateCollection(); updateParty(); renderCards();updateRoundUrl();
+      transfer.cancel();cancelReorder();reorderSource=null;mergeCollection(); readParty(); updateCollection(); updateParty(); updateCards();updateRoundUrl();
       if($("#labItem").open) refreshItem();
       if($("#labReplace").open) renderReplacements();
     }
   });
+  page.onDispose(() => { sceneObserver.disconnect(); root.querySelectorAll("dialog[open]").forEach(modal => modal.close()); });
+  syncMotion();
+  const initial = readRound(location.search, byNumber), ownChoice=history.state?.labChoice;
+  senderPick = initial.pick; newRound(initial.ids); updateCollection();
+  if(initial.pick!==null && ownChoice?.eps===initial.ids?.join(",") && ownChoice.pick===initial.pick) {
+    selected=initial.pick;senderPick=null;updateCards();updateRoundUrl();
+  }
+  if (sharedParty.invalid) { $("#labNotice").hidden=false; $("#labNotice").textContent="このリンクの手持ちは読み取れなかったため、新しい3択を用意したよ。"; }
+  if (!sharedParty.invalid && initial.invalid) { $("#labNotice").hidden = false; $("#labNotice").textContent = initial.ids ? "紹介した人の選択を読み取れなかったため、3枚の候補だけを表示したよ。" : "このリンクの3択は読み取れなかったため、新しい3択を用意したよ。"; }
+  // Start the cards and their image requests before loading the sharing UI.
+  const {wrapLines, mountShareControls} = await import(new URL(root.dataset.shareModule, location.href));
+  if (page.signal.aborted) return;
   partyShareControls=mountShareControls($("#labPartyShare"), {
     prefix:"labParty",signal:page.signal,previewMode:"on-demand",
     makeLabel:"手持ちのシェア画像を作る",previewAlt:"手持ちエピソードのシェア画像",
-    getBlob:signal=>createPartyShareImage(party.map(n=>byNumber.get(n)),signal,wrapLines),
+    getBlob:async signal=>{
+      const episodes = party.map(n=>byNumber.get(n));
+      const {createPartyShareImage} = await load('./party-share.js');
+      if (signal.aborted) throw new DOMException('Disposed', 'AbortError');
+      return createPartyShareImage(episodes,signal,wrapLines);
+    },
     getX:()=>{
       const url=new URL("https://twitter.com/intent/tweet");
       url.searchParams.set("text",`ゲームの滝壺から、気になるエピソードを${party.length}本選びました！\n選んだ回はこちらから👇\n${shareHashtags}`);
@@ -429,13 +482,4 @@ export async function mount(root, page) {
     },
     filename:()=>`takitsubo-party-${party.join("-")}.png`
   });
-  page.onDispose(() => { sceneObserver.disconnect(); root.querySelectorAll("dialog[open]").forEach(modal => modal.close()); });
-  syncMotion();
-  const initial = readRound(location.search, byNumber), ownChoice=history.state?.labChoice;
-  senderPick = initial.pick; newRound(initial.ids); updateCollection();
-  if(initial.pick!==null && ownChoice?.eps===initial.ids?.join(",") && ownChoice.pick===initial.pick) {
-    selected=initial.pick;senderPick=null;renderCards();updateRoundUrl();
-  }
-  if (sharedParty.invalid) { $("#labNotice").hidden=false; $("#labNotice").textContent="このリンクの手持ちは読み取れなかったため、新しい3択を用意したよ。"; }
-  if (!sharedParty.invalid && initial.invalid) { $("#labNotice").hidden = false; $("#labNotice").textContent = initial.ids ? "紹介した人の選択を読み取れなかったため、3枚の候補だけを表示したよ。" : "このリンクの3択は読み取れなかったため、新しい3択を用意したよ。"; }
 }

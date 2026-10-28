@@ -13,8 +13,13 @@ window.Takitsubo.register(async function (page) {
       page.signal.addEventListener("abort", resolve, { once: true });
     });
     document.head.appendChild(css);
-    var result = await Promise.all([import(new URL(root.dataset.module, location.href).href), styleReady]);
-    if (!page.signal.aborted) await result[0].mount(root, page);
+    // Fetch data alongside the module tree, instead of waiting for it to finish.
+    var dataReady = fetch(root.dataset.source, { signal: page.signal }).then(function (response) {
+      if (!response.ok) throw new Error("Episode data unavailable");
+      return response.json();
+    });
+    var result = await Promise.all([import(new URL(root.dataset.module, location.href).href), styleReady, dataReady]);
+    if (!page.signal.aborted) await result[0].mount(root, page, result[2]);
   } catch (error) {
     if (page.signal.aborted) return;
     root.textContent = "ページを読み込めませんでした。";

@@ -49,7 +49,7 @@ const out=path.resolve(__dirname,'../.local-preview');fs.mkdirSync(out,{recursiv
   const old=await cards(p);await p.locator('#labShuffle').click();const fresh=await cards(p);
   assert.equal(new Set(fresh).size,3);assert(fresh.every(n=>!old.includes(n)));assert.equal(await p.locator('#labConfirm').getAttribute('aria-disabled'),'true');
   assert(!new URL(p.url()).searchParams.has('pick'));
-  for(let i=0;i<8;i++)await p.locator('#labShuffle').click();assert.equal(await p.locator('.lab-choose:enabled').count(),3);
+  for(let i=0;i<8;i++)await p.locator('#labShuffle').click();await ready(p);assert.equal(await p.locator('.lab-choose:enabled').count(),3);
   check('Immediate unlimited rerolls, no duplicate candidates or stale selection');
 
   assert(await p.locator('#labPartySharePreview').isVisible());
