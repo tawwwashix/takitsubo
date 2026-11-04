@@ -137,7 +137,7 @@
       "label": "シーズン3",
       "active": true,
       "start_round": 101,
-      "through_round": 128,
+      "through_round": 129,
       "entries": [
         {
           "round": 101,
@@ -1164,6 +1164,36 @@
           "round": 128,
           "listener": "ume",
           "points": 1234
+        },
+        {
+          "round": 129,
+          "listener": "ume",
+          "points": 10
+        },
+        {
+          "round": 129,
+          "listener": "ねこあげ",
+          "points": 10
+        },
+        {
+          "round": 129,
+          "listener": "emuda",
+          "points": 20
+        },
+        {
+          "round": 129,
+          "listener": "天ぷらパーカー",
+          "points": 1
+        },
+        {
+          "round": 129,
+          "listener": "YOSHIHARU",
+          "points": 1
+        },
+        {
+          "round": 129,
+          "listener": "キミヒコ",
+          "points": 1
         }
       ],
       "ranking": [
@@ -1176,29 +1206,29 @@
         },
         {
           "listener": "ume",
-          "points": 2673,
-          "awards": 28,
+          "points": 2683,
+          "awards": 29,
           "x_url": "https://x.com/ume_999",
           "rank": 2
         },
         {
           "listener": "キミヒコ",
-          "points": 2029,
-          "awards": 27,
+          "points": 2030,
+          "awards": 28,
           "x_url": "https://x.com/lvss4x",
           "rank": 3
         },
         {
           "listener": "emuda",
-          "points": 1662,
-          "awards": 28,
+          "points": 1682,
+          "awards": 29,
           "x_url": "https://x.com/emuda01",
           "rank": 4
         },
         {
           "listener": "天ぷらパーカー",
-          "points": 1531,
-          "awards": 22,
+          "points": 1532,
+          "awards": 23,
           "x_url": "https://x.com/tempu_radio",
           "rank": 5
         },
@@ -1211,15 +1241,15 @@
         },
         {
           "listener": "ねこあげ",
-          "points": 1350,
-          "awards": 6,
+          "points": 1360,
+          "awards": 7,
           "x_url": "https://x.com/necoage",
           "rank": 7
         },
         {
           "listener": "YOSHIHARU",
-          "points": 1151,
-          "awards": 18,
+          "points": 1152,
+          "awards": 19,
           "x_url": "https://x.com/hmaruSE",
           "rank": 8
         },
@@ -3399,6 +3429,14 @@
       "image_source_url": "https://x.com/game_tktb/status/2114658294887522675",
       "image_source_index": 1,
       "image": "assets/img/awq/129.webp"
+    },
+    {
+      "round": 130,
+      "x_url": "https://x.com/game_tktb/status/2117195013147017719",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2117195013147017719",
+      "image_source_index": 1,
+      "image": "assets/img/awq/130.webp"
     }
   ]
 }
