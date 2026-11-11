@@ -137,7 +137,7 @@
       "label": "シーズン3",
       "active": true,
       "start_round": 101,
-      "through_round": 129,
+      "through_round": 130,
       "entries": [
         {
           "round": 101,
@@ -1194,6 +1194,31 @@
           "round": 129,
           "listener": "キミヒコ",
           "points": 1
+        },
+        {
+          "round": 130,
+          "listener": "キミヒコ",
+          "points": 10
+        },
+        {
+          "round": 130,
+          "listener": "天ぷらパーカー",
+          "points": 10
+        },
+        {
+          "round": 130,
+          "listener": "emuda",
+          "points": 45
+        },
+        {
+          "round": 130,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 130,
+          "listener": "王夜",
+          "points": 1
         }
       ],
       "ranking": [
@@ -1206,29 +1231,29 @@
         },
         {
           "listener": "ume",
-          "points": 2683,
-          "awards": 29,
+          "points": 2684,
+          "awards": 30,
           "x_url": "https://x.com/ume_999",
           "rank": 2
         },
         {
           "listener": "キミヒコ",
-          "points": 2030,
-          "awards": 28,
+          "points": 2040,
+          "awards": 29,
           "x_url": "https://x.com/lvss4x",
           "rank": 3
         },
         {
           "listener": "emuda",
-          "points": 1682,
-          "awards": 29,
+          "points": 1727,
+          "awards": 30,
           "x_url": "https://x.com/emuda01",
           "rank": 4
         },
         {
           "listener": "天ぷらパーカー",
-          "points": 1532,
-          "awards": 23,
+          "points": 1542,
+          "awards": 24,
           "x_url": "https://x.com/tempu_radio",
           "rank": 5
         },
@@ -1262,8 +1287,8 @@
         },
         {
           "listener": "王夜",
-          "points": 352,
-          "awards": 14,
+          "points": 353,
+          "awards": 15,
           "x_url": "https://x.com/Ouya08",
           "rank": 10
         },

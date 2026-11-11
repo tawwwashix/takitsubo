@@ -11917,6 +11917,76 @@
    "duration": 4158,
    "image": "assets/img/ep/130.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1793797824179-5d464346e9fcc.jpg"
+  },
+  {
+   "number": 131,
+   "title": "ちょうどいい難易度",
+   "tags": [],
+   "series": null,
+   "description": "ゲームにおける難易度をテーマに、\n・どの難易度で始めるか\n・途中で難易度は変えるか\n・理不尽と高難度の違い\nなどなど、徹底討論…とまではいかないですが、ちょうどいい分量を話しています。\n\n■チャプター\n(00:00)オープニング\n(01:28)ゲームの難易度\n(34:45)難易度まとめ\n(36:18)おたより紹介\n(48:18)アートワーククイズ\n(53:37)ゲーム開発情報\n(57:08)エンディング\n\n■主な登場ゲームタイトル（★=メインで語ったタイトル）\n【本編】\nテイルズシリーズ\nダークソウル\nスーパーマリオシリーズ\nBalatro\nスペルトナエル\n風来のシレンシリーズ\nビートマニア\nドラゴンクエストシリーズ\n\n【おたより紹介】\nトルネコの大冒険 不思議のダンジョン ちょっとステキなリマスター\nゼルダの伝説 時のオカリナ\n\n【アートワーククイズ】\n魔界村\nソロモンの鍵\n\n【ゲーム開発情報】\nたきつぼクエスト\nhttps://subtle-peony-f1770b.netlify.app/\n\n【エンディング】\nウマ娘 プリティーダービー\nギルド探求団へようこそ！\nCairn\n\n■今週のゲーム実況\nCairn\nhttps://www.youtube.com/live/rlMWZcDi5Uw\n\n■ゲームの滝壺公式サイト\nhttps://game-takitsubo.com/\n\n■出演\n夜中たわし：https://x.com/tawwwashix\nひゅうま：https://x.com/hyuuma_tktb\nイチィゴォー：https://x.com/ichigo_tktb\n\n■使用BGM・SE\n夢物語 / 騒音のない世界：https://www.youtube.com/watch?v=6AOOtngbVF8\n優日のすたるじっく：https://www.youtube.com/@nostalgic_BGM\nきらきら魔法ガール / ゆめひつじ：https://www.youtube.com/watch?v=dgl43v4swfI\n効果音ラボ：https://soundeffect-lab.info/\nOtoLogic：https://otologic.jp\n\n■おたよりはこちら\nおたよりフォーム\nhttps://forms.gle/jot3ETXF19whQUEP9\nメールアドレス\ngame.tktb@gmail.com\n\n■SNS等\n公式X（旧Twitter）\nhttps://x.com/game_tktb\n\nインスタグラム\nhttps://www.instagram.com/game_tktb/\n\nYouTubeチャンネル\nhttps://www.youtube.com/@game-tktb\n\n感想等、ハッシュタグ #ゲームの滝壺 で投稿いただければ大変励みになります！",
+   "games": [
+    "テイルズシリーズ",
+    "ダークソウル",
+    "スーパーマリオシリーズ",
+    "Balatro",
+    "スペルトナエル",
+    "風来のシレンシリーズ",
+    "ビートマニア",
+    "ドラゴンクエストシリーズ",
+    "トルネコの大冒険 不思議のダンジョン ちょっとステキなリマスター",
+    "ゼルダの伝説 時のオカリナ",
+    "魔界村",
+    "ソロモンの鍵",
+    "たきつぼクエスト",
+    "ウマ娘 プリティーダービー",
+    "ギルド探求団へようこそ！",
+    "Cairn"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "01:28",
+     "label": "ゲームの難易度"
+    },
+    {
+     "time": "34:45",
+     "label": "難易度まとめ"
+    },
+    {
+     "time": "36:18",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "48:18",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "53:37",
+     "label": "ゲーム開発情報"
+    },
+    {
+     "time": "57:08",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/131-e3s72m3",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC131%E5%9B%9E-%E3%81%A1%E3%82%87%E3%81%86%E3%81%A9%E3%81%84%E3%81%84%E9%9B%A3%E6%98%93%E5%BA%A6/id1749310211?i=1000801221741&uo=4",
+    "listen": "https://listen.style/p/gamenotktb/qgfsggsy",
+    "youtube": "https://www.youtube.com/watch?v=gt7oIbZzW7s",
+    "spotify_open": "https://open.spotify.com/episode/1ociH4YsReZewvr5JjkSMj"
+   },
+   "guid": "fb7c5d41-50b0-4d2b-9492-6b76f181e5e0",
+   "date": "2026-11-11",
+   "date_estimated": false,
+   "featured_games": [],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/129255555/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-10-11%2F717a6dd6-b02f-3d81-22b1-f54c8cada2d8.mp3",
+   "duration": 3936,
+   "image": "assets/img/ep/131.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1794402469740-707acfc180571.jpg"
   }
  ]
 }
