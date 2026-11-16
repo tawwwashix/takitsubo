@@ -11987,6 +11987,51 @@
    "duration": 3936,
    "image": "assets/img/ep/131.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1794402469740-707acfc180571.jpg"
+  },
+  {
+   "number": 132,
+   "title": "お片付け系デッキ構築ローグライク『Pocket Legend : Inventory Roguelike Deckbuilder』",
+   "tags": [],
+   "series": null,
+   "description": "思う存分整理整頓ができて、ついでに敵もやっつけられるゲーム、『Pocket Legend : Inventory Roguelike Deckbuilder』について話します！\nSteamキー提供：Shading Box様\n\nストアページ：\nhttps://store.steampowered.com/app/3129790/Pocket_Legend_Inventory_Roguelike_Deckbuilder/\n\n実況プレイ動画：\nhttps://www.youtube.com/live/614jDguYesI\n\n■わるいチラシ（仮）に関する投稿\nhttps://x.com/tawwwashix/status/2108880443227754633\n\n■チャプター\n(00:00)オープニング\n(03:40)Pocket Legend : Inventory Roguelike Deckbuilder\n(25:15)ゲーム開発情報\n(32:06)エンディング\n\n■主な登場ゲームタイトル（★=メインで語ったタイトル）\n【本編】\n★Pocket Legend : Inventory Roguelike Deckbuilder\n\n【ゲーム開発情報】\nわるいチラシ\n\n■ゲームの滝壺公式サイト\nhttps://game-takitsubo.com/\n\n■出演\n夜中たわし：https://x.com/tawwwashix\nひゅうま：https://x.com/hyuuma_tktb\nイチィゴォー：https://x.com/ichigo_tktb\n\n■使用BGM・SE\n夢物語 / 騒音のない世界：https://www.youtube.com/watch?v=6AOOtngbVF8\n優日のすたるじっく：https://www.youtube.com/@nostalgic_BGM\nきらきら魔法ガール / ゆめひつじ：https://www.youtube.com/watch?v=dgl43v4swfI\n効果音ラボ：https://soundeffect-lab.info/\nOtoLogic：https://otologic.jp\n\n■おたよりはこちら\nおたよりフォーム\nhttps://forms.gle/jot3ETXF19whQUEP9\nメールアドレス\ngame.tktb@gmail.com\n\n■SNS等\n公式X（旧Twitter）\nhttps://x.com/game_tktb\n\nインスタグラム\nhttps://www.instagram.com/game_tktb/\n\nYouTubeチャンネル\nhttps://www.youtube.com/@game-tktb\n\n感想等、ハッシュタグ #ゲームの滝壺 で投稿いただければ大変励みになります！",
+   "games": [
+    "Pocket Legend : Inventory Roguelike Deckbuilder",
+    "わるいチラシ"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:40",
+     "label": "Pocket Legend : Inventory Roguelike Deckbuilder"
+    },
+    {
+     "time": "25:15",
+     "label": "ゲーム開発情報"
+    },
+    {
+     "time": "32:06",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/132-Pocket-Legend--Inventory-Roguelike-Deckbuilder-e3sgr1p",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC132%E5%9B%9E-%E3%81%8A%E7%89%87%E4%BB%98%E3%81%91%E7%B3%BB%E3%83%87%E3%83%83%E3%82%AD%E6%A7%8B%E7%AF%89%E3%83%AD%E3%83%BC%E3%82%B0%E3%83%A9%E3%82%A4%E3%82%AF-pocket-legend-inventory-roguelike/id1749310211?i=1000802356074&uo=4",
+    "youtube": "https://www.youtube.com/watch?v=6XcObWVSdDc",
+    "spotify_open": "https://open.spotify.com/episode/7ELJivAZcYUgFRTf6fmFO7"
+   },
+   "guid": "9dd2aa3d-2761-486f-8914-075219b6f071",
+   "date": "2026-11-17",
+   "date_estimated": false,
+   "featured_games": [
+    "Pocket Legend : Inventory Roguelike Deckbuilder"
+   ],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/129575417/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-10-16%2Fc4534620-a656-196e-c34a-3a0ab299d52c.mp3",
+   "duration": 2121,
+   "image": "assets/img/ep/132.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1794864792572-17d2e6d81db6d.jpg"
   }
  ]
 }
