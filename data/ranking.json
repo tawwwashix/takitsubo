@@ -3478,6 +3478,14 @@
       "image_source_url": "https://x.com/game_tktb/status/2122087245960348004",
       "image_source_index": 1,
       "image": "assets/img/awq/132.webp"
+    },
+    {
+      "round": 133,
+      "x_url": "https://x.com/game_tktb/status/2122525130513350704",
+      "image_index": 1,
+      "image_source_url": "https://x.com/game_tktb/status/2122525130513350704",
+      "image_source_index": 1,
+      "image": "assets/img/awq/133.webp"
     }
   ]
 }
