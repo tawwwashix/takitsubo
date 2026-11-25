@@ -12091,6 +12091,70 @@
    "duration": 3235,
    "image": "assets/img/ep/133.jpg",
    "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1795002567906-98f2be8e4400a.jpg"
+  },
+  {
+   "number": 134,
+   "title": "わるいアイテム ～わるい村 ep07～ 単独上映",
+   "tags": [
+    "わるい村"
+   ],
+   "series": "waruimura",
+   "description": "わるいアイテムには\nご用心\n\n■チャプター\n(00:00)オープニング\n(03:10)わるいアイテム\n(44:44)おたより紹介\n(59:35)アートワーククイズ\n(1:14:21)エンディング\n\n■主な登場ゲームタイトル（★=メインで語ったタイトル）\n【本編】\nマリオカートシリーズ\nポケットモンスターシリーズ\nドラゴンクエストシリーズ\nファイナルファンタジーシリーズ\nダークソウル\nモンスターハンターシリーズ\nモンスターファーム2\n\n【おたより紹介】\n鬼武者 Way of the Sword\nファイアーエムブレムシリーズ\n百英雄伝\n\n【アートワーククイズ】\nポケットピカチュウ\nおでかけチョコボRPG\n押忍！闘え！応援団\nスーパーマリオRPG\n\n【エンディング】\nテイルズ オブ エターニア\nPocket Legend : Inventory Roguelike Deckbuilder\n\n■ゲームの滝壺公式サイト\nhttps://game-takitsubo.com/\n\n■出演\n夜中たわし：https://x.com/tawwwashix\nひゅうま：https://x.com/hyuuma_tktb\nイチィゴォー：https://x.com/ichigo_tktb\n\n■使用BGM・SE\n夢物語 / 騒音のない世界：https://www.youtube.com/watch?v=6AOOtngbVF8\n優日のすたるじっく：https://www.youtube.com/@nostalgic_BGM\nきらきら魔法ガール / ゆめひつじ：https://www.youtube.com/watch?v=dgl43v4swfI\n効果音ラボ：https://soundeffect-lab.info/\nOtoLogic：https://otologic.jp\n\n■おたよりはこちら\nおたよりフォーム\nhttps://forms.gle/jot3ETXF19whQUEP9\nメールアドレス\ngame.tktb@gmail.com\n\n■SNS等\n公式X（旧Twitter）\nhttps://x.com/game_tktb\n\nインスタグラム\nhttps://www.instagram.com/game_tktb/\n\nYouTubeチャンネル\nhttps://www.youtube.com/@game-tktb\n\n感想等、ハッシュタグ #ゲームの滝壺 で投稿いただければ大変励みになります！",
+   "games": [
+    "マリオカートシリーズ",
+    "ポケットモンスターシリーズ",
+    "ドラゴンクエストシリーズ",
+    "ファイナルファンタジーシリーズ",
+    "ダークソウル",
+    "モンスターハンターシリーズ",
+    "モンスターファーム2",
+    "鬼武者 Way of the Sword",
+    "ファイアーエムブレムシリーズ",
+    "百英雄伝",
+    "ポケットピカチュウ",
+    "おでかけチョコボRPG",
+    "押忍！闘え！応援団",
+    "スーパーマリオRPG",
+    "テイルズ オブ エターニア",
+    "Pocket Legend : Inventory Roguelike Deckbuilder"
+   ],
+   "chapters": [
+    {
+     "time": "00:00",
+     "label": "オープニング"
+    },
+    {
+     "time": "03:10",
+     "label": "わるいアイテム"
+    },
+    {
+     "time": "44:44",
+     "label": "おたより紹介"
+    },
+    {
+     "time": "59:35",
+     "label": "アートワーククイズ"
+    },
+    {
+     "time": "1:14:21",
+     "label": "エンディング"
+    }
+   ],
+   "links": {
+    "spotify": "https://podcasters.spotify.com/pod/show/h9lsb2qmlig/episodes/134---ep07-e3t0krn",
+    "apple": "https://podcasts.apple.com/jp/podcast/%E7%AC%AC134%E5%9B%9E-%E3%82%8F%E3%82%8B%E3%81%84%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0-%E3%82%8F%E3%82%8B%E3%81%84%E6%9D%91-ep07-%E5%8D%98%E7%8B%AC%E4%B8%8A%E6%98%A0/id1749310211?i=1000803998347&uo=4",
+    "listen": "https://listen.style/p/gamenotktb/ypkdwtud",
+    "youtube": "https://www.youtube.com/watch?v=KaRfB-MruQc",
+    "spotify_open": "https://open.spotify.com/episode/2rrRxS939BiVU4dzY9NBUk"
+   },
+   "guid": "ef308c06-76dd-455f-9b1e-23353ab4e2c3",
+   "date": "2026-11-25",
+   "date_estimated": false,
+   "featured_games": [],
+   "audio": "https://anchor.fm/s/f61a3794/podcast/play/130093367/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-10-25%2Fd5bfc143-4091-9575-780c-5b2e4f4d9847.mp3",
+   "duration": 4851,
+   "image": "assets/img/ep/134.jpg",
+   "image_src": "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_episode/41189133/41189133-1795614661264-ad8520acd9f5b.jpg"
   }
  ]
 }

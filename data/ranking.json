@@ -133,6 +133,14 @@
     {
       "name": "軟軟骨",
       "x_url": "https://x.com/nannankoitu001"
+    },
+    {
+      "name": "週刊ゲームななめよみ",
+      "x_url": "https://x.com/game_naname"
+    },
+    {
+      "name": "𝚂𝙰𝚃𝙾𝙼𝚄𝚁𝙰☺️",
+      "x_url": "https://x.com/ogchan"
     }
   ],
   "seasons": [
@@ -141,7 +149,7 @@
       "label": "シーズン3",
       "active": true,
       "start_round": 101,
-      "through_round": 131,
+      "through_round": 133,
       "entries": [
         {
           "round": 101,
@@ -1263,162 +1271,256 @@
           "round": 131,
           "listener": "キミヒコ",
           "points": 30
+        },
+        {
+          "round": 132,
+          "listener": "キミヒコ",
+          "points": 50
+        },
+        {
+          "round": 132,
+          "listener": "天ぷらパーカー",
+          "points": 50
+        },
+        {
+          "round": 132,
+          "listener": "ume",
+          "points": 1
+        },
+        {
+          "round": 132,
+          "listener": "emuda",
+          "points": 1
+        },
+        {
+          "round": 133,
+          "listener": "サチコ",
+          "points": 300
+        },
+        {
+          "round": 133,
+          "listener": "たかちゃん",
+          "points": 300
+        },
+        {
+          "round": 133,
+          "listener": "ume",
+          "points": 300
+        },
+        {
+          "round": 133,
+          "listener": "天ぷらパーカー",
+          "points": 300
+        },
+        {
+          "round": 133,
+          "listener": "王夜",
+          "points": 300
+        },
+        {
+          "round": 133,
+          "listener": "につすい",
+          "points": 300
+        },
+        {
+          "round": 133,
+          "listener": "YOSHIHARU",
+          "points": 300
+        },
+        {
+          "round": 133,
+          "listener": "emuda",
+          "points": 300
+        },
+        {
+          "round": 133,
+          "listener": "𝚂𝙰𝚃𝙾𝙼𝚄𝚁𝙰☺️",
+          "points": 300
+        },
+        {
+          "round": 133,
+          "listener": "ゆぐみ",
+          "points": 300
+        },
+        {
+          "round": 133,
+          "listener": "ゆうたろー",
+          "points": 300
+        },
+        {
+          "round": 133,
+          "listener": "週刊ゲームななめよみ",
+          "points": 300
         }
       ],
       "ranking": [
         {
           "listener": "王夜",
-          "points": 3000,
-          "awards": 16,
+          "points": 3300,
+          "awards": 17,
           "x_url": "https://x.com/Ouya08",
           "rank": 1
+        },
+        {
+          "listener": "ume",
+          "points": 3015,
+          "awards": 33,
+          "x_url": "https://x.com/ume_999",
+          "rank": 2
         },
         {
           "listener": "コマツナ",
           "points": 2793,
           "awards": 7,
           "x_url": "https://x.com/komatunapodcast",
-          "rank": 2
-        },
-        {
-          "listener": "ume",
-          "points": 2714,
-          "awards": 31,
-          "x_url": "https://x.com/ume_999",
           "rank": 3
         },
         {
           "listener": "キミヒコ",
-          "points": 2070,
-          "awards": 30,
+          "points": 2120,
+          "awards": 31,
           "x_url": "https://x.com/lvss4x",
           "rank": 4
         },
         {
-          "listener": "emuda",
-          "points": 1757,
-          "awards": 31,
-          "x_url": "https://x.com/emuda01",
+          "listener": "天ぷらパーカー",
+          "points": 2092,
+          "awards": 27,
+          "x_url": "https://x.com/tempu_radio",
           "rank": 5
         },
         {
-          "listener": "天ぷらパーカー",
-          "points": 1742,
-          "awards": 25,
-          "x_url": "https://x.com/tempu_radio",
+          "listener": "emuda",
+          "points": 2058,
+          "awards": 33,
+          "x_url": "https://x.com/emuda01",
           "rank": 6
+        },
+        {
+          "listener": "YOSHIHARU",
+          "points": 1452,
+          "awards": 20,
+          "x_url": "https://x.com/hmaruSE",
+          "rank": 7
         },
         {
           "listener": "とんこつ",
           "points": 1425,
           "awards": 11,
           "x_url": "https://x.com/IjE4Jku1QHhEW8L",
-          "rank": 7
+          "rank": 8
         },
         {
           "listener": "ねこあげ",
           "points": 1360,
           "awards": 7,
           "x_url": "https://x.com/necoage",
-          "rank": 8
-        },
-        {
-          "listener": "YOSHIHARU",
-          "points": 1152,
-          "awards": 19,
-          "x_url": "https://x.com/hmaruSE",
           "rank": 9
         },
         {
           "listener": "ゆぐみ",
-          "points": 696,
-          "awards": 16,
+          "points": 996,
+          "awards": 17,
           "x_url": "https://x.com/gozayugu",
           "rank": 10
+        },
+        {
+          "listener": "ゆうたろー",
+          "points": 506,
+          "awards": 6,
+          "x_url": "https://x.com/otakunogorakuyu",
+          "rank": 11
+        },
+        {
+          "listener": "たかちゃん",
+          "points": 416,
+          "awards": 6,
+          "x_url": "https://x.com/hagitaka_chan",
+          "rank": 12
+        },
+        {
+          "listener": "サチコ",
+          "points": 327,
+          "awards": 4,
+          "x_url": "https://x.com/sachiko1984",
+          "rank": 13
+        },
+        {
+          "listener": "につすい",
+          "points": 311,
+          "awards": 3,
+          "x_url": "https://x.com/nishiro24",
+          "rank": 14
+        },
+        {
+          "listener": "週刊ゲームななめよみ",
+          "points": 300,
+          "awards": 1,
+          "x_url": "https://x.com/game_naname",
+          "rank": 15
+        },
+        {
+          "listener": "𝚂𝙰𝚃𝙾𝙼𝚄𝚁𝙰☺️",
+          "points": 300,
+          "awards": 1,
+          "x_url": "https://x.com/ogchan",
+          "rank": 15
         },
         {
           "listener": "榊",
           "points": 222,
           "awards": 1,
           "x_url": "https://x.com/sakaki_kasiwa",
-          "rank": 11
-        },
-        {
-          "listener": "ゆうたろー",
-          "points": 206,
-          "awards": 5,
-          "x_url": "https://x.com/otakunogorakuyu",
-          "rank": 12
+          "rank": 17
         },
         {
           "listener": "クバノちゃん",
           "points": 120,
           "awards": 1,
           "x_url": null,
-          "rank": 13
-        },
-        {
-          "listener": "たかちゃん",
-          "points": 116,
-          "awards": 5,
-          "x_url": "https://x.com/hagitaka_chan",
-          "rank": 14
+          "rank": 18
         },
         {
           "listener": "テイタン",
           "points": 111,
           "awards": 3,
           "x_url": "https://x.com/teitan7",
-          "rank": 15
+          "rank": 19
         },
         {
           "listener": "誰でもない",
           "points": 100,
           "awards": 1,
           "x_url": "https://x.com/namaewoiretek",
-          "rank": 16
+          "rank": 20
         },
         {
           "listener": "ゆいじろう",
           "points": 44,
           "awards": 6,
           "x_url": "https://x.com/yuijiro_u",
-          "rank": 17
-        },
-        {
-          "listener": "サチコ",
-          "points": 27,
-          "awards": 3,
-          "x_url": "https://x.com/sachiko1984",
-          "rank": 18
-        },
-        {
-          "listener": "につすい",
-          "points": 11,
-          "awards": 2,
-          "x_url": "https://x.com/nishiro24",
-          "rank": 19
+          "rank": 21
         },
         {
           "listener": "たけお",
           "points": 10,
           "awards": 1,
           "x_url": "https://x.com/shigatwi",
-          "rank": 20
+          "rank": 22
         },
         {
           "listener": "トラジャ",
           "points": 2,
           "awards": 2,
           "x_url": "https://x.com/torajaboost",
-          "rank": 21
+          "rank": 23
         },
         {
           "listener": "コロ",
           "points": 1,
           "awards": 1,
           "x_url": "https://x.com/sentaku_koro",
-          "rank": 22
+          "rank": 24
         }
       ]
     },
